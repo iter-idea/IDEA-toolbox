@@ -1,0 +1,27 @@
+{
+  "name": "idea-toolbox",
+  "version": "0.0.1",
+  "description": "IDEA's utility functions",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uatisdeproblem/IDEA-toolbox.git"
+  },
+  "keywords": [
+    "idea",
+    "aws",
+    "dynamo",
+    "s3"
+  ],
+  "author": "iter IDEA <info@iter-idea.com> (https://www.iter-idea.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uatisdeproblem/IDEA-toolbox/issues"
+  },
+  "homepage": "https://github.com/uatisdeproblem/IDEA-toolbox#readme"
+}
