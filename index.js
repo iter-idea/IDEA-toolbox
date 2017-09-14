@@ -57,7 +57,7 @@ function dynamoBatchOperation(dynamo, batchOps, table, currentChunk, chunksSize,
     console.log(info);
     // if there are still chunks to manage, go on recursively
     if(currentChunk+chunksSize < batchOps.length)
-      dynamoBatchOperation(batchOps, table, currentChunk+chunksSize, chunksSize, doneCb);
+      dynamoBatchOperation(dynamo, batchOps, table, currentChunk+chunksSize, chunksSize, doneCb);
     // no more chunks to manage: we're done
     else doneCb(batchOps.length);
   });
@@ -77,7 +77,7 @@ function dynamoQueryOverLimit(dynamo, scanParams, callback, items) {
     else items = items.concat(data.Items);
     if(data.LastEvaluatedKey) {
       scanParams.ExclusiveStartKey = data.LastEvaluatedKey;
-      dynamoScanOverLimit(scanParams, items, callback);
+      dynamoQueryOverLimit(dynamo, scanParams, callback, items);
     } else callback(null, items);
   });
 }
