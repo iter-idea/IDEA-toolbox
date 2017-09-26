@@ -100,15 +100,15 @@ function dynamoQueryOverLimit(dynamo, scanParams, callback, items) {
  * @param project the project to use as domain
  * @param {*} cb (id) => {}; if false, id hasn't been correctly generated
  */
-function IUID(project, cb, attempt, maxAttempts) {
+function IUID(dynamo, project, cb, attempt, maxAttempts) {
   if(!project) return cb(false); 
   attempt = attempt || 0;
   maxAttempts = maxAttempts || 3;
   if(attempt > maxAttempts) return cb(false); 
   let id = project+'_'+UUIDV4();
-  Dynamo.getItem({ TableName: 'idea_iuid', Key: { project: project, id: id } }, 
+  dynamo.getItem({ TableName: 'idea_iuid', Key: { project: project, id: id } }, 
   (err, data) => {
-    if(data.Item) return IUID(project, cb, attempt+1, maxAttempts); // the ID exists, try again
+    if(data.Item) return IUID(dynamo, project, cb, attempt+1, maxAttempts); // ID exists, try again
     else Dynamo.putItem({ TableName: 'idea_iuid', Key: { project: project, id: id } }, 
     (err, data) => {
       console.log('Generated IUID', project+'_'+id);
