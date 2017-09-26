@@ -1,9 +1,20 @@
 'use strict';
 
+const UUIDV4 = require('uuid/v4');
+const Mailgun = require('mailgun-js');
+
 module.exports = {
-  ES2N, Obj2N,
-  dynamoBatchOperation, dynamoQueryOverLimit
+// DYNAMO
+  ES2N, Obj2N, dynamoBatchOperation, dynamoQueryOverLimit, IUID,
+// COGNITO
+  cognitoGetUserAttributesFromClaims,
+// MAILGUN
+  mailgunSendEmail
 }
+
+///
+/// DYNAMO
+///
 
 /**
  * Helper to solve the known problem of Amazon DB with empty strings:
@@ -80,4 +91,84 @@ function dynamoQueryOverLimit(dynamo, scanParams, callback, items) {
       dynamoQueryOverLimit(dynamo, scanParams, callback, items);
     } else callback(null, items);
   });
+}
+
+/**
+ * Returns an IUID: IDEA's Unique IDentifier, which is an id unique through all IDEA's projects.
+ * Note: there's no need of an authorization check for extrernal uses: the permissions depend
+ * from the context in which it's executed.
+ * @param project the project to use as domain
+ * @param {*} cb (id) => {}; if false, id hasn't been correctly generated
+ */
+function IUID(project, cb, attempt, maxAttempts) {
+  if(!project) return cb(false); 
+  attempt = attempt || 0;
+  maxAttempts = maxAttempts || 3;
+  if(attempt > maxAttempts) return cb(false); 
+  let id = project+'_'+UUIDV4();
+  Dynamo.getItem({ TableName: 'idea_iuid', Key: { project: project, id: id } }, 
+  (err, data) => {
+    if(data.Item) return IUID(project, cb, attempt+1, maxAttempts); // the ID exists, try again
+    else Dynamo.putItem({ TableName: 'idea_iuid', Key: { project: project, id: id } }, 
+    (err, data) => {
+      console.log('Generated IUID', project+'_'+id);
+      cb(project+'_'+id);
+    });
+  });
+}
+
+///
+/// COGNITO
+///
+
+/**
+ * Helper function to get the attributes of the user from the authorizer claims.
+ */
+function cognitoGetUserByClaims(claims) {
+  let user = {};
+  // add any additional cognito attribute available in cognito
+  for(let p in claims) if(p.startsWith('cognito:')) user[p.slice(8)] = claims[p];
+  // map the important attributes with reserved names
+  user.userId = claims.sub;
+  user.email = claims.email;
+  user.phoneNumber = claims.phone_number;
+  return user;
+}
+
+/**
+ * Helper function to identify a user by its email address, returning then its attributes.
+ */
+function cognitoGetUserByEmail(accessKeyId, secretAccessKey, cognitoUserPoolId, email, cb) {
+  new AWS.CognitoIdentityServiceProvider({
+    apiVersion: '2016-04-18', accessKeyId: accessKeyId, secretAccessKey: secretAccessKey
+  })
+  .listUsers({ UserPoolId: cognitoUserPoolId, Filter: `email = "${email}"`, Limit: 1},
+  (err, data) => {
+    if(err) return cb();
+    let user = data.Users[0];
+    let attributes = [];
+    user.Attributes.forEach(a => attributes[a.Name] = a.Value);
+    cb(attributes);
+  });
+}
+
+///
+/// MAILGUN
+///
+
+/**
+ * Send an email through a mailgun account
+ * @param {*} mailgunData apiKey, domain
+ * @param {*} emailData from, to, replyTo, subject, html
+ * @param {*} cb (err) => {}
+ */
+function mailgunSendEmail(mailgunData, emailData, cb) {
+  Mailgun({ apiKey: mailgunData.apiKey, domain: mailgunData.domain })
+  .messages().send({
+    from: emailData.from,
+    to: emailData.to,
+    'h:Reply-To': emailData.replyTo,
+    subject: emailData.subject,
+    html: emailData.html
+  }, (err, body) => { cb(err) });
 }
