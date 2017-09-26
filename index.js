@@ -7,7 +7,7 @@ module.exports = {
 // DYNAMO
   ES2N, Obj2N, dynamoBatchOperation, dynamoQueryOverLimit, IUID,
 // COGNITO
-  cognitoGetUserAttributesFromClaims,
+  cognitoGetUserByClaims,
 // MAILGUN
   mailgunSendEmail
 }
