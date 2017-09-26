@@ -1,13 +1,12 @@
 {
   "name": "idea-toolbox",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "IDEA's utility functions",
   "engines": {
     "node": ">=6.0.0"
   },
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/uatisdeproblem/IDEA-toolbox.git"
@@ -23,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/uatisdeproblem/IDEA-toolbox/issues"
   },
-  "homepage": "https://github.com/uatisdeproblem/IDEA-toolbox#readme"
+  "homepage": "https://github.com/uatisdeproblem/IDEA-toolbox#readme",
+  "dependencies": {
+    "mailgun-js": "^0.13.1",
+    "uuid": "^3.1.0"
+  }
 }
