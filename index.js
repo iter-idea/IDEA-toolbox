@@ -110,7 +110,7 @@ function IUID(dynamo, project, cb, attempt, maxAttempts) {
   (err, data) => {
     if(data && data.Item) 
       return IUID(dynamo, project, cb, attempt+1, maxAttempts); // ID exists, try again
-    else Dynamo.putItem({ TableName: 'idea_iuid', Key: { project: project, id: id } }, 
+    else dynamo.putItem({ TableName: 'idea_iuid', Key: { project: project, id: id } }, 
     (err, data) => {
       console.log('Generated IUID', project+'_'+id);
       cb(project+'_'+id);
