@@ -139,7 +139,7 @@ function cognitoGetUserByClaims(claims) {
 /**
  * Helper function to identify a user by its email address, returning then its attributes.
  */
-function cognitoGetUserByEmail(accessKeyId, secretAccessKey, cognitoUserPoolId, email, cb) {
+function cognitoGetUserByEmail(AWS, accessKeyId, secretAccessKey, cognitoUserPoolId, email, cb) {
   new AWS.CognitoIdentityServiceProvider({
     apiVersion: '2016-04-18', accessKeyId: accessKeyId, secretAccessKey: secretAccessKey
   })
