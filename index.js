@@ -58,7 +58,7 @@ function Obj2N(obj, maxDepth, currentDepth) {
  * @param doneCb Callback function to call when everything is finished
  */
 function dynamoBatchOperation(dynamo, batchOps, table, currentChunk, chunksSize, doneCb) {
-  if(batchOps.length == 0) return done(0);
+  if(batchOps.length == 0) return doneCb(0);
   console.log(`Batch operation on ${table}: ${currentChunk} of ${batchOps.length}`);
   // prepare the structure for the bulk operation
   var batch = { RequestItems: {} };
