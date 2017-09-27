@@ -105,7 +105,7 @@ function IUID(dynamo, project, cb, attempt, maxAttempts) {
   attempt = attempt || 0;
   maxAttempts = maxAttempts || 3;
   if(attempt > maxAttempts) return cb(false); 
-  let id = project+'_'+UUIDV4();
+  let id = UUIDV4();
   dynamo.getItem({ TableName: 'idea_iuid', Key: { project: project, id: id } }, 
   (err, data) => {
     if(data && data.Item) 
