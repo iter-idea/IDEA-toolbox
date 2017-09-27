@@ -106,14 +106,14 @@ function IUID(dynamo, project, cb, attempt, maxAttempts) {
   maxAttempts = maxAttempts || 3;
   if(attempt > maxAttempts) return cb(false); 
   let id = UUIDV4();
-  dynamo.getItem({ TableName: 'idea_iuid', Key: { project: project, id: id } }, 
+  dynamo.getItem({ TableName: 'idea_IUID', Key: { project: project, id: id } }, 
   (err, data) => {
     if(data && data.Item) 
       return IUID(dynamo, project, cb, attempt+1, maxAttempts); // ID exists, try again
-    else dynamo.putItem({ TableName: 'idea_iuid', Item: { project: project, id: id } }, 
+    else dynamo.putItem({ TableName: 'idea_IUID', Item: { project: project, id: id } }, 
     (err, data) => {
-      console.log('Generated IUID', project+'_'+id);
-      cb(project+'_'+id);
+      if(err) cb(false);
+      else cb(project+'_'+id);
     });
   });
 }
