@@ -59,6 +59,7 @@ function Obj2N(obj, maxDepth, currentDepth) {
  */
 function dynamoBatchOperation(dynamo, batchOps, table, currentChunk, chunksSize, doneCb) {
   if(batchOps.length == 0) return doneCb(0);
+  chunksSize = chunksSize || 25;
   console.log(`Batch operation on ${table}: ${currentChunk} of ${batchOps.length}`);
   // prepare the structure for the bulk operation
   var batch = { RequestItems: {} };
