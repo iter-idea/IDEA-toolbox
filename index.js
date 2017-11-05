@@ -5,7 +5,7 @@ const Mailgun = require('mailgun-js');
 
 module.exports = {
 // DYNAMO
-  ES2N, Obj2N, dynamoBatchOperation, dynamoQueryOverLimit, IUID,
+  ES2N, Obj2N, dynamoBatchOperation, dynamoQueryOverLimit, IUID, getAtomicCounterByKey,
 // COGNITO
   cognitoGetUserByClaims, cognitoGetUserByEmail,
 // MAILGUN
@@ -117,6 +117,28 @@ function IUID(dynamo, project, cb, attempt, maxAttempts) {
       if(err) cb(false);
       else cb(project+'_'+id);
     });
+  });
+}
+
+/**
+ * Manage atomic counters (atomic autoincrement values) in IDEA's projects.
+ * They key of an atomic counter should be composed as the following:
+ * `DynamoDBTableName_uniqueKey`, where uniqueKey often coincides with the teamId
+ * @param dynamo The istance of DynamoDB to use
+ * @param {string} key The key of the counter
+ * @param cb Callback function
+ */
+function getAtomicCounterByKey(dynamo, key, cb) {
+  console.log('Getting atomic counter of', key);
+  let one = 1; // can't assign directly a number
+  dynamo.updateItem({
+    TableName: 'idea_atomicCounters', Key: { key: key },
+    UpdateExpression: 'ADD atomicCounter :increment',
+    ExpressionAttributeValues: { ':increment': one },
+    ReturnValues: 'UPDATED_NEW'
+  }, (err, data) => {
+    if(err) cb(null);
+    else cb(data.Attributes.atomicCounter);
   });
 }
 
