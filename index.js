@@ -35,14 +35,19 @@ function ES2N(string) {
  * @param currentDepth to skip initial levels, if needed
  */
 function Obj2N(obj, maxDepth, currentDepth) {
-  if(!obj || typeof obj != 'object') return obj;
+  // stop the execution if obj is not an object (if it's a string, works as ES2N)
+  if(obj == null || obj == undefined) return null;
+  else if(typeof obj == 'string') return ES2N(obj);
+  else if(typeof obj != 'object') return obj;
+  // go deeper in the object
   if(!maxDepth) maxDepth = 0;
   if(!currentDepth) currentDepth = 0;
   for(var prop in obj) {
     if(obj[prop] == undefined) obj[prop] = null;
     else if(typeof obj[prop] == 'string') obj[prop] = ES2N(obj[prop]);
     else if(typeof obj[prop] == 'object' && Array.isArray(obj[prop]) && currentDepth < maxDepth)
-      obj[prop].forEach(el => el = Obj2N(el, maxDepth, currentDepth+1));
+      obj[prop].forEach((el, index, arr) => arr[index] = Obj2N(el, maxDepth, currentDepth+1));
+        // a standard forEach won't work with elements different from objects (e.g. strings)
     else if(typeof obj[prop] == 'object' && !Array.isArray(obj[prop]) && currentDepth < maxDepth)
       obj[prop] = Obj2N(obj[prop], maxDepth, currentDepth+1);
   }
