@@ -41,7 +41,9 @@ function Obj2N(obj, maxDepth, currentDepth) {
   for(var prop in obj) {
     if(obj[prop] == undefined) obj[prop] = null;
     else if(typeof obj[prop] == 'string') obj[prop] = ES2N(obj[prop]);
-    else if(typeof obj[prop] == 'object' && currentDepth < maxDepth)
+    else if(typeof obj[prop] == 'object' && Array.isArray(obj[prop]) && currentDepth < maxDepth)
+      obj[prop].forEach(el => el = Obj2N(el, maxDepth, currentDepth+1));
+    else if(typeof obj[prop] == 'object' && !Array.isArray(obj[prop]) && currentDepth < maxDepth)
       obj[prop] = Obj2N(obj[prop], maxDepth, currentDepth+1);
   }
   return obj;
