@@ -9,7 +9,9 @@ module.exports = {
 // COGNITO
   cognitoGetUserByClaims, cognitoGetUserByEmail,
 // MAILGUN
-  mailgunSendEmail
+  mailgunSendEmail,
+// OTHER
+  ISODateToItalianFormat
 }
 
 ///
@@ -203,4 +205,16 @@ function mailgunSendEmail(mailgunData, emailData, cb) {
     subject: emailData.subject,
     html: emailData.html
   }, (err, body) => { cb(err) });
+}
+
+///
+/// OTHER
+///
+
+/**
+ * Convert an ISODate string to the Italian format
+ * @param {*} ISODateString new Date().toISOString();
+ */
+function ISODateToItalianFormat(ISODateString) {
+  return `${ISODateString.slice(8, 10)}/${ISODateString.slice(5, 7)}/${ISODateString.slice(0, 4)}`;
 }
