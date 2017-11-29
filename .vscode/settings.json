@@ -1,0 +1,30 @@
+// Place your settings in this file to overwrite the default settings
+{
+  "editor.tabSize": 2,
+  "editor.rulers": [100],
+  "editor.wordWrapColumn": 100,
+  "editor.wordWrap": "bounded",
+  "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/.DS_Store": true,
+      "node_modules": true,
+      "npm-debug.log": true,
+      "client/node_modules": true,
+      "client/npm-debug.log": true,
+      "client/www": true,
+      "client/platforms": true,
+      "client/plugins": true,
+      "client/.sourcemaps": true,
+      "www": true
+  },
+  "git.confirmSync": false,
+  "editor.renderIndentGuides": true,
+  "editor.renderLineHighlight": "all",
+  "workbench.iconTheme": "vs-seti",
+  "workbench.startupEditor": "welcomePage",
+  "window.zoomLevel": 0,
+  "extensions.ignoreRecommendations": false,
+  "workbench.panel.location": "bottom"
+}
