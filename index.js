@@ -5,7 +5,8 @@ const Mailgun = require('mailgun-js');
 
 module.exports = {
 // DYNAMO
-  ES2N, Obj2N, dynamoBatchOperation, dynamoQueryOverLimit, IUID, getAtomicCounterByKey,
+  ES2N, Obj2N, dynamoBatchOperation, dynamoQueryOverLimit, dynamoScanOverLimit, IUID,
+  getAtomicCounterByKey,
 // COGNITO
   cognitoGetUserByClaims, cognitoGetUserByEmail,
 // MAILGUN
@@ -88,20 +89,39 @@ function dynamoBatchOperation(dynamo, batchOps, table, currentChunk, chunksSize,
 /**
  * Function to recursively query a table, avoiding the 1MB limit of DynamoDB
  * @param dynamo The istance of DynamoDB to use
+ * @param queryParams The params to apply to DynamoDB's query function
+ * @param callback Callback function
+ * @param items *Optional*. An array of items to start with.
+ */
+function dynamoQueryOverLimit(dynamo, queryParams, callback, items) {
+  items = items || [];
+  dynamo.query(queryParams, (err, data) => {
+    if(err || !data || !data.Items) return callback(err);
+    else items = items.concat(data.Items);
+    if(data.LastEvaluatedKey) {
+      queryParams.ExclusiveStartKey = data.LastEvaluatedKey;
+      dynamoQueryOverLimit(dynamo, queryParams, callback, items);
+    } else callback(null, items);
+  });
+}
+
+/**
+ * Helper function to recursively scan a table, avoiding the 1MB limit of DynamoDB
+ * @param dynamo The istance of DynamoDB to use
  * @param scanParams The params to apply to DynamoDB's scan function
  * @param callback Callback function
  * @param items *Optional*. An array of items to start with.
  */
-function dynamoQueryOverLimit(dynamo, scanParams, callback, items) {
+function dynamoScanOverLimit(dynamo, scanParams, callback, items) {
   items = items || [];
-  dynamo.query(scanParams, (err, data) => {
+  dynamo.scan(scanParams, (err, data) => {
     if(err || !data || !data.Items) return callback(err);
     else items = items.concat(data.Items);
     if(data.LastEvaluatedKey) {
       scanParams.ExclusiveStartKey = data.LastEvaluatedKey;
-      dynamoQueryOverLimit(dynamo, scanParams, callback, items);
+      dynamoScanOverLimit(dynamo, scanParams, callback, items)
     } else callback(null, items);
-  });
+  })
 }
 
 /**
