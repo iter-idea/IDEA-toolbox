@@ -1,7 +1,12 @@
 'use strict';
 
+const AWS = require('aws-sdk');     // there's not need to add it in the package.json
 const UUIDV4 = require('uuid/v4');
-const Mailgun = require('mailgun-js');
+
+const SES_DEFAULT_REGION = process.env['SES_DEFAULT_REGION'];
+const SES_DEFAULT_SOURCE = process.env['SES_DEFAULT_SOURCE'];
+const SES_DEFAULT_SOURCE_NAME = process.env['SES_DEFAULT_SOURCE_NAME'];
+const SES_DEFAULT_SOURCE_ARN = process.env['SES_DEFAULT_SOURCE_ARN'];
 
 module.exports = {
 // DYNAMO
@@ -9,8 +14,8 @@ module.exports = {
   getAtomicCounterByKey,
 // COGNITO
   cognitoGetUserByClaims, cognitoGetUserByEmail,
-// MAILGUN
-  mailgunSendEmail,
+// SES
+  sesSendEmail,
 // OTHER
   ISODateToItalianFormat
 }
@@ -207,24 +212,42 @@ function cognitoGetUserByEmail(AWS, accessKeyId, secretAccessKey, cognitoUserPoo
 }
 
 ///
-/// MAILGUN
+/// SES
 ///
 
 /**
- * Send an email through a mailgun account
- * @param {*} mailgunData apiKey, domain
- * @param {*} emailData from, to, replyTo, subject, html
- * @param {*} cb (err) => {}
+ * Send an email through AWS Simple Email Service.
+ * @param {*} emailData
+ *  toAddresses[], ccAddresses[], bccAddresses[], replyToAddresses[], subject, html, text
+ * @param {*} cb (err, data) => {}
+ * @param {*} sesParams (optional) region, source, sourceName, sourceArn
  */
-function mailgunSendEmail(mailgunData, emailData, cb) {
-  Mailgun({ apiKey: mailgunData.apiKey, domain: mailgunData.domain })
-  .messages().send({
-    from: emailData.from,
-    to: emailData.to,
-    'h:Reply-To': emailData.replyTo,
-    subject: emailData.subject,
-    html: emailData.html
-  }, (err, body) => { cb(err) });
+function sesSendEmail(emailData, cb, sesParams) {
+  // default SES parameters
+  if(!sesParams) sesParams = {};
+  sesParams.region = sesParams.region || SES_DEFAULT_REGION;
+  sesParams.source = sesParams.source || SES_DEFAULT_SOURCE;
+  sesParams.sourceName = sesParams.sourceName || SES_DEFAULT_SOURCE_NAME;
+  sesParams.sourceArn = sesParams.sourceArn || SES_DEFAULT_SOURCE_ARN;
+  // prepare SES email data
+  let sesData = {};
+  sesData.Destination = {};
+  if(emailData.toAddresses) sesData.Destination.ToAddresses = emailData.toAddresses;
+  if(emailData.ccAddresses) sesData.Destination.CcAddresses = emailData.ccAddresses;
+  if(emailData.bccAddresses) sesData.Destination.BccAddresses = emailData.bccAddresses;
+  sesData.Message = {};
+  if(emailData.subject) sesData.Message.Subject = { Charset: 'UTF-8', Data: emailData.subject };
+  sesData.Message.Body = {};
+  if(emailData.html) sesData.Message.Body.Html = { Charset: 'UTF-8', Data: emailData.html };
+  if(emailData.text) sesData.Message.Body.Text = { Charset: 'UTF-8', Data: emailData.text };
+  if(!emailData.html && !emailData.text) sesData.Message.Body.Text = { Charset: 'UTF-8', Data: '' };
+  sesData.ReplyToAddresses = emailData.replyToAddresses;
+  sesData.Source = `${sesParams.sourceName} <${sesParams.source}>`;
+  sesData.SourceArn = sesParams.sourceArn;
+  console.log('SES send email', sesParams, sesData);
+  // send email
+  new AWS.SES({ region: sesParams.region })
+  .sendEmail(sesData, (err, data) => { cb(err, data); });
 }
 
 ///
