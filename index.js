@@ -206,7 +206,7 @@ function cognitoGetUserByEmail(AWS, accessKeyId, secretAccessKey, cognitoUserPoo
     if(err) return cb();
     let user = data.Users[0];
     let attributes = [];
-    user.Attributes.forEach(a => attributes[a.Name] = a.Value);
+    if(user.Attributes) user.Attributes.forEach(a => attributes[a.Name] = a.Value);
     cb(attributes);
   });
 }
