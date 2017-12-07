@@ -203,11 +203,10 @@ function cognitoGetUserByEmail(AWS, accessKeyId, secretAccessKey, cognitoUserPoo
   })
   .listUsers({ UserPoolId: cognitoUserPoolId, Filter: `email = "${email}"`, Limit: 1},
   (err, data) => {
-    if(err) return cb();
-    let user = data.Users[0];
-    let attributes = [];
-    if(user && user.Attributes) user.Attributes.forEach(a => attributes[a.Name] = a.Value);
-    cb(attributes);
+    if(err || !data || !data.User || !data.Users[0]) return cb();
+    let userAttributes = [];
+    data.Users[0].Attributes.forEach(a => userAttributes[a.Name] = a.Value);
+    cb(userAttributes);
   });
 }
 
