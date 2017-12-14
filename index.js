@@ -190,6 +190,7 @@ function cognitoGetUserByClaims(claims) {
   // map the important attributes with reserved names
   user.userId = claims.sub;
   user.email = claims.email;
+  user.name = claims.name;
   user.phoneNumber = claims.phone_number;
   return user;
 }
