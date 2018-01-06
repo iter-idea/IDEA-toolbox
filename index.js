@@ -265,7 +265,8 @@ function ISODateToItalianFormat(ISODateString) {
 /**
  * Clean a string to use it within filenames and so.
  * @param {*} str the string to clean
+ * @param {*} separator separator char 
  */
-function cleanStr(str) {
-  return (str || '').toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-');
+function cleanStr(str, separator) {
+  return (str || '').toLowerCase().replace(/[^a-zA-Z0-9]+/g, separator || '');
 }
