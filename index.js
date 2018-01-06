@@ -1,6 +1,6 @@
 'use strict';
 
-const AWS = require('aws-sdk');     // there's not need to add it in the package.json
+const AWS = require('aws-sdk');
 const UUIDV4 = require('uuid/v4');
 
 const SES_DEFAULT_REGION = process.env['SES_DEFAULT_REGION'];
@@ -17,7 +17,7 @@ module.exports = {
 // SES
   sesSendEmail,
 // OTHER
-  ISODateToItalianFormat
+  ISODateToItalianFormat, cleanStr
 }
 
 ///
@@ -260,4 +260,12 @@ function sesSendEmail(emailData, cb, sesParams) {
  */
 function ISODateToItalianFormat(ISODateString) {
   return `${ISODateString.slice(8, 10)}/${ISODateString.slice(5, 7)}/${ISODateString.slice(0, 4)}`;
+}
+
+/**
+ * Clean a string to use it within filenames and so.
+ * @param {*} str the string to clean
+ */
+function cleanStr(str) {
+  return (str || '').toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-');
 }
