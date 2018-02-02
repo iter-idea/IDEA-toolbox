@@ -1,12 +1,17 @@
 'use strict';
 
 const AWS = require('aws-sdk');
+const S3 = new AWS.S3({ apiVersion: '2006-03-01' });
 const UUIDV4 = require('uuid/v4');
 
 const SES_DEFAULT_REGION = process.env['SES_DEFAULT_REGION'];
 const SES_DEFAULT_SOURCE = process.env['SES_DEFAULT_SOURCE'];
 const SES_DEFAULT_SOURCE_NAME = process.env['SES_DEFAULT_SOURCE_NAME'];
 const SES_DEFAULT_SOURCE_ARN = process.env['SES_DEFAULT_SOURCE_ARN'];
+
+const S3_DEFAULT_DOWNLOAD_BUCKET = 'idea-downloads';
+const S3_DEFAULT_DOWNLOAD_BUCKET_PREFIX = 'common';
+const S3_DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP = 180;
 
 module.exports = {
 // DYNAMO
@@ -16,6 +21,8 @@ module.exports = {
   cognitoGetUserByClaims, cognitoGetUserByEmail,
 // SES
   sesSendEmail,
+// S3
+  downloadThroughS3Url,
 // OTHER
   ISODateToItalianFormat, cleanStr
 }
@@ -248,6 +255,38 @@ function sesSendEmail(emailData, cb, sesParams) {
   // send email
   new AWS.SES({ region: sesParams.region })
   .sendEmail(sesData, (err, data) => { cb(err, data); });
+}
+
+///
+/// S3
+///
+
+/**
+ * Download a file through an S3 signed url.
+ * *Pratically*, it uploads the file on an S3 bucket (w/ automatic cleaning), 
+ * it generates a signed url, returning it.
+ * @param {*} prefix a folder in which to put all the files of the same kind
+ * @param {*} key the unique filepath
+ * @param {*} dataToUpload usually a buffer
+ * @param {*} contentType e.g. application/json
+ * @param {*} cb (err, url) => {}
+ * @param {*} bucket (optional) an alternative Downloads bucket to the default one
+ * @param {*} secToExp (optional), seconds to url expiration
+ */
+function downloadThroughS3Url(prefix, key, dataToUpload, contentType, cb, bucket, secToExp) {
+  key = `${prefix || S3_DEFAULT_DOWNLOAD_BUCKET_PREFIX}/${key}`;
+  bucket = bucket || S3_DEFAULT_DOWNLOAD_BUCKET;
+  secToExp = secToExp || S3_DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP;
+  S3.upload({ Bucket: bucket, Key: key, Body: dataToUpload, ContentType: contentType }, 
+  (err, data) => {
+    console.log('Uploading file on S3...', err, data);
+    if(err) cb(err);
+    else {
+      const url = S3.getSignedUrl('getObject', { Bucket: bucket, Key: key, Expires: secToExp });
+      console.log('Generated signed url', url);
+      cb(null, url);
+    }
+  });
 }
 
 ///
