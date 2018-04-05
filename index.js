@@ -24,7 +24,7 @@ module.exports = {
 // S3
   downloadThroughS3Url,
 // OTHER
-  ISODateToItalianFormat, cleanStr
+  ISODateToItalianFormat, cleanStr, joinArraysOnKeys
 }
 
 ///
@@ -308,4 +308,30 @@ function ISODateToItalianFormat(ISODateString) {
  */
 function cleanStr(str, separator) {
   return (str || '').toLowerCase().replace(/[^a-zA-Z0-9]+/g, separator || '');
+}
+
+/**
+ * Join two arrays by a common column, selecting which data to extract. 
+ * @param {Array<any>} mainTable the main array
+ * @param {Array<any>} lookupTable the lookup array
+ * @param {string} mainKey mainTable's column for the join condition
+ * @param {string} lookupKey lookupTable's column for the join condition
+ * @param {(attrMainTable, attrLookupTable) => Array<any>} selectFunction defines which attributes we want to retain in the joined array
+ * @return {Array<any>} the joined array
+ */
+function joinArraysOnKeys(mainTable, lookupTable, mainKey, lookupKey, selectFunction) {
+  let l = lookupTable.length;
+  let m = mainTable.length;
+  let lookupIndex = [];
+  let output = [];
+  for(let i = 0; i < l; i++) { // loop through l items
+    let row = lookupTable[i];
+    lookupIndex[row[lookupKey]] = row; // create an index for lookup table
+  }
+  for(let j = 0; j < m; j++) { // loop through m items
+    let y = mainTable[j];
+    let x = lookupIndex[y[mainKey]]; // get corresponding row from lookupTable
+    output.push(selectFunction(y, x)); // select only the columns you need
+  }
+  return output;
 }
