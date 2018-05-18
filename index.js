@@ -18,7 +18,7 @@ module.exports = {
   ES2N, Obj2N, dynamoBatchOperation, dynamoQueryOverLimit, dynamoScanOverLimit, IUID,
   getAtomicCounterByKey,
 // COGNITO
-  cognitoGetUserByClaims, cognitoGetUserByEmail,
+  cognitoGetUserByClaims, cognitoGetUserByEmail, cognitoGetUserBySub,
 // SES
   sesSendEmail,
 // S3
@@ -210,6 +210,22 @@ function cognitoGetUserByEmail(AWS, accessKeyId, secretAccessKey, cognitoUserPoo
     apiVersion: '2016-04-18', accessKeyId: accessKeyId, secretAccessKey: secretAccessKey
   })
   .listUsers({ UserPoolId: cognitoUserPoolId, Filter: `email = "${email}"`, Limit: 1},
+  (err, data) => {
+    if(err || !data || !data.Users || !data.Users[0]) return cb();
+    let userAttributes = [];
+    data.Users[0].Attributes.forEach(a => userAttributes[a.Name] = a.Value);
+    cb(userAttributes);
+  });
+}
+
+/**
+ * Helper function to identify a user by its sub, returning then its attributes.
+ */
+function cognitoGetUserBySub(AWS, accessKeyId, secretAccessKey, cognitoUserPoolId, sub, cb) {
+  new AWS.CognitoIdentityServiceProvider({
+    apiVersion: '2016-04-18', accessKeyId: accessKeyId, secretAccessKey: secretAccessKey
+  })
+  .listUsers({ UserPoolId: cognitoUserPoolId, Filter: `sub = "${sub}"`, Limit: 1},
   (err, data) => {
     if(err || !data || !data.Users || !data.Users[0]) return cb();
     let userAttributes = [];
