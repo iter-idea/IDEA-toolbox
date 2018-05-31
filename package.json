@@ -1,6 +1,6 @@
 {
   "name": "idea-toolbox",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "description": "IDEA's utility functions",
   "engines": {
     "node": ">=6.0.0"
@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/uatisdeproblem/IDEA-toolbox#readme",
   "dependencies": {
-    "nodemailer": "2.7.2",
+    "nodemailer": "^4.6.3",
     "uuid": "^3.1.0"
   }
 }
