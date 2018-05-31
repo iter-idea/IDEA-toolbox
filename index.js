@@ -244,7 +244,7 @@ function cognitoGetUserBySub(AWS, accessKeyId, secretAccessKey, cognitoUserPoolI
  * @param {*} emailData
  *  toAddresses: Array<string>, ccAddresses?: Array<string>, bccAddresses?: Array<string>, 
  *  replyToAddresses: Array<string>, subject: string, html?: string, text?: string,
- *  attachments?: Array<{ filename: string, content: data }>
+ *  attachments?: Array<any> (https://community.nodemailer.com/using-attachments/)
  * @param {*} cb (err, data) => {}
  * @param {*} sesParams (optional) region, source, sourceName, sourceArn
  */
