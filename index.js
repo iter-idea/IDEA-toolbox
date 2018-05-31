@@ -145,16 +145,16 @@ function dynamoScanOverLimit(dynamo, scanParams, callback, items) {
  * @param {*} cb (id) => {}; if false, id hasn't been correctly generated
  */
 function IUID(dynamo, project, cb, attempt, maxAttempts) {
-  if(!project) return cb(false); 
+  if(!project) return cb(false);
   attempt = attempt || 0;
   maxAttempts = maxAttempts || 3;
-  if(attempt > maxAttempts) return cb(false); 
+  if(attempt > maxAttempts) return cb(false);
   let id = UUIDV4();
-  dynamo.getItem({ TableName: 'idea_IUID', Key: { project: project, id: id } }, 
+  dynamo.getItem({ TableName: 'idea_IUID', Key: { project: project, id: id } },
   (err, data) => {
-    if(data && data.Item) 
+    if(data && data.Item)
       return IUID(dynamo, project, cb, attempt+1, maxAttempts); // ID exists, try again
-    else dynamo.putItem({ TableName: 'idea_IUID', Item: { project: project, id: id } }, 
+    else dynamo.putItem({ TableName: 'idea_IUID', Item: { project: project, id: id } },
     (err, data) => {
       if(err) cb(false);
       else cb(project+'_'+id);
@@ -242,7 +242,7 @@ function cognitoGetUserBySub(AWS, accessKeyId, secretAccessKey, cognitoUserPoolI
 /**
  * Send an email through AWS Simple Email Service.
  * @param {*} emailData
- *  toAddresses: Array<string>, ccAddresses?: Array<string>, bccAddresses?: Array<string>, 
+ *  toAddresses: Array<string>, ccAddresses?: Array<string>, bccAddresses?: Array<string>,
  *  replyToAddresses: Array<string>, subject: string, html?: string, text?: string,
  *  attachments?: Array<any> (https://community.nodemailer.com/using-attachments/)
  * @param {*} cb (err, data) => {}
@@ -270,38 +270,38 @@ function sesSendEmail(emailData, cb, sesParams) {
   sesData.ReplyToAddresses = emailData.replyToAddresses;
   sesData.Source = `${sesParams.sourceName} <${sesParams.source}>`;
   sesData.SourceArn = sesParams.sourceArn;
-  let ses = new AWS.SES({ region: sesParams.region });
+  sesData.Region = sesParams.region;
   // send email
   if(emailData.attachments && emailData.attachments.length) {
     // including attachments, through Nodemailer
-    console.log('SES send email w/ attachments (Nodemailer)', 
+    console.log('SES send email w/ attachments (Nodemailer)',
       sesParams, sesData, emailData.attachments);
-    sesSendEmailThroughNodemailer(ses, sesData, emailData.attachments, cb);
+    sesSendEmailThroughNodemailer(sesData, emailData.attachments, cb);
   } else {
     // classic way, through SES
     console.log('SES send email', sesParams, sesData);
-    ses.sendEmail(sesData, (err, data) => { cb(err, data); });
+    new AWS.SES({ region: sesData.Region }).sendEmail(sesData, (err, data) => { cb(err, data); });
   }
 }
 /**
- * Helper function to send an email with attachments through Nodemailer; 
- * SES only support attachments through a raw sending.
+ * Helper function to send an email with attachments through Nodemailer;
+ * SES only supports attachments through a raw sending.
  */
-function sesSendEmailThroughNodemailer(ses, sesData, attachments, cb) {
+function sesSendEmailThroughNodemailer(sesData, attachments, cb) {
   // set the mail options in Nodemailer's format
   let mailOptions = {};
   mailOptions.from = sesData.Source;
   mailOptions.to = sesData.Destination.ToAddresses.join(',');
   if(sesData.Message.Body.cc) mailOptions.cc = sesData.Destination.CcAddresses.join(',');
   if(sesData.Message.Body.bcc) mailOptions.bcc = sesData.Destination.BccAddresses.join(',');
-  if(sesData.Message.Body.ReplyToAddresses) 
+  if(sesData.Message.Body.ReplyToAddresses)
     mailOptions.replyTo = sesData.ReplyToAddresses.join(',');
-  mailOptions.subject = sesData.Message.Subject;
-  if(sesData.Message.Body.Html) mailOptions.html = sesData.Message.Body.Html;
-  if(sesData.Message.Body.Text) mailOptions.text = sesData.Message.Body.Text;
+  mailOptions.subject = sesData.Message.Subject.Data;
+  if(sesData.Message.Body.Html) mailOptions.html = sesData.Message.Body.Html.Data;
+  if(sesData.Message.Body.Text) mailOptions.text = sesData.Message.Body.Text.Data;
   mailOptions.attachments = attachments;
   // create Nodemailer SES transporter
-  let transporter = Nodemailer.createTransport({ SES: ses });
+  let transporter = Nodemailer.createTransport({ SES: new AWS.SES({ region: sesData.Region }) });
   // send the email
   transporter.sendMail(mailOptions, (err, data) => { cb(err, data); });
 }
@@ -312,7 +312,7 @@ function sesSendEmailThroughNodemailer(ses, sesData, attachments, cb) {
 
 /**
  * Download a file through an S3 signed url.
- * *Pratically*, it uploads the file on an S3 bucket (w/ automatic cleaning), 
+ * *Pratically*, it uploads the file on an S3 bucket (w/ automatic cleaning),
  * it generates a signed url, returning it.
  * @param {*} prefix a folder in which to put all the files of the same kind
  * @param {*} key the unique filepath
@@ -326,7 +326,7 @@ function downloadThroughS3Url(prefix, key, dataToUpload, contentType, cb, bucket
   key = `${prefix || S3_DEFAULT_DOWNLOAD_BUCKET_PREFIX}/${key}`;
   bucket = bucket || S3_DEFAULT_DOWNLOAD_BUCKET;
   secToExp = secToExp || S3_DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP;
-  S3.upload({ Bucket: bucket, Key: key, Body: dataToUpload, ContentType: contentType }, 
+  S3.upload({ Bucket: bucket, Key: key, Body: dataToUpload, ContentType: contentType },
   (err, data) => {
     console.log('Uploading file on S3...', err, data);
     if(err) cb(err);
@@ -353,14 +353,14 @@ function ISODateToItalianFormat(ISODateString) {
 /**
  * Clean a string to use it within filenames and so.
  * @param {*} str the string to clean
- * @param {*} separator separator char 
+ * @param {*} separator separator char
  */
 function cleanStr(str, separator) {
   return (str || '').toLowerCase().replace(/[^a-zA-Z0-9]+/g, separator || '');
 }
 
 /**
- * Join two arrays by a common column, selecting which data to extract. 
+ * Join two arrays by a common column, selecting which data to extract.
  * @param {Array<any>} mainTable the main array
  * @param {Array<any>} lookupTable the lookup array
  * @param {string} mainKey mainTable's column for the join condition
