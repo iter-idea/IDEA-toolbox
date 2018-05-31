@@ -3,6 +3,7 @@
 const AWS = require('aws-sdk');
 const S3 = new AWS.S3({ apiVersion: '2006-03-01' });
 const UUIDV4 = require('uuid/v4');
+const Nodemailer = require('nodemailer');
 
 const SES_DEFAULT_REGION = process.env['SES_DEFAULT_REGION'];
 const SES_DEFAULT_SOURCE = process.env['SES_DEFAULT_SOURCE'];
@@ -241,7 +242,9 @@ function cognitoGetUserBySub(AWS, accessKeyId, secretAccessKey, cognitoUserPoolI
 /**
  * Send an email through AWS Simple Email Service.
  * @param {*} emailData
- *  toAddresses[], ccAddresses[], bccAddresses[], replyToAddresses[], subject, html, text
+ *  toAddresses: Array<string>, ccAddresses?: Array<string>, bccAddresses?: Array<string>, 
+ *  replyToAddresses: Array<string>, subject: string, html?: string, text?: string,
+ *  attachments?: Array<{ filename: string, content: data }>
  * @param {*} cb (err, data) => {}
  * @param {*} sesParams (optional) region, source, sourceName, sourceArn
  */
@@ -267,10 +270,40 @@ function sesSendEmail(emailData, cb, sesParams) {
   sesData.ReplyToAddresses = emailData.replyToAddresses;
   sesData.Source = `${sesParams.sourceName} <${sesParams.source}>`;
   sesData.SourceArn = sesParams.sourceArn;
-  console.log('SES send email', sesParams, sesData);
+  let ses = new AWS.SES({ region: sesParams.region });
   // send email
-  new AWS.SES({ region: sesParams.region })
-  .sendEmail(sesData, (err, data) => { cb(err, data); });
+  if(emailData.attachments && emailData.attachments.length) {
+    // including attachments, through Nodemailer
+    console.log('SES send email w/ attachments (Nodemailer)', 
+      sesParams, sesData, emailData.attachments);
+    sesSendEmailThroughNodemailer(ses, sesData, emailData.attachments, cb);
+  } else {
+    // classic way, through SES
+    console.log('SES send email', sesParams, sesData);
+    ses.sendEmail(sesData, (err, data) => { cb(err, data); });
+  }
+}
+/**
+ * Helper function to send an email with attachments through Nodemailer; 
+ * SES only support attachments through a raw sending.
+ */
+function sesSendEmailThroughNodemailer(ses, sesData, attachments, cb) {
+  // set the mail options in Nodemailer's format
+  let mailOptions = {};
+  mailOptions.from = sesData.Source;
+  mailOptions.to = sesData.Destination.ToAddresses.join(',');
+  if(sesData.Message.Body.cc) mailOptions.cc = sesData.Destination.CcAddresses.join(',');
+  if(sesData.Message.Body.bcc) mailOptions.bcc = sesData.Destination.BccAddresses.join(',');
+  if(sesData.Message.Body.ReplyToAddresses) 
+    mailOptions.replyTo = sesData.ReplyToAddresses.join(',');
+  mailOptions.subject = sesData.Message.Subject;
+  if(sesData.Message.Body.Html) mailOptions.html = sesData.Message.Body.Html;
+  if(sesData.Message.Body.Text) mailOptions.text = sesData.Message.Body.Text;
+  mailOptions.attachments = attachments;
+  // create Nodemailer SES transporter
+  let transporter = Nodemailer.createTransport({ SES: ses });
+  // send the email
+  transporter.sendMail(mailOptions, (err, data) => { cb(err, data); });
 }
 
 ///
