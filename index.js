@@ -286,24 +286,24 @@ function sesSendEmail(emailData, cb, sesParams) {
   sesData.ReplyToAddresses = emailData.replyToAddresses;
   sesData.Source = `${sesParams.sourceName} <${sesParams.source}>`;
   sesData.SourceArn = sesParams.sourceArn;
-  sesData.Region = sesParams.region;
+  let ses = new AWS.SES({ region: sesParams.region });
   // send email
   if(emailData.attachments && emailData.attachments.length) {
     // including attachments, through Nodemailer
     console.log('SES send email w/ attachments (Nodemailer)',
       sesParams, sesData, emailData.attachments);
-    sesSendEmailThroughNodemailer(sesData, emailData.attachments, cb);
+    sesSendEmailThroughNodemailer(ses, sesData, emailData.attachments, cb);
   } else {
     // classic way, through SES
     console.log('SES send email', sesParams, sesData);
-    new AWS.SES({ region: sesData.Region }).sendEmail(sesData, (err, data) => { cb(err, data); });
+    ses.sendEmail(sesData, (err, data) => { cb(err, data); });
   }
 }
 /**
  * Helper function to send an email with attachments through Nodemailer;
  * SES only supports attachments through a raw sending.
  */
-function sesSendEmailThroughNodemailer(sesData, attachments, cb) {
+function sesSendEmailThroughNodemailer(ses, sesData, attachments, cb) {
   // set the mail options in Nodemailer's format
   let mailOptions = {};
   mailOptions.from = sesData.Source;
@@ -317,7 +317,7 @@ function sesSendEmailThroughNodemailer(sesData, attachments, cb) {
   if(sesData.Message.Body.Text) mailOptions.text = sesData.Message.Body.Text.Data;
   mailOptions.attachments = attachments;
   // create Nodemailer SES transporter
-  let transporter = Nodemailer.createTransport({ SES: new AWS.SES({ region: sesData.Region }) });
+  let transporter = Nodemailer.createTransport({ SES: ses });
   // send the email
   transporter.sendMail(mailOptions, (err, data) => { cb(err, data); });
 }
