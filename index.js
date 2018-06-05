@@ -10,6 +10,10 @@ const SES_DEFAULT_SOURCE = process.env['SES_DEFAULT_SOURCE'];
 const SES_DEFAULT_SOURCE_NAME = process.env['SES_DEFAULT_SOURCE_NAME'];
 const SES_DEFAULT_SOURCE_ARN = process.env['SES_DEFAULT_SOURCE_ARN'];
 
+const COGNITO_USER_POOL_ID = process.env['COGNITO_USER_POOL_ID'];
+const COGNITO_ACCESS_KEY_ID = process.env['COGNITO_ACCESS_KEY_ID'];
+const COGNITO_SECRET_ACCESS_KEY = process.env['COGNITO_SECRET_ACCESS_KEY'];
+
 const S3_DEFAULT_DOWNLOAD_BUCKET = 'idea-downloads';
 const S3_DEFAULT_DOWNLOAD_BUCKET_PREFIX = 'common';
 const S3_DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP = 180;
@@ -206,13 +210,19 @@ function cognitoGetUserByClaims(claims) {
 /**
  * Helper function to identify a user by its email address, returning then its attributes.
  */
-function cognitoGetUserByEmail(AWS, accessKeyId, secretAccessKey, cognitoUserPoolId, email, cb) {
+function cognitoGetUserByEmail(email, cb, accessKeyId, secretAccessKey, cognitoUserPoolId) {
+  // read the parameters from env. var or force them
+  accessKeyId = accessKeyId || COGNITO_ACCESS_KEY_ID;
+  secretAccessKey = secretAccessKey || COGNITO_SECRET_ACCESS_KEY;
+  cognitoUserPoolId = cognitoUserPoolId || COGNITO_USER_POOL_ID;
+  // find the user by the email
   new AWS.CognitoIdentityServiceProvider({
     apiVersion: '2016-04-18', accessKeyId: accessKeyId, secretAccessKey: secretAccessKey
   })
   .listUsers({ UserPoolId: cognitoUserPoolId, Filter: `email = "${email}"`, Limit: 1},
   (err, data) => {
     if(err || !data || !data.Users || !data.Users[0]) return cb();
+    // convert and return the attributes
     let userAttributes = [];
     data.Users[0].Attributes.forEach(a => userAttributes[a.Name] = a.Value);
     cb(userAttributes);
@@ -222,13 +232,19 @@ function cognitoGetUserByEmail(AWS, accessKeyId, secretAccessKey, cognitoUserPoo
 /**
  * Helper function to identify a user by its sub, returning then its attributes.
  */
-function cognitoGetUserBySub(AWS, accessKeyId, secretAccessKey, cognitoUserPoolId, sub, cb) {
+function cognitoGetUserBySub(sub, cb, accessKeyId, secretAccessKey, cognitoUserPoolId) {
+  // read the parameters from env. var or force them
+  accessKeyId = accessKeyId || COGNITO_ACCESS_KEY_ID;
+  secretAccessKey = secretAccessKey || COGNITO_SECRET_ACCESS_KEY;
+  cognitoUserPoolId = cognitoUserPoolId || COGNITO_USER_POOL_ID;
+  // find the user by the sub
   new AWS.CognitoIdentityServiceProvider({
     apiVersion: '2016-04-18', accessKeyId: accessKeyId, secretAccessKey: secretAccessKey
   })
   .listUsers({ UserPoolId: cognitoUserPoolId, Filter: `sub = "${sub}"`, Limit: 1},
   (err, data) => {
     if(err || !data || !data.Users || !data.Users[0]) return cb();
+    // convert and return the attributes
     let userAttributes = [];
     data.Users[0].Attributes.forEach(a => userAttributes[a.Name] = a.Value);
     cb(userAttributes);
