@@ -33,7 +33,7 @@ module.exports = {
 // S3
   downloadThroughS3Url,
 // SNS
-  createSNSPushPlatormEndpoint,
+  createSNSPushPlatormEndpoint, publishSNSPush,
 // OTHER
   ISODateToItalianFormat, cleanStr, joinArraysOnKeys
 }
@@ -394,14 +394,40 @@ function createSNSPushPlatormEndpoint(platform, deviceId, done) {
   switch(platform) {
     case 'APNS': platformARN = SNS_PUSH_PLATFORM_ARN_IOS; break;
     case 'FCM': platformARN = SNS_PUSH_PLATFORM_ARN_ANDROID; break;
-    default: return done(new Error(`E.USERS.FAILED_CREATING_ENDPOINT`));
+    default: return done(new Error());
   }
   // create a new endpoint in the platform
   SNS.createPlatformEndpoint({ PlatformApplicationArn: platformARN, Token: deviceId },
   (err, data) => {
     console.log('Creating SNS platform endpoint', platformARN, err, data);
-    if(err || !data.EndpointArn) return done(new Error(`E.USERS.FAILED_CREATING_ENDPOINT`));
+    if(err || !data.EndpointArn) done(err || new Error());
     else done(null, data.EndpointArn);
+  });
+}
+
+/**
+ * Send a push notification through a SNS endpoint.
+ * @param {string} message the message to send
+ * @param {string} platform enum: APNS, FCM
+ * @param {string} endpoint endpoint to a specific device
+ * @param {*} done cb(err, data) => {}
+ */
+function publishSNSPush(message, platform, endpoint, done) {
+  let structuredMessage;
+  switch(platform) {
+    case 'APNS':
+      structuredMessage = { APNS: JSON.stringify({ aps: { alert: message } }) };
+    break;
+    case 'FCM':
+      structuredMessage = { GCM: JSON.stringify({ data: { message: message } }) };
+    break;
+    default: return done(new Error());
+  }
+  SNS.publish({
+    MessageStructure: 'json', Message: JSON.stringify(structuredMessage), TargetArn: endpoint
+  }, (err, data) => {
+    console.log('Sending push notification', endpoint, err, data);
+    done(err, data);
   });
 }
 
