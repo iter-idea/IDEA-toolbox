@@ -413,6 +413,7 @@ function createSNSPushPlatormEndpoint(platform, deviceId, done) {
  * @param {*} done cb(err, data) => {}
  */
 function publishSNSPush(message, platform, endpoint, done) {
+  if(!done) done = () => {};
   let structuredMessage;
   switch(platform) {
     case 'APNS':
