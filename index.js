@@ -2,6 +2,7 @@
 
 const AWS = require('aws-sdk');
 const S3 = new AWS.S3({ apiVersion: '2006-03-01' });
+const SNS = new AWS.SNS({ apiVersion: '2010-03-31', region: process.env['SNS_PUSH_REGION'] });
 const UUIDV4 = require('uuid/v4');
 const Nodemailer = require('nodemailer');
 
@@ -18,6 +19,9 @@ const S3_DEFAULT_DOWNLOAD_BUCKET = 'idea-downloads';
 const S3_DEFAULT_DOWNLOAD_BUCKET_PREFIX = 'common';
 const S3_DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP = 180;
 
+const SNS_PUSH_PLATFORM_ARN_IOS = process.env['SNS_PUSH_PLATFORM_ARN_IOS'];
+const SNS_PUSH_PLATFORM_ARN_ANDROID = process.env['SNS_PUSH_PLATFORM_ARN_ANDROID'];
+
 module.exports = {
 // DYNAMO
   ES2N, Obj2N, dynamoBatchOperation, dynamoQueryOverLimit, dynamoScanOverLimit, IUID,
@@ -28,6 +32,8 @@ module.exports = {
   sesSendEmail,
 // S3
   downloadThroughS3Url,
+// SNS
+  createSNSPushPlatormEndpoint,
 // OTHER
   ISODateToItalianFormat, cleanStr, joinArraysOnKeys
 }
@@ -40,7 +46,8 @@ module.exports = {
  * Helper to solve the known problem of Amazon DB with empty strings:
  * if the string is empty, return null
  * Ref. https://forums.aws.amazon.com/thread.jspa?threadID=90137
- * @param string string to remap
+ * @param {string} string string to remap
+ * @return cleaned string
  */
 function ES2N(string) {
   return (!string || string.length == 0) ? null : string;
@@ -50,9 +57,10 @@ function ES2N(string) {
  * Helper to naively solve the empty string / undefined attributes in Dynamo.
  * Disclaimer: it can be really slow, so use it only when necessary
  * (otherwise prefer the quicker ES2N).
- * @param obj obj to remap
- * @param maxDepth max deepness in which to nest the function.
- * @param currentDepth to skip initial levels, if needed
+ * @param {*} obj obj to remap
+ * @param {number} maxDepth max deepness in which to nest the function.
+ * @param {number} currentDepth to skip initial levels, if needed
+ * @return cleaned object
  */
 function Obj2N(obj, maxDepth, currentDepth) {
   // stop the execution if obj is not an object (if it's a string, works as ES2N)
@@ -77,12 +85,12 @@ function Obj2N(obj, maxDepth, currentDepth) {
 /**
  * Recursively insert chunks of items in a dynamoDB table.
  * Note: errors are printed but ignored.
- * @param dynamo The istance of DynamoDB to use
- * @param batchOps The batch operatons to execute, in the DynamoDB's batchWriteItems format
- * @param table DynamoDB table on which to operate
- * @param currentChunk Which chunk of operations are considering now (0 at the first call)
- * @param chunkSize Suggested dimension: 25
- * @param doneCb Callback function to call when everything is finished
+ * @param {*} dynamo The istance of DynamoDB to use
+ * @param {*} batchOps The batch operations to execute, in the DynamoDB's batchWriteItems format
+ * @param {string} table DynamoDB table on which to operate
+ * @param {number} currentChunk Which chunk of operations are considering now (0 at the first call)
+ * @param {number} chunkSize Suggested dimension: 25
+ * @param {*} doneCb (length) => {} Callback function to call when everything is finished
  */
 function dynamoBatchOperation(dynamo, batchOps, table, currentChunk, chunksSize, doneCb) {
   if(batchOps.length == 0) return doneCb(0);
@@ -105,10 +113,10 @@ function dynamoBatchOperation(dynamo, batchOps, table, currentChunk, chunksSize,
 
 /**
  * Function to recursively query a table, avoiding the 1MB limit of DynamoDB
- * @param dynamo The istance of DynamoDB to use
- * @param queryParams The params to apply to DynamoDB's query function
- * @param callback Callback function
- * @param items *Optional*. An array of items to start with.
+ * @param {*} dynamo The istance of DynamoDB to use
+ * @param {*} queryParams The params to apply to DynamoDB's query function
+ * @param {*} callback (err, data) => {} Callback function
+ * @param {Array<any>} items *Optional*. An array of items to start with.
  */
 function dynamoQueryOverLimit(dynamo, queryParams, callback, items) {
   items = items || [];
@@ -124,10 +132,10 @@ function dynamoQueryOverLimit(dynamo, queryParams, callback, items) {
 
 /**
  * Helper function to recursively scan a table, avoiding the 1MB limit of DynamoDB
- * @param dynamo The istance of DynamoDB to use
- * @param scanParams The params to apply to DynamoDB's scan function
- * @param callback Callback function
- * @param items *Optional*. An array of items to start with.
+ * @param {*} dynamo The istance of DynamoDB to use
+ * @param {*} scanParams The params to apply to DynamoDB's scan function
+ * @param {*} callback (err, data) => {} Callback function
+ * @param {Array<any>} items *Optional*. An array of items to start with.
  */
 function dynamoScanOverLimit(dynamo, scanParams, callback, items) {
   items = items || [];
@@ -145,7 +153,7 @@ function dynamoScanOverLimit(dynamo, scanParams, callback, items) {
  * Returns an IUID: IDEA's Unique IDentifier, which is an id unique through all IDEA's projects.
  * Note: there's no need of an authorization check for extrernal uses: the permissions depend
  * from the context in which it's executed.
- * @param project the project to use as domain
+ * @param {string} project the project to use as domain
  * @param {*} cb (id) => {}; if false, id hasn't been correctly generated
  */
 function IUID(dynamo, project, cb, attempt, maxAttempts) {
@@ -170,9 +178,9 @@ function IUID(dynamo, project, cb, attempt, maxAttempts) {
  * Manage atomic counters (atomic autoincrement values) in IDEA's projects.
  * They key of an atomic counter should be composed as the following:
  * `DynamoDBTableName_uniqueKey`, where uniqueKey often coincides with the teamId
- * @param dynamo The istance of DynamoDB to use
+ * @param {*} dynamo The istance of DynamoDB to use
  * @param {string} key The key of the counter
- * @param cb Callback function
+ * @param {*} cb (counter) => {} Callback function
  */
 function getAtomicCounterByKey(dynamo, key, cb) {
   console.log('Getting atomic counter of', key);
@@ -193,7 +201,9 @@ function getAtomicCounterByKey(dynamo, key, cb) {
 ///
 
 /**
- * Helper function to get the attributes of the user from the authorizer claims.
+ * Helper to get the attributes of the user from the authorizer claims.
+ * @param {*} claims Cognito authentication claims after API gateway's integration.
+ * @return {Array<string>} user's data
  */
 function cognitoGetUserByClaims(claims) {
   let user = {};
@@ -209,6 +219,11 @@ function cognitoGetUserByClaims(claims) {
 
 /**
  * Helper function to identify a user by its email address, returning then its attributes.
+ * @param {string} email user's email
+ * @param {*} cb (err, data) => {}
+ * @param {string} accessKeyId of a user w/ permissions in the specified user pool
+ * @param {string} secretAccessKey of a user w/ permissions in the specified user pool
+ * @param {string} cognitoUserPoolId Cognito user pool
  */
 function cognitoGetUserByEmail(email, cb, accessKeyId, secretAccessKey, cognitoUserPoolId) {
   // read the parameters from env. var or force them
@@ -231,6 +246,11 @@ function cognitoGetUserByEmail(email, cb, accessKeyId, secretAccessKey, cognitoU
 
 /**
  * Helper function to identify a user by its sub, returning then its attributes.
+ * @param {string} email user's sub (userId)
+ * @param {*} cb (err, data) => {}
+ * @param {string} accessKeyId of a user w/ permissions in the specified user pool
+ * @param {string} secretAccessKey of a user w/ permissions in the specified user pool
+ * @param {string} cognitoUserPoolId Cognito user pool
  */
 function cognitoGetUserBySub(sub, cb, accessKeyId, secretAccessKey, cognitoUserPoolId) {
   // read the parameters from env. var or force them
@@ -302,6 +322,10 @@ function sesSendEmail(emailData, cb, sesParams) {
 /**
  * Helper function to send an email with attachments through Nodemailer;
  * SES only supports attachments through a raw sending.
+ * @param {*} ses SES instance
+ * @param {*} sesData SES data and params
+ * @param {*} attachments array of attachments to send
+ * @param {*} cb (err, data) => {}
  */
 function sesSendEmailThroughNodemailer(ses, sesData, attachments, cb) {
   // set the mail options in Nodemailer's format
@@ -330,13 +354,13 @@ function sesSendEmailThroughNodemailer(ses, sesData, attachments, cb) {
  * Download a file through an S3 signed url.
  * *Pratically*, it uploads the file on an S3 bucket (w/ automatic cleaning),
  * it generates a signed url, returning it.
- * @param {*} prefix a folder in which to put all the files of the same kind
- * @param {*} key the unique filepath
+ * @param {string} prefix a folder in which to put all the files of the same kind
+ * @param {string} key the unique filepath
  * @param {*} dataToUpload usually a buffer
- * @param {*} contentType e.g. application/json
+ * @param {string} contentType e.g. application/json
  * @param {*} cb (err, url) => {}
- * @param {*} bucket (optional) an alternative Downloads bucket to the default one
- * @param {*} secToExp (optional), seconds to url expiration
+ * @param {string} bucket (optional) an alternative Downloads bucket to the default one
+ * @param {number} secToExp (optional), seconds to url expiration
  */
 function downloadThroughS3Url(prefix, key, dataToUpload, contentType, cb, bucket, secToExp) {
   key = `${prefix || S3_DEFAULT_DOWNLOAD_BUCKET_PREFIX}/${key}`;
@@ -355,12 +379,40 @@ function downloadThroughS3Url(prefix, key, dataToUpload, contentType, cb, bucket
 }
 
 ///
+/// SNS
+///
+
+/**
+ * Create a new endpoint in the SNS platform specified.
+ * @param {string} platform enum: APNS, FCM
+ * @param {string} deviceId registrationId
+ * @param {*} done cb(err, data) => {}
+ */
+function createSNSPushPlatormEndpoint(platform, deviceId, done) {
+  let platformARN;
+  // identify the platform ARN
+  switch(platform) {
+    case 'APNS': platformARN = SNS_PUSH_PLATFORM_ARN_IOS; break;
+    case 'FCM': platformARN = SNS_PUSH_PLATFORM_ARN_ANDROID; break;
+    default: return done(new Error(`E.USERS.FAILED_CREATING_ENDPOINT`));
+  }
+  // create a new endpoint in the platform
+  SNS.createPlatformEndpoint({ PlatformApplicationArn: platformARN, Token: deviceId },
+  (err, data) => {
+    console.log('Creating SNS platform endpoint', platformARN, err, data);
+    if(err || !data.EndpointArn) return done(new Error(`E.USERS.FAILED_CREATING_ENDPOINT`));
+    else done(null, data.EndpointArn);
+  });
+}
+
+///
 /// OTHER
 ///
 
 /**
  * Convert an ISODate string to the Italian format
- * @param {*} ISODateString new Date().toISOString();
+ * @param {string} ISODateString new Date().toISOString();
+ * @return cleaned date
  */
 function ISODateToItalianFormat(ISODateString) {
   return `${ISODateString.slice(8, 10)}/${ISODateString.slice(5, 7)}/${ISODateString.slice(0, 4)}`;
@@ -368,8 +420,9 @@ function ISODateToItalianFormat(ISODateString) {
 
 /**
  * Clean a string to use it within filenames and so.
- * @param {*} str the string to clean
- * @param {*} separator separator char
+ * @param {string} str the string to clean
+ * @param {string} separator separator char
+ * @return cleaned string
  */
 function cleanStr(str, separator) {
   return (str || '').toLowerCase().replace(/[^a-zA-Z0-9]+/g, separator || '');
