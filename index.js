@@ -12,8 +12,6 @@ const SES_DEFAULT_SOURCE_NAME = process.env['SES_DEFAULT_SOURCE_NAME'];
 const SES_DEFAULT_SOURCE_ARN = process.env['SES_DEFAULT_SOURCE_ARN'];
 
 const COGNITO_USER_POOL_ID = process.env['COGNITO_USER_POOL_ID'];
-const COGNITO_ACCESS_KEY_ID = process.env['COGNITO_ACCESS_KEY_ID'];
-const COGNITO_SECRET_ACCESS_KEY = process.env['COGNITO_SECRET_ACCESS_KEY'];
 
 const S3_DEFAULT_DOWNLOAD_BUCKET = 'idea-downloads';
 const S3_DEFAULT_DOWNLOAD_BUCKET_PREFIX = 'common';
@@ -221,19 +219,13 @@ function cognitoGetUserByClaims(claims) {
  * Helper function to identify a user by its email address, returning then its attributes.
  * @param {string} email user's email
  * @param {*} cb (err, data) => {}
- * @param {string} accessKeyId of a user w/ permissions in the specified user pool
- * @param {string} secretAccessKey of a user w/ permissions in the specified user pool
  * @param {string} cognitoUserPoolId Cognito user pool
  */
-function cognitoGetUserByEmail(email, cb, accessKeyId, secretAccessKey, cognitoUserPoolId) {
+function cognitoGetUserByEmail(email, cb, cognitoUserPoolId) {
   // read the parameters from env. var or force them
-  accessKeyId = accessKeyId || COGNITO_ACCESS_KEY_ID;
-  secretAccessKey = secretAccessKey || COGNITO_SECRET_ACCESS_KEY;
   cognitoUserPoolId = cognitoUserPoolId || COGNITO_USER_POOL_ID;
   // find the user by the email
-  new AWS.CognitoIdentityServiceProvider({
-    apiVersion: '2016-04-18', accessKeyId: accessKeyId, secretAccessKey: secretAccessKey
-  })
+  new AWS.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' })
   .listUsers({ UserPoolId: cognitoUserPoolId, Filter: `email = "${email}"`, Limit: 1},
   (err, data) => {
     if(err || !data || !data.Users || !data.Users[0]) return cb();
@@ -248,19 +240,13 @@ function cognitoGetUserByEmail(email, cb, accessKeyId, secretAccessKey, cognitoU
  * Helper function to identify a user by its sub, returning then its attributes.
  * @param {string} email user's sub (userId)
  * @param {*} cb (err, data) => {}
- * @param {string} accessKeyId of a user w/ permissions in the specified user pool
- * @param {string} secretAccessKey of a user w/ permissions in the specified user pool
  * @param {string} cognitoUserPoolId Cognito user pool
  */
-function cognitoGetUserBySub(sub, cb, accessKeyId, secretAccessKey, cognitoUserPoolId) {
+function cognitoGetUserBySub(sub, cb, cognitoUserPoolId) {
   // read the parameters from env. var or force them
-  accessKeyId = accessKeyId || COGNITO_ACCESS_KEY_ID;
-  secretAccessKey = secretAccessKey || COGNITO_SECRET_ACCESS_KEY;
   cognitoUserPoolId = cognitoUserPoolId || COGNITO_USER_POOL_ID;
   // find the user by the sub
-  new AWS.CognitoIdentityServiceProvider({
-    apiVersion: '2016-04-18', accessKeyId: accessKeyId, secretAccessKey: secretAccessKey
-  })
+  new AWS.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' })
   .listUsers({ UserPoolId: cognitoUserPoolId, Filter: `sub = "${sub}"`, Limit: 1},
   (err, data) => {
     if(err || !data || !data.Users || !data.Users[0]) return cb();
