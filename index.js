@@ -33,7 +33,7 @@ module.exports = {
 // SNS
   createSNSPushPlatormEndpoint, publishSNSPush,
 // OTHER
-  ISODateToItalianFormat, cleanStr, joinArraysOnKeys
+  ISODateToItalianFormat, cleanStr, joinArraysOnKeys, isEmpty
 }
 
 ///
@@ -466,4 +466,31 @@ function joinArraysOnKeys(mainTable, lookupTable, mainKey, lookupKey, selectFunc
     if(o) output.push(o); // null values returned by the select function are ignored
   }
   return output;
+}
+
+/**
+ * Check if a field (/variable) is empty, based on its type.  
+ * If the type isn't passed as a parameter, it will be auto-detected.
+ * @param {*} field the field to check
+ * @param {*} type (optional, to set to force a type check); enum: string, number, date, boolean
+ */
+function isEmpty(field, type) {
+  if(!field) return true; // null, undefined
+  if(!type) type = typeof field; // try to auto-detect
+  if(!type) return true; // undefined
+  // check emptiness based on the type
+  switch(type) {
+    case 'string': return field.trim().length <= 0;
+    case 'number': return field <= 0;
+    case 'boolean': return !Boolean(field);
+    case 'date':
+    case 'object': {
+      if(field instanceof Date || type == 'date') {
+        let d = new Date(field);
+        return !(d instanceof Date) || isNaN(field);
+      } else if(field instanceof Array) return field.length <= 0;
+      else return true;
+    } 
+    default: return true;
+  }
 }
