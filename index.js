@@ -487,7 +487,7 @@ function isEmpty(field, type) {
     case 'object': {
       if(field instanceof Date || type == 'date') {
         let d = new Date(field);
-        return !(d instanceof Date) || isNaN(field);
+        return Object.prototype.toString.call(d) !== '[object Date]'
       } else if(field instanceof Array) return field.length <= 0;
       else return true;
     } 
