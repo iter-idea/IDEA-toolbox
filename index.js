@@ -22,8 +22,8 @@ const SNS_PUSH_PLATFORM_ARN_ANDROID = process.env['SNS_PUSH_PLATFORM_ARN_ANDROID
 
 module.exports = {
 // DYNAMO
-  ES2N, Obj2N, dynamoBatchOperation, dynamoQueryOverLimit, dynamoScanOverLimit, IUID,
-  getAtomicCounterByKey,
+  ES2N, Obj2N, dynamoBatchOperation, dynamoBatchOp, dynamoQueryOverLimit, dynamoScanOverLimit, 
+  IUID, getAtomicCounterByKey,
 // COGNITO
   cognitoGetUserByClaims, cognitoGetUserByEmail, cognitoGetUserBySub,
 // SES
@@ -88,7 +88,32 @@ function Obj2N(obj, maxDepth, currentDepth) {
  * @param {string} table DynamoDB table on which to operate
  * @param {number} currentChunk Which chunk of operations are considering now (0 at the first call)
  * @param {number} chunkSize Suggested dimension: 25
- * @param {*} doneCb (length) => {} Callback function to call when everything is finished
+ * @param {*} doneCb (err, numOpsExecuted) => {} called when everything's finished or after an error
+ * @param {boolean} ignoreErrors optional; if true, ignore the errors and continue the bulk op.
+ */
+function dynamoBatchOp(dynamo, batchOps, table, currentChunk, chunksSize, doneCb, ignoreErrors) {
+  if(batchOps.length == 0) return doneCb(null, 0);
+  chunksSize = chunksSize || 25;
+  ignoreErrors = Boolean(ignoreErrors); // undefined -> false
+  console.log(`Batch operation on ${table}: ${currentChunk} of ${batchOps.length}`);
+  // prepare the structure for the bulk operation
+  var batch = { RequestItems: {} };
+  // create the chunk
+  batch.RequestItems[table] = batchOps.slice(currentChunk, currentChunk+chunksSize);
+  // execute the bulk operation
+  dynamo.batchWriteItem(batch, err => {
+    if(err && !ignoreErrors) doneCb(err);
+    // if there are still chunks to manage, go on recursively
+    else if(currentChunk+chunksSize < batchOps.length)
+      dynamoBatchOperation(dynamo, batchOps, table, currentChunk+chunksSize, chunksSize, doneCb);
+    // no more chunks to manage: we're done
+    else doneCb(null, batchOps.length);
+  });
+}
+
+/**
+ * !! OLD: use dynamoBatchOp instead! (temporarily kept for compatibility).
+ * NOTE WELL: soon it will be removed.
  */
 function dynamoBatchOperation(dynamo, batchOps, table, currentChunk, chunksSize, doneCb) {
   if(batchOps.length == 0) return doneCb(0);
