@@ -32,8 +32,9 @@ module.exports = {
   downloadThroughS3Url,
 // SNS
   createSNSPushPlatormEndpoint, publishSNSPush,
-// OTHER
-  ISODateToItalianFormat, cleanStr, joinArraysOnKeys, isEmpty
+// UTILITIES
+  ISODateToItalianFormat, cleanStr, joinArraysOnKeys, isEmpty, APIrequest, 
+  saveObjToFile, sequelizeConnectToDB
 }
 
 ///
@@ -444,7 +445,7 @@ function publishSNSPush(message, platform, endpoint, done) {
 }
 
 ///
-/// OTHER
+/// UTILITIES
 ///
 
 /**
@@ -518,4 +519,51 @@ function isEmpty(field, type) {
     } 
     default: return true;
   }
+}
+
+/**
+ * Request wrapper to enable API requests with simplified parameters
+ * @param {*} method enum: HTTP methods
+ * @param {*} options typical requests options (e.g. url, body, headers, etc.)
+ * @return Promise
+ */
+function APIrequest(method, options) {
+  return new Promise((resolve, reject) => {
+    // prepare the parameters and the options
+    method = method.toLowerCase();
+    options.body = options.body ? JSON.stringify(options.body) : null;
+    // execute the request and reject or resolve the promise
+    Request[method](options, (err, data) => {
+      if(err) reject(err);
+      else resolve(JSON.parse(data.body));
+    });
+  });
+}
+
+/**
+ * Save the content of an object to the desired folder (as a log file).
+ * @param {*} name name of the object (== filename)
+ * @param {*} obj the JSON object
+ * @param {*} folder if null, uses the Config.LOGS.FOLDER
+ */
+function saveObjToFile(name, obj, folder) {
+  folder = folder || Config.LOGS.FOLDER;
+  Fs.writeFileSync(`${folder}/${name}.json`, JSON.stringify(obj));
+}
+
+/**
+ * Connect to a db through the usual IDEA's configuration and return a usable Sequelize object.
+ * @param {*} dbConfig { 
+ *  DATABASE: string; PASSWORD: string, HOST: stirng, DIALECT: string, INSTANCE: string 
+ *  LOGGING: string 
+ * }
+ * @return Sequelize object
+ */
+function sequelizeConnectToDB(dbConfig) {
+  return new Sequelize(dbConfig.DATABASE, dbConfig.USERNAME, dbConfig.PASSWORD, {
+    host: dbConfig.HOST, 
+    dialect: dbConfig.DIALECT, 
+    logging: dbConfig.LOGGING,
+    dialectOptions: { instanceName: dbConfig.INSTANCE }
+  });
 }
