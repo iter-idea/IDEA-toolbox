@@ -567,6 +567,10 @@ function sequelizeConnectToDB(dbConfig) {
     host: dbConfig.HOST, 
     dialect: dbConfig.DIALECT, 
     logging: dbConfig.LOGGING,
-    dialectOptions: { instanceName: dbConfig.INSTANCE }
+    operatorsAliases: Sequelize.Op,
+    dialectOptions: { 
+      instanceName: dbConfig.INSTANCE, 
+      encrypt: false
+    }
   });
 }
