@@ -1,6 +1,6 @@
 {
   "name": "idea-toolbox",
-  "version": "0.11.4",
+  "version": "0.11.5",
   "description": "IDEA's utility functions",
   "engines": {
     "node": ">=6.0.0"
@@ -29,8 +29,6 @@
     "aws-sdk": "^2.276.1",
     "nodemailer": "^4.6.5",
     "request": "^2.87.0",
-    "sequelize": "^4.38.0",
-    "tedious": "^2.6.3",
     "uuid": "^3.1.0"
   }
 }

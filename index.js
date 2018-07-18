@@ -6,8 +6,6 @@ const SNS = new AWS.SNS({ apiVersion: '2010-03-31', region: process.env['SNS_PUS
 const UUIDV4 = require('uuid/v4');
 const Nodemailer = require('nodemailer');
 const Fs = require('fs');
-const Sequelize = require('sequelize'); // mssql requires `tedious`
-const Request = require('request');
 
 const SES_DEFAULT_REGION = process.env['SES_DEFAULT_REGION'];
 const SES_DEFAULT_SOURCE = process.env['SES_DEFAULT_SOURCE'];
@@ -36,8 +34,7 @@ module.exports = {
 // SNS
   createSNSPushPlatormEndpoint, publishSNSPush,
 // UTILITIES
-  ISODateToItalianFormat, cleanStr, joinArraysOnKeys, isEmpty, requestToAPI, 
-  saveObjToFile, sequelizeConnectToDB
+  ISODateToItalianFormat, cleanStr, joinArraysOnKeys, isEmpty, requestToAPI, saveObjToFile
 }
 
 ///
@@ -557,25 +554,4 @@ function requestToAPI(method, options, delay) {
 function saveObjToFile(name, obj, folder) {
   folder = folder || Config.LOGS.FOLDER;
   Fs.writeFileSync(`${folder}/${name}.json`, JSON.stringify(obj));
-}
-
-/**
- * Connect to a db through the usual IDEA's configuration and return a usable Sequelize object.
- * @param {*} dbConfig { 
- *  DATABASE: string; PASSWORD: string, HOST: stirng, DIALECT: string, INSTANCE: string 
- *  LOGGING: string 
- * }
- * @return Sequelize object
- */
-function sequelizeConnectToDB(dbConfig) {
-  return new Sequelize(dbConfig.DATABASE, dbConfig.USERNAME, dbConfig.PASSWORD, {
-    host: dbConfig.HOST, 
-    dialect: dbConfig.DIALECT, 
-    logging: dbConfig.LOGGING,
-    operatorsAliases: Sequelize.Op,
-    dialectOptions: { 
-      instanceName: dbConfig.INSTANCE, 
-      encrypt: false
-    }
-  });
 }
