@@ -36,7 +36,7 @@ module.exports = {
 // SNS
   createSNSPushPlatormEndpoint, publishSNSPush,
 // UTILITIES
-  ISODateToItalianFormat, cleanStr, joinArraysOnKeys, isEmpty, APIrequest, 
+  ISODateToItalianFormat, cleanStr, joinArraysOnKeys, isEmpty, requestToAPI, 
   saveObjToFile, sequelizeConnectToDB
 }
 
@@ -526,20 +526,25 @@ function isEmpty(field, type) {
 
 /**
  * Request wrapper to enable API requests with simplified parameters
- * @param {*} method enum: HTTP methods
+ * @param {string} method enum: HTTP methods
  * @param {*} options typical requests options (e.g. url, body, headers, etc.)
+ * @param {number} delay optional; if set, the request is executed after a certain delay (in ms).
+ *  Useful to avoid overwhelming the back-end when the execution isn't time pressured.
  * @return Promise
  */
-function APIrequest(method, options) {
+function requestToAPI(method, options, delay) {
   return new Promise((resolve, reject) => {
-    // prepare the parameters and the options
-    method = method.toLowerCase();
-    options.body = options.body ? JSON.stringify(options.body) : null;
-    // execute the request and reject or resolve the promise
-    Request[method](options, (err, data) => {
-      if(err) reject(err);
-      else resolve(JSON.parse(data.body));
-    });
+    delay = delay || 1; // ms
+    setTimeout(() => {
+      // prepare the parameters and the options
+      method = method.toLowerCase();
+      options.body = options.body ? JSON.stringify(options.body) : null;
+      // execute the request and reject or resolve the promise
+      Request[method](options, (err, data) => {
+        if(err) reject(err);
+        else resolve(JSON.parse(data.body));
+      });
+    }, delay);
   });
 }
 
