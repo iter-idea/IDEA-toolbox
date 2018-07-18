@@ -5,6 +5,9 @@ const S3 = new AWS.S3({ apiVersion: '2006-03-01' });
 const SNS = new AWS.SNS({ apiVersion: '2010-03-31', region: process.env['SNS_PUSH_REGION'] });
 const UUIDV4 = require('uuid/v4');
 const Nodemailer = require('nodemailer');
+const Fs = require('fs');
+const Sequelize = require('sequelize'); // mssql requires `tedious`
+const Request = require('request');
 
 const SES_DEFAULT_REGION = process.env['SES_DEFAULT_REGION'];
 const SES_DEFAULT_SOURCE = process.env['SES_DEFAULT_SOURCE'];
