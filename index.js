@@ -34,8 +34,10 @@ module.exports = {
   downloadThroughS3Url,
 // SNS
   createSNSPushPlatormEndpoint, publishSNSPush,
+// API GATEWAY
+  requestToAPI, requestDoneAPI,
 // UTILITIES
-  ISODateToItalianFormat, cleanStr, joinArraysOnKeys, isEmpty, requestToAPI, saveObjToFile
+  ISODateToItalianFormat, cleanStr, joinArraysOnKeys, isEmpty, saveObjToFile
 }
 
 ///
@@ -446,6 +448,55 @@ function publishSNSPush(message, platform, endpoint, done) {
 }
 
 ///
+/// API GATEWAY
+///
+
+/**
+ * Request wrapper to enable API requests with simplified parameters
+ * @param {string} method enum: HTTP methods
+ * @param {*} options typical requests options (e.g. url, body, headers, etc.)
+ * @param {number} delay optional; if set, the request is executed after a certain delay (in ms).
+ *  Useful to avoid overwhelming the back-end when the execution isn't time pressured.
+ * @return Promise
+ */
+function requestToAPI(method, options, delay) {
+  return new Promise((resolve, reject) => {
+    delay = delay || 1; // ms
+    setTimeout(() => {
+      // prepare the parameters and the options
+      method = method.toLowerCase();
+      options.body = options.body ? JSON.stringify(options.body) : null;
+      options.url = encodeURI(options.url);
+      // execute the request and reject or resolve the promise
+      Request[method](options, (err, res) => {
+        if(err) reject(err)
+        else if(res.statusCode !== 200) reject(`[${res.statusCode}] ${res.body}`);
+        else {
+          try { resolve(JSON.parse(res.body)); } 
+          catch(err) { return reject(err); }
+        }
+      });
+    }, delay);
+  });
+}
+
+/**
+ * Default callback for IDEA's API resource controllers.
+ * @param {*} err if not null, it contains the error raised
+ * @param {*} res if err, the error string, otherwise the result (a JSON to parse)
+ * @param {*} callback the AWS Lambda function callback
+ */
+function requestDoneAPI(err, res, callback) {
+  if(err) console.error(`# DONE WITH ERRORS #`, err);
+  else console.info(`# DONE SUCCESSFULLY #`, res);
+  callback(null, {
+    statusCode: err ? '400' : '200',
+    body: err ?  JSON.stringify(err.message) : JSON.stringify(res),
+    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+  })
+}
+
+///
 /// UTILITIES
 ///
 
@@ -520,35 +571,6 @@ function isEmpty(field, type) {
     } 
     default: return true;
   }
-}
-
-/**
- * Request wrapper to enable API requests with simplified parameters
- * @param {string} method enum: HTTP methods
- * @param {*} options typical requests options (e.g. url, body, headers, etc.)
- * @param {number} delay optional; if set, the request is executed after a certain delay (in ms).
- *  Useful to avoid overwhelming the back-end when the execution isn't time pressured.
- * @return Promise
- */
-function requestToAPI(method, options, delay) {
-  return new Promise((resolve, reject) => {
-    delay = delay || 1; // ms
-    setTimeout(() => {
-      // prepare the parameters and the options
-      method = method.toLowerCase();
-      options.body = options.body ? JSON.stringify(options.body) : null;
-      options.url = encodeURI(options.url);
-      // execute the request and reject or resolve the promise
-      Request[method](options, (err, res) => {
-        if(err) reject(err)
-        else if(res.statusCode !== 200) reject(`[${res.statusCode}] ${res.body}`);
-        else {
-          try { resolve(JSON.parse(res.body)); } 
-          catch(err) { return reject(err); }
-        }
-      });
-    }, delay);
-  });
 }
 
 /**
