@@ -536,10 +536,14 @@ function requestToAPI(method, options, delay) {
       // prepare the parameters and the options
       method = method.toLowerCase();
       options.body = options.body ? JSON.stringify(options.body) : null;
+      options.url = encodeURI(options.url);
       // execute the request and reject or resolve the promise
       Request[method](options, (err, data) => {
         if(err) reject(err);
-        else resolve(JSON.parse(data.body));
+        else {
+          try { resolve(JSON.parse(data.body)); } 
+          catch(err) { return reject(err); }
+        }
       });
     }, delay);
   });
