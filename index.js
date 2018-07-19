@@ -6,6 +6,7 @@ const SNS = new AWS.SNS({ apiVersion: '2010-03-31', region: process.env['SNS_PUS
 const UUIDV4 = require('uuid/v4');
 const Nodemailer = require('nodemailer');
 const Fs = require('fs');
+const Request = require('request');
 
 const SES_DEFAULT_REGION = process.env['SES_DEFAULT_REGION'];
 const SES_DEFAULT_SOURCE = process.env['SES_DEFAULT_SOURCE'];
