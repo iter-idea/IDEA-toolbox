@@ -24,8 +24,8 @@ const SNS_PUSH_PLATFORM_ARN_ANDROID = process.env['SNS_PUSH_PLATFORM_ARN_ANDROID
 
 module.exports = {
 // DYNAMO
-  ES2N, Obj2N, dynamoBatchOperation, dynamoBatchOp, dynamoQueryOverLimit, dynamoScanOverLimit, 
-  IUID, getAtomicCounterByKey,
+  ES2N, Obj2N, dynamoBatchOp, dynamoQueryOverLimit, dynamoScanOverLimit, IUID, 
+  getAtomicCounterByKey,
 // COGNITO
   cognitoGetUserByClaims, cognitoGetUserByEmail, cognitoGetUserBySub,
 // SES
@@ -112,29 +112,6 @@ function dynamoBatchOp(dynamo, batchOps, table, currentChunk, chunksSize, doneCb
       dynamoBatchOperation(dynamo, batchOps, table, currentChunk+chunksSize, chunksSize, doneCb);
     // no more chunks to manage: we're done
     else doneCb(null, batchOps.length);
-  });
-}
-
-/**
- * !! OLD: use dynamoBatchOp instead! (temporarily kept for compatibility).
- * NOTE WELL: soon it will be removed.
- */
-function dynamoBatchOperation(dynamo, batchOps, table, currentChunk, chunksSize, doneCb) {
-  if(batchOps.length == 0) return doneCb(0);
-  chunksSize = chunksSize || 25;
-  console.log(`Batch operation on ${table}: ${currentChunk} of ${batchOps.length}`);
-  // prepare the structure for the bulk operation
-  var batch = { RequestItems: {} };
-  // create the chunk
-  batch.RequestItems[table] = batchOps.slice(currentChunk, currentChunk+chunksSize);
-  // execute the bulk operation
-  dynamo.batchWriteItem(batch, info => {
-    console.log(info);
-    // if there are still chunks to manage, go on recursively
-    if(currentChunk+chunksSize < batchOps.length)
-      dynamoBatchOperation(dynamo, batchOps, table, currentChunk+chunksSize, chunksSize, doneCb);
-    // no more chunks to manage: we're done
-    else doneCb(batchOps.length);
   });
 }
 
