@@ -539,10 +539,11 @@ function requestToAPI(method, options, delay) {
       options.body = options.body ? JSON.stringify(options.body) : null;
       options.url = encodeURI(options.url);
       // execute the request and reject or resolve the promise
-      Request[method](options, (err, data) => {
-        if(err) reject(err);
+      Request[method](options, (err, res) => {
+        if(err) reject(err)
+        else if(res.statusCode !== 200) reject(`[${res.statusCode}] ${res.body}`);
         else {
-          try { resolve(JSON.parse(data.body)); } 
+          try { resolve(JSON.parse(res.body)); } 
           catch(err) { return reject(err); }
         }
       });
