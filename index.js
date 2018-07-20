@@ -1,11 +1,11 @@
 'use strict';
 
+const Fs = require('fs');
 const AWS = require('aws-sdk');
-const S3 = new AWS.S3({ apiVersion: '2006-03-01' });
-const SNS = new AWS.SNS({ apiVersion: '2010-03-31', region: process.env['SNS_PUSH_REGION'] });
+  const S3 = new AWS.S3({ apiVersion: '2006-03-01' });
+  const SNS = new AWS.SNS({ apiVersion: '2010-03-31', region: process.env['SNS_PUSH_REGION'] });
 const UUIDV4 = require('uuid/v4');
 const Nodemailer = require('nodemailer');
-const Fs = require('fs');
 const Request = require('request');
 
 const SES_DEFAULT_REGION = process.env['SES_DEFAULT_REGION'];
@@ -24,8 +24,10 @@ const SNS_PUSH_PLATFORM_ARN_ANDROID = process.env['SNS_PUSH_PLATFORM_ARN_ANDROID
 
 module.exports = {
 // DYNAMO
-  ES2N, Obj2N, dynamoBatchOp, dynamoQueryOverLimit, dynamoScanOverLimit, IUID, 
-  getAtomicCounterByKey,
+  ES2N, Obj2N, IUID, getAtomicCounterByKey, 
+  dynamoGet, dynamoPut, dynamoUpdate, dynamoDelete, 
+  dynamoBatchGet, dynamoBatchPut, dynamoBatchDelete,
+  dynamoQuery, dynamoScan,
 // COGNITO
   cognitoGetUserByClaims, cognitoGetUserByEmail, cognitoGetUserBySub,
 // SES
@@ -36,9 +38,12 @@ module.exports = {
   createSNSPushPlatormEndpoint, publishSNSPush,
 // API GATEWAY
   requestToAPI, requestDoneAPI,
+// CLOUDWATCH
+  logger,
 // UTILITIES
   ISODateToItalianFormat, cleanStr, joinArraysOnKeys, isEmpty, saveObjToFile
 }
+
 
 ///
 /// DYNAMO
@@ -49,7 +54,7 @@ module.exports = {
  * if the string is empty, return null
  * Ref. https://forums.aws.amazon.com/thread.jspa?threadID=90137
  * @param {string} string string to remap
- * @return cleaned string
+ * @return {string} cleaned string
  */
 function ES2N(string) {
   return (!string || string.length == 0) ? null : string;
@@ -59,10 +64,10 @@ function ES2N(string) {
  * Helper to naively solve the empty string / undefined attributes in Dynamo.
  * Disclaimer: it can be really slow, so use it only when necessary
  * (otherwise prefer the quicker ES2N).
- * @param {*} obj obj to remap
+ * @param {any} obj obj to remap
  * @param {number} maxDepth max deepness in which to nest the function.
  * @param {number} currentDepth to skip initial levels, if needed
- * @return cleaned object
+ * @return {any} cleaned object
  */
 function Obj2N(obj, maxDepth, currentDepth) {
   // stop the execution if obj is not an object (if it's a string, works as ES2N)
@@ -85,120 +90,271 @@ function Obj2N(obj, maxDepth, currentDepth) {
 }
 
 /**
- * Recursively insert chunks of items in a dynamoDB table.
- * Note: errors are printed but ignored.
- * @param {*} dynamo The istance of DynamoDB to use
- * @param {*} batchOps The batch operations to execute, in the DynamoDB's batchWriteItems format
- * @param {string} table DynamoDB table on which to operate
- * @param {number} currentChunk Which chunk of operations are considering now (0 at the first call)
- * @param {number} chunkSize Suggested dimension: 25
- * @param {*} doneCb (err, numOpsExecuted) => {} called when everything's finished or after an error
- * @param {boolean} ignoreErrors optional; if true, ignore the errors and continue the bulk op.
- */
-function dynamoBatchOp(dynamo, batchOps, table, currentChunk, chunksSize, doneCb, ignoreErrors) {
-  if(batchOps.length == 0) return doneCb(null, 0);
-  chunksSize = chunksSize || 25;
-  ignoreErrors = Boolean(ignoreErrors); // undefined -> false
-  console.log(`Batch operation on ${table}: ${currentChunk} of ${batchOps.length}`);
-  // prepare the structure for the bulk operation
-  var batch = { RequestItems: {} };
-  // create the chunk
-  batch.RequestItems[table] = batchOps.slice(currentChunk, currentChunk+chunksSize);
-  // execute the bulk operation
-  dynamo.batchWriteItem(batch, err => {
-    if(err && !ignoreErrors) doneCb(err);
-    // if there are still chunks to manage, go on recursively
-    else if(currentChunk+chunksSize < batchOps.length)
-      dynamoBatchOperation(dynamo, batchOps, table, currentChunk+chunksSize, chunksSize, doneCb);
-    // no more chunks to manage: we're done
-    else doneCb(null, batchOps.length);
-  });
-}
-
-/**
- * Function to recursively query a table, avoiding the 1MB limit of DynamoDB
- * @param {*} dynamo The istance of DynamoDB to use
- * @param {*} queryParams The params to apply to DynamoDB's query function
- * @param {*} callback (err, data) => {} Callback function
- * @param {Array<any>} items *Optional*. An array of items to start with.
- */
-function dynamoQueryOverLimit(dynamo, queryParams, callback, items) {
-  items = items || [];
-  dynamo.query(queryParams, (err, data) => {
-    if(err || !data || !data.Items) return callback(err);
-    else items = items.concat(data.Items);
-    if(data.LastEvaluatedKey) {
-      queryParams.ExclusiveStartKey = data.LastEvaluatedKey;
-      dynamoQueryOverLimit(dynamo, queryParams, callback, items);
-    } else callback(null, items);
-  });
-}
-
-/**
- * Helper function to recursively scan a table, avoiding the 1MB limit of DynamoDB
- * @param {*} dynamo The istance of DynamoDB to use
- * @param {*} scanParams The params to apply to DynamoDB's scan function
- * @param {*} callback (err, data) => {} Callback function
- * @param {Array<any>} items *Optional*. An array of items to start with.
- */
-function dynamoScanOverLimit(dynamo, scanParams, callback, items) {
-  items = items || [];
-  dynamo.scan(scanParams, (err, data) => {
-    if(err || !data || !data.Items) return callback(err);
-    else items = items.concat(data.Items);
-    if(data.LastEvaluatedKey) {
-      scanParams.ExclusiveStartKey = data.LastEvaluatedKey;
-      dynamoScanOverLimit(dynamo, scanParams, callback, items)
-    } else callback(null, items);
-  })
-}
-
-/**
  * Returns an IUID: IDEA's Unique IDentifier, which is an id unique through all IDEA's projects.
  * Note: there's no need of an authorization check for extrernal uses: the permissions depend
  * from the context in which it's executed.
+ * @param {any} dynamo the istance of DynamoDB to use
  * @param {string} project the project to use as domain
- * @param {*} cb (id) => {}; if false, id hasn't been correctly generated
+ * @return {Promise<string>} promise
  */
-function IUID(dynamo, project, cb, attempt, maxAttempts) {
-  if(!project) return cb(false);
-  attempt = attempt || 0;
-  maxAttempts = maxAttempts || 3;
-  if(attempt > maxAttempts) return cb(false);
-  let id = UUIDV4();
-  dynamo.getItem({ TableName: 'idea_IUID', Key: { project: project, id: id } },
-  (err, data) => {
-    if(data && data.Item)
-      return IUID(dynamo, project, cb, attempt+1, maxAttempts); // ID exists, try again
-    else dynamo.putItem({ TableName: 'idea_IUID', Item: { project: project, id: id } },
-    (err, data) => {
-      if(err) cb(false);
-      else cb(project+'_'+id);
-    });
+function IUID(dynamo, project, attempt, maxAttempts) {
+  return new Promise((resolve, reject) => {
+    attempt = attempt || 0;
+    maxAttempts = maxAttempts || 3;
+    if(!project || attempt > maxAttempts) reject();
+    else {
+      let id = UUIDV4();
+      dynamoPut(dynamo, { 
+        TableName: 'idea_IUID', 
+        Item: { project: project, id: id },
+        ConditionExpression: 'NOT (project=:project AND id=:id)',
+        ExpressionAttributeValues: { ':project': project, ':id': id }
+      })
+      .then(() => resolve(project+'_'+id))
+      .catch(() => IUID(dynamo, project, attempt+1, maxAttempts)); // ID exists, try again
+    }
   });
 }
 
 /**
  * Manage atomic counters (atomic autoincrement values) in IDEA's projects.
- * They key of an atomic counter should be composed as the following:
- * `DynamoDBTableName_uniqueKey`, where uniqueKey often coincides with the teamId
- * @param {*} dynamo The istance of DynamoDB to use
- * @param {string} key The key of the counter
- * @param {*} cb (counter) => {} Callback function
+ * They key of an atomic counter should be composed as the following: `DynamoDBTableName_uniqueKey`.
+ * @param {any} dynamo the istance of DynamoDB to use
+ * @param {string} key the key of the counter
+ * @return {Promise<number>}
  */
-function getAtomicCounterByKey(dynamo, key, cb) {
-  console.log('Getting atomic counter of', key);
-  let one = 1; // can't assign directly a number
-  dynamo.updateItem({
-    TableName: 'idea_atomicCounters', Key: { key: key },
-    UpdateExpression: 'ADD atomicCounter :increment',
-    ExpressionAttributeValues: { ':increment': one },
-    ReturnValues: 'UPDATED_NEW'
-  }, (err, data) => {
-    if(err) cb(null);
-    else cb(data.Attributes.atomicCounter);
+function getAtomicCounterByKey(dynamo, key) {
+  return new Promise((resolve, reject) => {
+    logger('GET ATOMIC COUNTER', null, key);
+    dynamoUpdate(dynamo, {
+      TableName: 'idea_atomicCounters', Key: { key: key },
+      UpdateExpression: 'ADD atomicCounter :increment',
+      ExpressionAttributeValues: { ':increment': 1 },
+      ReturnValues: 'UPDATED_NEW'
+    })
+    .then(() => resolve(data.Attributes.atomicCounter))
+    .catch(err => reject(err));
   });
 }
+
+/**
+ * Get an item of a DynamoDB table.
+ * @param {any} dynamo The istance of DynamoDB to use
+ * @param {any} params The params to apply to DynamoDB's function
+ * @return {Promise}
+ */
+function dynamoGet(dynamo, params) {
+  return new Promise((resolve, reject) => {
+    dynamo.get(params, (err, data) => {
+      logger('GET', params.IndexName ? `${params.TableName} (${params.IndexName})`
+         : params.TableName, err, data);
+      if(err || !data.Item) reject(err);
+      else resolve(data.Item);
+    });
+  });
+}
+
+/**
+ * Put an item in a DynamoDB table.
+ * @param {any} dynamo The istance of DynamoDB to use
+ * @param {any} params The params to apply to DynamoDB's function
+ * @return {Promise}
+ */
+function dynamoPut(dynamo, params) {
+  return new Promise((resolve, reject) => {
+    dynamo.put(params, (err, data) => {
+      logger('PUT', params.TableName, err, params.Item);
+      if(err) reject(err);
+      else resolve(data);
+    });
+  });
+}
+
+/**
+ * Update an item of a DynamoDB table.
+ * @param {any} dynamo The istance of DynamoDB to use
+ * @param {any} params The params to apply to DynamoDB's function
+ * @return {Promise}
+ */
+function dynamoUpdate(dynamo, params) {
+  return new Promise((resolve, reject) => {
+    dynamo.update(params, (err, data) => {
+      logger('UPDATE', params.TableName, err, data);
+      if(err) reject(err);
+      else resolve(data);
+    });
+  });
+}
+
+/**
+ * Delete an item of a DynamoDB table.
+ * @param {any} dynamo The istance of DynamoDB to use
+ * @param {any} params The params to apply to DynamoDB's function
+ * @return {Promise}
+ */
+function dynamoDelete(dynamo, params) {
+  return new Promise((resolve, reject) => {
+    dynamo.delete(params, (err, data) => {
+      logger('DELETE', params.TableName, err, params.Key);
+      if(err) reject(err);
+      else resolve(data);
+    });
+  });
+}
+
+/**
+ * Get group of items based on their keys from DynamoDb table, 
+ * avoiding the limits of DynamoDB's BatchGetItem.
+ * @param {any} dynamo the istance of DynamoDB to use
+ * @param {string} table DynamoDB table on which to operate
+ * @param {Array<any>} keys the keys of items to get
+ * @param {boolean} ignoreErrors optional; if true, ignore the errors and continue the bulk op.
+ * @return {Promise}
+ */
+function dynamoBatchGet(dynamo, table, keys, ignoreErrors) {
+  return new Promise((resolve, reject) => {
+    if(keys.length == 0) {
+      logger(`BATCH GET`, table, null, `No elements to get`);
+      resolve();
+    } else {
+      ignoreErrors = Boolean(ignoreErrors); // undefined -> fals
+      dynamoBatchGetHelper(dynamo, table, keys, ignoreErrors, 0, 100, resolve, reject);
+    }
+  });
+}
+/**
+ * @private helper
+ */
+function dynamoBatchGetHelper(d, t, keys, iErr, curr, size, resolve, reject) {
+  // prepare the structure for the bulk operation
+  let batch = { RequestItems: {} };
+  batch.RequestItems[t] = keys
+    .slice(curr, curr+size)
+    .map(k => { return { Keys: k } });
+  // execute the bulk operation
+  d.batchGetItem(batch, err => {
+    logger(`BATCH GET`, t, err, `${curr} of ${keys.length}`);
+    if(err && !iErr) reject(err);
+    // if there are still chunks to manage, go on recursively
+    else if(curr+CHUNK_SIZE < keys.length)
+      dynamoBatchGetHelper(d, t, keys, iErr, curr+size, size, resolve, reject);
+    // no more chunks to manage: we're done
+    else resolve();
+  });
+}
+  
+/**
+ * Put an array of items in a DynamoDb table, avoiding the limits of DynamoDB's BatchWriteItem.
+ * @param {*} dynamo the istance of DynamoDB to use
+ * @param {string} table DynamoDB table on which to operate
+ * @param {Array<any>} items the items to put
+ * @param {boolean} ignoreErrors optional; if true, ignore the errors and continue the bulk op.
+ * @return {Promise}
+ */
+function dynamoBatchPut(dynamo, table, items, ignoreErrors) {
+  return new Promise((resolve, reject) => {
+    if(items.length == 0) {
+      logger(`BATCH WRITE`, table, null, `No elements to write`);
+      resolve();
+    } else {
+      ignoreErrors = Boolean(ignoreErrors); // undefined -> false
+      dynamoBatchWriteHelper(dynamo, table, items, true, ignoreErrors, 0, 25, resolve, reject);
+    }
+  });
+}
+/**
+ * Delete an array of items from a DynamoDb table, avoiding the limits of DynamoDB's BatchWriteItem.
+ * @param {*} dynamo the istance of DynamoDB to use
+ * @param {string} table DynamoDB table on which to operate
+ * @param {Array<any>} keys the keys of items to delete
+ * @param {boolean} ignoreErrors optional; if true, ignore the errors and continue the bulk op.
+ * @return {Promise}
+ */
+function dynamoBatchDelete(dynamo, table, keys, ignoreErrors) {
+  return new Promise((resolve, reject) => {
+    if(keys.length == 0) {
+      logger(`BATCH WRITE`, table, null, `No elements to write`);
+      resolve();
+    } else {
+      ignoreErrors = Boolean(ignoreErrors); // undefined -> fals
+      dynamoBatchWriteHelper(dynamo, table, keys, false, ignoreErrors, 0, 25, resolve, reject);
+    }
+  });
+}
+/**
+ * @private helper
+ */
+function dynamoBatchWriteHelper(d, t, items, iErr, isPut, curr, size, resolve, reject) {
+  // prepare the structure for the bulk operation
+  let batch = { RequestItems: {} };
+  if(isPut) {
+    batch.RequestItems[t] = items
+    .slice(curr, curr+size)
+    .map(i => { return { PutRequest: { Item: i } } });
+  } else { // isDelete
+    batch.RequestItems[t] = items
+    .slice(curr, curr+size)
+    .map(k => { return { DeleteRequest: { Key: k } } });
+  }
+  // execute the bulk operation
+  d.batchWriteItem(batch, err => {
+    logger(`BATCH WRITE`, t, err, `${curr} of ${items.length}`);
+    if(err && !iErr) reject(err);
+    // if there are still chunks to manage, go on recursively
+    else if(curr+CHUNK_SIZE < items.length)
+      dynamoBatchWriteHelper(d, t, items, iErr, isPut, curr+size, size, resolve, reject);
+    // no more chunks to manage: we're done
+    else resolve();
+  });
+}
+
+/**
+ * Query a DynamoDb table, avoiding the limits of DynamoDB's Query.
+ * @param {*} dynamo the istance of DynamoDB to use
+ * @param {*} params the params to apply to DynamoDB's function
+ * @param {Array<any>} initialItems optional; an array of items to start with
+ * @return {Promise}
+ */
+function dynamoQuery(dynamo, params, initialItems) {
+  return new Promise((resolve, reject) => {
+    initialItems = initialItems || [];
+    dynamoQueryScanHelper(dynamo, params, initialItems, true, resolve, reject);
+  });
+}
+/**
+ * Scan a DynamoDb table, avoiding the limits of DynamoDB's Query.
+ * @param {*} dynamo the istance of DynamoDB to use
+ * @param {*} params the params to apply to DynamoDB's function
+ * @param {Array<any>} initialItems optional; an array of items to start with
+ * @return {Promise}
+ */
+function dynamoScan(dynamo, params, initialItems) {
+  return new Promise((resolve, reject) => {
+    initialItems = initialItems || [];
+    dynamoQueryScanHelper(dynamo, params, initialItems, false, resolve, reject);
+  });
+}
+/**
+ * @private helper
+ */
+function dynamoQueryScanHelper(dynamo, params, items, isQuery, resolve, reject) {
+  let f = isQuery ? 'query' : 'scan';
+  dynamo[f](params, (err, data) => {
+    if(err || !data || !data.Items) {
+      logger(`SCAN`, table, err, data);
+      return reject(err);
+    }
+    items = items.concat(data.Items);
+    if(data.LastEvaluatedKey) {
+      params.ExclusiveStartKey = data.LastEvaluatedKey;
+      dynamoQueryScanHelper(dynamo, params, items, false, resolve, reject);
+    } else {
+      logger(`SCAN`, table, null, items.length);
+      resolve(items);
+    }
+  });
+}
+
 
 ///
 /// COGNITO
@@ -206,7 +362,7 @@ function getAtomicCounterByKey(dynamo, key, cb) {
 
 /**
  * Helper to get the attributes of the user from the authorizer claims.
- * @param {*} claims Cognito authentication claims after API gateway's integration.
+ * @param {any} claims Cognito authentication claims after API gateway's integration.
  * @return {Array<string>} user's data
  */
 function cognitoGetUserByClaims(claims) {
@@ -224,44 +380,53 @@ function cognitoGetUserByClaims(claims) {
 /**
  * Helper function to identify a user by its email address, returning then its attributes.
  * @param {string} email user's email
- * @param {*} cb (err, data) => {}
- * @param {string} cognitoUserPoolId Cognito user pool
+ * @param {string} cognitoUserPoolId if not specified, use env var COGNITO_USER_POOL_ID
+ * @return {Promise}
  */
-function cognitoGetUserByEmail(email, cb, cognitoUserPoolId) {
+function cognitoGetUserByEmail(email, cognitoUserPoolId) {
+  return new Promise((resolve, reject) => {
   // read the parameters from env. var or force them
-  cognitoUserPoolId = cognitoUserPoolId || COGNITO_USER_POOL_ID;
-  // find the user by the email
-  new AWS.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' })
-  .listUsers({ UserPoolId: cognitoUserPoolId, Filter: `email = "${email}"`, Limit: 1},
-  (err, data) => {
-    if(err || !data || !data.Users || !data.Users[0]) return cb();
-    // convert and return the attributes
-    let userAttributes = [];
-    data.Users[0].Attributes.forEach(a => userAttributes[a.Name] = a.Value);
-    cb(userAttributes);
+    cognitoUserPoolId = cognitoUserPoolId || COGNITO_USER_POOL_ID;
+    // find the user by the email
+    new AWS.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' })
+    .listUsers({ UserPoolId: cognitoUserPoolId, Filter: `email = "${email}"`, Limit: 1},
+    (err, data) => {
+      if(err || !data || !data.Users || !data.Users[0]) reject();
+      else {
+        // convert and return the attributes
+        let userAttributes = [];
+        data.Users[0].Attributes.forEach(a => userAttributes[a.Name] = a.Value);
+        resolve(userAttributes);
+      }
+    });
   });
 }
 
 /**
  * Helper function to identify a user by its sub, returning then its attributes.
  * @param {string} email user's sub (userId)
- * @param {*} cb (err, data) => {}
- * @param {string} cognitoUserPoolId Cognito user pool
+ * @param {string} cognitoUserPoolId if not specified, use env var COGNITO_USER_POOL_ID
+ * @return {Promise}
  */
-function cognitoGetUserBySub(sub, cb, cognitoUserPoolId) {
-  // read the parameters from env. var or force them
-  cognitoUserPoolId = cognitoUserPoolId || COGNITO_USER_POOL_ID;
-  // find the user by the sub
-  new AWS.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' })
-  .listUsers({ UserPoolId: cognitoUserPoolId, Filter: `sub = "${sub}"`, Limit: 1},
-  (err, data) => {
-    if(err || !data || !data.Users || !data.Users[0]) return cb();
-    // convert and return the attributes
-    let userAttributes = [];
-    data.Users[0].Attributes.forEach(a => userAttributes[a.Name] = a.Value);
-    cb(userAttributes);
+function cognitoGetUserBySub(sub, cognitoUserPoolId) {
+  return new Promise((resolve, reject) => {
+    // read the parameters from env. var or force them
+    cognitoUserPoolId = cognitoUserPoolId || COGNITO_USER_POOL_ID;
+    // find the user by the sub
+    new AWS.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' })
+    .listUsers({ UserPoolId: cognitoUserPoolId, Filter: `sub = "${sub}"`, Limit: 1},
+    (err, data) => {
+      if(err || !data || !data.Users || !data.Users[0]) reject();
+      else {
+        // convert and return the attributes
+        let userAttributes = [];
+        data.Users[0].Attributes.forEach(a => userAttributes[a.Name] = a.Value);
+        resolve(userAttributes);
+      }
+    });
   });
 }
+
 
 ///
 /// SES
@@ -269,47 +434,53 @@ function cognitoGetUserBySub(sub, cb, cognitoUserPoolId) {
 
 /**
  * Send an email through AWS Simple Email Service.
- * @param {*} emailData
+ * @param {any} emailData
  *  toAddresses: Array<string>, ccAddresses?: Array<string>, bccAddresses?: Array<string>,
  *  replyToAddresses: Array<string>, subject: string, html?: string, text?: string,
  *  attachments?: Array<any> (https://community.nodemailer.com/using-attachments/)
- * @param {*} cb (err, data) => {}
- * @param {*} sesParams (optional) region, source, sourceName, sourceArn
+ * @param {any} sesParams optional; region, source, sourceName, sourceArn
+ * @return {Promise}
  */
-function sesSendEmail(emailData, cb, sesParams) {
-  // default SES parameters
-  if(!sesParams) sesParams = {};
-  sesParams.region = sesParams.region || SES_DEFAULT_REGION;
-  sesParams.source = sesParams.source || SES_DEFAULT_SOURCE;
-  sesParams.sourceName = sesParams.sourceName || SES_DEFAULT_SOURCE_NAME;
-  sesParams.sourceArn = sesParams.sourceArn || SES_DEFAULT_SOURCE_ARN;
-  // prepare SES email data
-  let sesData = {};
-  sesData.Destination = {};
-  if(emailData.toAddresses) sesData.Destination.ToAddresses = emailData.toAddresses;
-  if(emailData.ccAddresses) sesData.Destination.CcAddresses = emailData.ccAddresses;
-  if(emailData.bccAddresses) sesData.Destination.BccAddresses = emailData.bccAddresses;
-  sesData.Message = {};
-  if(emailData.subject) sesData.Message.Subject = { Charset: 'UTF-8', Data: emailData.subject };
-  sesData.Message.Body = {};
-  if(emailData.html) sesData.Message.Body.Html = { Charset: 'UTF-8', Data: emailData.html };
-  if(emailData.text) sesData.Message.Body.Text = { Charset: 'UTF-8', Data: emailData.text };
-  if(!emailData.html && !emailData.text) sesData.Message.Body.Text = { Charset: 'UTF-8', Data: '' };
-  sesData.ReplyToAddresses = emailData.replyToAddresses;
-  sesData.Source = `${sesParams.sourceName} <${sesParams.source}>`;
-  sesData.SourceArn = sesParams.sourceArn;
-  let ses = new AWS.SES({ region: sesParams.region });
-  // send email
-  if(emailData.attachments && emailData.attachments.length) {
-    // including attachments, through Nodemailer
-    console.log('SES send email w/ attachments (Nodemailer)',
-      sesParams, sesData, emailData.attachments);
-    sesSendEmailThroughNodemailer(ses, sesData, emailData.attachments, cb);
-  } else {
-    // classic way, through SES
-    console.log('SES send email', sesParams, sesData);
-    ses.sendEmail(sesData, (err, data) => { cb(err, data); });
-  }
+function sesSendEmail(emailData, sesParams) {
+  return new Promise((resolve, reject) => {
+    // default SES parameters
+    if(!sesParams) sesParams = {};
+    sesParams.region = sesParams.region || SES_DEFAULT_REGION;
+    sesParams.source = sesParams.source || SES_DEFAULT_SOURCE;
+    sesParams.sourceName = sesParams.sourceName || SES_DEFAULT_SOURCE_NAME;
+    sesParams.sourceArn = sesParams.sourceArn || SES_DEFAULT_SOURCE_ARN;
+    // prepare SES email data
+    let sesData = {};
+    sesData.Destination = {};
+    if(emailData.toAddresses) sesData.Destination.ToAddresses = emailData.toAddresses;
+    if(emailData.ccAddresses) sesData.Destination.CcAddresses = emailData.ccAddresses;
+    if(emailData.bccAddresses) sesData.Destination.BccAddresses = emailData.bccAddresses;
+    sesData.Message = {};
+    if(emailData.subject) sesData.Message.Subject = { Charset: 'UTF-8', Data: emailData.subject };
+    sesData.Message.Body = {};
+    if(emailData.html) sesData.Message.Body.Html = { Charset: 'UTF-8', Data: emailData.html };
+    if(emailData.text) sesData.Message.Body.Text = { Charset: 'UTF-8', Data: emailData.text };
+    if(!emailData.html && !emailData.text) sesData.Message.Body.Text = { Charset: 'UTF-8', Data: '' };
+    sesData.ReplyToAddresses = emailData.replyToAddresses;
+    sesData.Source = `${sesParams.sourceName} <${sesParams.source}>`;
+    sesData.SourceArn = sesParams.sourceArn;
+    let ses = new AWS.SES({ region: sesParams.region });
+    // send email
+    if(emailData.attachments && emailData.attachments.length) {
+      // including attachments, through Nodemailer
+      sesSendEmailThroughNodemailer(ses, sesData, emailData.attachments)
+      .then(res => resolve(res))
+      .catch(err => reject(err));
+    } else {
+      // classic way, through SES
+      logger('SES SEND EMAIL', null, sesData);
+      ses.sendEmail(sesData, (err, data) => { 
+        logger('SES SEND EMAIL', err, data);
+        if(err) reject(err);
+        else resolve(data); 
+      });
+    }
+  });
 }
 /**
  * Helper function to send an email with attachments through Nodemailer;
@@ -317,26 +488,33 @@ function sesSendEmail(emailData, cb, sesParams) {
  * @param {*} ses SES instance
  * @param {*} sesData SES data and params
  * @param {*} attachments array of attachments to send
- * @param {*} cb (err, data) => {}
+ * @return {Promise}
  */
-function sesSendEmailThroughNodemailer(ses, sesData, attachments, cb) {
-  // set the mail options in Nodemailer's format
-  let mailOptions = {};
-  mailOptions.from = sesData.Source;
-  mailOptions.to = sesData.Destination.ToAddresses.join(',');
-  if(sesData.Message.Body.cc) mailOptions.cc = sesData.Destination.CcAddresses.join(',');
-  if(sesData.Message.Body.bcc) mailOptions.bcc = sesData.Destination.BccAddresses.join(',');
-  if(sesData.Message.Body.ReplyToAddresses)
-    mailOptions.replyTo = sesData.ReplyToAddresses.join(',');
-  mailOptions.subject = sesData.Message.Subject.Data;
-  if(sesData.Message.Body.Html) mailOptions.html = sesData.Message.Body.Html.Data;
-  if(sesData.Message.Body.Text) mailOptions.text = sesData.Message.Body.Text.Data;
-  mailOptions.attachments = attachments;
-  // create Nodemailer SES transporter
-  let transporter = Nodemailer.createTransport({ SES: ses });
-  // send the email
-  transporter.sendMail(mailOptions, (err, data) => { cb(err, data); });
+function sesSendEmailThroughNodemailer(ses, sesData, attachments) {
+  return new Promise((resolve, reject) => {
+    // set the mail options in Nodemailer's format
+    let mailOptions = {};
+    mailOptions.from = sesData.Source;
+    mailOptions.to = sesData.Destination.ToAddresses.join(',');
+    if(sesData.Message.Body.cc) mailOptions.cc = sesData.Destination.CcAddresses.join(',');
+    if(sesData.Message.Body.bcc) mailOptions.bcc = sesData.Destination.BccAddresses.join(',');
+    if(sesData.Message.Body.ReplyToAddresses)
+      mailOptions.replyTo = sesData.ReplyToAddresses.join(',');
+    mailOptions.subject = sesData.Message.Subject.Data;
+    if(sesData.Message.Body.Html) mailOptions.html = sesData.Message.Body.Html.Data;
+    if(sesData.Message.Body.Text) mailOptions.text = sesData.Message.Body.Text.Data;
+    mailOptions.attachments = attachments;
+    // create Nodemailer SES transporter
+    let transporter = Nodemailer.createTransport({ SES: ses });
+    // send the email
+    transporter.sendMail(mailOptions, (err, data) => { 
+      logger('SES SEND EMAIL (NODEMAILER)', err, data);
+      if(err) reject(err);
+      else resolve(data); 
+    });
+  });
 }
+
 
 ///
 /// S3
@@ -348,27 +526,26 @@ function sesSendEmailThroughNodemailer(ses, sesData, attachments, cb) {
  * it generates a signed url, returning it.
  * @param {string} prefix a folder in which to put all the files of the same kind
  * @param {string} key the unique filepath
- * @param {*} dataToUpload usually a buffer
+ * @param {any} dataToUpload usually a buffer
  * @param {string} contentType e.g. application/json
- * @param {*} cb (err, url) => {}
- * @param {string} bucket (optional) an alternative Downloads bucket to the default one
- * @param {number} secToExp (optional), seconds to url expiration
+ * @param {string} bucket optional; an alternative Downloads bucket to the default one
+ * @param {number} secToExp optional; seconds to url expiration
+ * @return {Promise}
  */
-function downloadThroughS3Url(prefix, key, dataToUpload, contentType, cb, bucket, secToExp) {
-  key = `${prefix || S3_DEFAULT_DOWNLOAD_BUCKET_PREFIX}/${key}`;
-  bucket = bucket || S3_DEFAULT_DOWNLOAD_BUCKET;
-  secToExp = secToExp || S3_DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP;
-  S3.upload({ Bucket: bucket, Key: key, Body: dataToUpload, ContentType: contentType },
-  (err, data) => {
-    console.log('Uploading file on S3...', err, data);
-    if(err) cb(err);
-    else {
-      const url = S3.getSignedUrl('getObject', { Bucket: bucket, Key: key, Expires: secToExp });
-      console.log('Generated signed url', url);
-      cb(null, url);
-    }
+function downloadThroughS3Url(prefix, key, dataToUpload, contentType, bucket, secToExp) {
+  return new Promise((resolve, reject) => {
+    key = `${prefix || S3_DEFAULT_DOWNLOAD_BUCKET_PREFIX}/${key}`;
+    bucket = bucket || S3_DEFAULT_DOWNLOAD_BUCKET;
+    secToExp = secToExp || S3_DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP;
+    S3.upload({ Bucket: bucket, Key: key, Body: dataToUpload, ContentType: contentType },
+    (err, data) => {
+      logger('S3 UPLOAD', err, data);
+      if(err) reject(err);
+      else resolve(S3.getSignedUrl('getObject', { Bucket: bucket, Key: key, Expires: secToExp }));
+    });
   });
 }
+
 
 ///
 /// SNS
@@ -378,22 +555,24 @@ function downloadThroughS3Url(prefix, key, dataToUpload, contentType, cb, bucket
  * Create a new endpoint in the SNS platform specified.
  * @param {string} platform enum: APNS, FCM
  * @param {string} deviceId registrationId
- * @param {*} done cb(err, data) => {}
+ * @return {Promise}
  */
-function createSNSPushPlatormEndpoint(platform, deviceId, done) {
-  let platformARN;
-  // identify the platform ARN
-  switch(platform) {
-    case 'APNS': platformARN = SNS_PUSH_PLATFORM_ARN_IOS; break;
-    case 'FCM': platformARN = SNS_PUSH_PLATFORM_ARN_ANDROID; break;
-    default: return done(new Error());
-  }
-  // create a new endpoint in the platform
-  SNS.createPlatformEndpoint({ PlatformApplicationArn: platformARN, Token: deviceId },
-  (err, data) => {
-    console.log('Creating SNS platform endpoint', platformARN, err, data);
-    if(err || !data.EndpointArn) done(err || new Error());
-    else done(null, data.EndpointArn);
+function createSNSPushPlatormEndpoint(platform, deviceId) {
+  return new Promise((resolve, reject) => {
+    let platformARN;
+    // identify the platform ARN
+    switch(platform) {
+      case 'APNS': platformARN = SNS_PUSH_PLATFORM_ARN_IOS; break;
+      case 'FCM': platformARN = SNS_PUSH_PLATFORM_ARN_ANDROID; break;
+      default: return reject(new Error(`UNSUPPORTED_PLATFORM`));
+    }
+    // create a new endpoint in the platform
+    SNS.createPlatformEndpoint({ PlatformApplicationArn: platformARN, Token: deviceId },
+    (err, data) => {
+      logger('SNS ADD PLATFORM ENDPOINT', err, data);
+      if(err || !data.EndpointArn) reject(err);
+      else resolve(data.EndpointArn);
+    });
   });
 }
 
@@ -402,27 +581,30 @@ function createSNSPushPlatormEndpoint(platform, deviceId, done) {
  * @param {string} message the message to send
  * @param {string} platform enum: APNS, FCM
  * @param {string} endpoint endpoint to a specific device
- * @param {*} done cb(err, data) => {}
+ * @return {Promise}
  */
-function publishSNSPush(message, platform, endpoint, done) {
-  if(!done) done = () => {};
-  let structuredMessage;
-  switch(platform) {
-    case 'APNS':
-      structuredMessage = { APNS: JSON.stringify({ aps: { alert: message } }) };
-    break;
-    case 'FCM':
-      structuredMessage = { GCM: JSON.stringify({ data: { message: message } }) };
-    break;
-    default: return done(new Error());
-  }
-  SNS.publish({
-    MessageStructure: 'json', Message: JSON.stringify(structuredMessage), TargetArn: endpoint
-  }, (err, data) => {
-    console.log('Sending push notification', endpoint, err, data);
-    done(err, data);
+function publishSNSPush(message, platform, endpoint) {
+  return new Promise((resolve, reject) => {
+    let structuredMessage;
+    switch(platform) {
+      case 'APNS':
+        structuredMessage = { APNS: JSON.stringify({ aps: { alert: message } }) };
+      break;
+      case 'FCM':
+        structuredMessage = { GCM: JSON.stringify({ data: { message: message } }) };
+      break;
+      default: return reject(new Error(`UNSUPPORTED_PLATFORM`));
+    }
+    SNS.publish({
+      MessageStructure: 'json', Message: JSON.stringify(structuredMessage), TargetArn: endpoint
+    }, (err, data) => {
+      logger('SNS PUSH NOTIFICATION', err, data);
+      if(err) reject(err);
+      else resolve(data);
+    });
   });
 }
+
 
 ///
 /// API GATEWAY
@@ -431,10 +613,10 @@ function publishSNSPush(message, platform, endpoint, done) {
 /**
  * Request wrapper to enable API requests with simplified parameters
  * @param {string} method enum: HTTP methods
- * @param {*} options typical requests options (e.g. url, body, headers, etc.)
+ * @param {any} options typical requests options (e.g. url, body, headers, etc.)
  * @param {number} delay optional; if set, the request is executed after a certain delay (in ms).
  *  Useful to avoid overwhelming the back-end when the execution isn't time pressured.
- * @return Promise
+ * @return {Promise}
  */
 function requestToAPI(method, options, delay) {
   return new Promise((resolve, reject) => {
@@ -449,7 +631,7 @@ function requestToAPI(method, options, delay) {
         if(err) reject(err)
         else if(res.statusCode !== 200) reject(`[${res.statusCode}] ${res.body}`);
         else {
-          try { resolve(JSON.parse(res.body)); } 
+          try { resolve(JSON.parse(res.body)); }
           catch(err) { return reject(err); }
         }
       });
@@ -459,19 +641,38 @@ function requestToAPI(method, options, delay) {
 
 /**
  * Default callback for IDEA's API resource controllers.
- * @param {*} err if not null, it contains the error raised
- * @param {*} res if err, the error string, otherwise the result (a JSON to parse)
- * @param {*} callback the AWS Lambda function callback
+ * @param {Error | any} err if not null, it contains the error raised
+ * @param {any} res if err, the error string, otherwise the result (a JSON to parse)
+ * @param {any} callback the AWS Lambda function callback
  */
 function requestDoneAPI(err, res, callback) {
-  if(err) console.error(`# DONE WITH ERRORS #`, err);
-  else console.info(`# DONE SUCCESSFULLY #`, res);
+  logger(`[DONE]`, err, res);
   callback(null, {
     statusCode: err ? '400' : '200',
     body: err ?  JSON.stringify(err.message) : JSON.stringify(res),
     headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
   })
 }
+
+
+///
+/// CLOUDWATCH
+///
+
+/**
+ * Add a formatted log in CloudWatch.
+ * @param {string} context context in which the content apply
+ * @param {Error | any} err error
+ * @param {string} content the content to log
+ * @param {boolean} important optional; if true, highlight the line in CloudWatch
+ */
+function logger(context, err, content, important) {
+  context = context || '';
+  if(err) console.error('[ERROR]', context, '≫', err, content);
+  else if(important) console.log('[!! IMPORTANT !!]', context, '≫', content);
+  else console.log('\t', context, '≫', content); // to give less importance to debug info
+}
+
 
 ///
 /// UTILITIES
@@ -524,10 +725,10 @@ function joinArraysOnKeys(mainTable, lookupTable, mainKey, lookupKey, selectFunc
 }
 
 /**
- * Check if a field (/variable) is empty, based on its type.  
+ * Check if a field (/variable) is empty, based on its type.
  * If the type isn't passed as a parameter, it will be auto-detected.
- * @param {*} field the field to check
- * @param {*} type (optional, to set to force a type check); enum: string, number, date, boolean
+ * @param {any} field the field to check
+ * @param {string} type optional; to set to force a type check; enum: string, number, date, boolean
  */
 function isEmpty(field, type) {
   if(!field) return true; // null, undefined
@@ -545,16 +746,16 @@ function isEmpty(field, type) {
         return Object.prototype.toString.call(d) !== '[object Date]'
       } else if(field instanceof Array) return field.length <= 0;
       else return true;
-    } 
+    }
     default: return true;
   }
 }
 
 /**
  * Save the content of an object to the desired folder (as a log file).
- * @param {*} name name of the object (== filename)
- * @param {*} obj the JSON object
- * @param {*} folder if null, uses the Config.LOGS.FOLDER
+ * @param {string} name name of the object (== filename)
+ * @param {any} obj the JSON object
+ * @param {string} folder if null, uses the Config.LOGS.FOLDER
  */
 function saveObjToFile(name, obj, folder) {
   folder = folder || Config.LOGS.FOLDER;
