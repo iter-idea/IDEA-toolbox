@@ -18,9 +18,11 @@ declare namespace Idea {
   export function dynamoQuery(dynamo: any, params: any, initialItems?: Array<any>): Promise<any>;
 	export function dynamoScan(dynamo: any, params: any, initialItems?: Array<any>): Promise<any>;
 // COGNITO
-  export function cognitoGetUserByClaims(claims: any): string;
-	export function cognitoGetUserByEmail(email: string, cognitoUserPoolId?: string): Promise<any>;
-	export function cognitoGetUserBySub(sub: string, cognitoUserPoolId?: string): Promise<any>;
+  export function cognitoGetUserByClaims(claims: any): Array<string>;
+  export function cognitoGetUserByEmail(email: string, 
+    cognitoUserPoolId?: string): Promise<Array<string>>;
+  export function cognitoGetUserBySub(sub: string, 
+    cognitoUserPoolId?: string): Promise<Array<string>>;
 // SES
   export function sesSendEmail(emailData: any, sesParams?: any): Promise<any>;
 // S3
