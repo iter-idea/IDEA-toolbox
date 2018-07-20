@@ -363,7 +363,7 @@ function dynamoQueryScanHelper(dynamo, params, items, isQuery, resolve, reject) 
 /**
  * Helper to get the attributes of the user from the authorizer claims.
  * @param {any} claims Cognito authentication claims after API gateway's integration.
- * @return {Array<string>} user's data
+ * @return {any} user's data
  */
 function cognitoGetUserByClaims(claims) {
   let user = {};
