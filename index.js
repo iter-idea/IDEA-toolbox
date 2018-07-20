@@ -146,8 +146,8 @@ function getAtomicCounterByKey(dynamo, key) {
 function dynamoGet(dynamo, params) {
   return new Promise((resolve, reject) => {
     dynamo.get(params, (err, data) => {
-      logger('GET', params.IndexName ? `${params.TableName} (${params.IndexName})`
-         : params.TableName, err, data);
+      logger(`GET ${params.IndexName ? `${params.TableName} (${params.IndexName})`
+        : params.TableName}`, err, data);
       if(err || !data.Item) reject(err);
       else resolve(data.Item);
     });
@@ -163,7 +163,7 @@ function dynamoGet(dynamo, params) {
 function dynamoPut(dynamo, params) {
   return new Promise((resolve, reject) => {
     dynamo.put(params, (err, data) => {
-      logger('PUT', params.TableName, err, params.Item);
+      logger(`PUT ${params.TableName}`, err, params.Item);
       if(err) reject(err);
       else resolve(data);
     });
@@ -179,7 +179,7 @@ function dynamoPut(dynamo, params) {
 function dynamoUpdate(dynamo, params) {
   return new Promise((resolve, reject) => {
     dynamo.update(params, (err, data) => {
-      logger('UPDATE', params.TableName, err, data);
+      logger(`UPDATE ${params.TableName}`, err, data);
       if(err) reject(err);
       else resolve(data);
     });
@@ -195,7 +195,7 @@ function dynamoUpdate(dynamo, params) {
 function dynamoDelete(dynamo, params) {
   return new Promise((resolve, reject) => {
     dynamo.delete(params, (err, data) => {
-      logger('DELETE', params.TableName, err, params.Key);
+      logger(`DELETE ${params.TableName}`, err, params.Key);
       if(err) reject(err);
       else resolve(data);
     });
@@ -214,7 +214,7 @@ function dynamoDelete(dynamo, params) {
 function dynamoBatchGet(dynamo, table, keys, ignoreErrors) {
   return new Promise((resolve, reject) => {
     if(keys.length == 0) {
-      logger(`BATCH GET`, table, null, `No elements to get`);
+      logger(`BATCH GET ${table}`, null, `No elements to get`);
       resolve();
     } else {
       ignoreErrors = Boolean(ignoreErrors); // undefined -> fals
@@ -233,7 +233,7 @@ function dynamoBatchGetHelper(d, t, keys, iErr, curr, size, resolve, reject) {
     .map(k => { return { Keys: k } });
   // execute the bulk operation
   d.batchGetItem(batch, err => {
-    logger(`BATCH GET`, t, err, `${curr} of ${keys.length}`);
+    logger(`BATCH GET ${t}`, err, `${curr} of ${keys.length}`);
     if(err && !iErr) reject(err);
     // if there are still chunks to manage, go on recursively
     else if(curr+CHUNK_SIZE < keys.length)
@@ -254,7 +254,7 @@ function dynamoBatchGetHelper(d, t, keys, iErr, curr, size, resolve, reject) {
 function dynamoBatchPut(dynamo, table, items, ignoreErrors) {
   return new Promise((resolve, reject) => {
     if(items.length == 0) {
-      logger(`BATCH WRITE`, table, null, `No elements to write`);
+      logger(`BATCH WRITE ${table}`, null, `No elements to write`);
       resolve();
     } else {
       ignoreErrors = Boolean(ignoreErrors); // undefined -> false
@@ -273,7 +273,7 @@ function dynamoBatchPut(dynamo, table, items, ignoreErrors) {
 function dynamoBatchDelete(dynamo, table, keys, ignoreErrors) {
   return new Promise((resolve, reject) => {
     if(keys.length == 0) {
-      logger(`BATCH WRITE`, table, null, `No elements to write`);
+      logger(`BATCH WRITE ${table}`, null, `No elements to write`);
       resolve();
     } else {
       ignoreErrors = Boolean(ignoreErrors); // undefined -> fals
@@ -298,7 +298,7 @@ function dynamoBatchWriteHelper(d, t, items, iErr, isPut, curr, size, resolve, r
   }
   // execute the bulk operation
   d.batchWriteItem(batch, err => {
-    logger(`BATCH WRITE`, t, err, `${curr} of ${items.length}`);
+    logger(`BATCH WRITE ${t}`, err, `${curr} of ${items.length}`);
     if(err && !iErr) reject(err);
     // if there are still chunks to manage, go on recursively
     else if(curr+CHUNK_SIZE < items.length)
@@ -341,7 +341,7 @@ function dynamoQueryScanHelper(dynamo, params, items, isQuery, resolve, reject) 
   let f = isQuery ? 'query' : 'scan';
   dynamo[f](params, (err, data) => {
     if(err || !data || !data.Items) {
-      logger(`SCAN`, table, err, data);
+      logger(`SCAN ${table}`, err, data);
       return reject(err);
     }
     items = items.concat(data.Items);
@@ -349,7 +349,7 @@ function dynamoQueryScanHelper(dynamo, params, items, isQuery, resolve, reject) 
       params.ExclusiveStartKey = data.LastEvaluatedKey;
       dynamoQueryScanHelper(dynamo, params, items, false, resolve, reject);
     } else {
-      logger(`SCAN`, table, null, items.length);
+      logger(`SCAN ${table}` , null, items.length);
       resolve(items);
     }
   });
@@ -473,7 +473,6 @@ function sesSendEmail(emailData, sesParams) {
       .catch(err => reject(err));
     } else {
       // classic way, through SES
-      logger('SES SEND EMAIL', null, sesData);
       ses.sendEmail(sesData, (err, data) => { 
         logger('SES SEND EMAIL', err, data);
         if(err) reject(err);
