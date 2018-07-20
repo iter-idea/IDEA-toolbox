@@ -645,7 +645,7 @@ function requestToAPI(method, options, delay) {
  * @param {any} callback the AWS Lambda function callback
  */
 function requestDoneAPI(err, res, callback) {
-  logger(`[DONE]`, err, res);
+  logger(`DONE`, err, res, true);
   callback(null, {
     statusCode: err ? '400' : '200',
     body: err ?  JSON.stringify(err.message) : JSON.stringify(res),
@@ -668,8 +668,8 @@ function requestDoneAPI(err, res, callback) {
 function logger(context, err, content, important) {
   context = context || '';
   if(err) console.error('[ERROR]', context, '≫', err, content);
-  else if(important) console.log('[!! IMPORTANT !!]', context, '≫', content);
-  else console.log('\t', context, '≫', content); // to give less importance to debug info
+  else if(important) console.log(`[${context}]`, content);
+  else console.log('.....', context, '≫', content); // to give less importance to debug info
 }
 
 
