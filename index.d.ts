@@ -31,7 +31,10 @@ declare namespace Idea {
 	export function publishSNSPush(message: string, platform: string, endpoint: string): Promise<any>;
 // API GATEWAY
   export function requestToAPI(method: string, options: any, delay?: number): Promise<any>;
-	export function requestDoneAPI(err: Error | any, res: any, callback: any);
+  export function requestDoneAPI(err: Error | any, res: any, callback: any);
+  export interface APIRequestParams {
+    claims: any; principalId: string; body: any; queryParams: any; resourceId: string; tables: any;
+  };
 // CLOUDWATCH
   export function logger(context: string, err: Error | any, content?: string, important?: boolean);
 // UTILITIES
@@ -40,6 +43,6 @@ declare namespace Idea {
   export function joinArraysOnKeys(mainTable: Array<any>, lookupTable: Array<any>, 
     mainKey: string, lookupKey: string, selectFunction: any): Array<any>;
 	export function isEmpty(field: any, type?: string): boolean;
-	export function saveObjToFile(name: string, obj: any, folder?: string);
+  export function saveObjToFile(name: string, obj: any, folder?: string);
 }
 export = Idea;
