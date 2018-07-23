@@ -75,6 +75,7 @@ export abstract class ResourceController {
         case 'POST': request = this.postResource(); break;
         case 'PUT': request = this.putResource(); break;
         case 'DELETE': request = this.deleteResource(); break;
+        case 'PATCH': request = this.patchResource(); break;
         case 'HEAD': request = this.headResource(); break;
         default: /* nope */;
       } else switch(this.httpMethod) {
@@ -83,6 +84,7 @@ export abstract class ResourceController {
         case 'POST': request = this.postResources(); break;
         case 'PUT': request = this.putResources(); break;
         case 'DELETE': request = this.deleteResources(); break;
+        case 'PATCH': request = this.patchResources(); break;
         case 'HEAD': request = this.headResources(); break;
         default: /* nope */;
       }
@@ -173,6 +175,18 @@ export abstract class ResourceController {
    * To @override
    */
   protected putResources(): Promise<any> {
+    return new Promise((resolve, reject) => reject(new Error(`E.COMMON.UNSUPPORTED_ACTION`)));
+  };
+  /**
+   * To @override
+   */
+  protected patchResource(): Promise<any> {
+    return new Promise((resolve, reject) => reject(new Error(`E.COMMON.UNSUPPORTED_ACTION`)));
+  };
+  /**
+   * To @override
+   */
+  protected patchResources(): Promise<any> {
     return new Promise((resolve, reject) => reject(new Error(`E.COMMON.UNSUPPORTED_ACTION`)));
   };
   /**
