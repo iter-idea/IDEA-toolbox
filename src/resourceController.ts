@@ -44,7 +44,7 @@ export abstract class ResourceController {
 
     this.callback = callback;
     
-    this.authorization = event.Authorization;
+    this.authorization = event.headers.Authorization;
     this.claims = event.requestContext.authorizer ? event.requestContext.authorizer.claims : null;
     this.principalId = this.claims ? this.claims.sub : null;
     
