@@ -13,6 +13,7 @@ import { Utils } from './utils';
 export abstract class ResourceController {
   protected callback: any;
 
+  protected authorization: string;
   protected claims: any;
   protected principalId: string;
 
@@ -43,6 +44,7 @@ export abstract class ResourceController {
 
     this.callback = callback;
     
+    this.authorization = event.Authorization;
     this.claims = event.requestContext.authorizer ? event.requestContext.authorizer.claims : null;
     this.principalId = this.claims ? this.claims.sub : null;
     
