@@ -61,33 +61,33 @@ export abstract class ResourceController {
 /// REQUEST HANDLERS
 ///
 
-  public handleRequest(): void {
+  public handleRequest = (): void => {
     // check the authorizations and prepare the API request
     this.checkAuthBeforeRequest()
     .then(() => {
       let request;
       if(this.resourceId) switch(this.httpMethod) {
         // resource/{resourceId}
-        case 'GET': request = this.getResource; break;
-        case 'POST': request = this.postResource; break;
-        case 'PUT': request = this.putResource; break;
-        case 'DELETE': request = this.deleteResource; break;
-        case 'HEAD': request = this.headResource; break;
+        case 'GET': request = this.getResource(); break;
+        case 'POST': request = this.postResource(); break;
+        case 'PUT': request = this.putResource(); break;
+        case 'DELETE': request = this.deleteResource(); break;
+        case 'HEAD': request = this.headResource(); break;
         default: /* nope */;
       } else switch(this.httpMethod) {
         // resource
-        case 'GET': request = this.getResources; break;
-        case 'POST': request = this.postResources; break;
-        case 'PUT': request = this.putResources; break;
-        case 'DELETE': request = this.deleteResources; break;
-        case 'HEAD': request = this.headResources; break;
+        case 'GET': request = this.getResources(); break;
+        case 'POST': request = this.postResources(); break;
+        case 'PUT': request = this.putResources(); break;
+        case 'DELETE': request = this.deleteResources(); break;
+        case 'HEAD': request = this.headResources(); break;
         default: /* nope */;
       }
       // execute the API request
       if(!request) this.done(new Error(`E.COMMON.UNSUPPORTED_ACTION`));
       else {
         this.utils.logger('REQUEST', null, this.httpMethod, true);
-        request()
+        request
         .then((res: any) => this.done(null, res))
         .catch((err: Error) => this.done(err));
       }
