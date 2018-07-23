@@ -38,8 +38,9 @@ export abstract class ResourceController {
    * @param callback the callback to resolve or reject the execution
    * @param project the name of the project
    * @param tables optional; the DynamoDB tables involved
+   * @param resourceId optional; if set, the resourceId is chosen instead of proxy+ (default)
    */
-  constructor(event: any, callback: any, project: string, tables?: string) {
+  constructor(event: any, callback: any, project: string, tables?: string, resourceId?: string) {
     this.utils.logger('START', null, event, true);
 
     this.callback = callback;
@@ -47,10 +48,10 @@ export abstract class ResourceController {
     this.authorization = event.headers.Authorization;
     this.claims = event.requestContext.authorizer ? event.requestContext.authorizer.claims : null;
     this.principalId = this.claims ? this.claims.sub : null;
-    
+
     this.httpMethod = event.httpMethod;
-    this.resourceId = event.pathParameters && event.pathParameters.proxy
-      ? decodeURIComponent(event.pathParameters.proxy) : '';
+    this.resourceId = event.pathParameters && event.pathParameters[resourceId || 'proxy']
+      ? decodeURIComponent(event.pathParameters[resourceId || 'proxy']) : '';
     this.queryParams = event.queryStringParameters || {};
     this.body = JSON.parse(event.body) || {};
     
