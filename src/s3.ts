@@ -17,7 +17,7 @@ export class S3 {
    * @param {Utils} utils 
    */
   constructor(protected utils: Utils) {
-    this.s3 = new AWS.S3({ apiVersion: '2006-03-01' });
+    this.s3 = new AWS.S3({ apiVersion: '2006-03-01', signatureVersion: 'v4' });
   }
 
   /**
