@@ -9,6 +9,7 @@ import { Utils } from './utils';
 const S3_DEFAULT_DOWNLOAD_BUCKET = 'idea-downloads';
 const S3_DEFAULT_DOWNLOAD_BUCKET_PREFIX = 'common';
 const S3_DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP = 180;
+const S3_DEFAULT_UPLOAD_BUCKET_SEC_TO_EXP = 300;
 
 export class S3 {
   protected s3: any;
@@ -46,6 +47,30 @@ export class S3 {
         if(err) reject(err);
         else resolve(this.s3.getSignedUrl('getObject', { Bucket: bucket, Key: key, Expires: secToExp }));
       });
+    });
+  }
+  
+  /**
+   * Get a signed URL to put a file on a S3 bucket.
+   * @param {string} bucket 
+   * @param {string} key 
+   * @param {number} expires seconds after which the signed URL expires
+   */
+  public signedUrlPut(bucket: string, key: string, expires?: number): string {
+    return this.s3.getSignedUrl('putObject', { 
+      Bucket: bucket, Key: key, Expires: expires || S3_DEFAULT_UPLOAD_BUCKET_SEC_TO_EXP
+    });
+  }
+
+  /**
+   * Get a signed URL to get a file on a S3 bucket.
+   * @param {string} bucket 
+   * @param {string} key 
+   * @param {number} expires seconds after which the signed URL expires
+   */
+  public signedUrlGet(bucket: string, key: string, expires?: number): string {
+    return this.s3.getSignedUrl('getObject', { 
+      Bucket: bucket, Key: key, Expires: expires || S3_DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP
     });
   }
 }
