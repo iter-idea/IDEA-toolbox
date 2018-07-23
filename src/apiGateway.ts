@@ -34,7 +34,7 @@ export class APIGateway {
           else if(res.statusCode !== 200) reject(`[${res.statusCode}] ${res.body}`);
           else {
             try { resolve(JSON.parse(res.body)); }
-            catch(err) { return reject(err); }
+            catch(e) { return resolve(res.body); }
           }
         });
       }, delay);
