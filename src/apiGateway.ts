@@ -30,6 +30,7 @@ export class APIGateway {
         options.url = encodeURI(options.url);
         // execute the request and reject or resolve the promise
         (<any>Request)[method](options, (err: Error, res: any) => {
+          this.utils.logger(`REQUEST ${method} ${options.url}`, err, res);
           if(err) reject(err)
           else if(res.statusCode !== 200) reject(`[${res.statusCode}] ${res.body}`);
           else {
