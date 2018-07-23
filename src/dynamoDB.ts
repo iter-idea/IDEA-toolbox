@@ -39,7 +39,8 @@ export class DynamoDB {
       this.put({ 
         TableName: 'idea_IUID', 
         Item: { project: this.project, id: id },
-        ConditionExpression: 'NOT (project=:project AND id=:id)',
+        ConditionExpression: 'NOT (#p = :project AND #id = :id)',
+        ExpressionAttributeNames: { '#p': 'project', '#id': 'id' },
         ExpressionAttributeValues: { ':project': this.project, ':id': id }
       })
       .then(() => resolve(`${this.project}_${id}`))
