@@ -21,7 +21,7 @@ export class APIGateway {
       setTimeout(() => {
         // prepare the parameters and the options
         method = method.toLowerCase();
-        if(!options.dontParseBody) options.body = options.body || null;
+        if(options.dontParseBody) options.body = options.body || null;
         else options.body = options.body ? JSON.stringify(options.body) : null;
         options.url = encodeURI(options.url);
         // execute the request and reject or resolve the promise
