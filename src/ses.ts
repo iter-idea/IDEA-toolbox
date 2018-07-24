@@ -8,10 +8,15 @@ import Nodemailer = require('nodemailer');
 import { Utils } from './utils';
 
 export class SES {
+  protected utils: Utils;
+  
   /**
-   * @param {Utils} utils 
+   * @param {InitOptions} options optional
    */
-  constructor(protected utils: Utils) {}
+  constructor(options?: InitOptions) {
+    options = options || <InitOptions> {};
+    this.utils = options.utils || new Utils();
+  }
 
   /**
    * Send an email through AWS Simple Email Service.
@@ -84,4 +89,8 @@ export class SES {
       });
     });
   }
+}
+
+export interface InitOptions {
+  utils?: Utils;
 }

@@ -4,13 +4,8 @@
 
 import Request = require('request');
 
-import { Utils } from './utils';
-
 export class APIGateway {
-  /**
-   * @param {Utils} utils
-   */
-  constructor(protected utils: Utils) {}
+  constructor() {}
 
   /**
    * Request wrapper to enable API requests with simplified parameters

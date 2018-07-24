@@ -34,13 +34,13 @@ export abstract class ResourceController {
   protected _utils: Utils;
   
   /**
-   * @param event the event that invoked the AWS lambda function
-   * @param callback the callback to resolve or reject the execution
-   * @param project the name of the project
-   * @param tables optional; the DynamoDB tables involved
-   * @param resourceId optional; if set, the resourceId is chosen instead of proxy+ (default)
+   * @param {any} event the event that invoked the AWS lambda function
+   * @param {any} callback the callback to resolve or reject the execution
+   * @param {string} project the name of the project
+   * @param {InitOptions} options optional
    */
-  constructor(event: any, callback: any, project: string, tables?: string, resourceId?: string) {
+  constructor(event: any, callback: any, project: string, options?: InitOptions) {
+    options = options || <InitOptions> {};
     this.utils.logger('START', null, event, true);
 
     this.callback = callback;
@@ -50,14 +50,14 @@ export abstract class ResourceController {
     this.principalId = this.claims ? this.claims.sub : null;
 
     this.httpMethod = event.httpMethod;
-    this.resourceId = event.pathParameters && event.pathParameters[resourceId || 'proxy']
-      ? decodeURIComponent(event.pathParameters[resourceId || 'proxy']) : '';
+    this.resourceId = event.pathParameters && event.pathParameters[options.resourceId || 'proxy']
+      ? decodeURIComponent(event.pathParameters[options.resourceId || 'proxy']) : '';
     this.queryParams = event.queryStringParameters || {};
     this.body = JSON.parse(event.body) || {};
     
     this.project = project;
 
-    this.tables = tables; 
+    this.tables = options.tables || {}; 
   }
 
 ///
@@ -206,7 +206,7 @@ export abstract class ResourceController {
 /// AWS SERVICES AND UTILS
 ///
   get dynamoDB(): DynamoDB {
-    if(!this._dynamoDB) this._dynamoDB = new DynamoDB(this.project, this.tables, this.utils);
+    if(!this._dynamoDB) this._dynamoDB = new DynamoDB({ project: this.project, utils: this.utils });
     return this._dynamoDB;
   }
   set dynamoDB(dynamoDB: DynamoDB) {
@@ -220,28 +220,28 @@ export abstract class ResourceController {
     this._cognito = cognito;
   }
   get apiGateway(): APIGateway {
-    if(!this._apiGateway) this._apiGateway = new APIGateway(this.utils);
+    if(!this._apiGateway) this._apiGateway = new APIGateway();
     return this._apiGateway;
   }
   set apiGateway(apiGateway: APIGateway) {
     this._apiGateway = apiGateway;
   }
   get s3(): S3 {
-    if(!this._s3) this._s3 = new S3(this.utils);
+    if(!this._s3) this._s3 = new S3({ utils: this.utils });
     return this._s3;
   }
   set s3(s3: S3) {
     this._s3 = s3;
   }
   get ses(): SES {
-    if(!this._ses) this._ses = new SES(this.utils);
+    if(!this._ses) this._ses = new SES({ utils: this.utils });
     return this._ses;
   }
   set ses(ses: SES) {
     this._ses = ses;
   }
   get sns(): SNS {
-    if(!this._sns) this._sns = new SNS(this.utils);
+    if(!this._sns) this._sns = new SNS({ utils: this.utils });
     return this._sns;
   }
   set sns(sns: SNS) {
@@ -254,4 +254,9 @@ export abstract class ResourceController {
   set utils(utils: Utils) {
     this._utils = utils;
   }
+}
+
+export interface InitOptions {
+  tables?: any;
+  resourceId?: string;
 }

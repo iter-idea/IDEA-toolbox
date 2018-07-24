@@ -8,12 +8,15 @@ import { Utils } from './utils';
 
 export class SNS {
   protected sns: any;
+  protected utils: Utils;
 
   /**
-   * @param {Utils} utils
+   * @param {InitOptions} options optional
    */
-  constructor(protected utils: Utils) {
+  constructor(options?: InitOptions) {
+    options = options || <InitOptions> {};
     this.sns = new AWS.SNS({ apiVersion: '2010-03-31', region: process.env['SNS_PUSH_REGION'] });
+    this.utils = options.utils || new Utils();
   }
   
   /**
@@ -72,4 +75,8 @@ export class SNS {
       });
     });
   }
+}
+
+export interface InitOptions {
+  utils?: Utils;
 }

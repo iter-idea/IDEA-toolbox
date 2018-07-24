@@ -9,24 +9,32 @@ import { Utils } from './utils';
 
 export class DynamoDB {
   protected dynamo: any; // the instance of DynamoDB
+  protected project: string;
+  protected utils: Utils;
 
-  constructor(protected project: string, protected tables: any, protected utils: Utils) {
+  /**
+   * @param {InitOptions} options optional
+   */
+  constructor(options?: InitOptions) {
+    options = options || <InitOptions> {};
     this.dynamo = new AWS.DynamoDB.DocumentClient();
-    // add support tables
-    this.tables.IUID = 'idea_IUID';
-    this.tables.atomicCounters = 'idea_atomicCounters';
+    this.project = options.project || null;
+    this.utils = options.utils || new Utils();
   }
 
   /**
    * Returns an IUID: IDEA's Unique IDentifier, which is an id unique through all IDEA's projects.
    * Note: there's no need of an authorization check for extrernal uses: the permissions depend
    * from the context in which it's executed.
+   * @param {string} project optional, otherwise the defaul value is used
    * @return {Promise<string>} the IUID
    */
-  public IUID(): Promise<string> {
+  public IUID(project?: string): Promise<string> {
+    project = project || this.project;
+    let MAX_ATTEMPTS = 3;
     return new Promise((resolve, reject) => {
-      let MAX_ATTEMPTS = 3;
-      this.iuidHelper(0, MAX_ATTEMPTS, resolve, reject);
+      if(!project) reject();
+      else this.iuidHelper(0, MAX_ATTEMPTS, resolve, reject);
     });
   }
   /**
@@ -59,7 +67,7 @@ export class DynamoDB {
     return new Promise((resolve, reject) => {
       this.utils.logger('GET ATOMIC COUNTER', null, key);
       this.update({
-        TableName: this.tables.atomicCounter, Key: { key: key },
+        TableName: 'idea_atomicCounters', Key: { key: key },
         UpdateExpression: 'ADD atomicCounter :increment',
         ExpressionAttributeValues: { ':increment': 1 },
         ReturnValues: 'UPDATED_NEW'
@@ -77,8 +85,9 @@ export class DynamoDB {
   public get(params: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.dynamo.get(params, (err: Error, data: any) => {
-        this.utils.logger(`GET ${params.IndexName ? `${params.TableName} (${params.IndexName})`
-          : params.TableName}`, err, data);
+        
+          this.utils.logger(`GET ${params.IndexName ? `${params.TableName} (${params.IndexName})`
+            : params.TableName}`, err, data);
         if(err || !data.Item) reject(err);
         else resolve(data.Item);
       });
@@ -273,4 +282,9 @@ export class DynamoDB {
       }
     });
   }
+}
+
+export interface InitOptions {
+  project?: string;
+  utils?: Utils;
 }

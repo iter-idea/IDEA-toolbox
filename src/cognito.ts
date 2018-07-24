@@ -5,17 +5,21 @@
 import AWS = require('aws-sdk');
 
 export class Cognito {
+  protected claims: any;
+
   /**
-   * @param {any} claims the claims of the API request
+   * @param {InitOptions} options optional
    */
-  constructor(protected claims: any) {}
+  constructor(options?: InitOptions) {
+    this.claims = options.claims || {};
+  }
 
   /**
    * Helper to get the attributes of the user from the authorizer claims.
-   * @param {any} claims Cognito authentication claims after API gateway's integration.
-   * @return {any} user's data
+   * @return {any | null} user's data
    */
-  public getUserByClaims(): any {
+  public getUserByClaims(): any | null {
+    if(!this.claims) return null;
     let user: any = {};
     // add any additional cognito attribute available in cognito
     for(let p in this.claims) if(p.startsWith('cognito:')) user[p.slice(8)] = this.claims[p];
@@ -72,4 +76,8 @@ export class Cognito {
       });
     });
   }
+}
+
+export interface InitOptions {
+  claims?: any; // the claims of the API request
 }

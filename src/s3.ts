@@ -13,12 +13,15 @@ const S3_DEFAULT_UPLOAD_BUCKET_SEC_TO_EXP = 300;
 
 export class S3 {
   protected s3: any;
+  protected utils: Utils;
 
   /**
-   * @param {Utils} utils 
+   * @param {InitOptions} options optional
    */
-  constructor(protected utils: Utils) {
+  constructor(options?: InitOptions) {
+    options = options || <InitOptions> {};
     this.s3 = new AWS.S3({ apiVersion: '2006-03-01', signatureVersion: 'v4' });
+    this.utils = options.utils || new Utils();
   }
 
   /**
@@ -73,4 +76,8 @@ export class S3 {
       Bucket: bucket, Key: key, Expires: expires || S3_DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP
     });
   }
+}
+
+export interface InitOptions {
+  utils?: Utils;
 }
