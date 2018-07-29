@@ -1,10 +1,12 @@
-/**
- * UTILITIES 
- */
-
 import Fs = require('fs')
 
+/**
+ * Utilities (generic) functions, to support IDEA's projects. 
+ */
 export class Utils {
+  /**
+   * Initialize a new Utils helper object.
+   */
   constructor() {}
 
   /**

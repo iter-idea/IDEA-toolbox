@@ -1,7 +1,3 @@
-/**
- * RESOURCE CONTROLLER
- */
-
 import { DynamoDB } from './dynamoDB';
 import { Cognito } from './cognito';
 import { APIGateway} from './apiGateway';
@@ -10,6 +6,10 @@ import { SES } from './ses';
 import { SNS } from './sns';
 import { Utils } from './utils';
 
+/**
+ * An abstract class to inherit to manage API requests (AWS API Gateway) in an 
+ * AWS Lambda function.
+ */
 export abstract class ResourceController {
   protected callback: any;
 
@@ -34,13 +34,14 @@ export abstract class ResourceController {
   protected _utils: Utils;
   
   /**
+   * Initialize a new ResourceController helper object.
    * @param {any} event the event that invoked the AWS lambda function
    * @param {any} callback the callback to resolve or reject the execution
    * @param {string} project the name of the project
-   * @param {InitOptions} options optional
+   * @param {InitOptionsResourceController} options
    */
-  constructor(event: any, callback: any, project: string, options?: InitOptions) {
-    options = options || <InitOptions> {};
+  constructor(event: any, callback: any, project: string, options?: InitOptionsResourceController) {
+    options = options || <InitOptionsResourceController> {};
     this.utils.logger('START', null, event, true);
 
     this.callback = callback;
@@ -64,6 +65,9 @@ export abstract class ResourceController {
 /// REQUEST HANDLERS
 ///
 
+  /**
+   * The main function, that handle an API request redirected to a Lambda function.
+   */
   public handleRequest = (): void => {
     // check the authorizations and prepare the API request
     this.checkAuthBeforeRequest()
@@ -256,7 +260,17 @@ export abstract class ResourceController {
   }
 }
 
-export interface InitOptions {
+/**
+ * The initial options for a constructor of class ResourceController.
+ */
+export interface InitOptionsResourceController {
+  /**
+   * The tables involved an their names in DynamoDB.
+   * e.g. { users: 'project_users' }
+   */
   tables?: any;
+  /**
+   * The resourceId of the API request, to specify if different from "proxy".
+   */
   resourceId?: string;
 }

@@ -1,22 +1,22 @@
-/**
- * DYNAMO DB
- */
-
 import AWS = require('aws-sdk');
 import UUIDV4 = require('uuid/v4');
 
 import { Utils } from './utils';
 
+/**
+ * A wrapper for AWS DynamoDB.
+ */
 export class DynamoDB {
   protected dynamo: any; // the instance of DynamoDB
   protected project: string;
   protected utils: Utils;
 
   /**
-   * @param {InitOptions} options optional
+   * Initialize a new Cognito helper object.
+   * @param {InitOptionsDynamoDB} options
    */
-  constructor(options?: InitOptions) {
-    options = options || <InitOptions> {};
+  constructor(options?: InitOptionsDynamoDB) {
+    options = options || <InitOptionsDynamoDB> {};
     this.dynamo = new AWS.DynamoDB.DocumentClient();
     this.project = options.project || null;
     this.utils = options.utils || new Utils();
@@ -26,7 +26,7 @@ export class DynamoDB {
    * Returns an IUID: IDEA's Unique IDentifier, which is an id unique through all IDEA's projects.
    * Note: there's no need of an authorization check for extrernal uses: the permissions depend
    * from the context in which it's executed.
-   * @param {string} project optional, otherwise the defaul value is used
+   * @param {string} project project code
    * @return {Promise<string>} the IUID
    */
   public IUID(project?: string): Promise<string> {
@@ -85,9 +85,9 @@ export class DynamoDB {
   public get(params: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.dynamo.get(params, (err: Error, data: any) => {
-        
-          this.utils.logger(`GET ${params.IndexName ? `${params.TableName} (${params.IndexName})`
-            : params.TableName}`, err, data);
+        this.utils.logger(`GET ${params.IndexName 
+          ? `${params.TableName} (${params.IndexName})`
+          : params.TableName}`, err, data);
         if(err || !data.Item) reject(err);
         else resolve(data.Item);
       });
@@ -144,7 +144,7 @@ export class DynamoDB {
    * avoiding the limits of DynamoDB's BatchGetItem.
    * @param {string} table DynamoDB table on which to operate
    * @param {Array<any>} keys the keys of items to get
-   * @param {boolean} ignoreErr optional; if true, ignore the errors and continue the bulk op.
+   * @param {boolean} ignoreErr if true, ignore the errors and continue the bulk op.
    * @return {Promise<Array<any>>}
    */
   public batchGet(table: string, keys: Array<any>, ignoreErr?:boolean): Promise<Array<any>> {
@@ -183,7 +183,7 @@ export class DynamoDB {
    * Put an array of items in a DynamoDb table, avoiding the limits of DynamoDB's BatchWriteItem.
    * @param {string} table DynamoDB table on which to operate
    * @param {Array<any>} items the items to put
-   * @param {boolean} ignoreErr optional; if true, ignore the errors and continue the bulk op.
+   * @param {boolean} ignoreErr if true, ignore the errors and continue the bulk op.
    * @return {Promise<any>}
    */
   public batchPut(table: string, items: Array<any>, ignoreErr?: boolean): Promise<any> {
@@ -199,7 +199,7 @@ export class DynamoDB {
    * avoiding the limits of DynamoDB's BatchWriteItem.
    * @param {string} table DynamoDB table on which to operate
    * @param {Array<any>} keys the keys of items to delete
-   * @param {boolean} ignoreErr optional; if true, ignore the errors and continue the bulk op.
+   * @param {boolean} ignoreErr if true, ignore the errors and continue the bulk op.
    * @return {Promise<any>}
    */
   protected batchDelete(table: string, keys: Array<any>, ignoreErr?: boolean): Promise<any> {
@@ -284,7 +284,13 @@ export class DynamoDB {
   }
 }
 
-export interface InitOptions {
+/**
+ * The initial options for a constructor of class DynamoDB.
+ */
+export interface InitOptionsDynamoDB {
+  /**
+   * The code of the project.
+   */
   project?: string;
   utils?: Utils;
 }

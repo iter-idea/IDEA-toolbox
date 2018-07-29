@@ -13,3 +13,7 @@ Typescript
 ```
 import Idea = require('idea-toolbox');
 ```
+
+## Documentation
+
+[Link to docs]()

@@ -1,18 +1,20 @@
-/**
- * API GATEWAY
- */
-
 import Request = require('request');
 
+/**
+ * A wrapper for AWS API Gateway
+ */
 export class APIGateway {
+  /**
+   * Initialize a new API Gateway helper object.
+   */
   constructor() {}
 
   /**
    * Request wrapper to enable API requests with simplified parameters
    * @param {string} method enum: HTTP methods
-   * @param {any} options optional; typical requests options (e.g. url, body, headers, etc.)
-   * @param {number} delay optional; if set, the request is executed after a certain delay (in ms).
-   *  Useful to avoid overwhelming the back-end when the execution isn't time pressured.
+   * @param {any} options typical requests options (e.g. url, body, headers, etc.)
+   * @param {number} delay if set, the request is executed after a certain delay (in ms).
+   * Useful to avoid overwhelming the back-end when the execution isn't time pressured.
    * @return {Promise<any>}
    */
   public request(method: string, options?: any, delay?: number): Promise<any> {

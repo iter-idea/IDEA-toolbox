@@ -1,20 +1,20 @@
-/**
- * SES
- */
-
 import AWS = require('aws-sdk');
 import Nodemailer = require('nodemailer');
 
 import { Utils } from './utils';
 
+/**
+ * A wrapper for AWS Simple Email Service. 
+ */
 export class SES {
   protected utils: Utils;
   
   /**
-   * @param {InitOptions} options optional
+   * Initialize a new SES helper object.
+   * @param {InitOptionsSES} options
    */
-  constructor(options?: InitOptions) {
-    options = options || <InitOptions> {};
+  constructor(options?: InitOptionsSES) {
+    options = options || <InitOptionsSES> {};
     this.utils = options.utils || new Utils();
   }
 
@@ -91,6 +91,9 @@ export class SES {
   }
 }
 
-export interface InitOptions {
+/**
+ * The initial options for a constructor of class SES.
+ */
+export interface InitOptionsSES {
   utils?: Utils;
 }

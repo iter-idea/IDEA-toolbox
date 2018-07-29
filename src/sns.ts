@@ -1,20 +1,20 @@
-/**
- * SNS
- */
-
 import AWS = require('aws-sdk');
 
 import { Utils } from './utils';
 
+/**
+ * A wrapper for AWS Simple Notification Service.
+ */
 export class SNS {
   protected sns: any;
   protected utils: Utils;
 
   /**
-   * @param {InitOptions} options optional
+   * Initialize a new SNS helper object.
+   * @param {InitOptionsSNS} options
    */
-  constructor(options?: InitOptions) {
-    options = options || <InitOptions> {};
+  constructor(options?: InitOptionsSNS) {
+    options = options || <InitOptionsSNS> {};
     this.sns = new AWS.SNS({ apiVersion: '2010-03-31', region: process.env['SNS_PUSH_REGION'] });
     this.utils = options.utils || new Utils();
   }
@@ -77,6 +77,9 @@ export class SNS {
   }
 }
 
-export interface InitOptions {
+/**
+ * The initial options for a constructor of class SNS.
+ */
+export interface InitOptionsSNS {
   utils?: Utils;
 }

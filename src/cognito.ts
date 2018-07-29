@@ -1,21 +1,21 @@
-/**
- * COGNITO
- */
-
 import AWS = require('aws-sdk');
 
+/**
+ * A wrapper for AWS Cognito.
+ */
 export class Cognito {
   protected claims: any;
 
   /**
-   * @param {InitOptions} options optional
+   * Initialize a new Cognito helper object.
+   * @param {InitOptions} options
    */
-  constructor(options?: InitOptions) {
+  constructor(options?: InitOptionsCognito) {
     this.claims = options.claims || {};
   }
 
   /**
-   * Helper to get the attributes of the user from the authorizer claims.
+   * Get the attributes of the user, from the authorizer claims.
    * @return {any | null} user's data
    */
   public getUserByClaims(): any | null {
@@ -78,6 +78,12 @@ export class Cognito {
   }
 }
 
-export interface InitOptions {
-  claims?: any; // the claims of the API request
+/**
+ * The initial options for a constructor of class Cognito.
+ */
+export interface InitOptionsCognito {
+  /**
+   * The claims of the API request
+   */
+  claims?: any;
 }

@@ -1,7 +1,3 @@
-/**
- * S3
- */
-
 import AWS = require('aws-sdk');
 
 import { Utils } from './utils';
@@ -11,15 +7,19 @@ const S3_DEFAULT_DOWNLOAD_BUCKET_PREFIX = 'common';
 const S3_DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP = 180;
 const S3_DEFAULT_UPLOAD_BUCKET_SEC_TO_EXP = 300;
 
+/**
+ * A wrapper for AWS Simple Storage Service.
+ */
 export class S3 {
   protected s3: any;
   protected utils: Utils;
 
   /**
-   * @param {InitOptions} options optional
+   * Initialize a new S3 helper object.
+   * @param {InitOptionsS3} options
    */
-  constructor(options?: InitOptions) {
-    options = options || <InitOptions> {};
+  constructor(options?: InitOptionsS3) {
+    options = options || <InitOptionsS3> {};
     this.s3 = new AWS.S3({ apiVersion: '2006-03-01', signatureVersion: 'v4' });
     this.utils = options.utils || new Utils();
   }
@@ -32,8 +32,8 @@ export class S3 {
    * @param {string} key the unique filepath
    * @param {any} dataToUpload usually a buffer
    * @param {string} contentType e.g. application/json
-   * @param {string} bucket optional; an alternative Downloads bucket to the default one
-   * @param {number} secToExp optional; seconds to url expiration
+   * @param {string} bucket an alternative Downloads bucket to the default one
+   * @param {number} secToExp seconds to url expiration
    * @return {Promise<string>}
    */
   public downloadThroughUrl(
@@ -78,6 +78,9 @@ export class S3 {
   }
 }
 
-export interface InitOptions {
+/**
+ * The initial options for a constructor of class S3.
+ */
+export interface InitOptionsS3 {
   utils?: Utils;
 }
