@@ -16,4 +16,4 @@ import Idea = require('idea-toolbox');
 
 ## Documentation
 
-[Link to docs]()
+[Link to docs](https://uatisdeproblem.github.io/IDEA-toolbox)

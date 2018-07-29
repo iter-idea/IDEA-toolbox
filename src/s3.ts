@@ -2,17 +2,17 @@ import AWS = require('aws-sdk');
 
 import { Utils } from './utils';
 
-const S3_DEFAULT_DOWNLOAD_BUCKET = 'idea-downloads';
-const S3_DEFAULT_DOWNLOAD_BUCKET_PREFIX = 'common';
-const S3_DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP = 180;
-const S3_DEFAULT_UPLOAD_BUCKET_SEC_TO_EXP = 300;
-
 /**
  * A wrapper for AWS Simple Storage Service.
  */
 export class S3 {
   protected s3: any;
   protected utils: Utils;
+
+  protected DEFAULT_DOWNLOAD_BUCKET: string = 'idea-downloads';
+  protected DEFAULT_DOWNLOAD_BUCKET_PREFIX: string = 'common';
+  protected DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP: number = 180;
+  protected DEFAULT_UPLOAD_BUCKET_SEC_TO_EXP: number = 300;
 
   /**
    * Initialize a new S3 helper object.
@@ -41,9 +41,9 @@ export class S3 {
     bucket?: string, secToExp?: number
   ): Promise<string> {
     return new Promise((resolve, reject) => {
-      key = `${prefix || S3_DEFAULT_DOWNLOAD_BUCKET_PREFIX}/${key}`;
-      bucket = bucket || S3_DEFAULT_DOWNLOAD_BUCKET;
-      secToExp = secToExp || S3_DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP;
+      key = `${prefix || this.DEFAULT_DOWNLOAD_BUCKET_PREFIX}/${key}`;
+      bucket = bucket || this.DEFAULT_DOWNLOAD_BUCKET;
+      secToExp = secToExp || this.DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP;
       this.s3.upload({ Bucket: bucket, Key: key, Body: dataToUpload, ContentType: contentType },
       (err: Error, data: any) => {
         this.utils.logger('S3 UPLOAD', err, data);
@@ -61,7 +61,7 @@ export class S3 {
    */
   public signedUrlPut(bucket: string, key: string, expires?: number): string {
     return this.s3.getSignedUrl('putObject', { 
-      Bucket: bucket, Key: key, Expires: expires || S3_DEFAULT_UPLOAD_BUCKET_SEC_TO_EXP
+      Bucket: bucket, Key: key, Expires: expires || this.DEFAULT_UPLOAD_BUCKET_SEC_TO_EXP
     });
   }
 
@@ -73,7 +73,7 @@ export class S3 {
    */
   public signedUrlGet(bucket: string, key: string, expires?: number): string {
     return this.s3.getSignedUrl('getObject', { 
-      Bucket: bucket, Key: key, Expires: expires || S3_DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP
+      Bucket: bucket, Key: key, Expires: expires || this.DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP
     });
   }
 }

@@ -28,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/uatisdeproblem/IDEA-toolbox/issues"
   },
-  "homepage": "https://github.com/uatisdeproblem/IDEA-toolbox#readme",
+  "homepage": "https://uatisdeproblem.github.io/IDEA-toolbox",
   "dependencies": {
     "aws-sdk": "^2.276.1",
     "nodemailer": "^4.6.5",
