@@ -22,7 +22,6 @@ export abstract class ResourceController {
   protected queryParams: any;
   protected resourceId: string;
   
-  protected project: string;
   protected tables: any;
 
   protected _dynamoDB: DynamoDB;
@@ -36,10 +35,9 @@ export abstract class ResourceController {
    * Initialize a new ResourceController helper object.
    * @param {any} event the event that invoked the AWS lambda function
    * @param {any} callback the callback to resolve or reject the execution
-   * @param {string} project the name of the project
    * @param {ResourceControllerOptions} options
    */
-  constructor(event: any, callback: any, project: string, options?: ResourceControllerOptions) {
+  constructor(event: any, callback: any, options?: ResourceControllerOptions) {
     options = options || <ResourceControllerOptions> {};
     Utils.logger('START', null, event, true);
 
@@ -54,8 +52,6 @@ export abstract class ResourceController {
       ? decodeURIComponent(event.pathParameters[options.resourceId || 'proxy']) : '';
     this.queryParams = event.queryStringParameters || {};
     this.body = JSON.parse(event.body) || {};
-    
-    this.project = project;
 
     this.tables = options.tables || {}; 
   }
