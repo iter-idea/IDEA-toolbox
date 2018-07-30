@@ -1,5 +1,5 @@
 export { Resource } from './resource';
-export { ResourceController } from './resourceController';
+export { ResourceController, ResourceControllerOptions } from './resourceController';
 export { DynamoDB } from './dynamoDB';
 export { Cognito } from './cognito';
 export { APIGateway} from './apiGateway';
