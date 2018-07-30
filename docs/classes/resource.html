@@ -923,6 +923,12 @@ img { max-width: 100%; }
 					<a href="resource.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="resource.html#load" class="tsd-kind-icon">load</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="resource.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="resource.html#validate" class="tsd-kind-icon">validate</a>
 				</li>
 			</ul>
@@ -977,6 +983,8 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="resource.html#load" class="tsd-kind-icon">load</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="resource.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="resource.html#validate" class="tsd-kind-icon">validate</a></li>
 						</ul>
 					</section>
@@ -989,39 +997,20 @@ img { max-width: 100%; }
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Resource<span class="tsd-signature-symbol">(</span>attributes<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, keys<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="resource.html" class="tsd-signature-type">Resource</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Resource<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="resource.html" class="tsd-signature-type">Resource</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/eb6be5e/src/resource.ts#L4">resource.ts:4</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/f4f8113/src/resource.ts#L4">resource.ts:4</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Object initialization, with a bulk set of its attributes.</p>
+								<p>Object initialization, setting all the default values.</p>
 							</div>
 						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> attributes: <span class="tsd-signature-type">any</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<div class="lead">
-										<p>the attributes, except the keys</p>
-									</div>
-								</div>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> keys: <span class="tsd-signature-type">any</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<div class="lead">
-										<p>the keys to set</p>
-									</div>
-								</div>
-							</li>
-						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="resource.html" class="tsd-signature-type">Resource</a></h4>
 					</li>
 				</ul>
@@ -1029,6 +1018,91 @@ img { max-width: 100%; }
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="load" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> load</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">load<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/f4f8113/src/resource.ts#L23">resource.ts:23</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Load the attributes from an already existent resource.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>newData: <span class="tsd-signature-type">any</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>the data to load</p>
+									<p>Typical implementation:</p>
+									<pre><code><span class="hljs-keyword">new</span><span class="hljs-type">Data</span> = <span class="hljs-keyword">new</span><span class="hljs-type">Data</span> || {};
+<span class="hljs-comment">// ...</span>
+<span class="hljs-built_in">this</span>.attr = <span class="hljs-keyword">new</span><span class="hljs-type">Data</span>.attr || <span class="hljs-literal">null</span>;
+<span class="hljs-comment">// ...</span>
+</code></pre>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="safeload" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> safe<wbr>Load</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">safe<wbr>Load<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, safeData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/f4f8113/src/resource.ts#L45">resource.ts:45</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Load the attributes from an already existent resource and then force some attributes
+								to assume <em>safeData</em> values.</p>
+							</div>
+							<p>The function is usually used in the back-end to mix together back-end data with new data,
+							without the risk of the changing of ids and other attributes which are managed standalone.</p>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>newData: <span class="tsd-signature-type">any</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>the data to load</p>
+								</div>
+							</li>
+							<li>
+								<h5>safeData: <span class="tsd-signature-type">any</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>the attributes to force to certain values</p>
+									<p>Typical implementation:</p>
+									<pre><code><span class="hljs-keyword">this</span>.load(newData);
+<span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">this</span>.keyAttr = safeData.keyAttr;
+<span class="hljs-keyword">this</span>.importantAttr = safeData.importantAttr;
+<span class="hljs-keyword">this</span>.isDraft = safeData.isDraft;
+<span class="hljs-comment">// ...</span>
+</code></pre>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 				<a name="validate" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> validate</h3>
@@ -1039,7 +1113,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/eb6be5e/src/resource.ts#L24">resource.ts:24</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/f4f8113/src/resource.ts#L61">resource.ts:61</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1049,6 +1123,14 @@ img { max-width: 100%; }
 						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						<p>errors; if empty, the checkings are passed</p>
+						<p>Typical implementation:</p>
+						<pre><code><span class="hljs-keyword">let</span> iE = Utils.isEmpty; <span class="hljs-comment">// from idea-toolbox</span>
+<span class="hljs-keyword">let</span> <span class="hljs-attribute">e</span>: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">string</span>&gt; = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">string</span>&gt;();
+<span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">if</span>(iE(<span class="hljs-keyword">this</span>.attr)) e.push(<span class="hljs-string">`attr`</span>);
+<span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">return</span> e;
+</code></pre>
 					</li>
 				</ul>
 			</section>
