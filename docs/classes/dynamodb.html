@@ -922,12 +922,6 @@ img { max-width: 100%; }
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a href="dynamodb.html#dynamo" class="tsd-kind-icon">dynamo</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-					<a href="dynamodb.html#project" class="tsd-kind-icon">project</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-					<a href="dynamodb.html#utils" class="tsd-kind-icon">utils</a>
-				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="dynamodb.html#iuid" class="tsd-kind-icon">IUID</a>
 				</li>
@@ -976,6 +970,9 @@ img { max-width: 100%; }
 			</ul>
 		</li>
 		<li class=" tsd-kind-class">
+			<a href="resource.html" class="tsd-kind-icon">Resource</a>
+		</li>
+		<li class=" tsd-kind-class">
 			<a href="resourcecontroller.html" class="tsd-kind-icon">Resource<wbr>Controller</a>
 		</li>
 		<li class=" tsd-kind-class">
@@ -991,22 +988,7 @@ img { max-width: 100%; }
 			<a href="utils.html" class="tsd-kind-icon">Utils</a>
 		</li>
 		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionscognito.html" class="tsd-kind-icon">Init<wbr>Options<wbr>Cognito</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionsdynamodb.html" class="tsd-kind-icon">Init<wbr>Options<wbr>DynamoDB</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionsresourcecontroller.html" class="tsd-kind-icon">Init<wbr>Options<wbr>Resource<wbr>Controller</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionss3.html" class="tsd-kind-icon">Init<wbr>Options<wbr>S3</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionsses.html" class="tsd-kind-icon">Init<wbr>OptionsSES</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionssns.html" class="tsd-kind-icon">Init<wbr>OptionsSNS</a>
+			<a href="../interfaces/resourcecontrolleroptions.html" class="tsd-kind-icon">Resource<wbr>Controller<wbr>Options</a>
 		</li>
 	</ul>
 </nav>
@@ -1041,8 +1023,6 @@ img { max-width: 100%; }
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="dynamodb.html#dynamo" class="tsd-kind-icon">dynamo</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="dynamodb.html#project" class="tsd-kind-icon">project</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="dynamodb.html#utils" class="tsd-kind-icon">utils</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -1074,30 +1054,20 @@ img { max-width: 100%; }
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>DynamoDB<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/initoptionsdynamodb.html" class="tsd-signature-type">InitOptionsDynamoDB</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="dynamodb.html" class="tsd-signature-type">DynamoDB</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>DynamoDB<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="dynamodb.html" class="tsd-signature-type">DynamoDB</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L12">dynamoDB.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L10">dynamoDB.ts:10</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Initialize a new Cognito helper object.</p>
+								<p>Initialize a new DynamoDB helper object.</p>
 							</div>
 						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/initoptionsdynamodb.html" class="tsd-signature-type">InitOptionsDynamoDB</a></h5>
-								<div class="tsd-comment tsd-typography">
-									<div class="lead">
-									</div>
-								</div>
-							</li>
-						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="dynamodb.html" class="tsd-signature-type">DynamoDB</a></h4>
 					</li>
 				</ul>
@@ -1111,27 +1081,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">dynamo<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L10">dynamoDB.ts:10</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-				<a name="project" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagProtected">Protected</span> project</h3>
-				<div class="tsd-signature tsd-kind-icon">project<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L11">dynamoDB.ts:11</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-				<a name="utils" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagProtected">Protected</span> utils</h3>
-				<div class="tsd-signature tsd-kind-icon">utils<span class="tsd-signature-symbol">:</span> <a href="utils.html" class="tsd-signature-type">Utils</a></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L12">dynamoDB.ts:12</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L10">dynamoDB.ts:10</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1142,13 +1092,13 @@ img { max-width: 100%; }
 				<a name="iuid" class="tsd-anchor"></a>
 				<h3>IUID</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">IUID<span class="tsd-signature-symbol">(</span>project<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">IUID<span class="tsd-signature-symbol">(</span>project<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L32">dynamoDB.ts:32</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L26">dynamoDB.ts:26</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1161,7 +1111,7 @@ img { max-width: 100%; }
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> project: <span class="tsd-signature-type">string</span></h5>
+								<h5>project: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>project code</p>
 								</div>
@@ -1182,7 +1132,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L205">dynamoDB.ts:205</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L200">dynamoDB.ts:200</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1226,7 +1176,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L150">dynamoDB.ts:150</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L145">dynamoDB.ts:145</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1270,7 +1220,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L161">dynamoDB.ts:161</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L156">dynamoDB.ts:156</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1313,7 +1263,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L189">dynamoDB.ts:189</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L184">dynamoDB.ts:184</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1356,7 +1306,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L216">dynamoDB.ts:216</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L211">dynamoDB.ts:211</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1402,7 +1352,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L132">dynamoDB.ts:132</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L127">dynamoDB.ts:127</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1433,7 +1383,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L85">dynamoDB.ts:85</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L80">dynamoDB.ts:80</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1464,7 +1414,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L66">dynamoDB.ts:66</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L61">dynamoDB.ts:61</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1490,19 +1440,22 @@ img { max-width: 100%; }
 				<a name="iuidhelper" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagPrivate">Private</span> iuid<wbr>Helper</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<li class="tsd-signature tsd-kind-icon">iuid<wbr>Helper<span class="tsd-signature-symbol">(</span>attempt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, maxAttempts<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, resolve<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, reject<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">iuid<wbr>Helper<span class="tsd-signature-symbol">(</span>project<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, attempt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, maxAttempts<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, resolve<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, reject<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L43">dynamoDB.ts:43</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L36">dynamoDB.ts:36</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
+							<li>
+								<h5>project: <span class="tsd-signature-type">string</span></h5>
+							</li>
 							<li>
 								<h5>attempt: <span class="tsd-signature-type">number</span></h5>
 							</li>
@@ -1530,7 +1483,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L102">dynamoDB.ts:102</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L97">dynamoDB.ts:97</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1561,7 +1514,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L248">dynamoDB.ts:248</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L243">dynamoDB.ts:243</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1592,7 +1545,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L266">dynamoDB.ts:266</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L261">dynamoDB.ts:261</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1629,7 +1582,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L258">dynamoDB.ts:258</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L253">dynamoDB.ts:253</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1660,7 +1613,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/dynamoDB.ts#L117">dynamoDB.ts:117</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/dynamoDB.ts#L112">dynamoDB.ts:112</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

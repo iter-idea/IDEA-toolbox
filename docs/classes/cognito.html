@@ -916,9 +916,6 @@ img { max-width: 100%; }
 				<li class=" tsd-kind-constructor tsd-parent-kind-class">
 					<a href="cognito.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-					<a href="cognito.html#claims" class="tsd-kind-icon">claims</a>
-				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="cognito.html#getuserbyclaims" class="tsd-kind-icon">get<wbr>User<wbr>ByClaims</a>
 				</li>
@@ -932,6 +929,9 @@ img { max-width: 100%; }
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="dynamodb.html" class="tsd-kind-icon">DynamoDB</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="resource.html" class="tsd-kind-icon">Resource</a>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="resourcecontroller.html" class="tsd-kind-icon">Resource<wbr>Controller</a>
@@ -949,22 +949,7 @@ img { max-width: 100%; }
 			<a href="utils.html" class="tsd-kind-icon">Utils</a>
 		</li>
 		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionscognito.html" class="tsd-kind-icon">Init<wbr>Options<wbr>Cognito</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionsdynamodb.html" class="tsd-kind-icon">Init<wbr>Options<wbr>DynamoDB</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionsresourcecontroller.html" class="tsd-kind-icon">Init<wbr>Options<wbr>Resource<wbr>Controller</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionss3.html" class="tsd-kind-icon">Init<wbr>Options<wbr>S3</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionsses.html" class="tsd-kind-icon">Init<wbr>OptionsSES</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionssns.html" class="tsd-kind-icon">Init<wbr>OptionsSNS</a>
+			<a href="../interfaces/resourcecontrolleroptions.html" class="tsd-kind-icon">Resource<wbr>Controller<wbr>Options</a>
 		</li>
 	</ul>
 </nav>
@@ -995,12 +980,6 @@ img { max-width: 100%; }
 							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="cognito.html#constructor" class="tsd-kind-icon">constructor</a></li>
 						</ul>
 					</section>
-					<section class="tsd-index-section tsd-is-private-protected">
-						<h3>Properties</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="cognito.html#claims" class="tsd-kind-icon">claims</a></li>
-						</ul>
-					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
@@ -1018,13 +997,13 @@ img { max-width: 100%; }
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Cognito<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/initoptionscognito.html" class="tsd-signature-type">InitOptionsCognito</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="cognito.html" class="tsd-signature-type">Cognito</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Cognito<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="cognito.html" class="tsd-signature-type">Cognito</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/cognito.ts#L7">cognito.ts:7</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/cognito.ts#L6">cognito.ts:6</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1032,32 +1011,9 @@ img { max-width: 100%; }
 								<p>Initialize a new Cognito helper object.</p>
 							</div>
 						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/initoptionscognito.html" class="tsd-signature-type">InitOptionsCognito</a></h5>
-								<div class="tsd-comment tsd-typography">
-									<div class="lead">
-									</div>
-								</div>
-							</li>
-						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="cognito.html" class="tsd-signature-type">Cognito</a></h4>
 					</li>
 				</ul>
-			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
-			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-				<a name="claims" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagProtected">Protected</span> claims</h3>
-				<div class="tsd-signature tsd-kind-icon">claims<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/cognito.ts#L7">cognito.ts:7</a></li>
-					</ul>
-				</aside>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
@@ -1066,13 +1022,13 @@ img { max-width: 100%; }
 				<a name="getuserbyclaims" class="tsd-anchor"></a>
 				<h3>get<wbr>User<wbr>ByClaims</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>User<wbr>ByClaims<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+					<li class="tsd-signature tsd-kind-icon">get<wbr>User<wbr>ByClaims<span class="tsd-signature-symbol">(</span>claims<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/cognito.ts#L21">cognito.ts:21</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/cognito.ts#L17">cognito.ts:17</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1080,6 +1036,15 @@ img { max-width: 100%; }
 								<p>Get the attributes of the user, from the authorizer claims.</p>
 							</div>
 						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>claims: <span class="tsd-signature-type">any</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>authorizer claims</p>
+								</div>
+							</li>
+						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span>
 							<span class="tsd-signature-symbol"> | </span>
 							<span class="tsd-signature-type">null</span>
@@ -1098,7 +1063,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/cognito.ts#L40">cognito.ts:40</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/cognito.ts#L36">cognito.ts:36</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1135,7 +1100,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/cognito.ts#L63">cognito.ts:63</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/cognito.ts#L59">cognito.ts:59</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

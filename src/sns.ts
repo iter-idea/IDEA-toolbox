@@ -7,16 +7,12 @@ import { Utils } from './utils';
  */
 export class SNS {
   protected sns: any;
-  protected utils: Utils;
 
   /**
    * Initialize a new SNS helper object.
-   * @param {InitOptionsSNS} options
    */
-  constructor(options?: InitOptionsSNS) {
-    options = options || <InitOptionsSNS> {};
+  constructor() {
     this.sns = new AWS.SNS({ apiVersion: '2010-03-31', region: process.env['SNS_PUSH_REGION'] });
-    this.utils = options.utils || new Utils();
   }
   
   /**
@@ -40,7 +36,7 @@ export class SNS {
       // create a new endpoint in the platform
       this.sns.createPlatformEndpoint({ PlatformApplicationArn: platformARN, Token: deviceId },
       (err: Error, data: any) => {
-        this.utils.logger('SNS ADD PLATFORM ENDPOINT', err, data);
+        Utils.logger('SNS ADD PLATFORM ENDPOINT', err, data);
         if(err || !data.EndpointArn) reject(err);
         else resolve(data.EndpointArn);
       });
@@ -69,17 +65,10 @@ export class SNS {
       this.sns.publish({
         MessageStructure: 'json', Message: JSON.stringify(structuredMessage), TargetArn: endpoint
       }, (err: Error, data: any) => {
-        this.utils.logger('SNS PUSH NOTIFICATION', err, data);
+        Utils.logger('SNS PUSH NOTIFICATION', err, data);
         if(err) reject(err);
         else resolve(data);
       });
     });
   }
-}
-
-/**
- * The initial options for a constructor of class SNS.
- */
-export interface InitOptionsSNS {
-  utils?: Utils;
 }

@@ -31,18 +31,17 @@ export abstract class ResourceController {
   protected _s3: S3;
   protected _ses: SES;
   protected _sns: SNS;
-  protected _utils: Utils;
   
   /**
    * Initialize a new ResourceController helper object.
    * @param {any} event the event that invoked the AWS lambda function
    * @param {any} callback the callback to resolve or reject the execution
    * @param {string} project the name of the project
-   * @param {InitOptionsResourceController} options
+   * @param {ResourceControllerOptions} options
    */
-  constructor(event: any, callback: any, project: string, options?: InitOptionsResourceController) {
-    options = options || <InitOptionsResourceController> {};
-    this.utils.logger('START', null, event, true);
+  constructor(event: any, callback: any, project: string, options?: ResourceControllerOptions) {
+    options = options || <ResourceControllerOptions> {};
+    Utils.logger('START', null, event, true);
 
     this.callback = callback;
     
@@ -95,7 +94,7 @@ export abstract class ResourceController {
       // execute the API request
       if(!request) this.done(new Error(`E.COMMON.UNSUPPORTED_ACTION`));
       else {
-        this.utils.logger('REQUEST', null, this.httpMethod, true);
+        Utils.logger('REQUEST', null, this.httpMethod, true);
         request
         .then((res: any) => this.done(null, res))
         .catch((err: Error) => this.done(err));
@@ -115,23 +114,12 @@ export abstract class ResourceController {
    * @param {any} res if err, the error string, otherwise the result (a JSON to parse)
    */
   protected done(err: Error, res?: any): any {
-    this.utils.logger(`DONE`, err, res, true);
+    Utils.logger(`DONE`, err, res, true);
     this.callback(null, {
       statusCode: err ? '400' : '200',
       body: err ?  JSON.stringify(err.message) : JSON.stringify(res),
       headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     })
-  }
-  /**
-   * To @override
-   * Valide the object's attributes, performing all the checkings.
-   * _Note_: when updating this function, also update the one in the front-end.
-   * @param {any} o the object
-   * @return {Array<string>} errors
-   */
-  protected validateResource(o: any): Array<string> {
-    this.utils.logger('RESOURCE VALIDATION', null, JSON.stringify(o));
-    return [];
   }
   /**
    * To @override
@@ -207,17 +195,17 @@ export abstract class ResourceController {
   };
  
 ///
-/// AWS SERVICES AND UTILS
+/// AWS SERVICES
 ///
   get dynamoDB(): DynamoDB {
-    if(!this._dynamoDB) this._dynamoDB = new DynamoDB({ project: this.project, utils: this.utils });
+    if(!this._dynamoDB) this._dynamoDB = new DynamoDB();
     return this._dynamoDB;
   }
   set dynamoDB(dynamoDB: DynamoDB) {
     this._dynamoDB = dynamoDB;
   }
   get cognito(): Cognito {
-    if(!this._cognito) this._cognito = new Cognito(this.claims);
+    if(!this._cognito) this._cognito = new Cognito();
     return this._cognito;
   }
   set cognito(cognito: Cognito) {
@@ -231,39 +219,32 @@ export abstract class ResourceController {
     this._apiGateway = apiGateway;
   }
   get s3(): S3 {
-    if(!this._s3) this._s3 = new S3({ utils: this.utils });
+    if(!this._s3) this._s3 = new S3();
     return this._s3;
   }
   set s3(s3: S3) {
     this._s3 = s3;
   }
   get ses(): SES {
-    if(!this._ses) this._ses = new SES({ utils: this.utils });
+    if(!this._ses) this._ses = new SES();
     return this._ses;
   }
   set ses(ses: SES) {
     this._ses = ses;
   }
   get sns(): SNS {
-    if(!this._sns) this._sns = new SNS({ utils: this.utils });
+    if(!this._sns) this._sns = new SNS();
     return this._sns;
   }
   set sns(sns: SNS) {
     this._sns = sns;
-  }
-  get utils(): Utils {
-    if(!this._utils) this._utils = new Utils();
-    return this._utils;
-  }
-  set utils(utils: Utils) {
-    this._utils = utils;
   }
 }
 
 /**
  * The initial options for a constructor of class ResourceController.
  */
-export interface InitOptionsResourceController {
+export interface ResourceControllerOptions {
   /**
    * The tables involved an their names in DynamoDB.
    * e.g. { users: 'project_users' }

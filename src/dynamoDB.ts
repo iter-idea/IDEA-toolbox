@@ -8,18 +8,12 @@ import { Utils } from './utils';
  */
 export class DynamoDB {
   protected dynamo: any; // the instance of DynamoDB
-  protected project: string;
-  protected utils: Utils;
 
   /**
-   * Initialize a new Cognito helper object.
-   * @param {InitOptionsDynamoDB} options
+   * Initialize a new DynamoDB helper object.
    */
-  constructor(options?: InitOptionsDynamoDB) {
-    options = options || <InitOptionsDynamoDB> {};
+  constructor() {
     this.dynamo = new AWS.DynamoDB.DocumentClient();
-    this.project = options.project || null;
-    this.utils = options.utils || new Utils();
   }
 
   /**
@@ -29,31 +23,32 @@ export class DynamoDB {
    * @param {string} project project code
    * @return {Promise<string>} the IUID
    */
-  public IUID(project?: string): Promise<string> {
-    project = project || this.project;
+  public IUID(project: string): Promise<string> {
     let MAX_ATTEMPTS = 3;
     return new Promise((resolve, reject) => {
       if(!project) reject();
-      else this.iuidHelper(0, MAX_ATTEMPTS, resolve, reject);
+      else this.iuidHelper(project, 0, MAX_ATTEMPTS, resolve, reject);
     });
   }
   /**
    * @private helper
    */
-  protected iuidHelper(attempt: number, maxAttempts: number, resolve: any, reject: any): void {
+  protected iuidHelper(
+    project: string, attempt: number, maxAttempts: number, resolve: any, reject: any
+  ): void {
     if(attempt > maxAttempts) reject();
     else {
       let id = UUIDV4();
       this.put({ 
         TableName: 'idea_IUID', 
-        Item: { project: this.project, id: id },
+        Item: { project: project, id: id },
         ConditionExpression: 'NOT (#p = :project AND #id = :id)',
         ExpressionAttributeNames: { '#p': 'project', '#id': 'id' },
-        ExpressionAttributeValues: { ':project': this.project, ':id': id }
+        ExpressionAttributeValues: { ':project': project, ':id': id }
       })
-      .then(() => resolve(`${this.project}_${id}`))
+      .then(() => resolve(`${project}_${id}`))
       .catch(() => // ID exists, try again
-        this.iuidHelper(attempt+1, maxAttempts, resolve, reject)); 
+        this.iuidHelper(project, attempt+1, maxAttempts, resolve, reject)); 
     }
   }
 
@@ -65,7 +60,7 @@ export class DynamoDB {
    */
   public getAtomicCounterByKey(key: string): Promise<number> {
     return new Promise((resolve, reject) => {
-      this.utils.logger('GET ATOMIC COUNTER', null, key);
+      Utils.logger('GET ATOMIC COUNTER', null, key);
       this.update({
         TableName: 'idea_atomicCounters', Key: { key: key },
         UpdateExpression: 'ADD atomicCounter :increment',
@@ -85,7 +80,7 @@ export class DynamoDB {
   public get(params: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.dynamo.get(params, (err: Error, data: any) => {
-        this.utils.logger(`GET ${params.IndexName 
+        Utils.logger(`GET ${params.IndexName 
           ? `${params.TableName} (${params.IndexName})`
           : params.TableName}`, err, data);
         if(err || !data.Item) reject(err);
@@ -102,7 +97,7 @@ export class DynamoDB {
   public put(params: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.dynamo.put(params, (err: Error, data: any) => {
-        this.utils.logger(`PUT ${params.TableName}`, err, params.Item);
+        Utils.logger(`PUT ${params.TableName}`, err, params.Item);
         if(err) reject(err);
         else resolve(data);
       });
@@ -117,7 +112,7 @@ export class DynamoDB {
   public update(params: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.dynamo.update(params, (err: Error, data: any) => {
-        this.utils.logger(`UPDATE ${params.TableName}`, err, data);
+        Utils.logger(`UPDATE ${params.TableName}`, err, data);
         if(err) reject(err);
         else resolve(data);
       });
@@ -132,7 +127,7 @@ export class DynamoDB {
   public delete(params: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.dynamo.delete(params, (err: Error, data: any) => {
-        this.utils.logger(`DELETE ${params.TableName}`, err, params.Key);
+        Utils.logger(`DELETE ${params.TableName}`, err, params.Key);
         if(err) reject(err);
         else resolve(data);
       });
@@ -150,7 +145,7 @@ export class DynamoDB {
   public batchGet(table: string, keys: Array<any>, ignoreErr?:boolean): Promise<Array<any>> {
     return new Promise((resolve, reject) => {
       if(keys.length == 0) {
-        this.utils.logger(`BATCH GET ${table}`, null, `No elements to get`);
+        Utils.logger(`BATCH GET ${table}`, null, `No elements to get`);
         resolve();
       } else this.batchGetHelper(table, keys, Boolean(ignoreErr), 0, 100, resolve, reject);
     });
@@ -169,7 +164,7 @@ export class DynamoDB {
       .map(k => { return { Keys: k } });
     // execute the bulk operation
     this.dynamo.batchGetItem(batch, (err: Error) => {
-      this.utils.logger(`BATCH GET ${t}`, err, `${curr} of ${keys.length}`);
+      Utils.logger(`BATCH GET ${t}`, err, `${curr} of ${keys.length}`);
       if(err && !iErr) reject(err);
       // if there are still chunks to manage, go on recursively
       else if(curr+size < keys.length)
@@ -189,7 +184,7 @@ export class DynamoDB {
   public batchPut(table: string, items: Array<any>, ignoreErr?: boolean): Promise<any> {
     return new Promise((resolve, reject) => {
       if(items.length == 0) {
-        this.utils.logger(`BATCH WRITE ${table}`, null, `No elements to write`);
+        Utils.logger(`BATCH WRITE ${table}`, null, `No elements to write`);
         resolve();
       } else this.batchWriteHelper(table, items, true, Boolean(ignoreErr), 0, 25, resolve, reject);
     });
@@ -205,7 +200,7 @@ export class DynamoDB {
   protected batchDelete(table: string, keys: Array<any>, ignoreErr?: boolean): Promise<any> {
     return new Promise((resolve, reject) => {
       if(keys.length == 0) {
-        this.utils.logger(`BATCH WRITE ${table}`, null, `No elements to write`);
+        Utils.logger(`BATCH WRITE ${table}`, null, `No elements to write`);
         resolve();
       } else this.batchWriteHelper(table, keys, false, Boolean(ignoreErr), 0, 25, resolve, reject);
     });
@@ -230,7 +225,7 @@ export class DynamoDB {
     }
     // execute the bulk operation
     this.dynamo.batchWriteItem(batch, (err: Error) => {
-      this.utils.logger(`BATCH WRITE ${t}`, err, `${curr} of ${items.length}`);
+      Utils.logger(`BATCH WRITE ${t}`, err, `${curr} of ${items.length}`);
       if(err && !iErr) reject(err);
       // if there are still chunks to manage, go on recursively
       else if(curr+size < items.length)
@@ -269,7 +264,7 @@ export class DynamoDB {
     let f = isQuery ? 'query' : 'scan';
     this.dynamo[f](params, (err: Error, data: any) => {
       if(err || !data || !data.Items) {
-        this.utils.logger(`SCAN ${params.TableName}`, err, data);
+        Utils.logger(`SCAN ${params.TableName}`, err, data);
         return reject(err);
       }
       items = items.concat(data.Items);
@@ -277,20 +272,9 @@ export class DynamoDB {
         params.ExclusiveStartKey = data.LastEvaluatedKey;
         this.queryScanHelper(params, items, false, resolve, reject);
       } else {
-        this.utils.logger(`SCAN ${params.TableName}`, null, items.length.toString());
+        Utils.logger(`SCAN ${params.TableName}`, null, items.length.toString());
         resolve(items);
       }
     });
   }
-}
-
-/**
- * The initial options for a constructor of class DynamoDB.
- */
-export interface InitOptionsDynamoDB {
-  /**
-   * The code of the project.
-   */
-  project?: string;
-  utils?: Utils;
 }

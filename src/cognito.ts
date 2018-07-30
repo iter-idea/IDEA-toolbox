@@ -4,30 +4,26 @@ import AWS = require('aws-sdk');
  * A wrapper for AWS Cognito.
  */
 export class Cognito {
-  protected claims: any;
-
   /**
    * Initialize a new Cognito helper object.
-   * @param {InitOptions} options
    */
-  constructor(options?: InitOptionsCognito) {
-    this.claims = options.claims || {};
-  }
+  constructor() {}
 
   /**
    * Get the attributes of the user, from the authorizer claims.
+   * @param {any} claims authorizer claims
    * @return {any | null} user's data
    */
-  public getUserByClaims(): any | null {
-    if(!this.claims) return null;
+  public getUserByClaims(claims: any): any | null {
+    if(!claims) return null;
     let user: any = {};
     // add any additional cognito attribute available in cognito
-    for(let p in this.claims) if(p.startsWith('cognito:')) user[p.slice(8)] = this.claims[p];
+    for(let p in claims) if(p.startsWith('cognito:')) user[p.slice(8)] = claims[p];
     // map the important attributes with reserved names
-    user.userId = this.claims.sub;
-    user.email = this.claims.email;
-    user.name = this.claims.name;
-    user.phoneNumber = this.claims.phone_number;
+    user.userId = claims.sub;
+    user.email = claims.email;
+    user.name = claims.name;
+    user.phoneNumber = claims.phone_number;
     return user;
   }
 
@@ -76,14 +72,4 @@ export class Cognito {
       });
     });
   }
-}
-
-/**
- * The initial options for a constructor of class Cognito.
- */
-export interface InitOptionsCognito {
-  /**
-   * The claims of the API request
-   */
-  claims?: any;
 }

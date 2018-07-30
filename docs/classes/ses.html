@@ -917,6 +917,9 @@ img { max-width: 100%; }
 			<a href="dynamodb.html" class="tsd-kind-icon">DynamoDB</a>
 		</li>
 		<li class=" tsd-kind-class">
+			<a href="resource.html" class="tsd-kind-icon">Resource</a>
+		</li>
+		<li class=" tsd-kind-class">
 			<a href="resourcecontroller.html" class="tsd-kind-icon">Resource<wbr>Controller</a>
 		</li>
 		<li class=" tsd-kind-class">
@@ -928,14 +931,8 @@ img { max-width: 100%; }
 				<li class=" tsd-kind-constructor tsd-parent-kind-class">
 					<a href="ses.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-					<a href="ses.html#utils" class="tsd-kind-icon">utils</a>
-				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="ses.html#sendemail" class="tsd-kind-icon">send<wbr>Email</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a href="ses.html#sendemailnodemailer" class="tsd-kind-icon">send<wbr>Email<wbr>Nodemailer</a>
 				</li>
 			</ul>
 		</li>
@@ -946,22 +943,7 @@ img { max-width: 100%; }
 			<a href="utils.html" class="tsd-kind-icon">Utils</a>
 		</li>
 		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionscognito.html" class="tsd-kind-icon">Init<wbr>Options<wbr>Cognito</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionsdynamodb.html" class="tsd-kind-icon">Init<wbr>Options<wbr>DynamoDB</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionsresourcecontroller.html" class="tsd-kind-icon">Init<wbr>Options<wbr>Resource<wbr>Controller</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionss3.html" class="tsd-kind-icon">Init<wbr>Options<wbr>S3</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionsses.html" class="tsd-kind-icon">Init<wbr>OptionsSES</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/initoptionssns.html" class="tsd-kind-icon">Init<wbr>OptionsSNS</a>
+			<a href="../interfaces/resourcecontrolleroptions.html" class="tsd-kind-icon">Resource<wbr>Controller<wbr>Options</a>
 		</li>
 	</ul>
 </nav>
@@ -992,17 +974,10 @@ img { max-width: 100%; }
 							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="ses.html#constructor" class="tsd-kind-icon">constructor</a></li>
 						</ul>
 					</section>
-					<section class="tsd-index-section tsd-is-private-protected">
-						<h3>Properties</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ses.html#utils" class="tsd-kind-icon">utils</a></li>
-						</ul>
-					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="ses.html#sendemail" class="tsd-kind-icon">send<wbr>Email</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="ses.html#sendemailnodemailer" class="tsd-kind-icon">send<wbr>Email<wbr>Nodemailer</a></li>
 						</ul>
 					</section>
 				</div>
@@ -1014,13 +989,13 @@ img { max-width: 100%; }
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new SES<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/initoptionsses.html" class="tsd-signature-type">InitOptionsSES</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ses.html" class="tsd-signature-type">SES</a></li>
+					<li class="tsd-signature tsd-kind-icon">new SES<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ses.html" class="tsd-signature-type">SES</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/ses.ts#L10">ses.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/ses.ts#L9">ses.ts:9</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1028,32 +1003,9 @@ img { max-width: 100%; }
 								<p>Initialize a new SES helper object.</p>
 							</div>
 						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/initoptionsses.html" class="tsd-signature-type">InitOptionsSES</a></h5>
-								<div class="tsd-comment tsd-typography">
-									<div class="lead">
-									</div>
-								</div>
-							</li>
-						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="ses.html" class="tsd-signature-type">SES</a></h4>
 					</li>
 				</ul>
-			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
-			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-				<a name="utils" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagProtected">Protected</span> utils</h3>
-				<div class="tsd-signature tsd-kind-icon">utils<span class="tsd-signature-symbol">:</span> <a href="utils.html" class="tsd-signature-type">Utils</a></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/ses.ts#L10">ses.ts:10</a></li>
-					</ul>
-				</aside>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
@@ -1068,7 +1020,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/ses.ts#L30">ses.ts:30</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/0b1cd55/src/ses.ts#L24">ses.ts:24</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1091,37 +1043,6 @@ img { max-width: 100%; }
 								<div class="tsd-comment tsd-typography">
 									<p>region, source, sourceName, sourceArn</p>
 								</div>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-				<a name="sendemailnodemailer" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagPrivate">Private</span> send<wbr>Email<wbr>Nodemailer</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<li class="tsd-signature tsd-kind-icon">send<wbr>Email<wbr>Nodemailer<span class="tsd-signature-symbol">(</span>ses<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, sesData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, attachments<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/5c1df0f/src/ses.ts#L68">ses.ts:68</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>ses: <span class="tsd-signature-type">any</span></h5>
-							</li>
-							<li>
-								<h5>sesData: <span class="tsd-signature-type">any</span></h5>
-							</li>
-							<li>
-								<h5>attachments: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>

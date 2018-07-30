@@ -7,7 +7,6 @@ import { Utils } from './utils';
  */
 export class S3 {
   protected s3: any;
-  protected utils: Utils;
 
   protected DEFAULT_DOWNLOAD_BUCKET: string = 'idea-downloads';
   protected DEFAULT_DOWNLOAD_BUCKET_PREFIX: string = 'common';
@@ -16,12 +15,9 @@ export class S3 {
 
   /**
    * Initialize a new S3 helper object.
-   * @param {InitOptionsS3} options
    */
-  constructor(options?: InitOptionsS3) {
-    options = options || <InitOptionsS3> {};
+  constructor() {
     this.s3 = new AWS.S3({ apiVersion: '2006-03-01', signatureVersion: 'v4' });
-    this.utils = options.utils || new Utils();
   }
 
   /**
@@ -46,7 +42,7 @@ export class S3 {
       secToExp = secToExp || this.DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP;
       this.s3.upload({ Bucket: bucket, Key: key, Body: dataToUpload, ContentType: contentType },
       (err: Error, data: any) => {
-        this.utils.logger('S3 UPLOAD', err, data);
+        Utils.logger('S3 UPLOAD', err, data);
         if(err) reject(err);
         else resolve(this.s3.getSignedUrl('getObject', { Bucket: bucket, Key: key, Expires: secToExp }));
       });
@@ -76,11 +72,4 @@ export class S3 {
       Bucket: bucket, Key: key, Expires: expires || this.DEFAULT_DOWNLOAD_BUCKET_SEC_TO_EXP
     });
   }
-}
-
-/**
- * The initial options for a constructor of class S3.
- */
-export interface InitOptionsS3 {
-  utils?: Utils;
 }

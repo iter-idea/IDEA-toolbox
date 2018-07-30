@@ -1,3 +1,4 @@
+export { Resource } from './resource';
 export { ResourceController } from './resourceController';
 export { DynamoDB } from './dynamoDB';
 export { Cognito } from './cognito';

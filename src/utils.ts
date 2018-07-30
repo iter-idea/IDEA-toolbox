@@ -1,20 +1,15 @@
 import Fs = require('fs')
 
 /**
- * Utilities (generic) functions, to support IDEA's projects. 
+ * Utilities (static) functions, to support IDEA's projects. 
  */
-export class Utils {
-  /**
-   * Initialize a new Utils helper object.
-   */
-  constructor() {}
-
+export abstract class Utils {
   /**
    * Convert an ISODate string to the Italian format.
    * @param {string} ds new Date().toISOString();
    * @return {string} cleaned date
    */
-  public ISODateToItalianFormat(ds: string): string {
+  public static ISODateToItalianFormat(ds: string): string {
     return `${ds.slice(8, 10)}/${ds.slice(5, 7)}/${ds.slice(0, 4)}`;
   }
 
@@ -24,7 +19,7 @@ export class Utils {
    * @param {string} separator optional, separator char
    * @return cleaned string
    */
-  public cleanStr(str: string, separator?: string): string {
+  public static cleanStr(str: string, separator?: string): string {
     return (str || '').toLowerCase().replace(/[^a-zA-Z0-9]+/g, separator || '');
   }
 
@@ -39,7 +34,7 @@ export class Utils {
    * function are ignored
    * @return {Array<any>} the joined array
    */
-  public joinArraysOnKeys(
+  public static joinArraysOnKeys(
     mainTable: Array<any>, lookupTable: Array<any>, mainKey: string, lookupKey: string, selectFunction: (attrMainTable: string, attrLookupTable: string) => Array<any>
   ): Array<any> {
     let l = lookupTable.length;
@@ -66,7 +61,7 @@ export class Utils {
    * @param {string} type optional; set to force a type check; enum: string, number, date, boolean
    * @return {boolean} return if the field is empty or not
    */
-  public isEmpty(field: any, type?: string): boolean {
+  public static isEmpty(field: any, type?: string): boolean {
     if(!field) return true;         // null, undefined
     if(!type) type = typeof field;  // try to auto-detect
     if(!type) return true;          // undefined
@@ -93,7 +88,7 @@ export class Utils {
    * @param {any} obj the JSON object
    * @param {string} folder if null, uses the Config.LOGS.FOLDER
    */
-  public saveObjToFile(name: string, obj: any, folder: string): void {
+  public static saveObjToFile(name: string, obj: any, folder: string): void {
     Fs.writeFileSync(`${folder}/${name}.json`, JSON.stringify(obj));
   }
 
@@ -104,7 +99,7 @@ export class Utils {
    * @param {string} content the content to log
    * @param {boolean} important optional; if true, highlight the line in CloudWatch
    */
-  public logger(context: string, err: Error, content: string, important?: boolean): void {
+  public static logger(context: string, err: Error, content: string, important?: boolean): void {
     if(err) console.error('[ERROR]', context, '≫', err, content);
     else if(important) console.log(`[${context}]`, content);
     else console.log('.....', context, '≫', content); // to give less importance to debug info

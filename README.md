@@ -1,10 +1,13 @@
 # IDEA's toolbox
+
 Utility functions to support iter IDEA's projects.
 
 ## Installation
+
 `npm install idea-toolbox`
 
 ## Usage
+
 Javascript
 ```
 const Idea = require('idea-toolbox');
@@ -16,4 +19,4 @@ import Idea = require('idea-toolbox');
 
 ## Documentation
 
-[Link to docs](https://uatisdeproblem.github.io/IDEA-toolbox)
+Documentation generated with TypeDoc: [link](https://uatisdeproblem.github.io/IDEA-toolbox).

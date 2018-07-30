@@ -7,16 +7,10 @@ import { Utils } from './utils';
  * A wrapper for AWS Simple Email Service. 
  */
 export class SES {
-  protected utils: Utils;
-  
   /**
    * Initialize a new SES helper object.
-   * @param {InitOptionsSES} options
    */
-  constructor(options?: InitOptionsSES) {
-    options = options || <InitOptionsSES> {};
-    this.utils = options.utils || new Utils();
-  }
+  constructor() {}
 
   /**
    * Send an email through AWS Simple Email Service.
@@ -54,7 +48,7 @@ export class SES {
       } else {
         // classic way, through SES
         ses.sendEmail(sesData, (err: Error, data: any) => { 
-          this.utils.logger('SES SEND EMAIL', err, JSON.stringify(data));
+          Utils.logger('SES SEND EMAIL', err, JSON.stringify(data));
           if(err) reject(err);
           else resolve(data); 
         });
@@ -65,7 +59,7 @@ export class SES {
   /**
    * @private helper
    */
-  protected sendEmailNodemailer(ses: any, sesData: any, attachments: Array<any>): Promise<any> {
+  private sendEmailNodemailer(ses: any, sesData: any, attachments: Array<any>): Promise<any> {
     return new Promise((resolve, reject) => {
       // set the mail options in Nodemailer's format
       let mailOptions: any = {};
@@ -83,17 +77,10 @@ export class SES {
       let transporter = Nodemailer.createTransport({ SES: ses });
       // send the email
       transporter.sendMail(mailOptions, (err: Error, data: any) => { 
-        this.utils.logger('SES SEND EMAIL (NODEMAILER)', err, data);
+        Utils.logger('SES SEND EMAIL (NODEMAILER)', err, data);
         if(err) reject(err);
         else resolve(data); 
       });
     });
   }
-}
-
-/**
- * The initial options for a constructor of class SES.
- */
-export interface InitOptionsSES {
-  utils?: Utils;
 }
