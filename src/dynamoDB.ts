@@ -147,30 +147,31 @@ export class DynamoDB {
       if(keys.length == 0) {
         Utils.logger(`BATCH GET ${table}`, null, `No elements to get`);
         resolve();
-      } else this.batchGetHelper(table, keys, Boolean(ignoreErr), 0, 100, resolve, reject);
+      } else this.batchGetHelper(table, keys, [], Boolean(ignoreErr), 0, 100, resolve, reject);
     });
   }
   /**
    * @private helper
    */
   protected batchGetHelper(
-    t: string, keys: Array<any>, iErr: boolean, curr: number, size: number, 
+    t: string, keys: Array<any>, elements: Array<any>, iErr: boolean, curr: number, size: number, 
     resolve: any, reject: any
   ): void {
     // prepare the structure for the bulk operation
     let batch: any = { RequestItems: {} };
-    batch.RequestItems[t] = keys
-      .slice(curr, curr+size)
-      .map(k => { return { Keys: k } });
+    batch.RequestItems[t] = { Keys: [] };
+    batch.RequestItems[t].Keys = keys.slice(curr, curr+size);
     // execute the bulk operation
-    this.dynamo.batchGet(batch, (err: Error) => {
+    this.dynamo.batchGet(batch, (err: Error, data: any) => {
       Utils.logger(`BATCH GET ${t}`, err, `${curr} of ${keys.length}`);
-      if(err && !iErr) reject(err);
+      if(err && !iErr) return reject(err);
+      // concat the results
+      elements = elements.concat(data.Responses[t]);
       // if there are still chunks to manage, go on recursively
-      else if(curr+size < keys.length)
-        this.batchGetHelper(t, keys, iErr, curr+size, size, resolve, reject);
+      if(curr+size < keys.length)
+        this.batchGetHelper(t, keys, elements, iErr, curr+size, size, resolve, reject);
       // no more chunks to manage: we're done
-      else resolve();
+      else resolve(elements);
     });
   }
     
