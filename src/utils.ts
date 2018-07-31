@@ -76,7 +76,7 @@ export abstract class Utils {
           let d = new Date(field);
           return Object.prototype.toString.call(d) !== '[object Date]'
         } else if(field instanceof Array)
-          return field.filter((i: any) => !Utils.isEmpty(i)).length <= 0;
+          return field.filter((i: any) => i).length <= 0;
         else return true;
       }
       default: return true;
