@@ -7,7 +7,7 @@ import { Utils } from './utils';
  * A wrapper for AWS DynamoDB.
  */
 export class DynamoDB {
-  protected dynamo: any; // the instance of DynamoDB
+  protected dynamo: AWS.DynamoDB.DocumentClient; // the instance of DynamoDB
 
   /**
    * Initialize a new DynamoDB helper object.
@@ -163,7 +163,7 @@ export class DynamoDB {
       .slice(curr, curr+size)
       .map(k => { return { Keys: k } });
     // execute the bulk operation
-    this.dynamo.batchGetItem(batch, (err: Error) => {
+    this.dynamo.batchGet(batch, (err: Error) => {
       Utils.logger(`BATCH GET ${t}`, err, `${curr} of ${keys.length}`);
       if(err && !iErr) reject(err);
       // if there are still chunks to manage, go on recursively
@@ -224,7 +224,7 @@ export class DynamoDB {
       .map(k => { return { DeleteRequest: { Key: k } } });
     }
     // execute the bulk operation
-    this.dynamo.batchWriteItem(batch, (err: Error) => {
+    this.dynamo.batchWrite(batch, (err: Error) => {
       Utils.logger(`BATCH WRITE ${t}`, err, `${curr} of ${items.length}`);
       if(err && !iErr) reject(err);
       // if there are still chunks to manage, go on recursively
@@ -262,9 +262,9 @@ export class DynamoDB {
     params: any, items: Array<any>, isQuery: boolean, resolve: any, reject: any
   ): void {
     let f = isQuery ? 'query' : 'scan';
-    this.dynamo[f](params, (err: Error, data: any) => {
+    (<any>this.dynamo)[f](params, (err: Error, data: any) => {
       if(err || !data || !data.Items) {
-        Utils.logger(`SCAN ${params.TableName}`, err, data);
+        Utils.logger(`${f.toUpperCase()} ${params.TableName}`, err, data);
         return reject(err);
       }
       items = items.concat(data.Items);
@@ -272,7 +272,7 @@ export class DynamoDB {
         params.ExclusiveStartKey = data.LastEvaluatedKey;
         this.queryScanHelper(params, items, false, resolve, reject);
       } else {
-        Utils.logger(`SCAN ${params.TableName}`, null, items.length.toString());
+        Utils.logger(`${f.toUpperCase()} ${params.TableName}`, null, items.length.toString());
         resolve(items);
       }
     });
