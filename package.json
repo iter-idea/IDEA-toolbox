@@ -1,12 +1,12 @@
 {
   "name": "idea-toolbox",
-  "version": "2.2.9",
+  "version": "2.2.10",
   "description": "IDEA's utility functions",
   "engines": {
     "node": ">=6.0.0"
   },
   "main": "dist/index.js",
-  "types" : "dist/index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "./build.sh"
   },
@@ -30,7 +30,6 @@
   },
   "homepage": "https://uatisdeproblem.github.io/IDEA-toolbox",
   "dependencies": {
-    "aws-sdk": "^2.276.1",
     "nodemailer": "^4.6.5",
     "request": "^2.87.0",
     "uuid": "^3.1.0"
@@ -42,7 +41,7 @@
     "@types/request": "^2.47.1",
     "@types/showdown": "^1.7.5",
     "@types/uuid": "^3.4.3",
-    "aws-sdk": "^2.279.1",
+    "aws-sdk": "^2.284.1",
     "typescript": "^2.9.2"
   }
 }
