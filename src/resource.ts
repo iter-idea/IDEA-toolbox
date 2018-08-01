@@ -9,9 +9,9 @@ export abstract class Resource {
 
   /**
    * Load the attributes from an already existent resource.
-   * 
+   *
    * @param {any} newData the data to load
-   * 
+   *
    * Typical implementation:
      ```
      newData = newData || {};
@@ -23,15 +23,15 @@ export abstract class Resource {
   public abstract load(newData: any): void;
 
   /**
-   * Load the attributes from an already existent resource and then force some attributes 
+   * Load the attributes from an already existent resource and then force some attributes
    * to assume _safeData_ values.
-   * 
+   *
    * The function is usually used in the back-end to mix together back-end data with new data,
    * without the risk of the changing of ids and other attributes which are managed standalone.
-   * 
+   *
    * @param {any} newData the data to load
    * @param {any} safeData the attributes to force to certain values
-   * 
+   *
    * Typical implementation:
      ```
      this.load(newData);
@@ -47,7 +47,7 @@ export abstract class Resource {
   /**
    * Valide the object's attributes, performing all the checkings.
    * @returns {Array<string>} errors; if empty, the checkings are passed
-   * 
+   *
    * Typical implementation:
      ```
      let iE = Utils.isEmpty; // from idea-toolbox
