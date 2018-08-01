@@ -10,11 +10,11 @@ Utility functions to support iter IDEA's projects.
 
 Javascript
 ```
-const Idea = require('idea-toolbox');
+const IdeaX = require('idea-toolbox');
 ```
 Typescript
 ```
-import Idea = require('idea-toolbox');
+import IdeaX = require('idea-toolbox');
 ```
 
 ## Documentation
