@@ -2,6 +2,8 @@
  * Utilities (static) functions, to support IDEA's projects.
  */
 
+import Request = require('request');
+
 /**
  * Convert an ISODate string to the Italian format.
  * @param {string} ds new Date().toISOString();
