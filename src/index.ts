@@ -1,2 +1,2 @@
-export { Utils } from './utils';
-export { Resource } from './resource';
+export * from './utils';
+export * from './resource';
