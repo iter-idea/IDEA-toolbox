@@ -3,27 +3,13 @@ import Request = require('request');
 /**
  * Utilities (static) functions, to support IDEA's projects.
  */
-module.exports = {
-  // dates
-  ISODateToItalianFormat, dateToLocale,
-  // strings
-  cleanStr,
-  // arrays
-  joinArraysOnKeys,
-  // checkings
-  isEmpty,
-  // logs
-  logger,
-  // API
-  requestAPI
-}
 
 /**
  * Convert an ISODate string to the Italian format.
  * @param {string} ds new Date().toISOString();
  * @returns {string} cleaned date
  */
-function ISODateToItalianFormat(ds: string): string {
+export function ISODateToItalianFormat(ds: string): string {
   return `${ds.slice(8, 10)}/${ds.slice(5, 7)}/${ds.slice(0, 4)}`;
 }
 
@@ -35,7 +21,7 @@ function ISODateToItalianFormat(ds: string): string {
  * @param {boolean} noYear if true, don't concat the year
  * @returns {string} the date converted
  */
-function dateToLocale(date: Date, lang: string, short?: boolean, noYear?: boolean): string {
+export function dateToLocale(date: Date, lang: string, short?: boolean, noYear?: boolean): string {
   let dayName = date.toLocaleDateString(lang, { weekday: short ? 'short' : 'long' });
   dayName = dayName.slice(0, 1).toUpperCase().concat(dayName.slice(1));
   let day = date.toLocaleDateString(lang, { day: 'numeric' });
@@ -51,7 +37,7 @@ function dateToLocale(date: Date, lang: string, short?: boolean, noYear?: boolea
  * @param {string} separator optional, separator char
  * @returns {string} cleaned string
  */
-function cleanStr(str: string, separator?: string): string {
+export function cleanStr(str: string, separator?: string): string {
   return (str || '').toLowerCase().replace(/[^a-zA-Z0-9]+/g, separator || '');
 }
 
@@ -66,7 +52,7 @@ function cleanStr(str: string, separator?: string): string {
  * function are ignored
  * @returns {Array<any>} the joined array
  */
-function joinArraysOnKeys(
+export function joinArraysOnKeys(
   mainTable: Array<any>, lookupTable: Array<any>, mainKey: string, lookupKey: string, selectFunction: (attrMainTable: string, attrLookupTable: string) => Array<any>
 ): Array<any> {
   let l = lookupTable.length;
@@ -93,7 +79,7 @@ function joinArraysOnKeys(
  * @param {string} type optional; set to force a type check; enum: string, number, date, boolean
  * @returns {boolean} return if the field is empty or not
  */
-function isEmpty(field: any, type?: string): boolean {
+export function isEmpty(field: any, type?: string): boolean {
   if(!field) return true;         // null, undefined
   if(!type) type = typeof field;  // try to auto-detect
   if(!type) return true;          // undefined
@@ -122,7 +108,7 @@ function isEmpty(field: any, type?: string): boolean {
  * @param {string} content the content to log
  * @param {boolean} important optional; if true, highlight the line in CloudWatch
  */
-function logger(context: string, err: Error, content: string, important?: boolean): void {
+export function logger(context: string, err: Error, content: string, important?: boolean): void {
   if(err) console.error('[ERROR]', context, '≫', err, content);
   else if(important) console.log(`[${context}]`, content);
   else console.log('.....', context, '≫', content); // to give less importance to debug info
@@ -136,7 +122,7 @@ function logger(context: string, err: Error, content: string, important?: boolea
  * Useful to avoid overwhelming the back-end when the execution isn't time pressured.
  * @return {Promise<any>}
  */
-function requestAPI(method: string, options?: any, delay?: number): Promise<any> {
+export function requestAPI(method: string, options?: any, delay?: number): Promise<any> {
   return new Promise((resolve, reject) => {
     delay = delay || 1; // ms
     setTimeout(() => {
