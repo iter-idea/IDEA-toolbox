@@ -77,7 +77,8 @@ export function joinArraysOnKeys(
  * Check if a field (/variable) is empty, based on its type.
  * If the type isn't passed as a parameter, it will be auto-detected.
  * @param {any} field the field to check
- * @param {string} type optional; set to force a type check; enum: string, number, date, boolean
+ * @param {string} type optional; set to force a type check;
+ *  enum: string, number, date, boolean, email, phone
  * @returns {boolean} return if the field is empty or not
  */
 export function isEmpty(field: any, type?: string): boolean {
