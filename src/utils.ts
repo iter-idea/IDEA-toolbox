@@ -1,4 +1,5 @@
 import Request = require('request');
+import Validator = require('validator');
 
 /**
  * Utilities (static) functions, to support IDEA's projects.
@@ -97,6 +98,8 @@ export function isEmpty(field: any, type?: string): boolean {
         return field.filter((i: any) => i).length <= 0;
       else return true;
     }
+    case 'email': return field.trim().length <= 0 || !Validator.isEmail(field);
+    case 'phone': return field.trim().length <= 0 || !Validator.isMobilePhone(field, 'any');
     default: return true;
   }
 }
