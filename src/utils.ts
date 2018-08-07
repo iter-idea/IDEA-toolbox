@@ -99,8 +99,8 @@ export function isEmpty(field: any, type?: string): boolean {
         return field.filter((i: any) => i).length <= 0;
       else return true;
     }
-    case 'email': return field.trim().length <= 0 || !Validator.isEmail(field);
-    case 'phone': return field.trim().length <= 0 || !Validator.isMobilePhone(field, 'any');
+    case 'email': return !Validator.isEmail(field);
+    case 'phone': return !Validator.isMobilePhone(field, 'any');
     default: return true;
   }
 }
