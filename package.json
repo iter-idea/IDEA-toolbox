@@ -1,6 +1,6 @@
 {
   "name": "idea-toolbox",
-  "version": "3.0.10",
+  "version": "3.0.11",
   "description": "IDEA's utility functions",
   "engines": {
     "node": ">=6.0.0"
@@ -8,7 +8,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "./build.sh"
+    "build": "./build.sh",
+    "publishPackage": "./build.sh && npm publish"
   },
   "repository": {
     "type": "git",
