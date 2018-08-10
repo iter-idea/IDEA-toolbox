@@ -92,10 +92,9 @@ export function isEmpty(field: any, type?: string): boolean {
     case 'boolean': return !Boolean(field);
     case 'date':
     case 'object': {
-      if(field instanceof Date || type == 'date') {
-        let d = new Date(field);
-        return Object.prototype.toString.call(d) !== '[object Date]'
-      } else if(field instanceof Array)
+      if(field instanceof Date || type == 'date')
+        return isNaN(Date.parse(field));
+      else if(field instanceof Array)
         return field.filter((i: any) => i).length <= 0;
       else return true;
     }
