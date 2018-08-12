@@ -92,8 +92,10 @@ export function isEmpty(field: any, type?: string): boolean {
     case 'boolean': return !Boolean(field);
     case 'date':
     case 'object': {
-      if(field instanceof Date || type == 'date')
-        return isNaN(Date.parse(field));
+      if(field instanceof Date || type == 'date') {
+        let d = new Date(field);
+        return !(d instanceof Date && !isNaN(d.valueOf()))
+      }
       else if(field instanceof Array)
         return field.filter((i: any) => i).length <= 0;
       else return true;
