@@ -135,7 +135,6 @@ export function requestAPI(method: string, options?: any, delay?: number): Promi
       method = method.toLowerCase();
       if(options.dontParseBody) options.body = options.body || null;
       else options.body = options.body ? JSON.stringify(options.body) : null;
-      options.url = encodeURI(options.url);
       // execute the request and reject or resolve the promise
       (<any>Request)[method](options, (err: Error, res: any) => {
         if(err) reject(err)
