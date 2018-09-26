@@ -78,7 +78,7 @@ export class CustomField implements Resource {
     //
     if(iE(this.name[defaultLanguage])) e.push(`name`);
     //
-    return [];
+    return e;
   }
 
   /**
