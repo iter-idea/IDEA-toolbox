@@ -77,6 +77,7 @@ export class CustomField implements Resource {
     if(iE(defaultLanguage)) e.push('defaultLanguage');
     //
     if(iE(this.name[defaultLanguage])) e.push(`name`);
+    if(this.type == CustomFieldTypes.ENUM && !(this.enum && this.enum.length)) e.push(`enum`);
     //
     return e;
   }
@@ -133,5 +134,5 @@ export class CustomField implements Resource {
  * Possible field types.
  */
 export enum CustomFieldTypes {
-  STRING = 'STRING', NUMBER = 'NUMBER', BOOLEAN = 'BOOLEAN', TEXT = 'TEXT', ENUM = 'ENUM'
+  STRING = 'STRING', ENUM = 'ENUM', BOOLEAN = 'BOOLEAN', NUMBER = 'NUMBER', TEXT = 'TEXT'
 };
