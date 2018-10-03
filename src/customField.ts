@@ -1,8 +1,7 @@
 import { Resource } from './resource';
 import { Label } from './label';
-import { isEmpty } from './utils';
 
-export class CustomField implements Resource {
+export class CustomField extends Resource {
   /**
    * Name of the field.
    */
@@ -37,6 +36,7 @@ export class CustomField implements Resource {
   public max: number;
 
   constructor(availableLanguages?: Array<string>) {
+    super();
     this.name = <Label> {};
     availableLanguages.forEach(l => this.name[l] = null);
     this.description = <Label> {};
@@ -50,7 +50,7 @@ export class CustomField implements Resource {
   }
 
   public load(x: any, availableLanguages?: Array<string>): void {
-    x = x || {};
+    super.load(x);
     availableLanguages = availableLanguages || [];
     this.name = <Label> {};
     availableLanguages.forEach(l => this.name[l] = x.name[l] ? String(x.name[l]) : null);
@@ -66,17 +66,17 @@ export class CustomField implements Resource {
   }
 
   public safeLoad(newData: any, safeData: any, availableLanguages?: Array<string>): void {
-    safeData = safeData || {};
+    super.safeLoad(newData, safeData);
     this.load(newData, availableLanguages);
   }
 
   public validate(defaultLanguage?: string): Array<string> {
-    let iE = isEmpty;
+    super.validate();
     let e: Array<string> = new Array<string>();
     //
-    if(iE(defaultLanguage)) e.push('defaultLanguage');
+    if(this.iE(defaultLanguage)) e.push('defaultLanguage');
     //
-    if(iE(this.name[defaultLanguage])) e.push(`name`);
+    if(this.iE(this.name[defaultLanguage])) e.push(`name`);
     if(this.type == CustomFieldTypes.ENUM && !(this.enum && this.enum.length)) e.push(`enum`);
     //
     return e;

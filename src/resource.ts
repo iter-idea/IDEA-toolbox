@@ -1,11 +1,36 @@
+import { Cacheable } from './cacheable';
+import { epochDateTime } from './epoch';
+import { isEmpty } from './utils';
+
 /**
  * An abstract class to inherit to manage a resource model.
  */
-export abstract class Resource {
+export abstract class Resource implements Cacheable {
+  /**
+   * "Modified at" information on the resource.
+   */
+  public mAt: epochDateTime;
+
   /**
    * Object initialization, setting all the default values.
+   *
+   * Typical implementation:
+     ```
+     super();
+     this.attr = null;
+     // ...
+     ```
    */
-  constructor() {}
+  constructor() {
+    this.mAt = null;
+  }
+
+  /**
+   * Update `mAt` after a change in the object.
+   */
+  public tick(): void {
+    this.mAt = new Date().getTime();
+  }
 
   /**
    * Load the attributes from an already existent resource.
@@ -14,13 +39,14 @@ export abstract class Resource {
    *
    * Typical implementation:
      ```
-     newData = newData || {};
-     // ...
+     super.load(newData);
      this.attr = newData.attr || null;
      // ...
      ```
    */
-  public abstract load(newData: any): void;
+  public load(newData: any): void {
+    newData = newData || {};
+  };
 
   /**
    * Load the attributes from an already existent resource and then force some attributes
@@ -34,29 +60,38 @@ export abstract class Resource {
    *
    * Typical implementation:
      ```
-     this.load(newData);
-     // ...
+     super.safeLoad(newData, safeData);
      this.keyAttr = safeData.keyAttr;
      this.importantAttr = safeData.importantAttr;
      this.isDraft = safeData.isDraft;
      // ...
      ```
    */
-  public abstract safeLoad(newData: any, safeData: any): void;
+  public safeLoad(newData: any, safeData: any): void {
+    safeData = safeData = {};
+    this.load(newData);
+  };
 
   /**
    * Valide the object's attributes, performing all the checkings.
+   * Also "ticks" the `mAt` field (useful before a put in the data model).
    * @returns {Array<string>} errors; if empty, the checkings are passed
    *
    * Typical implementation:
      ```
-     let iE = Utils.isEmpty; // from idea-toolbox
      let e: Array<string> = new Array<string>();
-     // ...
-     if(iE(this.attr)) e.push(`attr`);
+     if(this.iE(this.attr)) e.push(`attr`);
      // ...
      return e;
      ```
    */
-  public abstract validate(): Array<string>;
+  public validate(): Array<string> {
+    this.tick();
+    return new Array<string>();
+  };
+
+  /**
+   * Shortcut to Utils.isEmpty.
+   */
+  public iE = isEmpty;
 }
