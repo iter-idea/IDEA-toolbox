@@ -93,5 +93,7 @@ export abstract class Resource implements Cacheable {
   /**
    * Shortcut to Utils.isEmpty.
    */
-  public iE = isEmpty;
+  public iE(field: any, type?: string): boolean {
+    return isEmpty(field, type);
+  }
 }
