@@ -22,14 +22,14 @@ export abstract class Resource implements Cacheable {
      ```
    */
   constructor() {
-    this.mAt = null;
+    this.mAt = Date.now();
   }
 
   /**
    * Update `mAt` after a change in the object.
    */
   public tick(): void {
-    this.mAt = new Date().getTime();
+    this.mAt = Date.now();
   }
 
   /**
