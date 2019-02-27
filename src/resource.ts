@@ -44,9 +44,9 @@ export abstract class Resource implements Cacheable {
      // ...
      ```
    */
-  public load(newData: any): void {
+  public load(newData: any) {
     newData = newData || {};
-  };
+  }
 
   /**
    * Load the attributes from an already existent resource and then force some attributes
@@ -67,10 +67,10 @@ export abstract class Resource implements Cacheable {
      // ...
      ```
    */
-  public safeLoad(newData: any, safeData: any): void {
+  public safeLoad(newData: any, safeData: any) {
     safeData = safeData = {};
     this.load(newData);
-  };
+  }
 
   /**
    * Valide the object's attributes, performing all the checkings.
@@ -88,7 +88,7 @@ export abstract class Resource implements Cacheable {
   public validate(): Array<string> {
     this.tick();
     return new Array<string>();
-  };
+  }
 
   /**
    * Shortcut to Utils.isEmpty.

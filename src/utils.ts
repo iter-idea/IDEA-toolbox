@@ -25,10 +25,10 @@ export function ISODateToItalianFormat(ds: string): string {
 export function dateToLocale(date: Date, lang: string, short?: boolean, noYear?: boolean): string {
   let dayName = date.toLocaleDateString(lang, { weekday: short ? 'short' : 'long' });
   dayName = dayName.slice(0, 1).toUpperCase().concat(dayName.slice(1));
-  let day = date.toLocaleDateString(lang, { day: 'numeric' });
+  const day = date.toLocaleDateString(lang, { day: 'numeric' });
   let month = date.toLocaleDateString(lang, { month: short ? 'short' : 'long' });
   month = month.slice(0, 1).toUpperCase().concat(month.slice(1));
-  let year = date.toLocaleDateString(lang, { year: 'numeric' });
+  const year = date.toLocaleDateString(lang, { year: 'numeric' });
   return `${dayName} ${day} ${month} ${noYear ? '' : year}`;
 }
 
@@ -54,21 +54,22 @@ export function cleanStr(str: string, separator?: string): string {
  * @returns {Array<any>} the joined array
  */
 export function joinArraysOnKeys(
-  mainTable: Array<any>, lookupTable: Array<any>, mainKey: string, lookupKey: string, selectFunction: (attrMainTable: string, attrLookupTable: string) => Array<any>
+  mainTable: Array<any>, lookupTable: Array<any>, mainKey: string, lookupKey: string,
+  selectFunction: (attrMainTable: string, attrLookupTable: string) => Array<any>
 ): Array<any> {
-  let l = lookupTable.length;
-  let m = mainTable.length;
-  let lookupIndex = [];
-  let output = [];
-  for(let i = 0; i < l; i++) { // loop through l items
-    let row = lookupTable[i];
+  const l = lookupTable.length;
+  const m = mainTable.length;
+  const lookupIndex = [];
+  const output = [];
+  for (let i = 0; i < l; i++) { // loop through l items
+    const row = lookupTable[i];
     lookupIndex[row[lookupKey]] = row; // create an index for lookup table
   }
-  for(let j = 0; j < m; j++) { // loop through m items
-    let y = mainTable[j];
-    let x = lookupIndex[y[mainKey]]; // get corresponding row from lookupTable
-    let o = selectFunction(y, x); // select only the columns you need
-    if(o) output.push(o); // null values returned by the select function are ignored
+  for (let j = 0; j < m; j++) { // loop through m items
+    const y = mainTable[j];
+    const x = lookupIndex[y[mainKey]]; // get corresponding row from lookupTable
+    const o = selectFunction(y, x); // select only the columns you need
+    if (o) output.push(o); // null values returned by the select function are ignored
   }
   return output;
 }
@@ -82,21 +83,20 @@ export function joinArraysOnKeys(
  * @returns {boolean} return if the field is empty or not
  */
 export function isEmpty(field: any, type?: string): boolean {
-  if(!field) return true;         // null, undefined
-  if(!type) type = typeof field;  // try to auto-detect
-  if(!type) return true;          // undefined
+  if (!field) return true;         // null, undefined
+  if (!type) type = typeof field;  // try to auto-detect
+  if (!type) return true;          // undefined
   // check emptiness based on the type
-  switch(type) {
+  switch (type) {
     case 'string': return field.trim().length <= 0;
     case 'number': return field <= 0;
     case 'boolean': return !Boolean(field);
     case 'date':
     case 'object': {
-      if(field instanceof Date || type == 'date') {
-        let d = new Date(field);
-        return !(d instanceof Date && !isNaN(d.valueOf()))
-      }
-      else if(field instanceof Array)
+      if (field instanceof Date || type === 'date') {
+        const d = new Date(field);
+        return !(d instanceof Date && !isNaN(d.valueOf()));
+      } else if (field instanceof Array)
         return field.filter((i: any) => i).length <= 0;
       else return true;
     }
@@ -114,8 +114,8 @@ export function isEmpty(field: any, type?: string): boolean {
  * @param {boolean} important optional; if true, highlight the line in CloudWatch
  */
 export function logger(context: string, err: Error, content: string, important?: boolean): void {
-  if(err) console.error('[ERROR]', context, '≫', err, content);
-  else if(important) console.log(`[${context}]`, content);
+  if (err) console.error('[ERROR]', context, '≫', err, content);
+  else if (important) console.log(`[${context}]`, content);
   else console.log('.....', context, '≫', content); // to give less importance to debug info
 }
 
@@ -133,15 +133,14 @@ export function requestAPI(method: string, options?: any, delay?: number): Promi
     setTimeout(() => {
       // prepare the parameters and the options
       method = method.toLowerCase();
-      if(options.dontParseBody) options.body = options.body || null;
+      if (options.dontParseBody) options.body = options.body || null;
       else options.body = options.body ? JSON.stringify(options.body) : null;
       // execute the request and reject or resolve the promise
       (<any>Request)[method](options, (err: Error, res: any) => {
-        if(err) reject(err)
-        else if(res.statusCode !== 200) reject(`[${res.statusCode}] ${res.body}`);
+        if (err) reject(err);
+        else if (res.statusCode !== 200) reject(`[${res.statusCode}] ${res.body}`);
         else {
-          try { resolve(JSON.parse(res.body)); }
-          catch(e) { return resolve(res.body); }
+          try { resolve(JSON.parse(res.body)); } catch (e) { return resolve(res.body); }
         }
       });
     }, delay);

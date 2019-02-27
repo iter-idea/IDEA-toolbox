@@ -1,6 +1,13 @@
 import { Resource } from './resource';
 import { Label } from './label';
 
+/**
+ * Possible field types.
+ */
+export enum CustomFieldTypes {
+  STRING = 'STRING', ENUM = 'ENUM', BOOLEAN = 'BOOLEAN', NUMBER = 'NUMBER', TEXT = 'TEXT'
+}
+
 export class CustomField extends Resource {
   /**
    * Name of the field.
@@ -49,7 +56,7 @@ export class CustomField extends Resource {
     this.max = null;
   }
 
-  public load(x: any, availableLanguages?: Array<string>): void {
+  public load(x: any, availableLanguages?: Array<string>) {
     super.load(x);
     availableLanguages = availableLanguages || [];
     this.name = <Label> {};
@@ -58,7 +65,7 @@ export class CustomField extends Resource {
     availableLanguages.forEach(l =>
       this.description[l] = x.description[l] ? String(x.description[l]) : null);
     this.type = x.type ? <CustomFieldTypes>String(x.type) : null;
-    this.enum = x.enum ? x.enum.map((x: string) => x ? String(x) : null) : null;
+    this.enum = x.enum ? x.enum.map((y: string) => y ? String(y) : null) : null;
     this.default = x.default ? String(x.default) : null;
     this.obligatory = Boolean(x.obligatory);
     this.min = x.min ? Number(x.min) : null;
@@ -72,12 +79,12 @@ export class CustomField extends Resource {
 
   public validate(defaultLanguage?: string): Array<string> {
     super.validate();
-    let e: Array<string> = new Array<string>();
+    const e: Array<string> = new Array<string>();
     //
-    if(this.iE(defaultLanguage)) e.push('defaultLanguage');
+    if (this.iE(defaultLanguage)) e.push('defaultLanguage');
     //
-    if(this.iE(this.name[defaultLanguage])) e.push(`name`);
-    if(this.type == CustomFieldTypes.ENUM && !(this.enum && this.enum.length)) e.push(`enum`);
+    if (this.iE(this.name[defaultLanguage])) e.push(`name`);
+    if (this.type === CustomFieldTypes.ENUM && !(this.enum && this.enum.length)) e.push(`enum`);
     //
     return e;
   }
@@ -88,9 +95,9 @@ export class CustomField extends Resource {
    * @return the value type-forced and cleaned
    */
   protected check(value: any): any {
-    if(!value) return false;
+    if (!value) return false;
     // force cast based on type
-    switch(this.type) {
+    switch (this.type) {
       case CustomFieldTypes.BOOLEAN:
         value = Boolean(value);
       break;
@@ -105,34 +112,27 @@ export class CustomField extends Resource {
       default: return false;
     }
     // obligatory fields check
-    if(this.obligatory) switch(this.type) {
+    if (this.obligatory) switch (this.type) {
       case CustomFieldTypes.STRING:
       case CustomFieldTypes.TEXT:
       case CustomFieldTypes.ENUM:
-        if(!value.length) return false;
+        if (!value.length) return false;
       break;
       case CustomFieldTypes.NUMBER:
-        if(isNaN(value) || value == 0) return false;
+        if (isNaN(value) || value === 0) return false;
       break;
     }
     // interval check
-    if(this.type == CustomFieldTypes.NUMBER) {
-      if(this.min !== null && this.min !== undefined)
-        if(value < this.min) return false
-      if(this.max !== null && this.max !== undefined)
-        if(value > this.max) return false
+    if (this.type === CustomFieldTypes.NUMBER) {
+      if (this.min !== null && this.min !== undefined)
+        if (value < this.min) return false;
+      if (this.max !== null && this.max !== undefined)
+        if (value > this.max) return false;
     }
     // enum check
-    if(this.type == CustomFieldTypes.ENUM && !(this.enum || []).some(x => x == value))
+    if (this.type === CustomFieldTypes.ENUM && !(this.enum || []).some(x => x === value))
       return false;
     // return the value cleaned and forced
     return value;
   }
 }
-
-/**
- * Possible field types.
- */
-export enum CustomFieldTypes {
-  STRING = 'STRING', ENUM = 'ENUM', BOOLEAN = 'BOOLEAN', NUMBER = 'NUMBER', TEXT = 'TEXT'
-};
