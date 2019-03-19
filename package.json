@@ -1,6 +1,6 @@
 {
   "name": "idea-toolbox",
-  "version": "4.0.0",
+  "version": "4.0.2",
   "description": "IDEA's utility functions",
   "engines": {
     "node": ">=6.0.0"
@@ -31,7 +31,6 @@
     "validator": "^10.11.0"
   },
   "devDependencies": {
-    "@types/node": "^10.12.27",
     "@types/request": "^2.48.1",
     "@types/validator": "^9.4.4",
     "tslint": "^5.13.0",
