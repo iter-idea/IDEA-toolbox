@@ -1,4 +1,4 @@
-import { Cacheable } from './cacheable';
+import { Cacheable } from './cacheable.model';
 import { epochDateTime } from './epoch';
 import { isEmpty } from './utils';
 

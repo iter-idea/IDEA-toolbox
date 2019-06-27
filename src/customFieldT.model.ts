@@ -1,14 +1,8 @@
-import { Resource } from './resource';
-import { Label } from './label';
+import { Resource } from './resource.model';
+import { CustomFieldTypes } from './customFieldTypes.enum';
+import { Label } from './label.model';
 
-/**
- * Possible field types.
- */
-export enum CustomFieldTypes {
-  STRING = 'STRING', ENUM = 'ENUM', BOOLEAN = 'BOOLEAN', NUMBER = 'NUMBER', TEXT = 'TEXT'
-}
-
-export class CustomField extends Resource {
+export class CustomFieldT extends Resource {
   /**
    * Name of the field.
    */
