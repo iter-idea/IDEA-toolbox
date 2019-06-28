@@ -4,6 +4,10 @@ import { Label } from './label.model';
 
 export class CustomFieldT extends Resource {
   /**
+   * Id of the field.
+   */
+  public fieldId: string;
+  /**
    * Name of the field.
    */
   public name: Label;
@@ -35,9 +39,14 @@ export class CustomFieldT extends Resource {
    * Max value the field can assume; available only with type NUMBER.
    */
   public max: number;
+  /**
+   * The icon to show to identify the field.
+   */
+  public icon: string;
 
   constructor(availableLanguages?: Array<string>) {
     super();
+    this.fieldId = null;
     this.name = <Label> {};
     availableLanguages.forEach(l => this.name[l] = null);
     this.description = <Label> {};
@@ -48,10 +57,12 @@ export class CustomFieldT extends Resource {
     this.obligatory = null;
     this.min = null;
     this.max = null;
+    this.icon = null;
   }
 
   public load(x: any, availableLanguages?: Array<string>) {
     super.load(x);
+    this.fieldId = x.fieldId ? String(x.fieldId) : null;
     availableLanguages = availableLanguages || [];
     this.name = <Label> {};
     availableLanguages.forEach(l => this.name[l] = x.name[l] ? String(x.name[l]) : null);
@@ -64,11 +75,13 @@ export class CustomFieldT extends Resource {
     this.obligatory = Boolean(x.obligatory);
     this.min = x.min ? Number(x.min) : null;
     this.max = x.max ? Number(x.max) : null;
+    this.icon = x.icon ? String(x.icon) : null;
   }
 
   public safeLoad(newData: any, safeData: any, availableLanguages?: Array<string>): void {
     super.safeLoad(newData, safeData);
     this.load(newData, availableLanguages);
+    this.fieldId = safeData.fieldId;
   }
 
   public validate(defaultLanguage?: string): Array<string> {
