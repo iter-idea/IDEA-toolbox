@@ -23,9 +23,9 @@ export class ProjectSubscription extends Resource  {
    */
   public validUntil?: epochDateTime;
   /**
-   * The type of subscription; it gets meaning when this class is inherited in a project.
+   * The type of subscription; it should be typed as an enum with all the possible subscriptions configurations.
    */
-  public type: ProjectSubscriptionType;
+  public type: any;
 
   constructor() {
     super();
@@ -40,7 +40,7 @@ export class ProjectSubscription extends Resource  {
     this.project = x.project ? String(x.project) : null;
     this.subscriptionId = x.subscriptionId ? String(x.subscriptionId) : null;
     this.validUntil = x.validUntil ? new Date(x.validUntil).getTime() : null;
-    this.type = x.type ? <ProjectSubscriptionType> String(x.type) : null;
+    this.type = x.type ? String(x.type) : null;
   }
 
   public safeLoad(_: any, safeData: any) {
@@ -49,8 +49,3 @@ export class ProjectSubscription extends Resource  {
     this.subscriptionId = safeData.subscriptionId;
   }
 }
-
-/**
- * The subscription's types; it gets meaning when this enum is redifined in a project.
- */
-export enum ProjectSubscriptionType { NONE = '' }
