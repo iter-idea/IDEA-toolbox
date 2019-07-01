@@ -17,9 +17,9 @@ export class IDEAClientError {
 
   constructor(x?: any) {
     x = x || <IDEAClientError> {};
-    this.name = this.name ? String(x.name) : null;
-    this.message = this.message ? String(x.message) : null;
-    this.stack = this.stack ? String(x.stack) : null;
+    this.name = x.name ? String(x.name) : null;
+    this.message = x.message ? String(x.message) : null;
+    this.stack = x.stack ? String(x.stack) : null;
   }
 }
 
@@ -87,21 +87,21 @@ export class IDEAClientInfo {
 
   constructor(x?: any) {
     x = x || <IDEAClientInfo> {};
-    this.timestamp = this.timestamp ? new Date(x.timestamp) : null;
-    this.timezone = this.timezone ? Number(x.timezone) : null;
-    this.pageOn = this.pageOn ? String(x.pageOn) : null;
-    this.referrer = this.referrer ? String(x.referrer) : null;
-    this.browserName = this.browserName ? String(x.browserName) : null;
-    this.browserEngine = this.browserEngine ? String(x.browserEngine) : null;
-    this.browserVersion = this.browserVersion ? String(x.browserVersion) : null;
-    this.browserUserAgent = this.browserUserAgent ? String(x.browserUserAgent) : null;
-    this.browserLanguage = this.browserLanguage ? String(x.browserLanguage) : null;
+    this.timestamp = x.timestamp ? new Date(x.timestamp) : null;
+    this.timezone = x.timezone ? Number(x.timezone) : null;
+    this.pageOn = x.pageOn ? String(x.pageOn) : null;
+    this.referrer = x.referrer ? String(x.referrer) : null;
+    this.browserName = x.browserName ? String(x.browserName) : null;
+    this.browserEngine = x.browserEngine ? String(x.browserEngine) : null;
+    this.browserVersion = x.browserVersion ? String(x.browserVersion) : null;
+    this.browserUserAgent = x.browserUserAgent ? String(x.browserUserAgent) : null;
+    this.browserLanguage = x.browserLanguage ? String(x.browserLanguage) : null;
     this.browserOnline = Boolean(x.browserOnline);
-    this.browserPlatform = this.browserPlatform ? String(x.browserPlatform) : null;
-    this.screenWidth = this.screenWidth ? Number(x.screenWidth) : null;
-    this.screenHeight = this.screenHeight ? Number(x.screenHeight) : null;
-    this.screenColorDepth = this.screenColorDepth ? Number(x.screenColorDepth) : null;
-    this.screenPixelDepth = this.screenPixelDepth ? Number(x.screenPixelDepth) : null;
+    this.browserPlatform = x.browserPlatform ? String(x.browserPlatform) : null;
+    this.screenWidth = x.screenWidth ? Number(x.screenWidth) : null;
+    this.screenHeight = x.screenHeight ? Number(x.screenHeight) : null;
+    this.screenColorDepth = x.screenColorDepth ? Number(x.screenColorDepth) : null;
+    this.screenPixelDepth = x.screenPixelDepth ? Number(x.screenPixelDepth) : null;
   }
 }
 
@@ -142,7 +142,7 @@ export class IDEAErrorReport extends Resource  {
   public load(x: any) {
     super.load(x);
     this.project = x.project ? String(x.project) : null;
-    this.createdAt = x.createdAt ? new Date(x.createdAt).getTime() : null;
+    this.createdAt = x.createdAt ? new Date(x.createdAt).getTime() : this.createdAt;
     this.expiresAt = Math.round(new Date(this.createdAt).getTime() / 1000);
     this.error = new IDEAClientError(x.error);
     this.client = new IDEAClientInfo(x.client);
