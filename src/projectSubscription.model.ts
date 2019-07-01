@@ -1,13 +1,19 @@
 import { Resource } from './resource.model';
-import { epochDateTime } from './epoch';
+import { Label } from './label.model';
+
+/**
+ * Expressed in months (WEEK is an exception, with value 0).
+ */
+export enum SubscriptionDurations {
+  WEEK = 0, MONTH_1 = 1, MONTH_2 = 2, MONTH_3 = 3, MONTH_6 = 6, YEAR_1 = 12, LIFETIME = 9999
+}
+
+export enum SubscriptionPlatforms {
+  WEB = 'web', IOS = 'ios', ANDROID = 'android', MACOS = 'macos', WINDOWS = 'windows'
+}
 
 /**
  * Table: `idea_projects_subscriptions`.
- *
- * Indexes:
- *    - `project-activeUntil-index` (LSI); includes: type.
- *
- * Note: this class should be inherited in each different project, adding a meaning to the subscription.
  */
 export class ProjectSubscription extends Resource  {
   /**
@@ -15,37 +21,90 @@ export class ProjectSubscription extends Resource  {
    */
   public project: string;
   /**
-   * The id of the subscription; it gets meaning when this class is inherited in a project.
+   * The id of the project subscription.
    */
   public subscriptionId: string;
   /**
-   * The timestamp until this subscription is active.
+   * The id of the subscription in the stores (aka Product ID).
    */
-  public validUntil?: epochDateTime;
+  public storeId: string;
   /**
-   * The type of subscription; it should be typed as an enum with all the possible subscriptions configurations.
+   * The price, based on the currency set.
    */
-  public type: any;
+  public price: number;
+  /**
+   * The currency ISO code: EUR, USD, etc.
+   */
+  public currency: string;
+  /**
+   * The subscription duration.
+   */
+  public duration: SubscriptionDurations;
+  /**
+   * The platforms in which the subscription is enabled (and therefore visible).
+   */
+  public platforms: Array<SubscriptionPlatforms>;
+  /**
+   * The title of the subscription, in various languages.
+   */
+  public title: Label;
+  /**
+   * The description of the subscription, in various languages.
+   */
+  public description: Label;
 
-  constructor() {
+  constructor(availableLanguages?: Array<string>) {
     super();
     this.project = null;
     this.subscriptionId = null;
-    this.validUntil = null;
-    this.type = null;
+    this.storeId = null;
+    this.price = null;
+    this.currency = 'EUR';
+    this.duration = SubscriptionDurations.MONTH_1;
+    this.platforms = [SubscriptionPlatforms.WEB];
+    this.title = <Label> {};
+    availableLanguages.forEach(l => this.title[l] = null);
+    this.description = <Label> {};
+    availableLanguages.forEach(l => this.description[l] = null);
   }
 
-  public load(x: any) {
+  public load(x: any, availableLanguages?: Array<string>) {
     super.load(x);
     this.project = x.project ? String(x.project) : null;
     this.subscriptionId = x.subscriptionId ? String(x.subscriptionId) : null;
-    this.validUntil = x.validUntil ? new Date(x.validUntil).getTime() : null;
-    this.type = x.type ? String(x.type) : null;
+    this.storeId = x.storeId ? String(x.storeId) : null;
+    this.price = x.price ? Number(x.price) : null;
+    this.currency = x.currency ? String(x.currency) : 'EUR';
+    this.duration = x.duration ? <SubscriptionDurations>Number(x.duration) : SubscriptionDurations.MONTH_1;
+    this.platforms = x.platforms ? x.platforms
+      .map((p: string) => p ? <SubscriptionPlatforms>String(p) : null) : [SubscriptionPlatforms.WEB];
+    this.title = <Label> {};
+    availableLanguages.forEach(l => this.title[l] = x.title[l] ? String(x.title[l]) : null);
+    this.description = <Label> {};
+    availableLanguages.forEach(l => this.description[l] = x.description[l] ? String(x.description[l]) : null);
   }
 
-  public safeLoad(_: any, safeData: any) {
-    this.load(safeData);
+  public safeLoad(_: any, safeData: any, availableLanguages?: Array<string>) {
+    this.load(safeData, availableLanguages);
     this.project = safeData.project;
     this.subscriptionId = safeData.subscriptionId;
+  }
+
+  public validate(defaultLanguage?: string): Array<string> {
+    const e = super.validate();
+    //
+    if (this.iE(defaultLanguage)) e.push('defaultLanguage');
+    //
+    if (this.iE(this.storeId)) e.push('storeId');
+    if (this.iE(this.price)) e.push('price');
+    if (this.iE(this.currency)) e.push('currency');
+    if (!(this.duration in SubscriptionDurations)) e.push('duration');
+    if (!this.platforms.length) e.push('platforms');
+    this.platforms.forEach(p => {
+      if (!(p in SubscriptionPlatforms)) e.push('platforms');
+    });
+    if (this.iE(this.title[defaultLanguage])) e.push('name');
+    //
+    return e;
   }
 }

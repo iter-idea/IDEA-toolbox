@@ -67,8 +67,7 @@ export class CustomFieldT extends Resource {
     this.name = <Label> {};
     availableLanguages.forEach(l => this.name[l] = x.name[l] ? String(x.name[l]) : null);
     this.description = <Label> {};
-    availableLanguages.forEach(l =>
-      this.description[l] = x.description[l] ? String(x.description[l]) : null);
+    availableLanguages.forEach(l => this.description[l] = x.description[l] ? String(x.description[l]) : null);
     this.type = x.type ? <CustomFieldTypes>String(x.type) : null;
     this.enum = x.enum ? x.enum.map((y: string) => y ? String(y) : null) : null;
     this.default = x.default ? String(x.default) : null;
