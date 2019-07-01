@@ -15,7 +15,7 @@ export class IDEAClientError {
    */
   public stack: string;
 
-  constructor(x?: IDEAClientError) {
+  constructor(x?: any) {
     x = x || <IDEAClientError> {};
     this.name = this.name ? String(x.name) : null;
     this.message = this.message ? String(x.message) : null;
@@ -85,7 +85,7 @@ export class IDEAClientInfo {
    */
   public screenPixelDepth: number;
 
-  constructor(x?: IDEAClientInfo) {
+  constructor(x?: any) {
     x = x || <IDEAClientInfo> {};
     this.timestamp = this.timestamp ? new Date(x.timestamp) : null;
     this.timezone = this.timezone ? Number(x.timezone) : null;
