@@ -59,6 +59,10 @@ export class ProjectSubscription extends Resource  {
    * Order with which to sort the subscriptions when shown.
    */
   public order: number;
+  /**
+   * If true, the subscription is an anomaly and it needs to be threaded in special ways.
+   */
+  public special: boolean;
 
   constructor(availableLanguages?: Array<string>) {
     super();
@@ -74,6 +78,7 @@ export class ProjectSubscription extends Resource  {
     this.description = <Label> {};
     availableLanguages.forEach(l => this.description[l] = null);
     this.order = 0;
+    this.special = false;
   }
 
   public load(x: any, availableLanguages?: Array<string>) {
@@ -91,12 +96,14 @@ export class ProjectSubscription extends Resource  {
     this.description = <Label> {};
     availableLanguages.forEach(l => this.description[l] = x.description[l] ? String(x.description[l]) : null);
     this.order = x.order ? Number(x.order) : 0;
+    this.special = Boolean(x.special);
   }
 
   public safeLoad(_: any, safeData: any, availableLanguages?: Array<string>) {
     this.load(safeData, availableLanguages);
     this.project = safeData.project;
     this.subscriptionId = safeData.subscriptionId;
+    this.special = safeData.special;
   }
 
   public validate(defaultLanguage?: string): Array<string> {
