@@ -2,7 +2,7 @@ import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
 
 /**
- * Table: `idea_projects_SubscriptionsEntries`.
+ * Table: `idea_projects_subscriptionsEntries`.
  *
  * Indexes:
  *    - `project-validUntil-index` (LSI): includes: subscriptionId.
