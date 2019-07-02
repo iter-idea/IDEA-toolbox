@@ -44,6 +44,10 @@ export class ProjectSubscription extends Resource  {
    */
   public currencySymbol: string;
   /**
+   * The string version of the price, with the currency symbol concatenated.
+   */
+  public priceStr: string;
+  /**
    * The subscription duration.
    */
   public duration: SubscriptionDurations;
@@ -76,6 +80,7 @@ export class ProjectSubscription extends Resource  {
     this.price = null;
     this.currency = 'EUR';
     this.currencySymbol = '€';
+    this.priceStr = null;
     this.duration = SubscriptionDurations.MONTH_1;
     this.platforms = [SubscriptionPlatforms.WEB];
     this.title = <Label> {};
@@ -94,6 +99,7 @@ export class ProjectSubscription extends Resource  {
     this.price = x.price ? Number(x.price) : null;
     this.currency = x.currency ? String(x.currency) : 'EUR';
     this.currencySymbol = x.currencySymbol ? String(x.currencySymbol) : '€';
+    this.priceStr = x.priceStr ? String(x.priceStr) : null;
     this.duration = x.duration ? <SubscriptionDurations>Number(x.duration) : SubscriptionDurations.MONTH_1;
     this.platforms = x.platforms ? x.platforms
       .map((p: string) => p ? <SubscriptionPlatforms>String(p) : null) : [SubscriptionPlatforms.WEB];
@@ -121,6 +127,7 @@ export class ProjectSubscription extends Resource  {
     if (this.iE(this.price)) e.push('price');
     if (this.iE(this.currency)) e.push('currency');
     if (this.iE(this.currencySymbol)) e.push('currencySymbol');
+    if (this.iE(this.priceStr)) e.push('priceStr');
     if (!(this.duration in SubscriptionDurations)) e.push('duration');
     if (!this.platforms.length) e.push('platforms');
     this.platforms.forEach(p => {
