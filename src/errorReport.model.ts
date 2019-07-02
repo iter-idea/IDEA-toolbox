@@ -1,7 +1,7 @@
 import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
 
-export class IDEAClientError {
+export class ClientError {
   /**
    * The name of the error.
    */
@@ -16,14 +16,14 @@ export class IDEAClientError {
   public stack: string;
 
   constructor(x?: any) {
-    x = x || <IDEAClientError> {};
+    x = x || <ClientError> {};
     this.name = x.name ? String(x.name) : null;
     this.message = x.message ? String(x.message) : null;
     this.stack = x.stack ? String(x.stack) : null;
   }
 }
 
-export class IDEAClientInfo {
+export class ClientInfo {
   /**
    * Current timestamp from the client.
    */
@@ -86,7 +86,7 @@ export class IDEAClientInfo {
   public screenPixelDepth: number;
 
   constructor(x?: any) {
-    x = x || <IDEAClientInfo> {};
+    x = x || <ClientInfo> {};
     this.timestamp = x.timestamp ? new Date(x.timestamp) : null;
     this.timezone = x.timezone ? Number(x.timezone) : null;
     this.pageOn = x.pageOn ? String(x.pageOn) : null;
@@ -108,7 +108,7 @@ export class IDEAClientInfo {
 /**
  * Table: `idea_projects_errorsReports`.
  */
-export class IDEAErrorReport extends Resource  {
+export class ErrorReport extends Resource  {
   /**
    * Project / product key.
    */
@@ -124,19 +124,19 @@ export class IDEAErrorReport extends Resource  {
   /**
    * The details of the error.
    */
-  public error: IDEAClientError;
+  public error: ClientError;
   /**
    * The details of the client at the time of the error.
    */
-  public client: IDEAClientInfo;
+  public client: ClientInfo;
 
   constructor() {
     super();
     this.project = null;
     this.createdAt = Date.now();
     this.expiresAt = Math.round(new Date(this.createdAt).getTime() / 1000);
-    this.error = new IDEAClientError();
-    this.client = new IDEAClientInfo();
+    this.error = new ClientError();
+    this.client = new ClientInfo();
   }
 
   public load(x: any) {
@@ -144,8 +144,8 @@ export class IDEAErrorReport extends Resource  {
     this.project = x.project ? String(x.project) : null;
     this.createdAt = x.createdAt ? new Date(x.createdAt).getTime() : this.createdAt;
     this.expiresAt = Math.round(new Date(this.createdAt).getTime() / 1000);
-    this.error = new IDEAClientError(x.error);
-    this.client = new IDEAClientInfo(x.client);
+    this.error = new ClientError(x.error);
+    this.client = new ClientInfo(x.client);
   }
 
   public safeLoad(_: any, safeData: any) {
