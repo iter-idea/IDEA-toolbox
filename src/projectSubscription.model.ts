@@ -14,6 +14,9 @@ export enum SubscriptionPlatforms {
 
 /**
  * Table: `idea_projects_subscriptions`.
+ *
+ * Indexes:
+ *   - `project-order-index` (LSI, all).
  */
 export class ProjectSubscription extends Resource  {
   /**
@@ -52,6 +55,10 @@ export class ProjectSubscription extends Resource  {
    * The description of the subscription, in various languages.
    */
   public description: Label;
+  /**
+   * Order with which to sort the subscriptions when shown.
+   */
+  public order: number;
 
   constructor(availableLanguages?: Array<string>) {
     super();
@@ -66,6 +73,7 @@ export class ProjectSubscription extends Resource  {
     availableLanguages.forEach(l => this.title[l] = null);
     this.description = <Label> {};
     availableLanguages.forEach(l => this.description[l] = null);
+    this.order = 0;
   }
 
   public load(x: any, availableLanguages?: Array<string>) {
@@ -82,6 +90,7 @@ export class ProjectSubscription extends Resource  {
     availableLanguages.forEach(l => this.title[l] = x.title[l] ? String(x.title[l]) : null);
     this.description = <Label> {};
     availableLanguages.forEach(l => this.description[l] = x.description[l] ? String(x.description[l]) : null);
+    this.order = x.order ? Number(x.order) : 0;
   }
 
   public safeLoad(_: any, safeData: any, availableLanguages?: Array<string>) {

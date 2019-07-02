@@ -5,7 +5,7 @@ import { epochDateTime } from './epoch';
  * Table: `idea_projects_SubscriptionsEntries`.
  *
  * Indexes:
- *    - `project-validUntil-index` (LSI): includes: subscriptionId, validUntil.
+ *    - `project-validUntil-index` (LSI): includes: subscriptionId.
  *    - `project-subscriptionId-index` (LSI - all).
  */
 export class ProjectSubscriptionEntry extends Resource  {
