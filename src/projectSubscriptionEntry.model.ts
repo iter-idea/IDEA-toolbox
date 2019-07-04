@@ -1,5 +1,6 @@
 import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
+import { SubscriptionPlatforms } from './projectSubscription.model';
 
 /**
  * Table: `idea_projects_subscriptionsEntries`.
@@ -27,6 +28,11 @@ export class ProjectSubscriptionEntry extends Resource  {
    * The timestamp until this subscription is active.
    */
   public validUntil: epochDateTime;
+  /**
+   * The platform from which the subscription has been completed.
+   * It will be possible to manage the subscription only from the platform in which it was firstly created.
+   */
+  public platform: SubscriptionPlatforms;
 
   constructor() {
     super();
@@ -34,6 +40,7 @@ export class ProjectSubscriptionEntry extends Resource  {
     this.entryId = null;
     this.subscriptionId = null;
     this.validUntil = null;
+    this.platform = null;
   }
 
   public load(x: any) {
@@ -42,6 +49,7 @@ export class ProjectSubscriptionEntry extends Resource  {
     this.entryId = x.entryId ? String(x.entryId) : null;
     this.subscriptionId = x.subscriptionId ? String(x.subscriptionId) : null;
     this.validUntil = x.validUntil ? new Date(x.validUntil).getTime() : null;
+    this.platform = x.platform ? <SubscriptionPlatforms>String(x.platform) : null;
   }
 
   public safeLoad(_: any, safeData: any) {
