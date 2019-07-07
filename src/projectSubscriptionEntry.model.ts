@@ -33,6 +33,13 @@ export class ProjectSubscriptionEntry extends Resource  {
    * It will be possible to manage the subscription only from the platform in which it was firstly created.
    */
   public platform: SubscriptionPlatforms;
+  /**
+   * The store reference id for the entry.
+   * It's an ID coming from the stores, used to double check that a purchase is actually linked to the entryId.
+   * iOS: `original_transaction_id`.
+   * Android: the first part of the `orderId`.
+   */
+  public storeReferenceId: string;
 
   constructor() {
     super();
@@ -41,6 +48,7 @@ export class ProjectSubscriptionEntry extends Resource  {
     this.subscriptionId = null;
     this.validUntil = null;
     this.platform = null;
+    this.storeReferenceId = null;
   }
 
   public load(x: any) {
@@ -50,6 +58,7 @@ export class ProjectSubscriptionEntry extends Resource  {
     this.subscriptionId = x.subscriptionId ? String(x.subscriptionId) : null;
     this.validUntil = x.validUntil ? new Date(x.validUntil).getTime() : null;
     this.platform = x.platform ? <SubscriptionPlatforms>String(x.platform) : null;
+    this.storeReferenceId = x.storeReferenceId ? String(x.storeReferenceId) : null;
   }
 
   public safeLoad(_: any, safeData: any) {
