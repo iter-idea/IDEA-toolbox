@@ -6,8 +6,9 @@ import { SubscriptionPlatforms } from './projectSubscription.model';
  * Table: `idea_projects_subscriptionsEntries`.
  *
  * Indexes:
- *    - `project-validUntil-index` (LSI): includes: subscriptionId.
+ *    - `project-validUntil-index` (LSI - all).
  *    - `project-subscriptionId-index` (LSI - all).
+ *    - `project-storeReferenceId-index` (LSI - all).
  */
 export class ProjectSubscriptionEntry extends Resource  {
   /**
