@@ -10,7 +10,7 @@ import { ProjectPlatforms } from './projectPlan.model';
  *    - `project-planId-index` (LSI - all).
  *    - `project-storeReferenceId-index` (LSI - all).
  */
-export class ProjectSubscriptionEntry extends Resource  {
+export class ProjectSubscription extends Resource  {
   /**
    * Project / product key.
    */
