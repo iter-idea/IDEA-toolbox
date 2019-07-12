@@ -1,140 +1,70 @@
 import { Resource } from './resource.model';
-import { Label } from './label.model';
-
-/**
- * Expressed in months (WEEK is an exception, with value 0).
- */
-export enum SubscriptionDurations {
-  WEEK = 0, MONTH_1 = 1, MONTH_2 = 2, MONTH_3 = 3, MONTH_6 = 6, YEAR_1 = 12, LIFETIME = 9999
-}
-
-export enum SubscriptionPlatforms {
-  WEB = 'web', IOS = 'ios', ANDROID = 'android', MACOS = 'macos', WINDOWS = 'windows'
-}
+import { epochDateTime } from './epoch';
+import { ProjectPlatforms } from './projectPlan.model';
 
 /**
  * Table: `idea_projects_subscriptions`.
  *
  * Indexes:
- *   - `project-order-index` (LSI, all).
+ *    - `project-validUntil-index` (LSI - all).
+ *    - `project-planId-index` (LSI - all).
+ *    - `project-storeReferenceId-index` (LSI - all).
  */
-export class ProjectSubscription extends Resource  {
+export class ProjectSubscriptionEntry extends Resource  {
   /**
    * Project / product key.
    */
   public project: string;
   /**
-   * The id of the project subscription.
+   * The id of the subscription (the target of the subscription to a plan).
+   * Each project has its own meaning of it (e.g. teamId, userId, etc.).
+   * Note: it should be a unique id in the entire project; add prefixes accordingly.
    */
   public subscriptionId: string;
   /**
-   * The id of the subscription in the stores (aka Product ID).
+   * The id of the project plan.
    */
-  public storeId: string;
+  public planId: string;
   /**
-   * The price, based on the currency set.
+   * The timestamp until this subscription is active.
    */
-  public price: number;
+  public validUntil: epochDateTime;
   /**
-   * The currency ISO code: EUR, USD, etc.
+   * The platform from which the subscription has been completed.
+   * It will be possible to manage the subscription only from the platform in which it was firstly created.
    */
-  public currency: string;
+  public platform: ProjectPlatforms;
   /**
-   * The currency symbol: €, $, etc.
+   * The store reference id for the subscription.
+   * It's an ID coming from the stores, used to double check that a purchase is actually linked to the subscriptionId.
+   * iOS: `original_transaction_id`.
+   * Android: the first part of the `orderId`.
    */
-  public currencySymbol: string;
-  /**
-   * The string version of the price, with the currency symbol concatenated.
-   */
-  public priceStr: string;
-  /**
-   * The subscription duration.
-   */
-  public duration: SubscriptionDurations;
-  /**
-   * The platforms in which the subscription is enabled (and therefore visible).
-   */
-  public platforms: Array<SubscriptionPlatforms>;
-  /**
-   * The title of the subscription, in various languages.
-   */
-  public title: Label;
-  /**
-   * The description of the subscription, in various languages.
-   */
-  public description: Label;
-  /**
-   * Order with which to sort the subscriptions when shown.
-   */
-  public order: number;
-  /**
-   * If true, the subscription is an anomaly and it needs to be threaded in special ways.
-   */
-  public special: boolean;
+  public storeReferenceId: string;
 
-  constructor(availableLanguages?: Array<string>) {
+  constructor() {
     super();
     this.project = null;
     this.subscriptionId = null;
-    this.storeId = null;
-    this.price = null;
-    this.currency = 'EUR';
-    this.currencySymbol = '€';
-    this.priceStr = null;
-    this.duration = SubscriptionDurations.MONTH_1;
-    this.platforms = [SubscriptionPlatforms.WEB];
-    this.title = <Label> {};
-    availableLanguages.forEach(l => this.title[l] = null);
-    this.description = <Label> {};
-    availableLanguages.forEach(l => this.description[l] = null);
-    this.order = 0;
-    this.special = false;
+    this.planId = null;
+    this.validUntil = null;
+    this.platform = null;
+    this.storeReferenceId = null;
   }
 
-  public load(x: any, availableLanguages?: Array<string>) {
+  public load(x: any) {
     super.load(x);
     this.project = x.project ? String(x.project) : null;
     this.subscriptionId = x.subscriptionId ? String(x.subscriptionId) : null;
-    this.storeId = x.storeId ? String(x.storeId) : null;
-    this.price = x.price ? Number(x.price) : null;
-    this.currency = x.currency ? String(x.currency) : 'EUR';
-    this.currencySymbol = x.currencySymbol ? String(x.currencySymbol) : '€';
-    this.priceStr = x.priceStr ? String(x.priceStr) : null;
-    this.duration = x.duration ? <SubscriptionDurations>Number(x.duration) : SubscriptionDurations.MONTH_1;
-    this.platforms = x.platforms ? x.platforms
-      .map((p: string) => p ? <SubscriptionPlatforms>String(p) : null) : [SubscriptionPlatforms.WEB];
-    this.title = <Label> {};
-    availableLanguages.forEach(l => this.title[l] = x.title[l] ? String(x.title[l]) : null);
-    this.description = <Label> {};
-    availableLanguages.forEach(l => this.description[l] = x.description[l] ? String(x.description[l]) : null);
-    this.order = x.order ? Number(x.order) : 0;
-    this.special = Boolean(x.special);
+    this.planId = x.planId ? String(x.planId) : null;
+    this.validUntil = x.validUntil ? new Date(x.validUntil).getTime() : null;
+    this.platform = x.platform ? <ProjectPlatforms>String(x.platform) : null;
+    this.storeReferenceId = x.storeReferenceId ? String(x.storeReferenceId) : null;
   }
 
-  public safeLoad(_: any, safeData: any, availableLanguages?: Array<string>) {
-    this.load(safeData, availableLanguages);
+  public safeLoad(_: any, safeData: any) {
+    this.load(safeData);
     this.project = safeData.project;
     this.subscriptionId = safeData.subscriptionId;
-    this.special = safeData.special;
-  }
-
-  public validate(defaultLanguage?: string): Array<string> {
-    const e = super.validate();
-    //
-    if (this.iE(defaultLanguage)) e.push('defaultLanguage');
-    //
-    if (this.iE(this.storeId)) e.push('storeId');
-    if (this.iE(this.price)) e.push('price');
-    if (this.iE(this.currency)) e.push('currency');
-    if (this.iE(this.currencySymbol)) e.push('currencySymbol');
-    if (this.iE(this.priceStr)) e.push('priceStr');
-    if (!(this.duration in SubscriptionDurations)) e.push('duration');
-    if (!this.platforms.length) e.push('platforms');
-    this.platforms.forEach(p => {
-      if (!(p in SubscriptionPlatforms)) e.push('platforms');
-    });
-    if (this.iE(this.title[defaultLanguage])) e.push('name');
-    //
-    return e;
   }
 }

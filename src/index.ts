@@ -5,7 +5,7 @@ export * from './customFieldTypes.enum';
 export * from './epoch';
 export * from './errorReport.model';
 export * from './label.model';
+export * from './projectPlan.model';
 export * from './projectSubscription.model';
-export * from './projectSubscriptionEntry.model';
 export * from './resource.model';
 export * from './utils';

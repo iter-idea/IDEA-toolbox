@@ -911,10 +911,10 @@ img { max-width: 100%; }
 			<a href="../enums/customfieldtypes.html" class="tsd-kind-icon">Custom<wbr>Field<wbr>Types</a>
 		</li>
 		<li class=" tsd-kind-enum">
-			<a href="../enums/subscriptiondurations.html" class="tsd-kind-icon">Subscription<wbr>Durations</a>
+			<a href="../enums/projectplandurations.html" class="tsd-kind-icon">Project<wbr>Plan<wbr>Durations</a>
 		</li>
 		<li class=" tsd-kind-enum">
-			<a href="../enums/subscriptionplatforms.html" class="tsd-kind-icon">Subscription<wbr>Platforms</a>
+			<a href="../enums/projectplatforms.html" class="tsd-kind-icon">Project<wbr>Platforms</a>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="clienterror.html" class="tsd-kind-icon">Client<wbr>Error</a>
@@ -932,7 +932,7 @@ img { max-width: 100%; }
 			<a href="errorreport.html" class="tsd-kind-icon">Error<wbr>Report</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="projectsubscription.html" class="tsd-kind-icon">Project<wbr>Subscription</a>
+			<a href="projectplan.html" class="tsd-kind-icon">Project<wbr>Plan</a>
 		</li>
 		<li class="current tsd-kind-class">
 			<a href="projectsubscriptionentry.html" class="tsd-kind-icon">Project<wbr>Subscription<wbr>Entry</a>
@@ -940,11 +940,11 @@ img { max-width: 100%; }
 				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 					<a href="projectsubscriptionentry.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="projectsubscriptionentry.html#entryid" class="tsd-kind-icon">entry<wbr>Id</a>
-				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a href="projectsubscriptionentry.html#mat" class="tsd-kind-icon">m<wbr>At</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="projectsubscriptionentry.html#planid" class="tsd-kind-icon">plan<wbr>Id</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="projectsubscriptionentry.html#platform" class="tsd-kind-icon">platform</a>
@@ -1018,12 +1018,13 @@ img { max-width: 100%; }
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Table: <code>idea_projects_subscriptionsEntries</code>.</p>
+					<p>Table: <code>idea_projects_subscriptions</code>.</p>
 				</div>
 				<p>Indexes:</p>
 				<ul>
-					<li><code>project-validUntil-index</code> (LSI): includes: subscriptionId.</li>
-					<li><code>project-subscriptionId-index</code> (LSI - all).</li>
+					<li><code>project-validUntil-index</code> (LSI - all).</li>
+					<li><code>project-planId-index</code> (LSI - all).</li>
+					<li><code>project-storeReferenceId-index</code> (LSI - all).</li>
 				</ul>
 			</div>
 		</section>
@@ -1059,8 +1060,8 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="projectsubscriptionentry.html#entryid" class="tsd-kind-icon">entry<wbr>Id</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="projectsubscriptionentry.html#mat" class="tsd-kind-icon">m<wbr>At</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="projectsubscriptionentry.html#planid" class="tsd-kind-icon">plan<wbr>Id</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="projectsubscriptionentry.html#platform" class="tsd-kind-icon">platform</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="projectsubscriptionentry.html#project" class="tsd-kind-icon">project</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="projectsubscriptionentry.html#storereferenceid" class="tsd-kind-icon">store<wbr>Reference<wbr>Id</a></li>
@@ -1094,7 +1095,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1fd8bb/src/projectSubscriptionEntry.model.ts#L42">projectSubscriptionEntry.model.ts:42</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/e9daf23/src/projectSubscription.model.ts#L43">projectSubscription.model.ts:43</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="projectsubscriptionentry.html" class="tsd-signature-type">ProjectSubscriptionEntry</a></h4>
@@ -1104,23 +1105,6 @@ img { max-width: 100%; }
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="entryid" class="tsd-anchor"></a>
-				<h3>entry<wbr>Id</h3>
-				<div class="tsd-signature tsd-kind-icon">entry<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1fd8bb/src/projectSubscriptionEntry.model.ts#L22">projectSubscriptionEntry.model.ts:22</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>The id of the entry (the target of the subscription).
-							Each project has its own meaning of it (e.g. teamId, userId, etc.).
-						Note: it should be a unique id in the entire project; add prefixes accordingly.</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 				<a name="mat" class="tsd-anchor"></a>
 				<h3>m<wbr>At</h3>
@@ -1129,7 +1113,7 @@ img { max-width: 100%; }
 					<p>Implementation of <a href="../interfaces/cacheable.html">Cacheable</a>.<a href="../interfaces/cacheable.html#mat">mAt</a></p>
 					<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#mat">mAt</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1fd8bb/src/resource.model.ts#L12">resource.model.ts:12</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/e9daf23/src/resource.model.ts#L12">resource.model.ts:12</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1139,12 +1123,27 @@ img { max-width: 100%; }
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="platform" class="tsd-anchor"></a>
-				<h3>platform</h3>
-				<div class="tsd-signature tsd-kind-icon">platform<span class="tsd-signature-symbol">:</span> <a href="../enums/subscriptionplatforms.html" class="tsd-signature-type">SubscriptionPlatforms</a></div>
+				<a name="planid" class="tsd-anchor"></a>
+				<h3>plan<wbr>Id</h3>
+				<div class="tsd-signature tsd-kind-icon">plan<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1fd8bb/src/projectSubscriptionEntry.model.ts#L35">projectSubscriptionEntry.model.ts:35</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/e9daf23/src/projectSubscription.model.ts#L27">projectSubscription.model.ts:27</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The id of the project plan.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="platform" class="tsd-anchor"></a>
+				<h3>platform</h3>
+				<div class="tsd-signature tsd-kind-icon">platform<span class="tsd-signature-symbol">:</span> <a href="../enums/projectplatforms.html" class="tsd-signature-type">ProjectPlatforms</a></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/e9daf23/src/projectSubscription.model.ts#L36">projectSubscription.model.ts:36</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1160,7 +1159,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">project<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1fd8bb/src/projectSubscriptionEntry.model.ts#L16">projectSubscriptionEntry.model.ts:16</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/e9daf23/src/projectSubscription.model.ts#L17">projectSubscription.model.ts:17</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1175,13 +1174,13 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">store<wbr>Reference<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1fd8bb/src/projectSubscriptionEntry.model.ts#L42">projectSubscriptionEntry.model.ts:42</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/e9daf23/src/projectSubscription.model.ts#L43">projectSubscription.model.ts:43</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>The store reference id for the entry.
-							It&#39;s an ID coming from the stores, used to double check that a purchase is actually linked to the entryId.
+						<p>The store reference id for the subscription.
+							It&#39;s an ID coming from the stores, used to double check that a purchase is actually linked to the subscriptionId.
 							iOS: <code>original_transaction_id</code>.
 						Android: the first part of the <code>orderId</code>.</p>
 					</div>
@@ -1193,12 +1192,14 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">subscription<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1fd8bb/src/projectSubscriptionEntry.model.ts#L26">projectSubscriptionEntry.model.ts:26</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/e9daf23/src/projectSubscription.model.ts#L23">projectSubscription.model.ts:23</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>The id of the project subscription.</p>
+						<p>The id of the subscription (the target of the subscription to a plan).
+							Each project has its own meaning of it (e.g. teamId, userId, etc.).
+						Note: it should be a unique id in the entire project; add prefixes accordingly.</p>
 					</div>
 				</div>
 			</section>
@@ -1208,7 +1209,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">valid<wbr>Until<span class="tsd-signature-symbol">:</span> <a href="../globals.html#epochdatetime" class="tsd-signature-type">epochDateTime</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1fd8bb/src/projectSubscriptionEntry.model.ts#L30">projectSubscriptionEntry.model.ts:30</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/e9daf23/src/projectSubscription.model.ts#L31">projectSubscription.model.ts:31</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1231,7 +1232,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#ie">iE</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1fd8bb/src/resource.model.ts#L96">resource.model.ts:96</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/e9daf23/src/resource.model.ts#L96">resource.model.ts:96</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1263,7 +1264,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#load">load</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1fd8bb/src/projectSubscriptionEntry.model.ts#L54">projectSubscriptionEntry.model.ts:54</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/e9daf23/src/projectSubscription.model.ts#L55">projectSubscription.model.ts:55</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1287,7 +1288,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#safeload">safeLoad</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1fd8bb/src/projectSubscriptionEntry.model.ts#L64">projectSubscriptionEntry.model.ts:64</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/e9daf23/src/projectSubscription.model.ts#L65">projectSubscription.model.ts:65</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1315,7 +1316,7 @@ img { max-width: 100%; }
 							<p>Implementation of <a href="../interfaces/cacheable.html">Cacheable</a>.<a href="../interfaces/cacheable.html#tick">tick</a></p>
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#tick">tick</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1fd8bb/src/resource.model.ts#L31">resource.model.ts:31</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/e9daf23/src/resource.model.ts#L31">resource.model.ts:31</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1338,7 +1339,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#validate">validate</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1fd8bb/src/resource.model.ts#L88">resource.model.ts:88</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/e9daf23/src/resource.model.ts#L88">resource.model.ts:88</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
