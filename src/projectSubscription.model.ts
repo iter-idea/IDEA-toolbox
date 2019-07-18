@@ -30,6 +30,10 @@ export class ProjectSubscription extends Resource  {
    */
   public validUntil: epochDateTime;
   /**
+   * If false, the subscription won't renew after its set expiration.
+   */
+  public autoRenewing: boolean;
+  /**
    * The platform from which the subscription has been completed.
    * It will be possible to manage the subscription only from the platform in which it was firstly created.
    */
@@ -48,6 +52,7 @@ export class ProjectSubscription extends Resource  {
     this.subscriptionId = null;
     this.planId = null;
     this.validUntil = null;
+    this.autoRenewing = true;
     this.platform = null;
     this.storeReferenceId = null;
   }
@@ -58,6 +63,7 @@ export class ProjectSubscription extends Resource  {
     this.subscriptionId = x.subscriptionId ? String(x.subscriptionId) : null;
     this.planId = x.planId ? String(x.planId) : null;
     this.validUntil = x.validUntil ? new Date(x.validUntil).getTime() : null;
+    this.autoRenewing = Boolean(this.autoRenewing);
     this.platform = x.platform ? <ProjectPlatforms>String(x.platform) : null;
     this.storeReferenceId = x.storeReferenceId ? String(x.storeReferenceId) : null;
   }
@@ -66,5 +72,6 @@ export class ProjectSubscription extends Resource  {
     this.load(safeData);
     this.project = safeData.project;
     this.subscriptionId = safeData.subscriptionId;
+    this.autoRenewing = safeData.autoRenewing;
   }
 }
