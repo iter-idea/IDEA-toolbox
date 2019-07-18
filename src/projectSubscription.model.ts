@@ -63,7 +63,7 @@ export class ProjectSubscription extends Resource  {
     this.subscriptionId = x.subscriptionId ? String(x.subscriptionId) : null;
     this.planId = x.planId ? String(x.planId) : null;
     this.validUntil = x.validUntil ? new Date(x.validUntil).getTime() : null;
-    this.autoRenewing = Boolean(this.autoRenewing);
+    this.autoRenewing = Boolean(x.autoRenewing);
     this.platform = x.platform ? <ProjectPlatforms>String(x.platform) : null;
     this.storeReferenceId = x.storeReferenceId ? String(x.storeReferenceId) : null;
   }
@@ -72,6 +72,5 @@ export class ProjectSubscription extends Resource  {
     this.load(safeData);
     this.project = safeData.project;
     this.subscriptionId = safeData.subscriptionId;
-    this.autoRenewing = safeData.autoRenewing;
   }
 }
