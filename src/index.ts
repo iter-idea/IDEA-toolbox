@@ -7,5 +7,8 @@ export * from './errorReport.model';
 export * from './label.model';
 export * from './projectPlan.model';
 export * from './projectSubscription.model';
+export * from './RCAttachedResource.model';
+export * from './RCFolder.model';
+export * from './RCResource.model';
 export * from './resource.model';
 export * from './utils';
