@@ -62,8 +62,8 @@ export class CustomField extends Resource {
     this.fieldId = x.fieldId ? String(x.fieldId) : null;
     this.name = x.name ? String(x.name) : null;
     this.description = x.description ? String(x.description) : null;
-    this.type = x.type ? <CustomFieldTypes>String(x.type) : null;
-    this.enum = x.enum ? x.enum.map((y: string) => y ? String(y) : null) : null;
+    this.type = x.type ? (String(x.type) as CustomFieldTypes) : null;
+    this.enum = x.enum ? x.enum.map((y: string) => (y ? String(y) : null)) : null;
     this.default = x.default ? String(x.default) : null;
     this.obligatory = Boolean(x.obligatory);
     this.min = x.min ? Number(x.min) : null;
@@ -89,7 +89,7 @@ export class CustomField extends Resource {
 
   /**
    * Check a value following the field configuration.
-   * @param {any} value the value to check
+   * @param value the value to check
    * @return the value type-forced and cleaned
    */
   protected check(value: any): any {
@@ -98,38 +98,37 @@ export class CustomField extends Resource {
     switch (this.type) {
       case CustomFieldTypes.BOOLEAN:
         value = Boolean(value);
-      break;
+        break;
       case CustomFieldTypes.STRING:
       case CustomFieldTypes.TEXT:
       case CustomFieldTypes.ENUM:
         value = String(value).trim();
-      break;
+        break;
       case CustomFieldTypes.NUMBER:
         value = Number(value);
-      break;
-      default: return false;
+        break;
+      default:
+        return false;
     }
     // obligatory fields check
-    if (this.obligatory) switch (this.type) {
-      case CustomFieldTypes.STRING:
-      case CustomFieldTypes.TEXT:
-      case CustomFieldTypes.ENUM:
-        if (!value.length) return false;
-      break;
-      case CustomFieldTypes.NUMBER:
-        if (isNaN(value) || value === 0) return false;
-      break;
-    }
+    if (this.obligatory)
+      switch (this.type) {
+        case CustomFieldTypes.STRING:
+        case CustomFieldTypes.TEXT:
+        case CustomFieldTypes.ENUM:
+          if (!value.length) return false;
+          break;
+        case CustomFieldTypes.NUMBER:
+          if (isNaN(value) || value === 0) return false;
+          break;
+      }
     // interval check
     if (this.type === CustomFieldTypes.NUMBER) {
-      if (this.min !== null && this.min !== undefined)
-        if (value < this.min) return false;
-      if (this.max !== null && this.max !== undefined)
-        if (value > this.max) return false;
+      if (this.min !== null && this.min !== undefined) if (value < this.min) return false;
+      if (this.max !== null && this.max !== undefined) if (value > this.max) return false;
     }
     // enum check
-    if (this.type === CustomFieldTypes.ENUM && !(this.enum || []).some(x => x === value))
-      return false;
+    if (this.type === CustomFieldTypes.ENUM && !(this.enum || []).some(x => x === value)) return false;
     // return the value cleaned and forced
     return value;
   }

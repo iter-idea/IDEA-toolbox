@@ -16,7 +16,7 @@ export class ClientError {
   public stack: string;
 
   constructor(x?: any) {
-    x = x || <ClientError> {};
+    x = x || {} as ClientError;
     this.name = x.name ? String(x.name) : null;
     this.message = x.message ? String(x.message) : null;
     this.stack = x.stack ? String(x.stack) : null;
@@ -86,7 +86,7 @@ export class ClientInfo {
   public screenPixelDepth: number;
 
   constructor(x?: any) {
-    x = x || <ClientInfo> {};
+    x = x || {} as ClientInfo;
     this.timestamp = x.timestamp ? new Date(x.timestamp) : null;
     this.timezone = x.timezone ? Number(x.timezone) : null;
     this.pageOn = x.pageOn ? String(x.pageOn) : null;
@@ -108,7 +108,7 @@ export class ClientInfo {
 /**
  * Table: `idea_projects_errorsReports`.
  */
-export class ErrorReport extends Resource  {
+export class ErrorReport extends Resource {
   /**
    * Project / product key.
    */

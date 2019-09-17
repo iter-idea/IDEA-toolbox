@@ -5,11 +5,21 @@ import { Label } from './label.model';
  * Expressed in months (WEEK is an exception, with value 0).
  */
 export enum ProjectPlanDurations {
-  WEEK = 0, MONTH_1 = 1, MONTH_2 = 2, MONTH_3 = 3, MONTH_6 = 6, YEAR_1 = 12, LIFETIME = 9999
+  WEEK = 0,
+  MONTH_1 = 1,
+  MONTH_2 = 2,
+  MONTH_3 = 3,
+  MONTH_6 = 6,
+  YEAR_1 = 12,
+  LIFETIME = 9999
 }
 
 export enum ProjectPlatforms {
-  WEB = 'web', IOS = 'ios', ANDROID = 'android', MACOS = 'macos', WINDOWS = 'windows'
+  WEB = 'web',
+  IOS = 'ios',
+  ANDROID = 'android',
+  MACOS = 'macos',
+  WINDOWS = 'windows'
 }
 
 /**
@@ -18,7 +28,7 @@ export enum ProjectPlatforms {
  * Indexes:
  *   - `project-order-index` (LSI, all).
  */
-export class ProjectPlan extends Resource  {
+export class ProjectPlan extends Resource {
   /**
    * Project / product key.
    */
@@ -83,10 +93,10 @@ export class ProjectPlan extends Resource  {
     this.priceStr = null;
     this.duration = ProjectPlanDurations.MONTH_1;
     this.platforms = [ProjectPlatforms.WEB];
-    this.title = <Label> {};
-    availableLanguages.forEach(l => this.title[l] = null);
-    this.description = <Label> {};
-    availableLanguages.forEach(l => this.description[l] = null);
+    this.title = {} as Label;
+    availableLanguages.forEach(l => (this.title[l] = null));
+    this.description = {} as Label;
+    availableLanguages.forEach(l => (this.description[l] = null));
     this.order = 0;
     this.special = false;
   }
@@ -100,13 +110,14 @@ export class ProjectPlan extends Resource  {
     this.currency = x.currency ? String(x.currency) : 'EUR';
     this.currencySymbol = x.currencySymbol ? String(x.currencySymbol) : '€';
     this.priceStr = x.priceStr ? String(x.priceStr) : null;
-    this.duration = x.duration ? <ProjectPlanDurations>Number(x.duration) : ProjectPlanDurations.MONTH_1;
-    this.platforms = x.platforms ? x.platforms
-      .map((p: string) => p ? <ProjectPlatforms>String(p) : null) : [ProjectPlatforms.WEB];
-    this.title = <Label> {};
-    availableLanguages.forEach(l => this.title[l] = x.title[l] ? String(x.title[l]) : null);
-    this.description = <Label> {};
-    availableLanguages.forEach(l => this.description[l] = x.description[l] ? String(x.description[l]) : null);
+    this.duration = x.duration ? Number(x.duration) as ProjectPlanDurations : ProjectPlanDurations.MONTH_1;
+    this.platforms = x.platforms
+      ? x.platforms.map((p: string) => (p ? String(p) as ProjectPlatforms : null))
+      : [ProjectPlatforms.WEB];
+    this.title = {} as Label;
+    availableLanguages.forEach(l => (this.title[l] = x.title[l] ? String(x.title[l]) : null));
+    this.description = {} as Label;
+    availableLanguages.forEach(l => (this.description[l] = x.description[l] ? String(x.description[l]) : null));
     this.order = x.order ? Number(x.order) : 0;
     this.special = Boolean(x.special);
   }

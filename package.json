@@ -1,6 +1,6 @@
 {
   "name": "idea-toolbox",
-  "version": "4.4.13",
+  "version": "4.4.14",
   "description": "IDEA's utility functions",
   "engines": {
     "node": ">=6.0.0"
@@ -32,6 +32,7 @@
   "devDependencies": {
     "@types/validator": "^9.4.4",
     "tslint": "^5.13.0",
+    "typedoc": "^0.15.0",
     "typescript": "^3.3.3333",
     "typescript-tslint-plugin": "^0.3.1"
   }

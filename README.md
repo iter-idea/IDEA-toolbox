@@ -9,10 +9,13 @@ Utility functions to support iter IDEA's projects.
 ## Usage
 
 Javascript
+
 ```
 const IdeaX = require('idea-toolbox');
 ```
+
 Typescript
+
 ```
 import IdeaX = require('idea-toolbox');
 ```

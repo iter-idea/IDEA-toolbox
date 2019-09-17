@@ -10,7 +10,7 @@ import { ProjectPlatforms } from './projectPlan.model';
  *    - `project-planId-index` (LSI - all).
  *    - `project-storeReferenceId-index` (LSI - all).
  */
-export class ProjectSubscription extends Resource  {
+export class ProjectSubscription extends Resource {
   /**
    * Project / product key.
    */
@@ -64,7 +64,7 @@ export class ProjectSubscription extends Resource  {
     this.planId = x.planId ? String(x.planId) : null;
     this.validUntil = x.validUntil ? new Date(x.validUntil).getTime() : null;
     this.autoRenewing = Boolean(x.autoRenewing);
-    this.platform = x.platform ? <ProjectPlatforms>String(x.platform) : null;
+    this.platform = x.platform ? String(x.platform) as ProjectPlatforms : null;
     this.storeReferenceId = x.storeReferenceId ? String(x.storeReferenceId) : null;
   }
 

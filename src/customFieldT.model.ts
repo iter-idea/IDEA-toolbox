@@ -47,10 +47,10 @@ export class CustomFieldT extends Resource {
   constructor(availableLanguages?: Array<string>) {
     super();
     this.fieldId = null;
-    this.name = <Label> {};
-    availableLanguages.forEach(l => this.name[l] = null);
-    this.description = <Label> {};
-    availableLanguages.forEach(l => this.description[l] = null);
+    this.name = {} as Label;
+    availableLanguages.forEach(l => (this.name[l] = null));
+    this.description = {} as Label;
+    availableLanguages.forEach(l => (this.description[l] = null));
     this.type = CustomFieldTypes.STRING;
     this.enum = null;
     this.default = null;
@@ -64,12 +64,12 @@ export class CustomFieldT extends Resource {
     super.load(x);
     this.fieldId = x.fieldId ? String(x.fieldId) : null;
     availableLanguages = availableLanguages || [];
-    this.name = <Label> {};
-    availableLanguages.forEach(l => this.name[l] = x.name[l] ? String(x.name[l]) : null);
-    this.description = <Label> {};
-    availableLanguages.forEach(l => this.description[l] = x.description[l] ? String(x.description[l]) : null);
-    this.type = x.type ? <CustomFieldTypes>String(x.type) : null;
-    this.enum = x.enum ? x.enum.map((y: string) => y ? String(y) : null) : null;
+    this.name = {} as Label;
+    availableLanguages.forEach(l => (this.name[l] = x.name[l] ? String(x.name[l]) : null));
+    this.description = {} as Label;
+    availableLanguages.forEach(l => (this.description[l] = x.description[l] ? String(x.description[l]) : null));
+    this.type = x.type ? (String(x.type) as CustomFieldTypes) : null;
+    this.enum = x.enum ? x.enum.map((y: string) => (y ? String(y) : null)) : null;
     this.default = x.default ? String(x.default) : null;
     this.obligatory = Boolean(x.obligatory);
     this.min = x.min ? Number(x.min) : null;
@@ -97,7 +97,7 @@ export class CustomFieldT extends Resource {
 
   /**
    * Check a value following the field configuration.
-   * @param {any} value the value to check
+   * @param value the value to check
    * @return the value type-forced and cleaned
    */
   protected check(value: any): any {
@@ -106,38 +106,37 @@ export class CustomFieldT extends Resource {
     switch (this.type) {
       case CustomFieldTypes.BOOLEAN:
         value = Boolean(value);
-      break;
+        break;
       case CustomFieldTypes.STRING:
       case CustomFieldTypes.TEXT:
       case CustomFieldTypes.ENUM:
         value = String(value).trim();
-      break;
+        break;
       case CustomFieldTypes.NUMBER:
         value = Number(value);
-      break;
-      default: return false;
+        break;
+      default:
+        return false;
     }
     // obligatory fields check
-    if (this.obligatory) switch (this.type) {
-      case CustomFieldTypes.STRING:
-      case CustomFieldTypes.TEXT:
-      case CustomFieldTypes.ENUM:
-        if (!value.length) return false;
-      break;
-      case CustomFieldTypes.NUMBER:
-        if (isNaN(value) || value === 0) return false;
-      break;
-    }
+    if (this.obligatory)
+      switch (this.type) {
+        case CustomFieldTypes.STRING:
+        case CustomFieldTypes.TEXT:
+        case CustomFieldTypes.ENUM:
+          if (!value.length) return false;
+          break;
+        case CustomFieldTypes.NUMBER:
+          if (isNaN(value) || value === 0) return false;
+          break;
+      }
     // interval check
     if (this.type === CustomFieldTypes.NUMBER) {
-      if (this.min !== null && this.min !== undefined)
-        if (value < this.min) return false;
-      if (this.max !== null && this.max !== undefined)
-        if (value > this.max) return false;
+      if (this.min !== null && this.min !== undefined) if (value < this.min) return false;
+      if (this.max !== null && this.max !== undefined) if (value > this.max) return false;
     }
     // enum check
-    if (this.type === CustomFieldTypes.ENUM && !(this.enum || []).some(x => x === value))
-      return false;
+    if (this.type === CustomFieldTypes.ENUM && !(this.enum || []).some(x => x === value)) return false;
     // return the value cleaned and forced
     return value;
   }
