@@ -46,7 +46,7 @@ export class RCAttachedResource extends Resource {
     this.resourceId = x.resourceId ? String(x.resourceId) : null;
     this.folderId = x.folderId ? String(x.folderId) : null;
     this.name = x.name ? String(x.name) : null;
-    this.originalName = x.originalName ? String(x.originalName) : null;
+    this.originalName = x.originalName ? String(x.originalName) : this.name;
     this.format = x.format ? String(x.format) : null;
     this.version = x.version ? new Date(x.version).getTime() : null;
   }
