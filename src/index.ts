@@ -8,6 +8,7 @@ export * from './label.model';
 export * from './projectPlan.model';
 export * from './projectSubscription.model';
 export * from './RCAttachedResource.model';
+export * from './RCConfiguredFolder.model';
 export * from './RCFolder.model';
 export * from './RCResource.model';
 export * from './resource.model';
