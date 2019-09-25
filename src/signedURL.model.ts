@@ -1,6 +1,7 @@
 /**
- * To return the URL as a JSON.
+ * Signed URL with additional metadata.
  */
 export interface SignedURL {
   url: string;
+  id?: string;
 }
