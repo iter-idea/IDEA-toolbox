@@ -1,3 +1,4 @@
+export * from './attachment.model';
 export * from './cacheable.model';
 export * from './customField.model';
 export * from './customFieldT.model';
@@ -12,4 +13,5 @@ export * from './RCConfiguredFolder.model';
 export * from './RCFolder.model';
 export * from './RCResource.model';
 export * from './resource.model';
+export * from './signedURL.model';
 export * from './utils';
