@@ -7,6 +7,7 @@ export * from './emailChangeRequest.model';
 export * from './epoch';
 export * from './errorReport.model';
 export * from './label.model';
+export * from './notification.model';
 export * from './projectPlan.model';
 export * from './projectSubscription.model';
 export * from './RCAttachedResource.model';
