@@ -3,6 +3,7 @@ export * from './cacheable.model';
 export * from './customField.model';
 export * from './customFieldT.model';
 export * from './customFieldTypes.enum';
+export * from './emailChangeRequest.model';
 export * from './epoch';
 export * from './errorReport.model';
 export * from './label.model';
