@@ -37,18 +37,18 @@ export class RCAttachedResource extends Resource {
     this.name = null;
     this.originalName = null;
     this.format = null;
-    this.version = null;
+    this.version = Date.now();
     if (x) this.load(x);
   }
 
   public load(x: any) {
     super.load(x);
-    this.resourceId = x.resourceId ? String(x.resourceId) : null;
-    this.folderId = x.folderId ? String(x.folderId) : null;
-    this.name = x.name ? String(x.name) : null;
-    this.originalName = x.originalName ? String(x.originalName) : this.name;
-    this.format = x.format ? String(x.format) : null;
-    this.version = x.version ? new Date(x.version).getTime() : null;
+    this.resourceId = this.clean(x.resourceId, String);
+    this.folderId = this.clean(x.folderId, String);
+    this.name = this.clean(x.name, String);
+    this.originalName = this.clean(x.originalName, String, this.name);
+    this.format = this.clean(x.format, String);
+    this.version = this.clean(x.version, a => new Date(a).getTime(), Date.now());
   }
 
   public safeLoad(newData: any, safeData: any) {

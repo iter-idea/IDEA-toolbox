@@ -44,11 +44,11 @@ export class RCFolder extends Resource {
 
   public load(x: any) {
     super.load(x);
-    this.resourceCenterId = x.resourceCenterId ? String(x.resourceCenterId) : null;
-    this.folderId = x.folderId ? String(x.folderId) : null;
-    this.name = x.name ? String(x.name) : null;
-    this.createdAt = x.createdAt ? new Date(x.createdAt).getTime() : null;
-    this.updatedAt = x.updatedAt ? new Date(x.updatedAt).getTime() : null;
+    this.resourceCenterId = this.clean(x.resourceCenterId, String);
+    this.folderId = this.clean(x.folderId, String);
+    this.name = this.clean(x.name, String);
+    this.createdAt = this.clean(x.createdAt, a => new Date(a).getTime(), Date.now());
+    this.updatedAt = this.clean(x.updatedAt, a => new Date(a).getTime());
   }
 
   public safeLoad(newData: any, safeData: any) {

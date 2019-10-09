@@ -1,5 +1,6 @@
 import { Resource } from './resource.model';
 import { CustomFieldTypes } from './customFieldTypes.enum';
+import { Label } from './label.model';
 
 export class CustomField extends Resource {
   /**
@@ -9,11 +10,11 @@ export class CustomField extends Resource {
   /**
    * Name of the field.
    */
-  public name: string;
+  public name: Label;
   /**
    * Explanation of the field.
    */
-  public description: string;
+  public description: Label;
   /**
    * The type of the custom field.
    */
@@ -43,52 +44,51 @@ export class CustomField extends Resource {
    */
   public icon: string;
 
-  constructor() {
+  constructor(availableLanguages?: Array<string>, x?: CustomField | any) {
     super();
     this.fieldId = null;
-    this.name = null;
-    this.description = null;
+    this.name = new Label(availableLanguages);
+    this.description = new Label(availableLanguages);
     this.type = CustomFieldTypes.STRING;
     this.enum = null;
     this.default = null;
-    this.obligatory = null;
+    this.obligatory = false;
     this.min = null;
     this.max = null;
     this.icon = null;
+    if (x) this.load(x, availableLanguages);
   }
 
-  public load(x: any) {
+  public load(x: any, availableLanguages?: Array<string>) {
     super.load(x);
-    this.fieldId = x.fieldId ? String(x.fieldId) : null;
-    this.name = x.name ? String(x.name) : null;
-    this.description = x.description ? String(x.description) : null;
-    this.type = x.type ? (String(x.type) as CustomFieldTypes) : null;
-    this.enum = x.enum ? x.enum.map((y: string) => (y ? String(y) : null)) : null;
-    this.default = x.default ? String(x.default) : null;
-    this.obligatory = Boolean(x.obligatory);
-    this.min = x.min ? Number(x.min) : null;
-    this.max = x.max ? Number(x.max) : null;
-    this.icon = x.icon ? String(x.icon) : null;
+    this.fieldId = this.clean(x.fieldId, String);
+    this.name = new Label(availableLanguages, x.name);
+    this.description = new Label(availableLanguages, x.description);
+    this.type = this.clean(x.type, String);
+    this.enum = this.clean(x.enum, String);
+    this.default = this.clean(x.default, String);
+    this.obligatory = this.clean(x.obligatory, Boolean);
+    this.default = this.clean(x.default, Number);
+    this.min = this.clean(x.min, Number);
+    this.max = this.clean(x.max, Number);
+    this.icon = this.clean(x.icon, String);
   }
 
-  public safeLoad(newData: any, safeData: any) {
-    this.load(newData);
+  public safeLoad(newData: any, safeData: any, availableLanguages?: Array<string>) {
     super.safeLoad(newData, safeData);
+    this.load(newData, availableLanguages);
     this.fieldId = safeData.fieldId;
   }
 
-  public validate(): Array<string> {
-    const e: Array<string> = new Array<string>();
-    super.validate();
-    //
-    if (this.iE(this.name)) e.push(`name`);
+  public validate(defaultLanguage?: string): Array<string> {
+    let e = super.validate();
+    e = e.concat(this.name.validate(defaultLanguage));
     if (this.type === CustomFieldTypes.ENUM && !(this.enum && this.enum.length)) e.push(`enum`);
-    //
     return e;
   }
 
   /**
-   * Check a value following the field configuration.
+   * Check a value based on the field configuration.
    * @param value the value to check
    * @return the value type-forced and cleaned
    */

@@ -22,8 +22,8 @@ export class RCConfiguredFolder extends Resource {
 
   public load(x: any) {
     super.load(x);
-    this.folderId = x.folderId ? String(x.folderId) : null;
-    this.name = x.name ? String(x.name) : null;
+    this.folderId = this.clean(x.folderId, String);
+    this.name = this.clean(x.name, String);
   }
 
   public safeLoad(newData: any, safeData: any) {

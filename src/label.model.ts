@@ -1,14 +1,25 @@
 /**
- * Each of the attributes contains the translation in that language of the label.
+ * Each of the attributes contains the translation in that language of the Label.
  *
  * Example:
- *    name.it: 'ciao';
- *    name.en: 'hello;
- *
- * Note: the interface attributes match the available languages.
+ * ```
+ * name.it: 'ciao';
+ * name.en: 'hello';
+ * ```
  */
-export interface Label {
-  [key: string]: string;
-  it?: string;
-  en?: string;
+export class Label {
+  /**
+   * It supports only _key -> values_ of type string, representing translations in different languages.
+   */
+  [key: string]: string | any;
+
+  constructor(availableLanguages?: Array<string>, x?: any) {
+    if (x) availableLanguages.forEach(l => (this[l] = x[l] ? String(x[l]) : null));
+    else availableLanguages.forEach(l => (this[l] = null));
+  }
+
+  public validate(defaultLanguage: string): Array<string> {
+    if (!this[defaultLanguage]) return [defaultLanguage];
+    else return [];
+  }
 }

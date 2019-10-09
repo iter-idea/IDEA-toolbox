@@ -46,7 +46,7 @@ export class ProjectSubscription extends Resource {
    */
   public storeReferenceId: string;
 
-  constructor() {
+  constructor(x?: ProjectSubscription | any) {
     super();
     this.project = null;
     this.subscriptionId = null;
@@ -55,17 +55,18 @@ export class ProjectSubscription extends Resource {
     this.autoRenewing = true;
     this.platform = null;
     this.storeReferenceId = null;
+    if (x) this.load(x);
   }
 
   public load(x: any) {
     super.load(x);
-    this.project = x.project ? String(x.project) : null;
-    this.subscriptionId = x.subscriptionId ? String(x.subscriptionId) : null;
-    this.planId = x.planId ? String(x.planId) : null;
-    this.validUntil = x.validUntil ? new Date(x.validUntil).getTime() : null;
-    this.autoRenewing = Boolean(x.autoRenewing);
-    this.platform = x.platform ? String(x.platform) as ProjectPlatforms : null;
-    this.storeReferenceId = x.storeReferenceId ? String(x.storeReferenceId) : null;
+    this.project = this.clean(x.project, String);
+    this.subscriptionId = this.clean(x.subscriptionId, String);
+    this.planId = this.clean(x.planId, String);
+    this.validUntil = this.clean(x.validUntil, a => new Date(a).getTime());
+    this.autoRenewing = this.clean(x.autoRenewing, Boolean);
+    this.platform = this.clean(x.platform, String);
+    this.storeReferenceId = this.clean(x.storeReferenceId, String);
   }
 
   public safeLoad(_: any, safeData: any) {

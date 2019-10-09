@@ -1,7 +1,7 @@
 import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
 
-export class ClientError {
+export class ClientError extends Resource {
   /**
    * The name of the error.
    */
@@ -16,14 +16,22 @@ export class ClientError {
   public stack: string;
 
   constructor(x?: any) {
-    x = x || {} as ClientError;
-    this.name = x.name ? String(x.name) : null;
-    this.message = x.message ? String(x.message) : null;
-    this.stack = x.stack ? String(x.stack) : null;
+    super();
+    this.name = null;
+    this.message = null;
+    this.stack = null;
+    if (x) this.load(x);
+  }
+
+  public load(x: any) {
+    super.load(x);
+    this.name = this.clean(x.name, String);
+    this.message = this.clean(x.message, String);
+    this.stack = this.clean(x.stack, String);
   }
 }
 
-export class ClientInfo {
+export class ClientInfo extends Resource {
   /**
    * Current timestamp from the client.
    */
@@ -86,22 +94,41 @@ export class ClientInfo {
   public screenPixelDepth: number;
 
   constructor(x?: any) {
-    x = x || {} as ClientInfo;
-    this.timestamp = x.timestamp ? new Date(x.timestamp) : null;
-    this.timezone = x.timezone ? Number(x.timezone) : null;
-    this.pageOn = x.pageOn ? String(x.pageOn) : null;
-    this.referrer = x.referrer ? String(x.referrer) : null;
-    this.browserName = x.browserName ? String(x.browserName) : null;
-    this.browserEngine = x.browserEngine ? String(x.browserEngine) : null;
-    this.browserVersion = x.browserVersion ? String(x.browserVersion) : null;
-    this.browserUserAgent = x.browserUserAgent ? String(x.browserUserAgent) : null;
-    this.browserLanguage = x.browserLanguage ? String(x.browserLanguage) : null;
-    this.browserOnline = Boolean(x.browserOnline);
-    this.browserPlatform = x.browserPlatform ? String(x.browserPlatform) : null;
-    this.screenWidth = x.screenWidth ? Number(x.screenWidth) : null;
-    this.screenHeight = x.screenHeight ? Number(x.screenHeight) : null;
-    this.screenColorDepth = x.screenColorDepth ? Number(x.screenColorDepth) : null;
-    this.screenPixelDepth = x.screenPixelDepth ? Number(x.screenPixelDepth) : null;
+    super();
+    this.timestamp = null;
+    this.timezone = null;
+    this.pageOn = null;
+    this.referrer = null;
+    this.browserName = null;
+    this.browserEngine = null;
+    this.browserVersion = null;
+    this.browserUserAgent = null;
+    this.browserLanguage = null;
+    this.browserOnline = false;
+    this.browserPlatform = null;
+    this.screenWidth = null;
+    this.screenHeight = null;
+    this.screenColorDepth = null;
+    this.screenPixelDepth = null;
+    if (x) this.load(x);
+  }
+
+  public load(x: any) {
+    this.timestamp = this.clean(x.timestamp, a => new Date(a), Date.now());
+    this.timezone = this.clean(x.timezone, Number);
+    this.pageOn = this.clean(x.pageOn, String);
+    this.referrer = this.clean(x.referrer, String);
+    this.browserName = this.clean(x.browserName, String);
+    this.browserEngine = this.clean(x.browserEngine, String);
+    this.browserVersion = this.clean(x.browserVersion, String);
+    this.browserUserAgent = this.clean(x.browserUserAgent, String);
+    this.browserLanguage = this.clean(x.browserLanguage, String);
+    this.browserOnline = this.clean(x.browserOnline, Boolean);
+    this.browserPlatform = this.clean(x.browserPlatform, String);
+    this.screenWidth = this.clean(x.screenWidth, Number);
+    this.screenHeight = this.clean(x.screenHeight, Number);
+    this.screenColorDepth = this.clean(x.screenColorDepth, Number);
+    this.screenPixelDepth = this.clean(x.screenPixelDepth, Number);
   }
 }
 
@@ -130,19 +157,20 @@ export class ErrorReport extends Resource {
    */
   public client: ClientInfo;
 
-  constructor() {
+  constructor(x?: any) {
     super();
     this.project = null;
     this.createdAt = Date.now();
     this.expiresAt = Math.round(new Date(this.createdAt).getTime() / 1000);
     this.error = new ClientError();
     this.client = new ClientInfo();
+    if (x) this.load(x);
   }
 
   public load(x: any) {
     super.load(x);
-    this.project = x.project ? String(x.project) : null;
-    this.createdAt = x.createdAt ? new Date(x.createdAt).getTime() : this.createdAt;
+    this.project = this.clean(x.project, String);
+    this.createdAt = this.clean(x.createdAt, a => new Date(a), Date.now());
     this.expiresAt = Math.round(new Date(this.createdAt).getTime() / 1000);
     this.error = new ClientError(x.error);
     this.client = new ClientInfo(x.client);

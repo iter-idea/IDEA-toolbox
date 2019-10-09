@@ -82,7 +82,7 @@ export class ProjectPlan extends Resource {
    */
   public special: boolean;
 
-  constructor(availableLanguages?: Array<string>) {
+  constructor(availableLanguages?: Array<string>, x?: ProjectPlan) {
     super();
     this.project = null;
     this.planId = null;
@@ -93,33 +93,28 @@ export class ProjectPlan extends Resource {
     this.priceStr = null;
     this.duration = ProjectPlanDurations.MONTH_1;
     this.platforms = [ProjectPlatforms.WEB];
-    this.title = {} as Label;
-    availableLanguages.forEach(l => (this.title[l] = null));
-    this.description = {} as Label;
-    availableLanguages.forEach(l => (this.description[l] = null));
+    this.title = new Label(availableLanguages);
+    this.description = new Label(availableLanguages);
     this.order = 0;
     this.special = false;
+    if (x) this.load(x);
   }
 
   public load(x: any, availableLanguages?: Array<string>) {
     super.load(x);
-    this.project = x.project ? String(x.project) : null;
-    this.planId = x.planId ? String(x.planId) : null;
-    this.storePlanId = x.storePlanId ? String(x.storePlanId) : null;
-    this.price = x.price ? Number(x.price) : null;
-    this.currency = x.currency ? String(x.currency) : 'EUR';
-    this.currencySymbol = x.currencySymbol ? String(x.currencySymbol) : '€';
-    this.priceStr = x.priceStr ? String(x.priceStr) : null;
-    this.duration = x.duration ? Number(x.duration) as ProjectPlanDurations : ProjectPlanDurations.MONTH_1;
-    this.platforms = x.platforms
-      ? x.platforms.map((p: string) => (p ? String(p) as ProjectPlatforms : null))
-      : [ProjectPlatforms.WEB];
-    this.title = {} as Label;
-    availableLanguages.forEach(l => (this.title[l] = x.title[l] ? String(x.title[l]) : null));
-    this.description = {} as Label;
-    availableLanguages.forEach(l => (this.description[l] = x.description[l] ? String(x.description[l]) : null));
-    this.order = x.order ? Number(x.order) : 0;
-    this.special = Boolean(x.special);
+    this.project = this.clean(x.project, String);
+    this.planId = this.clean(x.planId, String);
+    this.storePlanId = this.clean(x.storePlanId, String);
+    this.price = this.clean(x.price, Number);
+    this.currency = this.clean(x.currency, String, 'EUR');
+    this.currencySymbol = this.clean(x.currencySymbol, String, '€');
+    this.priceStr = this.clean(x.priceStr, String);
+    this.duration = this.clean(x.duration, Number, ProjectPlanDurations.MONTH_1);
+    this.platforms = x.platforms ? this.clean(x.platforms, String) : [ProjectPlatforms.WEB];
+    this.title = new Label(availableLanguages, x.title);
+    this.description = new Label(availableLanguages, x.description);
+    this.order = this.clean(x.order, Number, 0);
+    this.special = this.clean(x.special, Boolean);
   }
 
   public safeLoad(_: any, safeData: any, availableLanguages?: Array<string>) {
@@ -130,22 +125,15 @@ export class ProjectPlan extends Resource {
   }
 
   public validate(defaultLanguage?: string): Array<string> {
-    const e = super.validate();
-    //
-    if (this.iE(defaultLanguage)) e.push('defaultLanguage');
-    //
+    let e = super.validate();
     if (this.iE(this.storePlanId)) e.push('storePlanId');
     if (this.iE(this.price)) e.push('price');
     if (this.iE(this.currency)) e.push('currency');
     if (this.iE(this.currencySymbol)) e.push('currencySymbol');
     if (this.iE(this.priceStr)) e.push('priceStr');
     if (!(this.duration in ProjectPlanDurations)) e.push('duration');
-    if (!this.platforms.length) e.push('platforms');
-    this.platforms.forEach(p => {
-      if (!(p in ProjectPlatforms)) e.push('platforms');
-    });
-    if (this.iE(this.title[defaultLanguage])) e.push('name');
-    //
+    if (!this.platforms.length || this.platforms.some(p => !(p in ProjectPlatforms))) e.push('platforms');
+    e = e.concat(this.title.validate(defaultLanguage));
     return e;
   }
 }

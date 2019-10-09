@@ -53,13 +53,13 @@ export class RCResource extends Resource {
 
   public load(x: any) {
     super.load(x);
-    this.resourceCenterFolderId = x.resourceCenterFolderId ? String(x.resourceCenterFolderId) : null;
-    this.resourceId = x.resourceId ? String(x.resourceId) : null;
-    this.folderId = x.folderId ? String(x.folderId) : null;
-    this.name = x.name ? String(x.name) : null;
-    this.format = x.format ? String(x.format) : null;
-    this.version = x.version ? new Date(x.version).getTime() : null;
-    this.createdAt = x.createdAt ? new Date(x.createdAt).getTime() : null;
+    this.resourceCenterFolderId = this.clean(x.resourceCenterFolderId, String);
+    this.resourceId = this.clean(x.resourceId, String);
+    this.folderId = this.clean(x.folderId, String);
+    this.name = this.clean(x.name, String);
+    this.format = this.clean(x.format, String);
+    this.version = this.clean(x.version, a => new Date(a).getTime());
+    this.createdAt = this.clean(x.createdAt, a => new Date(a).getTime());
   }
 
   public safeLoad(newData: any, safeData: any) {

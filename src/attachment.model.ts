@@ -27,9 +27,9 @@ export class Attachment extends Resource {
 
   public load(x: any) {
     super.load(x);
-    this.attachmentId = x.attachmentId ? String(x.attachmentId) : null;
-    this.name = x.name ? String(x.name) : null;
-    this.format = x.format ? String(x.format) : null;
+    this.attachmentId = this.clean(x.attachmentId, String);
+    this.name = this.clean(x.name, String);
+    this.format = this.clean(x.format, String);
   }
 
   public safeLoad(newData: any, safeData: any) {
