@@ -2,11 +2,11 @@ import { Resource } from './resource.model';
 
 export class Languages extends Resource {
   /**
-   * The default language for a context.
+   * The default language for a context (e.g. 'it', 'en', etc.).
    */
   public default: string;
   /**
-   * The available languages available in a context.
+   * The available languages available in a context (e.g. 'it', 'en', etc.).
    */
   public available: Array<string>;
 

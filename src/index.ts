@@ -10,6 +10,7 @@ export * from './emailDefaults.model';
 export * from './epoch';
 export * from './errorReport.model';
 export * from './label.model';
+export * from './languages.model';
 export * from './notification.model';
 export * from './projectPlan.model';
 export * from './projectSubscription.model';
