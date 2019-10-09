@@ -82,24 +82,6 @@ export class ProjectPlan extends Resource {
    */
   public special: boolean;
 
-  constructor(availableLanguages?: Array<string>, x?: ProjectPlan) {
-    super();
-    this.project = null;
-    this.planId = null;
-    this.storePlanId = null;
-    this.price = null;
-    this.currency = 'EUR';
-    this.currencySymbol = '€';
-    this.priceStr = null;
-    this.duration = ProjectPlanDurations.MONTH_1;
-    this.platforms = [ProjectPlatforms.WEB];
-    this.title = new Label(availableLanguages);
-    this.description = new Label(availableLanguages);
-    this.order = 0;
-    this.special = false;
-    if (x) this.load(x);
-  }
-
   public load(x: any, availableLanguages?: Array<string>) {
     super.load(x);
     this.project = this.clean(x.project, String);
@@ -117,8 +99,8 @@ export class ProjectPlan extends Resource {
     this.special = this.clean(x.special, Boolean);
   }
 
-  public safeLoad(_: any, safeData: any, availableLanguages?: Array<string>) {
-    this.load(safeData, availableLanguages);
+  public safeLoad(newData: any, safeData: any, availableLanguages?: Array<string>) {
+    this.safeLoad(newData, safeData, availableLanguages);
     this.project = safeData.project;
     this.planId = safeData.planId;
     this.special = safeData.special;

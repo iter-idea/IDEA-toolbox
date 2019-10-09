@@ -1,7 +1,9 @@
+import { Resource } from './resource.model';
+
 /**
  * An object to pass to SNS topics that manage notifications.
  */
-export class Notification {
+export class Notification extends Resource {
   /**
    * The project from which we fire the notification.
    */
@@ -33,22 +35,22 @@ export class Notification {
    */
   public forceEmail?: boolean;
 
-  constructor(x?: Notification | any) {
-    x = (x || {}) as Notification;
-    this.project = x.project ? String(x.project) : null;
-    this.teamId = x.teamId ? String(x.teamId) : null;
-    this.userId = x.userId ? String(x.userId) : null;
-    this.email = x.email ? String(x.email) : null;
-    this.subject = x.subject ? String(x.subject) : null;
-    this.content = x.content ? String(x.content) : null;
-    this.forceEmail = Boolean(x.forceEmail);
+  public load(x: any) {
+    super.load(x);
+    this.project = this.clean(x.project, String);
+    this.teamId = this.clean(x.teamId, String);
+    this.userId = this.clean(x.userId, String);
+    this.email = this.clean(x.email, String);
+    this.subject = this.clean(x.subject, String);
+    this.content = this.clean(x.content, String);
+    this.forceEmail = this.clean(x.forceEmail, Boolean);
   }
 }
 
 /**
  * Preferences for receiving notifications.
  */
-export class NotificationsPreferences {
+export class NotificationsPreferences extends Resource {
   /**
    * If true, always send an email.
    */
@@ -58,9 +60,9 @@ export class NotificationsPreferences {
    */
   public push: boolean;
 
-  constructor(x?: NotificationsPreferences | any) {
-    x = (x || {}) as NotificationsPreferences;
-    this.email = Boolean(x.email);
-    this.push = Boolean(x.push);
+  public load(x?: any) {
+    super.load(x);
+    this.email = this.clean(x.email, Boolean);
+    this.push = this.clean(x.push, Boolean);
   }
 }

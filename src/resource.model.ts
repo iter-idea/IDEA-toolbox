@@ -6,40 +6,49 @@ import { isEmpty } from './utils';
 export abstract class Resource {
   /**
    * Object initialization, setting all the default values.
+   * @param newData the data to load, optional
+   * @param options custom options to apply; they will depend on the child resource
    *
-   * Typical implementation:
+   * Usually, there is no need to implement the constructor; implicitly, it will call the `load` of the child resource
+   * and therefore loading all the resources with default values.
+   * If needed, this is the suggested implementation:
    *  ```
    *  super();
-   *  this.attr = null;
+   *  this.load(x);
    *  // ...
    *  ```
    */
-  constructor() {}
+  constructor(newData?: any, options?: any) {
+    this.load(newData, options);
+  }
 
   /**
    * Load the attributes from an already existing resource.
-   *
    * @param newData the data to load
+   * @param options custom options to apply; they will depend on the child resource
    *
    * Typical implementation:
    *  ```
    *  super.load(newData);
-   *  this.attr = newData.attr || null;
+   *  this.attr = this.clean(newData.attr, String);
+   *  this.attr2 = this.clean(newData.attr2, Number, 0);
+   *  this.attr3 = this.clean(newData.attr3, a => new Date(a), Date.now());
+   *  this.arr = this.cleanArray(arr, String);
    *  // ...
    *  ```
    */
-  public load(newData: any) {
+  public load(newData: any, options?: any) {
     newData = newData || {};
+    options = options || {};
   }
 
   /**
    * Load the attributes from an already existing resource and then force some attributes to assume _safeData_ values.
-   *
-   * The function is usually used in the back-end to mix together back-end data with new data, without the risk of
-   * changing ids and other attributes which are managed standalone.
-   *
+   * The function is usually used in the back-end to mix together db data with new data, without the risk of changing
+   * ids and other attributes which are managed in appositely curated scenario.
    * @param newData the data to load
-   * @param safeData the attributes to force to certain values
+   * @param safeData the attributes to force to specific values
+   * @param options custom options to apply; they will depend on the child resource
    *
    * Typical implementation:
    *  ```
@@ -49,15 +58,18 @@ export abstract class Resource {
    *  this.isDraft = safeData.isDraft;
    *  // ...
    *  ```
+   *  _Note well_: there is no need to call `this.load()`, since it's implicitly called from `super.safeLoad()`,
+   *  which will anyway use the child version of the method.
    */
-  public safeLoad(newData: any, safeData: any) {
-    safeData = safeData = {};
-    this.load(newData);
+  public safeLoad(newData: any, safeData: any, options?: any) {
+    safeData = safeData || {};
+    this.load(newData, options);
   }
 
   /**
    * Valide the object's attributes, performing all the checkings.
-   * @returns errors; if empty, the checkings are successfully passed,
+   * @param options custom options to apply; they will depend on the implementations
+   * @return errors if empty, the checkings are successfully passed.
    *
    * Typical implementation:
    *  ```
@@ -67,38 +79,39 @@ export abstract class Resource {
    *  return e;
    *  ```
    */
-  public validate(): Array<string> {
+  public validate(options?: any): Array<string> {
+    options = options || {};
     return new Array<string>();
   }
 
   /**
-   * Shortcut to Utils.isEmpty.
+   * Shortcut to Utils.isEmpty to check the emptiness of a field.
    */
   public iE(field: any, type?: string): boolean {
     return isEmpty(field, type);
   }
 
   /**
-   * Return an attribute in a standard that force-cast the element.
+   * Return an attribute in a cleaned standard that force-cast the element.
    * @param origin the origin attribute, to cast
    * @param castFunction the cast function, e.g. `Boolean`, `Number`, `String`, `x => new CustomClass(x)`, etc.
-   * @param defaultVal if set, return the value instead of `null`
+   * @param defaultVal if set, the fallback value instead of `null`
    * @return cleaned attribute
    */
-  public clean(origin: any, castFunction: (x: any) => any, defaultVal?: any) {
+  public clean(origin: any, castFunction: (x: any) => any, defaultVal?: any): any {
     if (Array.isArray(origin)) return this.cleanArray(origin, castFunction);
     if (castFunction === Boolean) return Boolean(origin);
     else return origin ? castFunction(origin) : defaultVal || null;
   }
 
   /**
-   * Return an array in a standard that cast each element, keeping only the valid ones.
+   * Return an array in a cleaned standard that force-cast each element, keeping only the valid ones.
    * @param origin the origin array, to cast and check
    * @param castFunction the cast function, e.g. `x => String(x)` or `x => new CustomClass(x)`
-   * @param defaultVal if set, return set the element value accordingly, instead of `null`
+   * @param defaultVal if set, the fallback value instead of `null`
    * @return cleaned array
    */
-  public cleanArray(origin: Array<any>, castFunction: (x: any) => any, defaultVal?: any) {
+  public cleanArray(origin: Array<any>, castFunction: (x: any) => any, defaultVal?: any): Array<any> {
     return (origin || []).map(x => (x ? castFunction(x) : defaultVal || null)).filter(x => x);
   }
 }

@@ -17,14 +17,6 @@ export class Attachment extends Resource {
    */
   public format: string;
 
-  constructor(x?: Attachment | any) {
-    super();
-    this.attachmentId = null;
-    this.name = null;
-    this.format = null;
-    if (x) this.load(x);
-  }
-
   public load(x: any) {
     super.load(x);
     this.attachmentId = this.clean(x.attachmentId, String);

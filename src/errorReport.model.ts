@@ -15,14 +15,6 @@ export class ClientError extends Resource {
    */
   public stack: string;
 
-  constructor(x?: any) {
-    super();
-    this.name = null;
-    this.message = null;
-    this.stack = null;
-    if (x) this.load(x);
-  }
-
   public load(x: any) {
     super.load(x);
     this.name = this.clean(x.name, String);
@@ -93,27 +85,8 @@ export class ClientInfo extends Resource {
    */
   public screenPixelDepth: number;
 
-  constructor(x?: any) {
-    super();
-    this.timestamp = null;
-    this.timezone = null;
-    this.pageOn = null;
-    this.referrer = null;
-    this.browserName = null;
-    this.browserEngine = null;
-    this.browserVersion = null;
-    this.browserUserAgent = null;
-    this.browserLanguage = null;
-    this.browserOnline = false;
-    this.browserPlatform = null;
-    this.screenWidth = null;
-    this.screenHeight = null;
-    this.screenColorDepth = null;
-    this.screenPixelDepth = null;
-    if (x) this.load(x);
-  }
-
   public load(x: any) {
+    super.load(x);
     this.timestamp = this.clean(x.timestamp, a => new Date(a), Date.now());
     this.timezone = this.clean(x.timezone, Number);
     this.pageOn = this.clean(x.pageOn, String);
@@ -157,16 +130,6 @@ export class ErrorReport extends Resource {
    */
   public client: ClientInfo;
 
-  constructor(x?: any) {
-    super();
-    this.project = null;
-    this.createdAt = Date.now();
-    this.expiresAt = Math.round(new Date(this.createdAt).getTime() / 1000);
-    this.error = new ClientError();
-    this.client = new ClientInfo();
-    if (x) this.load(x);
-  }
-
   public load(x: any) {
     super.load(x);
     this.project = this.clean(x.project, String);
@@ -176,8 +139,8 @@ export class ErrorReport extends Resource {
     this.client = new ClientInfo(x.client);
   }
 
-  public safeLoad(_: any, safeData: any) {
-    this.load(safeData);
+  public safeLoad(newData: any, safeData: any) {
+    this.safeLoad(newData, safeData);
     this.project = safeData.project;
     this.createdAt = safeData.createdAt;
     this.expiresAt = safeData.expiresAt;

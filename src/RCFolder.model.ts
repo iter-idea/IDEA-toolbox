@@ -32,16 +32,6 @@ export class RCFolder extends Resource {
    */
   public updatedAt: epochDateTime;
 
-  constructor(x?: RCFolder | any) {
-    super();
-    this.resourceCenterId = null;
-    this.folderId = null;
-    this.name = null;
-    this.createdAt = Date.now();
-    this.updatedAt = null;
-    if (x) this.load(x);
-  }
-
   public load(x: any) {
     super.load(x);
     this.resourceCenterId = this.clean(x.resourceCenterId, String);

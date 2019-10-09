@@ -13,7 +13,7 @@ export class Label {
    */
   [key: string]: string | any;
 
-  constructor(availableLanguages?: Array<string>, x?: any) {
+  constructor(x?: any, availableLanguages?: Array<string>) {
     if (x) availableLanguages.forEach(l => (this[l] = x[l] ? String(x[l]) : null));
     else availableLanguages.forEach(l => (this[l] = null));
   }

@@ -2579,16 +2579,22 @@ img {
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Cacheable<wbr>Resource<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="cacheableresource.html" class="tsd-signature-type">CacheableResource</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Cacheable<wbr>Resource<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="cacheableresource.html" class="tsd-signature-type">CacheableResource</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/cacheableResource.model.ts#L12">cacheableResource.model.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/cacheableResource.model.ts#L12">cacheableResource.model.ts:12</a></li>
 							</ul>
 						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> x: <span class="tsd-signature-type">any</span></h5>
+							</li>
+						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="cacheableresource.html" class="tsd-signature-type">CacheableResource</a></h4>
 					</li>
 				</ul>
@@ -2603,7 +2609,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Implementation of <a href="../interfaces/cacheable.html">Cacheable</a>.<a href="../interfaces/cacheable.html#mat">mAt</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/cacheableResource.model.ts#L12">cacheableResource.model.ts:12</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/cacheableResource.model.ts#L12">cacheableResource.model.ts:12</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2626,12 +2632,12 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#clean">clean</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/resource.model.ts#L88">resource.model.ts:88</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/resource.model.ts#L101">resource.model.ts:101</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Return an attribute in a standard that force-cast the element.</p>
+								<p>Return an attribute in a cleaned standard that force-cast the element.</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2669,7 +2675,7 @@ img {
 							<li>
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaultVal: <span class="tsd-signature-type">any</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>if set, return the value instead of <code>null</code></p>
+									<p>if set, the fallback value instead of <code>null</code></p>
 								</div>
 							</li>
 						</ul>
@@ -2682,19 +2688,19 @@ img {
 				<a name="cleanarray" class="tsd-anchor"></a>
 				<h3>clean<wbr>Array</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">clean<wbr>Array<span class="tsd-signature-symbol">(</span>origin<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, castFunction<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, defaultVal<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></li>
+					<li class="tsd-signature tsd-kind-icon">clean<wbr>Array<span class="tsd-signature-symbol">(</span>origin<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, castFunction<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, defaultVal<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#cleanarray">cleanArray</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/resource.model.ts#L101">resource.model.ts:101</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/resource.model.ts#L114">resource.model.ts:114</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Return an array in a standard that cast each element, keeping only the valid ones.</p>
+								<p>Return an array in a cleaned standard that force-cast each element, keeping only the valid ones.</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2732,11 +2738,11 @@ img {
 							<li>
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaultVal: <span class="tsd-signature-type">any</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>if set, return set the element value accordingly, instead of <code>null</code></p>
+									<p>if set, the fallback value instead of <code>null</code></p>
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						<p>cleaned array</p>
 					</li>
 				</ul>
@@ -2752,12 +2758,12 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#ie">iE</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/resource.model.ts#L77">resource.model.ts:77</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/resource.model.ts#L90">resource.model.ts:90</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Shortcut to Utils.isEmpty.</p>
+								<p>Shortcut to Utils.isEmpty to check the emptiness of a field.</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2777,14 +2783,14 @@ img {
 				<a name="load" class="tsd-anchor"></a>
 				<h3>load</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">load<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">load<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#load">load</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/resource.model.ts#L31">resource.model.ts:31</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/resource.model.ts#L40">resource.model.ts:40</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2798,9 +2804,18 @@ img {
 								<h5>newData: <span class="tsd-signature-type">any</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>the data to load</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">any</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>custom options to apply; they will depend on the child resource</p>
 									<p>Typical implementation:</p>
 									<pre><code> <span class="hljs-keyword">super</span>.load(<span class="hljs-keyword">new</span><span class="hljs-type">Data</span>);
- <span class="hljs-built_in">this</span>.attr = <span class="hljs-keyword">new</span><span class="hljs-type">Data</span>.attr || <span class="hljs-literal">null</span>;
+ <span class="hljs-built_in">this</span>.attr = <span class="hljs-built_in">this</span>.clean(<span class="hljs-keyword">new</span><span class="hljs-type">Data</span>.attr, <span class="hljs-keyword">String</span>);
+ <span class="hljs-built_in">this</span>.attr2 = <span class="hljs-built_in">this</span>.clean(<span class="hljs-keyword">new</span><span class="hljs-type">Data</span>.attr2, Number, <span class="hljs-number">0</span>);
+ <span class="hljs-built_in">this</span>.attr3 = <span class="hljs-built_in">this</span>.clean(<span class="hljs-keyword">new</span><span class="hljs-type">Data</span>.attr3, a =&gt; <span class="hljs-keyword">new</span> <span class="hljs-type">Date</span>(a), Date.now());
+ <span class="hljs-built_in">this</span>.arr = <span class="hljs-built_in">this</span>.cleanArray(arr, <span class="hljs-keyword">String</span>);
  <span class="hljs-comment">// ...</span></code></pre>
 								</div>
 							</li>
@@ -2813,22 +2828,22 @@ img {
 				<a name="safeload" class="tsd-anchor"></a>
 				<h3>safe<wbr>Load</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">safe<wbr>Load<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, safeData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">safe<wbr>Load<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, safeData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#safeload">safeLoad</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/resource.model.ts#L53">resource.model.ts:53</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/resource.model.ts#L64">resource.model.ts:64</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Load the attributes from an already existing resource and then force some attributes to assume <em>safeData</em> values.</p>
+								<p>Load the attributes from an already existing resource and then force some attributes to assume <em>safeData</em> values.
+									The function is usually used in the back-end to mix together db data with new data, without the risk of changing
+								ids and other attributes which are managed in appositely curated scenario.</p>
 							</div>
-							<p>The function is usually used in the back-end to mix together back-end data with new data, without the risk of
-							changing ids and other attributes which are managed standalone.</p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -2841,13 +2856,20 @@ img {
 							<li>
 								<h5>safeData: <span class="tsd-signature-type">any</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>the attributes to force to certain values</p>
+									<p>the attributes to force to specific values</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">any</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>custom options to apply; they will depend on the child resource</p>
 									<p>Typical implementation:</p>
 									<pre><code> <span class="hljs-keyword">super</span>.safeLoad(newData, safeData);
  <span class="hljs-keyword">this</span>.keyAttr = safeData.keyAttr;
  <span class="hljs-keyword">this</span>.importantAttr = safeData.importantAttr;
  <span class="hljs-keyword">this</span>.isDraft = safeData.isDraft;
- <span class="hljs-comment">// ...</span></code></pre>
+ <span class="hljs-comment">// ...</span></code></pre><p> <em>Note well</em>: there is no need to call <code>this.load()</code>, since it&#39;s implicitly called from <code>super.safeLoad()</code>,
+									which will anyway use the child version of the method.</p>
 								</div>
 							</li>
 						</ul>
@@ -2866,7 +2888,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/cacheable.html">Cacheable</a>.<a href="../interfaces/cacheable.html#tick">tick</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/cacheableResource.model.ts#L22">cacheableResource.model.ts:22</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/cacheableResource.model.ts#L22">cacheableResource.model.ts:22</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2889,7 +2911,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#validate">validate</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/cacheableResource.model.ts#L26">cacheableResource.model.ts:26</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/cacheableResource.model.ts#L26">cacheableResource.model.ts:26</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>

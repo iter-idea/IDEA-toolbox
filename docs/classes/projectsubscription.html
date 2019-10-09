@@ -2426,7 +2426,7 @@ img {
 		<li class="current tsd-kind-class">
 			<a href="projectsubscription.html" class="tsd-kind-icon">Project<wbr>Subscription</a>
 			<ul>
-				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
 					<a href="projectsubscription.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
@@ -2561,10 +2561,10 @@ img {
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
-					<section class="tsd-index-section ">
+					<section class="tsd-index-section tsd-is-inherited">
 						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="projectsubscription.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="projectsubscription.html#constructor" class="tsd-kind-icon">constructor</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -2593,26 +2593,50 @@ img {
 				</div>
 			</section>
 		</section>
-		<section class="tsd-panel-group tsd-member-group ">
+		<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 			<h2>Constructors</h2>
-			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
-				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Project<wbr>Subscription<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">?: </span><a href="projectsubscription.html" class="tsd-signature-type">ProjectSubscription</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="projectsubscription.html" class="tsd-signature-type">ProjectSubscription</a></li>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Project<wbr>Subscription<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="projectsubscription.html" class="tsd-signature-type">ProjectSubscription</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
-							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#constructor">constructor</a></p>
+							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/projectSubscription.model.ts#L47">projectSubscription.model.ts:47</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/resource.model.ts#L6">resource.model.ts:6</a></li>
 							</ul>
 						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Object initialization, setting all the default values.</p>
+							</div>
+						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> x: <a href="projectsubscription.html" class="tsd-signature-type">ProjectSubscription</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">any</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> newData: <span class="tsd-signature-type">any</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>the data to load, optional</p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">any</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>custom options to apply; they will depend on the child resource</p>
+										<p>Usually, there is no need to implement the constructor; implicitly, it will call the <code>load</code> of the child resource
+											and therefore loading all the resources with default values.
+										If needed, this is the suggested implementation:</p>
+										<pre><code> <span class="hljs-keyword">super</span>();
+ <span class="hljs-keyword">this</span>.load(x);
+ <span class="hljs-comment">// ...</span></code></pre>
+									</div>
+								</div>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="projectsubscription.html" class="tsd-signature-type">ProjectSubscription</a></h4>
@@ -2628,7 +2652,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">auto<wbr>Renewing<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/projectSubscription.model.ts#L35">projectSubscription.model.ts:35</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/projectSubscription.model.ts#L35">projectSubscription.model.ts:35</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2643,7 +2667,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">plan<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/projectSubscription.model.ts#L27">projectSubscription.model.ts:27</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/projectSubscription.model.ts#L27">projectSubscription.model.ts:27</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2658,7 +2682,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">platform<span class="tsd-signature-symbol">:</span> <a href="../enums/projectplatforms.html" class="tsd-signature-type">ProjectPlatforms</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/projectSubscription.model.ts#L40">projectSubscription.model.ts:40</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/projectSubscription.model.ts#L40">projectSubscription.model.ts:40</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2674,7 +2698,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">project<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/projectSubscription.model.ts#L17">projectSubscription.model.ts:17</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/projectSubscription.model.ts#L17">projectSubscription.model.ts:17</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2689,7 +2713,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">store<wbr>Reference<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/projectSubscription.model.ts#L47">projectSubscription.model.ts:47</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/projectSubscription.model.ts#L47">projectSubscription.model.ts:47</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2707,7 +2731,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">subscription<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/projectSubscription.model.ts#L23">projectSubscription.model.ts:23</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/projectSubscription.model.ts#L23">projectSubscription.model.ts:23</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2724,7 +2748,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">valid<wbr>Until<span class="tsd-signature-symbol">:</span> <a href="../globals.html#epochdatetime" class="tsd-signature-type">epochDateTime</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/projectSubscription.model.ts#L31">projectSubscription.model.ts:31</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/projectSubscription.model.ts#L31">projectSubscription.model.ts:31</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2747,12 +2771,12 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#clean">clean</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/resource.model.ts#L88">resource.model.ts:88</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/resource.model.ts#L101">resource.model.ts:101</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Return an attribute in a standard that force-cast the element.</p>
+								<p>Return an attribute in a cleaned standard that force-cast the element.</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2790,7 +2814,7 @@ img {
 							<li>
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaultVal: <span class="tsd-signature-type">any</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>if set, return the value instead of <code>null</code></p>
+									<p>if set, the fallback value instead of <code>null</code></p>
 								</div>
 							</li>
 						</ul>
@@ -2803,19 +2827,19 @@ img {
 				<a name="cleanarray" class="tsd-anchor"></a>
 				<h3>clean<wbr>Array</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">clean<wbr>Array<span class="tsd-signature-symbol">(</span>origin<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, castFunction<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, defaultVal<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></li>
+					<li class="tsd-signature tsd-kind-icon">clean<wbr>Array<span class="tsd-signature-symbol">(</span>origin<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, castFunction<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, defaultVal<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#cleanarray">cleanArray</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/resource.model.ts#L101">resource.model.ts:101</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/resource.model.ts#L114">resource.model.ts:114</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Return an array in a standard that cast each element, keeping only the valid ones.</p>
+								<p>Return an array in a cleaned standard that force-cast each element, keeping only the valid ones.</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2853,11 +2877,11 @@ img {
 							<li>
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaultVal: <span class="tsd-signature-type">any</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>if set, return set the element value accordingly, instead of <code>null</code></p>
+									<p>if set, the fallback value instead of <code>null</code></p>
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						<p>cleaned array</p>
 					</li>
 				</ul>
@@ -2873,12 +2897,12 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#ie">iE</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/resource.model.ts#L77">resource.model.ts:77</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/resource.model.ts#L90">resource.model.ts:90</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Shortcut to Utils.isEmpty.</p>
+								<p>Shortcut to Utils.isEmpty to check the emptiness of a field.</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2905,7 +2929,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#load">load</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/projectSubscription.model.ts#L61">projectSubscription.model.ts:61</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/projectSubscription.model.ts#L49">projectSubscription.model.ts:49</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2922,20 +2946,20 @@ img {
 				<a name="safeload" class="tsd-anchor"></a>
 				<h3>safe<wbr>Load</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-					<li class="tsd-signature tsd-kind-icon">safe<wbr>Load<span class="tsd-signature-symbol">(</span>_<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, safeData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">safe<wbr>Load<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, safeData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#safeload">safeLoad</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/projectSubscription.model.ts#L72">projectSubscription.model.ts:72</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/projectSubscription.model.ts#L60">projectSubscription.model.ts:60</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>_: <span class="tsd-signature-type">any</span></h5>
+								<h5>newData: <span class="tsd-signature-type">any</span></h5>
 							</li>
 							<li>
 								<h5>safeData: <span class="tsd-signature-type">any</span></h5>
@@ -2949,14 +2973,14 @@ img {
 				<a name="validate" class="tsd-anchor"></a>
 				<h3>validate</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">validate<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">validate<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#validate">validate</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b56af4d/src/resource.model.ts#L70">resource.model.ts:70</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/dd2a9b6/src/resource.model.ts#L82">resource.model.ts:82</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2964,8 +2988,17 @@ img {
 								<p>Valide the object&#39;s attributes, performing all the checkings.</p>
 							</div>
 						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">any</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>custom options to apply; they will depend on the implementations</p>
+								</div>
+							</li>
+						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						<p>errors; if empty, the checkings are successfully passed,</p>
+						<p>errors if empty, the checkings are successfully passed.</p>
 						<p>Typical implementation:</p>
 						<pre><code> <span class="hljs-keyword">const</span> e = <span class="hljs-keyword">super</span>.validate();
  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.iE(<span class="hljs-keyword">this</span>.attr)) e.push(`attr`);

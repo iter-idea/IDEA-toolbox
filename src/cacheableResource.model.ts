@@ -11,8 +11,8 @@ export abstract class CacheableResource extends Resource implements Cacheable {
    */
   public mAt: epochDateTime;
 
-  constructor() {
-    super();
+  constructor(x?: any) {
+    super(x);
     this.mAt = Date.now();
   }
 

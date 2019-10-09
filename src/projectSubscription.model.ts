@@ -46,18 +46,6 @@ export class ProjectSubscription extends Resource {
    */
   public storeReferenceId: string;
 
-  constructor(x?: ProjectSubscription | any) {
-    super();
-    this.project = null;
-    this.subscriptionId = null;
-    this.planId = null;
-    this.validUntil = null;
-    this.autoRenewing = true;
-    this.platform = null;
-    this.storeReferenceId = null;
-    if (x) this.load(x);
-  }
-
   public load(x: any) {
     super.load(x);
     this.project = this.clean(x.project, String);
@@ -69,8 +57,8 @@ export class ProjectSubscription extends Resource {
     this.storeReferenceId = this.clean(x.storeReferenceId, String);
   }
 
-  public safeLoad(_: any, safeData: any) {
-    this.load(safeData);
+  public safeLoad(newData: any, safeData: any) {
+    super.safeLoad(newData, safeData);
     this.project = safeData.project;
     this.subscriptionId = safeData.subscriptionId;
   }

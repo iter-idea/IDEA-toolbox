@@ -13,13 +13,6 @@ export class RCConfiguredFolder extends Resource {
    */
   public name: string;
 
-  constructor(x?: RCConfiguredFolder | any) {
-    super();
-    this.folderId = null;
-    this.name = null;
-    if (x) this.load(x);
-  }
-
   public load(x: any) {
     super.load(x);
     this.folderId = this.clean(x.folderId, String);

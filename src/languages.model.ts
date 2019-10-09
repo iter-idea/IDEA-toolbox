@@ -10,16 +10,10 @@ export class Languages extends Resource {
    */
   public available: Array<string>;
 
-  constructor(x?: Languages | any) {
-    super();
-    this.default = 'en';
-    this.available = ['en'];
-    if (x) this.load(x);
-  }
-
   public load(x: any) {
-    this.default = this.clean(x.default, String);
-    this.available = this.cleanArray(x.available, String);
+    super.load(x);
+    this.default = this.clean(x.default, String, 'en');
+    this.available = this.cleanArray(x.available, String, ['en']);
   }
 
   public validate() {

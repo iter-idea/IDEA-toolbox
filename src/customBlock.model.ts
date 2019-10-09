@@ -17,21 +17,14 @@ export class CustomBlock extends Resource {
    */
   public sections: CustomSections;
 
-  constructor() {
-    super();
-    this.sectionsLegend = new Array<string>();
-    this.sections = {};
-  }
-
   public load(x: any) {
     super.load(x);
-    this.sectionsLegend = this.clean(x.sectionsLegend, String);
+    this.sectionsLegend = this.cleanArray(x.sectionsLegend, String);
     this.sections = {};
     this.sectionsLegend.forEach(s => (this.sections[s] = new CustomSection(x.sections[s])));
   }
 
   public safeLoad(newData: any, safeData: any) {
-    this.load(newData);
     super.safeLoad(newData, safeData);
   }
 

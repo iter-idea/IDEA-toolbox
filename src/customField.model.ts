@@ -44,27 +44,12 @@ export class CustomField extends Resource {
    */
   public icon: string;
 
-  constructor(availableLanguages?: Array<string>, x?: CustomField | any) {
-    super();
-    this.fieldId = null;
-    this.name = new Label(availableLanguages);
-    this.description = new Label(availableLanguages);
-    this.type = CustomFieldTypes.STRING;
-    this.enum = null;
-    this.default = null;
-    this.obligatory = false;
-    this.min = null;
-    this.max = null;
-    this.icon = null;
-    if (x) this.load(x, availableLanguages);
-  }
-
   public load(x: any, availableLanguages?: Array<string>) {
     super.load(x);
     this.fieldId = this.clean(x.fieldId, String);
     this.name = new Label(availableLanguages, x.name);
     this.description = new Label(availableLanguages, x.description);
-    this.type = this.clean(x.type, String);
+    this.type = this.clean(x.type, String, CustomFieldTypes.STRING);
     this.enum = this.clean(x.enum, String);
     this.default = this.clean(x.default, String);
     this.obligatory = this.clean(x.obligatory, Boolean);
@@ -75,8 +60,7 @@ export class CustomField extends Resource {
   }
 
   public safeLoad(newData: any, safeData: any, availableLanguages?: Array<string>) {
-    super.safeLoad(newData, safeData);
-    this.load(newData, availableLanguages);
+    super.safeLoad(newData, safeData, availableLanguages);
     this.fieldId = safeData.fieldId;
   }
 

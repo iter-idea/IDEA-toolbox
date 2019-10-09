@@ -30,17 +30,6 @@ export class RCAttachedResource extends Resource {
    */
   public version: epochDateTime;
 
-  constructor(x?: RCAttachedResource | any) {
-    super();
-    this.resourceId = null;
-    this.folderId = null;
-    this.name = null;
-    this.originalName = null;
-    this.format = null;
-    this.version = Date.now();
-    if (x) this.load(x);
-  }
-
   public load(x: any) {
     super.load(x);
     this.resourceId = this.clean(x.resourceId, String);

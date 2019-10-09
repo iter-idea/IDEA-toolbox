@@ -39,18 +39,6 @@ export class RCResource extends Resource {
    */
   public createdAt: epochDateTime;
 
-  constructor(x?: RCResource | any) {
-    super();
-    this.resourceCenterFolderId = null;
-    this.resourceId = null;
-    this.folderId = null;
-    this.name = null;
-    this.version = null;
-    this.createdAt = Date.now();
-    this.format = null;
-    if (x) this.load(x);
-  }
-
   public load(x: any) {
     super.load(x);
     this.resourceCenterFolderId = this.clean(x.resourceCenterFolderId, String);
@@ -59,7 +47,7 @@ export class RCResource extends Resource {
     this.name = this.clean(x.name, String);
     this.format = this.clean(x.format, String);
     this.version = this.clean(x.version, a => new Date(a).getTime());
-    this.createdAt = this.clean(x.createdAt, a => new Date(a).getTime());
+    this.createdAt = this.clean(x.createdAt, a => new Date(a).getTime(), Date.now());
   }
 
   public safeLoad(newData: any, safeData: any) {

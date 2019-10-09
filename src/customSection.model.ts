@@ -40,26 +40,13 @@ export class CustomSection extends Resource {
    */
   public displayTemplate: Array<Array<string>>;
 
-  constructor(availableLanguages?: Array<string>) {
-    super();
-    this.name = new Label(availableLanguages);
-    this.fieldsLegend = new Array<string>();
-    this.fields = {};
-    this.displayTemplate = new Array<Array<string>>();
-  }
-
   public load(x: any, availableLanguages?: Array<string>) {
     super.load(x);
     this.name = new Label(availableLanguages, x.name);
-    this.fieldsLegend = this.clean(x.fieldsLegend, String);
+    this.fieldsLegend = this.cleanArray(x.fieldsLegend, String);
     this.fields = {};
     this.fieldsLegend.forEach(f => (this.fields[f] = new CustomField(x.fields[f])));
-    this.displayTemplate = (x.displayTemplate || []).map((z: Array<string>) => this.clean(z, String));
-  }
-
-  public safeLoad(newData: any, safeData: any, availableLanguages?: Array<string>) {
-    super.safeLoad(newData, safeData);
-    this.load(newData, availableLanguages);
+    this.displayTemplate = (x.displayTemplate || []).map((z: Array<string>) => this.cleanArray(z, String));
   }
 
   public validate(defaultLanguage?: string): Array<string> {
