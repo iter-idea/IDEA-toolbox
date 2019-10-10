@@ -2,7 +2,7 @@ import { Resource } from './resource.model';
 import { CustomFieldTypes } from './customFieldTypes.enum';
 import { Label } from './label.model';
 
-export class CustomField extends Resource {
+export class CustomFieldMeta extends Resource {
   /**
    * Id of the field.
    */
@@ -72,24 +72,70 @@ export class CustomField extends Resource {
   }
 
   /**
-   * Check a value based on the field configuration.
-   * @param value the value to check
-   * @return the value type-forced and cleaned
+   * Set a default value for the field, based on its type.
+   * @param field the field to check
+   * @return the determinated default value, based on the type
    */
-  protected check(value: any): any {
-    if (!value) return false;
+  public fieldDefaultValue(field: any): any {
+    field = this.default || null;
+    // if a default value is not set, force based on type
+    if (!field)
+      switch (this.type) {
+        case CustomFieldTypes.STRING:
+        case CustomFieldTypes.TEXT:
+          field = null;
+          break;
+        case CustomFieldTypes.NUMBER:
+          field = 0;
+          break;
+        case CustomFieldTypes.BOOLEAN:
+          field = false;
+          break;
+      }
+    return field;
+  }
+
+  /**
+   * Load a value based on the field configuration.
+   * @param field the value to load
+   */
+  public loadField(field: any): any {
+    switch (this.type) {
+      case CustomFieldTypes.STRING:
+      case CustomFieldTypes.TEXT:
+        field = this.clean(field, String);
+        break;
+      case CustomFieldTypes.NUMBER:
+        field = this.clean(field, Number, 0);
+        break;
+      case CustomFieldTypes.BOOLEAN:
+        field = this.clean(field, Boolean);
+        break;
+      default:
+        field = null;
+    }
+    return field;
+  }
+
+  /**
+   * Validate a field value, based on the field configuration.
+   * @param field the value to check
+   * @return return the cleaned value or false in case of error
+   */
+  public validateField(field: any): any {
+    if (!field) return false;
     // force cast based on type
     switch (this.type) {
       case CustomFieldTypes.BOOLEAN:
-        value = Boolean(value);
+        field = Boolean(field);
         break;
       case CustomFieldTypes.STRING:
       case CustomFieldTypes.TEXT:
       case CustomFieldTypes.ENUM:
-        value = String(value).trim();
+        field = String(field).trim();
         break;
       case CustomFieldTypes.NUMBER:
-        value = Number(value);
+        field = Number(field);
         break;
       default:
         return false;
@@ -100,20 +146,20 @@ export class CustomField extends Resource {
         case CustomFieldTypes.STRING:
         case CustomFieldTypes.TEXT:
         case CustomFieldTypes.ENUM:
-          if (!value.length) return false;
+          if (!field.length) return false;
           break;
         case CustomFieldTypes.NUMBER:
-          if (isNaN(value) || value === 0) return false;
+          if (isNaN(field) || field === 0) return false;
           break;
       }
     // interval check
     if (this.type === CustomFieldTypes.NUMBER) {
-      if (this.min !== null && this.min !== undefined) if (value < this.min) return false;
-      if (this.max !== null && this.max !== undefined) if (value > this.max) return false;
+      if (this.min !== null && this.min !== undefined) if (field < this.min) return false;
+      if (this.max !== null && this.max !== undefined) if (field > this.max) return false;
     }
     // enum check
-    if (this.type === CustomFieldTypes.ENUM && !(this.enum || []).some(x => x === value)) return false;
+    if (this.type === CustomFieldTypes.ENUM && !(this.enum || []).some(x => x === field)) return false;
     // return the value cleaned and forced
-    return value;
+    return field;
   }
 }
