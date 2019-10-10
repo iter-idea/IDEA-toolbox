@@ -1,6 +1,7 @@
 import { Resource } from './resource.model';
 import { CustomFieldMeta } from './customFieldMeta.model';
 import { Label } from './label.model';
+import { Languages } from './languages.model';
 
 /**
  * A custom section meta containing any number of custom fields meta.
@@ -40,18 +41,18 @@ export class CustomSectionMeta extends Resource {
    */
   public displayTemplate: Array<Array<string>>;
 
-  public load(x: any, availableLanguages?: Array<string>) {
+  public load(x: any, languages?: Languages) {
     super.load(x);
-    this.name = new Label(availableLanguages, x.name);
+    this.name = new Label(x.name, languages);
     this.fieldsLegend = this.cleanArray(x.fieldsLegend, String);
     this.fields = {};
     this.fieldsLegend.forEach(f => (this.fields[f] = new CustomFieldMeta(x.fields[f])));
     this.displayTemplate = (x.displayTemplate || []).map((z: Array<string>) => this.cleanArray(z, String));
   }
 
-  public validate(defaultLanguage?: string): Array<string> {
+  public validate(languages?: Languages): Array<string> {
     let e = super.validate();
-    e = e.concat(this.name.validate(defaultLanguage));
+    e = e.concat(this.name.validate(languages));
     this.fieldsLegend.forEach(f => e.concat(this.fields[f].validate()));
     return e;
   }

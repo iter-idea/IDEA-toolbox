@@ -1,3 +1,5 @@
+import { Languages } from './languages.model';
+
 /**
  * Each of the attributes contains the translation in that language of the Label.
  *
@@ -13,13 +15,13 @@ export class Label {
    */
   [key: string]: string | any;
 
-  constructor(x?: any, availableLanguages?: Array<string>) {
-    if (x) availableLanguages.forEach(l => (this[l] = x[l] ? String(x[l]) : null));
-    else availableLanguages.forEach(l => (this[l] = null));
+  constructor(x?: any, languages?: Languages) {
+    if (x) languages.available.forEach(l => (this[l] = x[l] ? String(x[l]) : null));
+    else languages.available.forEach(l => (this[l] = null));
   }
 
-  public validate(defaultLanguage: string): Array<string> {
-    if (!this[defaultLanguage]) return [defaultLanguage];
+  public validate(languages: Languages): Array<string> {
+    if (!this[languages.default]) return [languages.default];
     else return [];
   }
 }

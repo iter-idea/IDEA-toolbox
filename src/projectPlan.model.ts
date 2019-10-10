@@ -1,5 +1,6 @@
 import { Resource } from './resource.model';
 import { Label } from './label.model';
+import { Languages } from './languages.model';
 
 /**
  * Expressed in months (WEEK is an exception, with value 0).
@@ -82,7 +83,7 @@ export class ProjectPlan extends Resource {
    */
   public special: boolean;
 
-  public load(x: any, availableLanguages?: Array<string>) {
+  public load(x: any, languages?: Languages) {
     super.load(x);
     this.project = this.clean(x.project, String);
     this.planId = this.clean(x.planId, String);
@@ -93,20 +94,20 @@ export class ProjectPlan extends Resource {
     this.priceStr = this.clean(x.priceStr, String);
     this.duration = this.clean(x.duration, Number, ProjectPlanDurations.MONTH_1);
     this.platforms = x.platforms ? this.clean(x.platforms, String) : [ProjectPlatforms.WEB];
-    this.title = new Label(availableLanguages, x.title);
-    this.description = new Label(availableLanguages, x.description);
+    this.title = new Label(x.title, languages);
+    this.description = new Label(x.description, languages);
     this.order = this.clean(x.order, Number, 0);
     this.special = this.clean(x.special, Boolean);
   }
 
-  public safeLoad(newData: any, safeData: any, availableLanguages?: Array<string>) {
-    this.safeLoad(newData, safeData, availableLanguages);
+  public safeLoad(newData: any, safeData: any, languages?: Languages) {
+    this.safeLoad(newData, safeData, languages);
     this.project = safeData.project;
     this.planId = safeData.planId;
     this.special = safeData.special;
   }
 
-  public validate(defaultLanguage?: string): Array<string> {
+  public validate(languages?: Languages): Array<string> {
     let e = super.validate();
     if (this.iE(this.storePlanId)) e.push('storePlanId');
     if (this.iE(this.price)) e.push('price');
@@ -115,7 +116,7 @@ export class ProjectPlan extends Resource {
     if (this.iE(this.priceStr)) e.push('priceStr');
     if (!(this.duration in ProjectPlanDurations)) e.push('duration');
     if (!this.platforms.length || this.platforms.some(p => !(p in ProjectPlatforms))) e.push('platforms');
-    e = e.concat(this.title.validate(defaultLanguage));
+    e = e.concat(this.title.validate(languages));
     return e;
   }
 }

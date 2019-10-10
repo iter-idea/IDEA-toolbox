@@ -1,6 +1,7 @@
 import { Resource } from './resource.model';
 import { CustomFieldTypes } from './customFieldTypes.enum';
 import { Label } from './label.model';
+import { Languages } from './languages.model';
 
 export class CustomFieldMeta extends Resource {
   /**
@@ -44,11 +45,11 @@ export class CustomFieldMeta extends Resource {
    */
   public icon: string;
 
-  public load(x: any, availableLanguages?: Array<string>) {
+  public load(x: any, languages?: Languages) {
     super.load(x);
     this.fieldId = this.clean(x.fieldId, String);
-    this.name = new Label(availableLanguages, x.name);
-    this.description = new Label(availableLanguages, x.description);
+    this.name = new Label(x.name, languages);
+    this.description = new Label(x.description, languages);
     this.type = this.clean(x.type, String, CustomFieldTypes.STRING);
     this.enum = this.clean(x.enum, String);
     this.default = this.clean(x.default, String);
@@ -59,14 +60,14 @@ export class CustomFieldMeta extends Resource {
     this.icon = this.clean(x.icon, String);
   }
 
-  public safeLoad(newData: any, safeData: any, availableLanguages?: Array<string>) {
-    super.safeLoad(newData, safeData, availableLanguages);
+  public safeLoad(newData: any, safeData: any, languages?: Languages) {
+    super.safeLoad(newData, safeData, languages);
     this.fieldId = safeData.fieldId;
   }
 
-  public validate(defaultLanguage?: string): Array<string> {
+  public validate(languages?: Languages): Array<string> {
     let e = super.validate();
-    e = e.concat(this.name.validate(defaultLanguage));
+    e = e.concat(this.name.validate(languages));
     if (this.type === CustomFieldTypes.ENUM && !(this.enum && this.enum.length)) e.push(`enum`);
     return e;
   }
