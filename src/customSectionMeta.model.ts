@@ -61,9 +61,10 @@ export class CustomSectionMeta extends Resource {
   /**
    * Set the default values of the specified fields.
    */
-  public setFieldsDefaultValues(fields: any) {
-    fields = fields || {};
-    this.fieldsLegend.forEach(f => (fields[f] = this.fields[f].fieldDefaultValue(fields[f])));
+  public setFieldsDefaultValues() {
+    const fields: any = {};
+    this.fieldsLegend.forEach(f => (fields[f] = this.fields[f].fieldDefaultValue()));
+    return fields;
   }
 
   /**
@@ -71,10 +72,11 @@ export class CustomSectionMeta extends Resource {
    * @param fields the fields target of the load action
    * @param newFields the values to set in the fields
    */
-  public loadFields(fields: any, newFields: any) {
-    fields = fields || {};
+  public loadFields(newFields: any): any {
+    const fields: any = {};
     newFields = newFields || {};
     this.fieldsLegend.forEach(f => (fields[f] = this.fields[f].loadField(newFields[f])));
+    return fields;
   }
 
   /**

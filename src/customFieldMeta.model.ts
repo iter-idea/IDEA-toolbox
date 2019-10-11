@@ -83,8 +83,8 @@ export class CustomFieldMeta extends Resource {
    * @param field the field to check
    * @return the determinated default value, based on the type
    */
-  public fieldDefaultValue(field: any): any {
-    field = this.default || null;
+  public fieldDefaultValue(): any {
+    let field: any = this.default || null;
     // if a default value is not set, force based on type
     if (!field)
       switch (this.type) {
