@@ -66,8 +66,8 @@ export class CustomFieldMeta extends Resource {
   }
 
   public validate(languages?: Languages): Array<string> {
-    let e = super.validate();
-    e = e.concat(this.name.validate(languages));
+    const e = super.validate();
+    if (this.name.validate(languages).length) e.push(`name`);
     if (this.type === CustomFieldTypes.ENUM && !(this.enum && this.enum.length)) e.push(`enum`);
     return e;
   }

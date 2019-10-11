@@ -24,13 +24,9 @@ export class CustomBlockMeta extends Resource {
     this.sectionsLegend.forEach(s => (this.sections[s] = new CustomSectionMeta(x.sections[s])));
   }
 
-  public safeLoad(newData: any, safeData: any) {
-    super.safeLoad(newData, safeData);
-  }
-
   public validate(): Array<string> {
     const e = super.validate();
-    this.sectionsLegend.forEach(s => e.concat(this.sections[s].validate()));
+    this.sectionsLegend.forEach(s => this.sections[s].validate().forEach(es => e.push(`${s}.${es}`)));
     return e;
   }
 

@@ -51,9 +51,9 @@ export class CustomSectionMeta extends Resource {
   }
 
   public validate(languages?: Languages): Array<string> {
-    let e = super.validate();
-    e = e.concat(this.name.validate(languages));
-    this.fieldsLegend.forEach(f => e.concat(this.fields[f].validate()));
+    const e = super.validate();
+    if (this.name.validate(languages).length) e.push(`name`);
+    this.fieldsLegend.forEach(f => this.fields[f].validate().forEach(ea => e.push(`${f}.${ea}`)));
     return e;
   }
 
