@@ -1,5 +1,6 @@
 import { Resource } from './resource.model';
 import { CustomSectionMeta } from './customSectionMeta.model';
+import { Languages } from './languages.model';
 
 export class CustomBlockMeta extends Resource {
   /**
@@ -17,16 +18,16 @@ export class CustomBlockMeta extends Resource {
    */
   public sections: CustomSectionsMeta;
 
-  public load(x: any) {
-    super.load(x);
+  public load(x: any, languages: Languages) {
+    super.load(x, languages);
     this.sectionsLegend = this.cleanArray(x.sectionsLegend, String);
     this.sections = {};
     this.sectionsLegend.forEach(s => (this.sections[s] = new CustomSectionMeta(x.sections[s])));
   }
 
-  public validate(): Array<string> {
+  public validate(languages: Languages): Array<string> {
     const e = super.validate();
-    this.sectionsLegend.forEach(s => this.sections[s].validate().forEach(es => e.push(`${s}.${es}`)));
+    this.sectionsLegend.forEach(s => this.sections[s].validate(languages).forEach(es => e.push(`${s}.${es}`)));
     return e;
   }
 

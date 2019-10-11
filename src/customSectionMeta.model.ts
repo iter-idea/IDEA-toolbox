@@ -8,9 +8,9 @@ import { Languages } from './languages.model';
  */
 export class CustomSectionMeta extends Resource {
   /**
-   * The name of the section. Support to multilanguage.
+   * The name of the section. Support to multilanguage. Optional.
    */
-  public name: Label;
+  public name?: Label;
   /**
    * Ordered list of the fields (names) to expect in the section.
    * Example: `['name', 'surname', ...]`.
@@ -27,6 +27,7 @@ export class CustomSectionMeta extends Resource {
   public fields: CustomFieldsMeta;
   /**
    * Matrix that sets the way the section is shown in the template; when null, a section won't be shown in the template.
+   * Optional.
    *
    * Example, with f1, f2, etc. as fields names,
    * ```
@@ -39,21 +40,21 @@ export class CustomSectionMeta extends Resource {
    * [  f5   |  f8  ]
    * ```
    */
-  public displayTemplate: Array<Array<string>>;
+  public displayTemplate?: Array<Array<string>>;
 
-  public load(x: any, languages?: Languages) {
+  public load(x: any, languages: Languages) {
     super.load(x);
-    this.name = new Label(x.name, languages);
+    if (x.name) this.name = new Label(x.name, languages);
     this.fieldsLegend = this.cleanArray(x.fieldsLegend, String);
     this.fields = {};
     this.fieldsLegend.forEach(f => (this.fields[f] = new CustomFieldMeta(x.fields[f])));
-    this.displayTemplate = (x.displayTemplate || []).map((z: Array<string>) => this.cleanArray(z, String));
+    if (x.displayTemplate)
+      this.displayTemplate = (x.displayTemplate || []).map((z: Array<string>) => this.cleanArray(z, String));
   }
 
-  public validate(languages?: Languages): Array<string> {
+  public validate(languages: Languages): Array<string> {
     const e = super.validate();
-    if (this.name.validate(languages).length) e.push(`name`);
-    this.fieldsLegend.forEach(f => this.fields[f].validate().forEach(ea => e.push(`${f}.${ea}`)));
+    this.fieldsLegend.forEach(f => this.fields[f].validate(languages).forEach(ea => e.push(`${f}.${ea}`)));
     return e;
   }
 
