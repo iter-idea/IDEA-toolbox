@@ -29,6 +29,6 @@ export class Label {
    * Translate the label in the desired language; in case there's no translation, get the default one.
    */
   public translate(language: string) {
-    return this.theField.name[language] || this.theField.name[this.languages.default];
+    return this[language] || this[this.languages.default];
   }
 }

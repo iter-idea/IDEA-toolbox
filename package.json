@@ -1,6 +1,6 @@
 {
   "name": "idea-toolbox",
-  "version": "5.1.9",
+  "version": "5.1.10",
   "description": "IDEA's utility functions",
   "engines": {
     "node": ">=6.0.0"

@@ -50,7 +50,7 @@ export class CustomFieldMeta extends Resource {
   public icon: string;
 
   public load(x: any, languages?: Languages) {
-    super.load(x);
+    super.load(x, languages);
     if (x.teamId) this.clean(x.teamId, String);
     this.fieldId = this.clean(x.fieldId, String);
     this.name = new Label(x.name, languages);
