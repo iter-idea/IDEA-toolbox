@@ -1,22 +1,33 @@
-export interface EmailDefaults {
+import { Resource } from './resource.model';
+
+export class EmailDefaults extends Resource {
   /**
    * The default email subject.
    */
-  subject: string;
+  public subject: string;
   /**
    * The default email content.
    */
-  content: string;
+  public content: string;
   /**
    * Default addresses to who to send the email in TO.
    */
-  to?: Array<string>;
+  public to?: Array<string>;
   /**
    * Default addresses to who to send the email in CC.
    */
-  cc?: Array<string>;
+  public cc?: Array<string>;
   /**
    * Default addresses to who to send the email in BCC.
    */
-  bcc?: Array<string>;
+  public bcc?: Array<string>;
+
+  public load(x: any) {
+    super.load(x);
+    this.subject = this.clean(x.subject, String);
+    this.content = this.clean(x.content, String);
+    this.to = this.cleanArray(x.to, String);
+    this.cc = this.cleanArray(x.cc, String);
+    this.bcc = this.cleanArray(x.bcc, String);
+  }
 }
