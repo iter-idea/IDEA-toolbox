@@ -47,7 +47,7 @@ export class CustomSectionMeta extends Resource {
     if (x.name) this.name = new Label(x.name, languages);
     this.fieldsLegend = this.cleanArray(x.fieldsLegend, String);
     this.fields = {};
-    this.fieldsLegend.forEach(f => (this.fields[f] = new CustomFieldMeta(x.fields[f])));
+    this.fieldsLegend.forEach(f => (this.fields[f] = new CustomFieldMeta(x.fields[f], languages)));
     if (x.displayTemplate)
       this.displayTemplate = (x.displayTemplate || []).map((z: Array<string>) => this.cleanArray(z, String));
   }
