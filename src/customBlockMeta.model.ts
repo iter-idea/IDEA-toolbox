@@ -35,6 +35,7 @@ export class CustomBlockMeta extends Resource {
    * Set the default values of the specified sections.
    */
   public setSectionsDefaultValues(sections: any) {
+    sections = sections || {};
     this.sectionsLegend.forEach(s => this.sections[s].setFieldsDefaultValues(sections[s]));
   }
 
@@ -44,6 +45,8 @@ export class CustomBlockMeta extends Resource {
    * @param newSections the values to set in the sections
    */
   public loadSections(sections: any, newSections: any) {
+    sections = sections || {};
+    newSections = newSections || {};
     this.sectionsLegend.forEach(s => this.sections[s].loadFields(sections[s], newSections[s]));
   }
 
@@ -51,6 +54,7 @@ export class CustomBlockMeta extends Resource {
    * Validate the sections and return an array with errors, if any.
    */
   public validateSections(sections: any): Array<string> {
+    sections = sections || {};
     const e = new Array<string>();
     this.sectionsLegend.forEach(s => this.sections[s].validateFields(sections[s]).forEach(ef => e.push(`${s}.${ef}`)));
     return e;
