@@ -19,6 +19,8 @@ export abstract class Resource {
    *  ```
    */
   constructor(newData?: any, options?: any) {
+    newData = newData || {};
+    options = options || {};
     this.load(newData, options);
   }
 
@@ -62,7 +64,9 @@ export abstract class Resource {
    *  which will anyway use the child version of the method.
    */
   public safeLoad(newData: any, safeData: any, options?: any) {
+    newData = newData || {};
     safeData = safeData || {};
+    options = options || {};
     this.load(newData, options);
   }
 
