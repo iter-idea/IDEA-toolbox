@@ -105,7 +105,7 @@ export abstract class Resource {
   public clean(origin: any, castFunction: (x: any) => any, defaultVal?: any): any {
     if (Array.isArray(origin)) return this.cleanArray(origin, castFunction);
     if (castFunction === Boolean) return Boolean(origin);
-    else return origin ? castFunction(origin) : defaultVal || null;
+    else return origin ? castFunction(origin) : defaultVal !== undefined ? defaultVal : null;
   }
 
   /**
@@ -116,6 +116,6 @@ export abstract class Resource {
    * @return cleaned array
    */
   public cleanArray(origin: Array<any>, castFunction: (x: any) => any, defaultVal?: any): Array<any> {
-    return (origin || []).map(x => (x ? castFunction(x) : defaultVal || null)).filter(x => x);
+    return (origin || []).map(x => (x ? castFunction(x) : defaultVal !== undefined ? defaultVal : null)).filter(x => x);
   }
 }

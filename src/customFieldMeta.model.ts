@@ -106,17 +106,18 @@ export class CustomFieldMeta extends Resource {
    * Load a value based on the field configuration.
    * @param field the value to load
    */
-  public loadField(field: any): any {
+  public loadField(newField: any): any {
+    let field: any;
     switch (this.type) {
       case CustomFieldTypes.STRING:
       case CustomFieldTypes.TEXT:
-        field = this.clean(field, String);
+        field = this.clean(newField, String);
         break;
       case CustomFieldTypes.NUMBER:
-        field = this.clean(field, Number, 0);
+        field = this.clean(newField, Number, 0);
         break;
       case CustomFieldTypes.BOOLEAN:
-        field = this.clean(field, Boolean);
+        field = this.clean(newField, Boolean);
         break;
       default:
         field = null;
