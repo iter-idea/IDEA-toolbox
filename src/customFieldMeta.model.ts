@@ -5,6 +5,10 @@ import { Languages } from './languages.model';
 
 export class CustomFieldMeta extends Resource {
   /**
+   * The id of the team owning the field. Optional.
+   */
+  public teamId?: string;
+  /**
    * Id of the field.
    */
   public fieldId: string;
@@ -47,6 +51,7 @@ export class CustomFieldMeta extends Resource {
 
   public load(x: any, languages?: Languages) {
     super.load(x);
+    if (x.teamId) this.clean(x.teamId, String);
     this.fieldId = this.clean(x.fieldId, String);
     this.name = new Label(x.name, languages);
     this.description = new Label(x.description, languages);
@@ -62,6 +67,7 @@ export class CustomFieldMeta extends Resource {
 
   public safeLoad(newData: any, safeData: any, languages?: Languages) {
     super.safeLoad(newData, safeData, languages);
+    if (safeData.teamId) this.teamId = safeData.teamId;
     this.fieldId = safeData.fieldId;
   }
 
