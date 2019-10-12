@@ -90,6 +90,7 @@ export class CustomFieldMeta extends Resource {
       switch (this.type) {
         case CustomFieldTypes.STRING:
         case CustomFieldTypes.TEXT:
+        case CustomFieldTypes.ENUM:
           field = null;
           break;
         case CustomFieldTypes.NUMBER:
@@ -111,6 +112,7 @@ export class CustomFieldMeta extends Resource {
     switch (this.type) {
       case CustomFieldTypes.STRING:
       case CustomFieldTypes.TEXT:
+      case CustomFieldTypes.ENUM:
         field = this.clean(newField, String);
         break;
       case CustomFieldTypes.NUMBER:
