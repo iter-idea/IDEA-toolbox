@@ -137,7 +137,7 @@ export class CustomFieldMeta extends Resource {
         case CustomFieldTypes.STRING:
         case CustomFieldTypes.TEXT:
         case CustomFieldTypes.ENUM:
-          if (!field || !field.length) return false;
+          if (!field || !String(field).length) return false;
           break;
         case CustomFieldTypes.NUMBER:
           if (isNaN(field) || field === 0) return false;
