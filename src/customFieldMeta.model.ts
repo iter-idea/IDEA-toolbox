@@ -128,33 +128,16 @@ export class CustomFieldMeta extends Resource {
   /**
    * Validate a field value, based on the field configuration.
    * @param field the value to check
-   * @return return the cleaned value or false in case of error
+   * @return return false in case of error
    */
-  public validateField(field: any): any {
-    if (!field) return false;
-    // force cast based on type
-    switch (this.type) {
-      case CustomFieldTypes.BOOLEAN:
-        field = Boolean(field);
-        break;
-      case CustomFieldTypes.STRING:
-      case CustomFieldTypes.TEXT:
-      case CustomFieldTypes.ENUM:
-        field = String(field).trim();
-        break;
-      case CustomFieldTypes.NUMBER:
-        field = Number(field);
-        break;
-      default:
-        return false;
-    }
+  public validateField(field: any): boolean {
     // obligatory fields check
     if (this.obligatory)
       switch (this.type) {
         case CustomFieldTypes.STRING:
         case CustomFieldTypes.TEXT:
         case CustomFieldTypes.ENUM:
-          if (!field.length) return false;
+          if (!field || field.length) return false;
           break;
         case CustomFieldTypes.NUMBER:
           if (isNaN(field) || field === 0) return false;
@@ -168,6 +151,6 @@ export class CustomFieldMeta extends Resource {
     // enum check
     if (this.type === CustomFieldTypes.ENUM && !(this.enum || []).some(x => x === field)) return false;
     // return the value cleaned and forced
-    return field;
+    return true;
   }
 }

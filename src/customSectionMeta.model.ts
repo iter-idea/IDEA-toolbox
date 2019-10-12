@@ -85,7 +85,7 @@ export class CustomSectionMeta extends Resource {
   public validateFields(fields: any): Array<string> {
     fields = fields || {};
     const e = new Array<string>();
-    this.fieldsLegend.forEach(f => (this.fields[f].validateField(fields[f]) ? e.push(f) : null));
+    this.fieldsLegend.forEach(f => (!this.fields[f].validateField(fields[f]) ? e.push(f) : null));
     return e;
   }
 }
