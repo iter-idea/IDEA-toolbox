@@ -62,7 +62,7 @@ export class NotificationsPreferences extends Resource {
 
   public load(x?: any) {
     super.load(x);
-    this.email = this.clean(x.email, Boolean);
-    this.push = this.clean(x.push, Boolean);
+    this.email = this.clean(x.email, Boolean, true);
+    this.push = this.clean(x.push, Boolean, true);
   }
 }
