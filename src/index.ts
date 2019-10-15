@@ -6,7 +6,7 @@ export * from './customFieldMeta.model';
 export * from './customFieldTypes.enum';
 export * from './customSectionMeta.model';
 export * from './emailChangeRequest.model';
-export * from './emailDefaults.model';
+export * from './emailData.model';
 export * from './epoch';
 export * from './errorReport.model';
 export * from './label.model';
