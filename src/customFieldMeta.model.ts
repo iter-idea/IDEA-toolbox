@@ -57,9 +57,20 @@ export class CustomFieldMeta extends Resource {
     this.description = new Label(x.description, languages);
     this.type = this.clean(x.type, String, CustomFieldTypes.STRING);
     this.enum = this.clean(x.enum, String);
-    this.default = this.clean(x.default, String);
+    switch (this.type) {
+      case CustomFieldTypes.STRING:
+      case CustomFieldTypes.TEXT:
+      case CustomFieldTypes.ENUM:
+        this.default = this.clean(x.default, String);
+        break;
+      case CustomFieldTypes.NUMBER:
+        this.default = this.clean(x.default, Number);
+        break;
+      case CustomFieldTypes.BOOLEAN:
+        this.default = this.clean(x.default, Boolean);
+        break;
+    }
     this.obligatory = this.clean(x.obligatory, Boolean);
-    this.default = this.clean(x.default, Number);
     this.min = this.clean(x.min, Number);
     this.max = this.clean(x.max, Number);
     this.icon = this.clean(x.icon, String);
