@@ -11,8 +11,8 @@ export abstract class CacheableResource extends Resource implements Cacheable {
    */
   public mAt: epochDateTime;
 
-  constructor(x?: any) {
-    super(x);
+  constructor(x?: any, options?: any) {
+    super(x, options);
     this.mAt = Date.now();
   }
 
@@ -23,8 +23,8 @@ export abstract class CacheableResource extends Resource implements Cacheable {
     this.mAt = Date.now();
   }
 
-  public validate(): Array<string> {
-    const e = super.validate();
+  public validate(options?: any): Array<string> {
+    const e = super.validate(options);
     this.tick();
     return e;
   }
