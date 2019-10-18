@@ -65,7 +65,7 @@ export class Address extends Resource {
   public getFullAddress() {
     let full = this.address || '';
     if (this.address2) full = full.concat(` (${this.address2})`);
-    if (this.city || this.postcode) full = full.concat(`, ${this.city} ${this.postcode}`.trim());
+    if (this.city || this.postcode) full = full.concat(`, ${this.city || ''} ${this.postcode || ''}`.trim());
     if (this.country) full = full.concat(` - ${this.country}`);
     return full.trim();
   }
