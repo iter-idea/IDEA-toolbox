@@ -34,6 +34,10 @@ export class Address extends Resource {
    * Contact person's email.
    */
   public email?: string;
+  /**
+   * Concatenation of all the address fields.
+   */
+  public fullAddress: string;
 
   public load(x: any) {
     super.load(x);
@@ -45,6 +49,7 @@ export class Address extends Resource {
     if (x.contact) this.contact = this.clean(x.contact, String);
     if (x.phone) this.phone = this.clean(x.phone, String);
     if (x.email) this.email = this.clean(x.email, String);
+    this.fullAddress = this.getFullAddress();
   }
 
   public validate(): Array<string> {
@@ -55,5 +60,13 @@ export class Address extends Resource {
     if (this.phone && this.iE(this.phone, 'phone')) e.push('phone');
     if (this.email && this.iE(this.email, 'email')) e.push('email');
     return e;
+  }
+
+  public getFullAddress() {
+    let full = this.address || '';
+    if (this.address2) full = full.concat(` (${this.address2})`);
+    if (this.city || this.postcode) full = full.concat(`, ${this.city} ${this.postcode}`.trim());
+    if (this.country) full = full.concat(` - ${this.country}`);
+    return full.trim();
   }
 }
