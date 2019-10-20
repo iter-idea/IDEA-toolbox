@@ -22,7 +22,7 @@ export class CustomBlockMeta extends Resource {
     super.load(x, languages);
     this.sectionsLegend = this.cleanArray(x.sectionsLegend, String);
     this.sections = {};
-    this.sectionsLegend.forEach(s => (this.sections[s] = new CustomSectionMeta(x.sections[s])));
+    this.sectionsLegend.forEach(s => (this.sections[s] = new CustomSectionMeta(x.sections[s], languages)));
   }
 
   public validate(languages: Languages): Array<string> {
