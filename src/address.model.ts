@@ -11,13 +11,17 @@ export class Address extends Resource {
    */
   public address2?: string;
   /**
+   * Postal code/zip code.
+   */
+  public postcode: string;
+  /**
    * Town/city.
    */
   public city: string;
   /**
-   * Postal code/zip code.
+   * Province, district, area.
    */
-  public postcode: string;
+  public province: string;
   /**
    * Country.
    */
@@ -43,8 +47,9 @@ export class Address extends Resource {
     super.load(x);
     this.address = this.clean(x.address, String);
     if (x.address2) this.address2 = this.clean(x.address2, String);
-    this.city = this.clean(x.city, String);
     this.postcode = this.clean(x.postcode, String);
+    this.city = this.clean(x.city, String);
+    this.province = this.clean(x.province, String);
     this.country = this.clean(x.country, String);
     if (x.contact) this.contact = this.clean(x.contact, String);
     if (x.phone) this.phone = this.clean(x.phone, String);
