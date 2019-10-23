@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CustomSectionMeta | idea-toolbox</title>
+	<title>TeamPermissions | idea-toolbox</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2376,49 +2376,31 @@ img {
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class="current tsd-kind-class">
-			<a href="customsectionmeta.html" class="tsd-kind-icon">Custom<wbr>Section<wbr>Meta</a>
+			<a href="teampermissions.html" class="tsd-kind-icon">Team<wbr>Permissions</a>
 			<ul>
 				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-					<a href="customsectionmeta.html#constructor" class="tsd-kind-icon">constructor</a>
+					<a href="teampermissions.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="customsectionmeta.html#displaytemplate" class="tsd-kind-icon">display<wbr>Template</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="customsectionmeta.html#fields" class="tsd-kind-icon">fields</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="customsectionmeta.html#fieldslegend" class="tsd-kind-icon">fields<wbr>Legend</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="customsectionmeta.html#name" class="tsd-kind-icon">name</a>
+					<a href="teampermissions.html#admin" class="tsd-kind-icon">admin</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a href="customsectionmeta.html#clean" class="tsd-kind-icon">clean</a>
+					<a href="teampermissions.html#clean" class="tsd-kind-icon">clean</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a href="customsectionmeta.html#cleanarray" class="tsd-kind-icon">clean<wbr>Array</a>
+					<a href="teampermissions.html#cleanarray" class="tsd-kind-icon">clean<wbr>Array</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a href="customsectionmeta.html#ie" class="tsd-kind-icon">iE</a>
+					<a href="teampermissions.html#ie" class="tsd-kind-icon">iE</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-					<a href="customsectionmeta.html#load" class="tsd-kind-icon">load</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="customsectionmeta.html#loadfields" class="tsd-kind-icon">load<wbr>Fields</a>
+					<a href="teampermissions.html#load" class="tsd-kind-icon">load</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a href="customsectionmeta.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a>
+					<a href="teampermissions.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a>
 				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="customsectionmeta.html#setfieldsdefaultvalues" class="tsd-kind-icon">set<wbr>Fields<wbr>Default<wbr>Values</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-					<a href="customsectionmeta.html#validate" class="tsd-kind-icon">validate</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="customsectionmeta.html#validatefields" class="tsd-kind-icon">validate<wbr>Fields</a>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a href="teampermissions.html#validate" class="tsd-kind-icon">validate</a>
 				</li>
 			</ul>
 		</li>
@@ -2426,13 +2408,6 @@ img {
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
-		<section class="tsd-panel tsd-comment">
-			<div class="tsd-comment tsd-typography">
-				<div class="lead">
-					<p>A custom section meta containing any number of custom fields meta.</p>
-				</div>
-			</div>
-		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
@@ -2440,11 +2415,20 @@ img {
 					<a href="resource.html" class="tsd-signature-type">Resource</a>
 					<ul class="tsd-hierarchy">
 						<li>
-							<span class="target">CustomSectionMeta</span>
+							<span class="target">TeamPermissions</span>
 						</li>
 					</ul>
 				</li>
 			</ul>
+		</section>
+		<section class="tsd-panel tsd-kind-class">
+			<h3 class="tsd-before-signature">Indexable</h3>
+			<div class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">any</span></div>
+			<div class="tsd-comment tsd-typography">
+				<div class="lead">
+					<p>The possible setting are always boolean. Enable the index access.</p>
+				</div>
+			</div>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
@@ -2453,30 +2437,24 @@ img {
 					<section class="tsd-index-section tsd-is-inherited">
 						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="customsectionmeta.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="teampermissions.html#constructor" class="tsd-kind-icon">constructor</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="customsectionmeta.html#displaytemplate" class="tsd-kind-icon">display<wbr>Template</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="customsectionmeta.html#fields" class="tsd-kind-icon">fields</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="customsectionmeta.html#fieldslegend" class="tsd-kind-icon">fields<wbr>Legend</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="customsectionmeta.html#name" class="tsd-kind-icon">name</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="teampermissions.html#admin" class="tsd-kind-icon">admin</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="customsectionmeta.html#clean" class="tsd-kind-icon">clean</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="customsectionmeta.html#cleanarray" class="tsd-kind-icon">clean<wbr>Array</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="customsectionmeta.html#ie" class="tsd-kind-icon">iE</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="customsectionmeta.html#load" class="tsd-kind-icon">load</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="customsectionmeta.html#loadfields" class="tsd-kind-icon">load<wbr>Fields</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="customsectionmeta.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="customsectionmeta.html#setfieldsdefaultvalues" class="tsd-kind-icon">set<wbr>Fields<wbr>Default<wbr>Values</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="customsectionmeta.html#validate" class="tsd-kind-icon">validate</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="customsectionmeta.html#validatefields" class="tsd-kind-icon">validate<wbr>Fields</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="teampermissions.html#clean" class="tsd-kind-icon">clean</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="teampermissions.html#cleanarray" class="tsd-kind-icon">clean<wbr>Array</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="teampermissions.html#ie" class="tsd-kind-icon">iE</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="teampermissions.html#load" class="tsd-kind-icon">load</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="teampermissions.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="teampermissions.html#validate" class="tsd-kind-icon">validate</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2488,7 +2466,7 @@ img {
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Custom<wbr>Section<wbr>Meta<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="customsectionmeta.html" class="tsd-signature-type">CustomSectionMeta</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Team<wbr>Permissions<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="teampermissions.html" class="tsd-signature-type">TeamPermissions</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -2528,7 +2506,7 @@ img {
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="customsectionmeta.html" class="tsd-signature-type">CustomSectionMeta</a></h4>
+						<h4 class="tsd-returns-title">Returns <a href="teampermissions.html" class="tsd-signature-type">TeamPermissions</a></h4>
 					</li>
 				</ul>
 			</section>
@@ -2536,72 +2514,17 @@ img {
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="displaytemplate" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagOptional">Optional</span> display<wbr>Template</h3>
-				<div class="tsd-signature tsd-kind-icon">display<wbr>Template<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<a name="admin" class="tsd-anchor"></a>
+				<h3>admin</h3>
+				<div class="tsd-signature tsd-kind-icon">admin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/139a725/src/customSectionMeta.model.ts#L43">customSectionMeta.model.ts:43</a></li>
+						<li>Defined in membership.model.ts:62</li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Matrix that sets the way the section is shown in the template; when null, a section won&#39;t be shown in the template.
-						Optional.</p>
-					</div>
-					<p>Example, with f1, f2, etc. as fields names,</p>
-					<pre><code>[ [<span class="hljs-symbol">'f1</span>'], [<span class="hljs-symbol">'f2</span>',<span class="hljs-symbol">'f3</span>',<span class="hljs-symbol">'f7</span>'], [<span class="hljs-symbol">'f5</span>',<span class="hljs-symbol">'f8</span>'] ]</code></pre><p>becomes:</p>
-					<pre><code>[      f1      ]
-[ f2 | f3 | f7 ]
-[  f5   |  f8  ]</code></pre>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="fields" class="tsd-anchor"></a>
-				<h3>fields</h3>
-				<div class="tsd-signature tsd-kind-icon">fields<span class="tsd-signature-symbol">:</span> <a href="../interfaces/customfieldsmeta.html" class="tsd-signature-type">CustomFieldsMeta</a></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/139a725/src/customSectionMeta.model.ts#L27">customSectionMeta.model.ts:27</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Object containg attributes of type CustomFieldMeta; e.g.</p>
-						<pre><code><span class="hljs-symbol">fields.name:</span> CustomFieldMeta<span class="hljs-comment">;</span>
-<span class="hljs-symbol">fields.surname:</span> CustomFieldMeta<span class="hljs-comment">;</span>
-...</code></pre>
-					</div>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="fieldslegend" class="tsd-anchor"></a>
-				<h3>fields<wbr>Legend</h3>
-				<div class="tsd-signature tsd-kind-icon">fields<wbr>Legend<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/139a725/src/customSectionMeta.model.ts#L18">customSectionMeta.model.ts:18</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Ordered list of the fields (names) to expect in the section.
-						Example: <code>[&#39;name&#39;, &#39;surname&#39;, ...]</code>.</p>
-					</div>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="name" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagOptional">Optional</span> name</h3>
-				<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <a href="label.html" class="tsd-signature-type">Label</a></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/139a725/src/customSectionMeta.model.ts#L13">customSectionMeta.model.ts:13</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>The name of the section. Support to multilanguage. Optional.</p>
+						<p>Can manage the team and its members.</p>
 					</div>
 				</div>
 			</section>
@@ -2770,14 +2693,14 @@ img {
 				<a name="load" class="tsd-anchor"></a>
 				<h3>load</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-					<li class="tsd-signature tsd-kind-icon">load<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, languages<span class="tsd-signature-symbol">: </span><a href="languages.html" class="tsd-signature-type">Languages</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">load<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#load">load</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/139a725/src/customSectionMeta.model.ts#L45">customSectionMeta.model.ts:45</a></li>
+								<li>Defined in membership.model.ts:64</li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2785,42 +2708,8 @@ img {
 							<li>
 								<h5>x: <span class="tsd-signature-type">any</span></h5>
 							</li>
-							<li>
-								<h5>languages: <a href="languages.html" class="tsd-signature-type">Languages</a></h5>
-							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="loadfields" class="tsd-anchor"></a>
-				<h3>load<wbr>Fields</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">load<wbr>Fields<span class="tsd-signature-symbol">(</span>newFields<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/139a725/src/customSectionMeta.model.ts#L75">customSectionMeta.model.ts:75</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Load the values of the specified fields.</p>
-							</div>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>newFields: <span class="tsd-signature-type">any</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>the values to set in the fields</p>
-								</div>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -2877,77 +2766,41 @@ img {
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="setfieldsdefaultvalues" class="tsd-anchor"></a>
-				<h3>set<wbr>Fields<wbr>Default<wbr>Values</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">set<wbr>Fields<wbr>Default<wbr>Values<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/139a725/src/customSectionMeta.model.ts#L64">customSectionMeta.model.ts:64</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Set the default values of the specified fields.</p>
-							</div>
-						</div>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 				<a name="validate" class="tsd-anchor"></a>
 				<h3>validate</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-					<li class="tsd-signature tsd-kind-icon">validate<span class="tsd-signature-symbol">(</span>languages<span class="tsd-signature-symbol">: </span><a href="languages.html" class="tsd-signature-type">Languages</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">validate<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
-							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#validate">validate</a></p>
+							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#validate">validate</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/139a725/src/customSectionMeta.model.ts#L55">customSectionMeta.model.ts:55</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>languages: <a href="languages.html" class="tsd-signature-type">Languages</a></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="validatefields" class="tsd-anchor"></a>
-				<h3>validate<wbr>Fields</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">validate<wbr>Fields<span class="tsd-signature-symbol">(</span>fields<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/139a725/src/customSectionMeta.model.ts#L85">customSectionMeta.model.ts:85</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/139a725/src/resource.model.ts#L86">resource.model.ts:86</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Validate the fields and return an array with errors, if any.</p>
+								<p>Valide the object&#39;s attributes, performing all the checkings.</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>fields: <span class="tsd-signature-type">any</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">any</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>custom options to apply; they will depend on the implementations</p>
+								</div>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>errors if empty, the checkings are successfully passed.</p>
+						<p>Typical implementation:</p>
+						<pre><code> <span class="hljs-keyword">const</span> e = <span class="hljs-keyword">super</span>.validate();
+ <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.iE(<span class="hljs-keyword">this</span>.attr)) e.push(`attr`);
+ <span class="hljs-comment">// ...</span>
+ <span class="hljs-keyword">return</span> e;</code></pre>
 					</li>
 				</ul>
 			</section>
