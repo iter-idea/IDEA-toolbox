@@ -33,7 +33,7 @@ export class Membership extends Resource {
     this.teamId = this.clean(x.teamId, String);
     this.userId = this.clean(x.userId, String);
     this.name = this.clean(x.name, String);
-    this.pendingInvitation = this.clean(x.teamId, Boolean);
+    this.pendingInvitation = this.clean(x.pendingInvitation, Boolean);
     this.permissions = new TeamPermissions(x.permissions);
   }
 
