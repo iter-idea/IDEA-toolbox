@@ -22,9 +22,9 @@ export class Team extends Resource {
    */
   public createdAt: epochDateTime;
   /**
-   * If true, the team has been activated by the admins; not stored, calculated at runtime.
+   * If true, the team has been activated by the admins for the project selected; not stored, calculated at runtime.
    */
-  public isActivated: boolean;
+  public isActivatedOnProject: boolean;
 
   public load(x: any) {
     super.load(x);
@@ -32,7 +32,7 @@ export class Team extends Resource {
     this.name = this.clean(x.name, String);
     this.ownerId = this.clean(x.ownerId, String);
     this.createdAt = this.clean(x.createdAt, d => new Date(d).getTime(), Date.now());
-    this.isActivated = this.clean(x.isActivated, Boolean);
+    this.isActivatedOnProject = this.clean(x.isActivatedOnProject, Boolean);
   }
 
   public safeLoad(newData: any, safeData: any) {
@@ -40,7 +40,7 @@ export class Team extends Resource {
     this.teamId = safeData.teamId;
     this.ownerId = safeData.ownerId;
     this.createdAt = safeData.createdAt;
-    delete this.isActivated; // not stored, calculated at runtime
+    delete this.isActivatedOnProject; // not stored, calculated at runtime
   }
 
   public validate(): Array<string> {
