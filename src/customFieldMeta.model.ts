@@ -29,6 +29,11 @@ export class CustomFieldMeta extends Resource {
    */
   public enum: Array<string>;
   /**
+   * The translations of the enum keys; available only with type ENUM.
+   * Not obligatory: the fallback is always the enum key.
+   */
+  public enumLabels: { [key: string]: Label };
+  /**
    * Field default value.
    */
   public default: any;
@@ -56,7 +61,9 @@ export class CustomFieldMeta extends Resource {
     this.name = new Label(x.name, languages);
     this.description = new Label(x.description, languages);
     this.type = this.clean(x.type, String, CustomFieldTypes.STRING);
-    this.enum = this.clean(x.enum, String);
+    this.enum = this.cleanArray(x.enum, String);
+    this.enumLabels = {};
+    if (x.enumLabels) this.enum.forEach(e => (this.enumLabels[e] = new Label(x.enumLabels[e], languages)));
     switch (this.type) {
       case CustomFieldTypes.STRING:
       case CustomFieldTypes.TEXT:
@@ -165,5 +172,14 @@ export class CustomFieldMeta extends Resource {
     if (this.type === CustomFieldTypes.ENUM && !(this.enum || []).some(x => x === field)) return false;
     // return the value cleaned and forced
     return true;
+  }
+
+  /**
+   * Get the label to show for the enum, based on the translations available; if none, returns the key.
+   */
+  public getEnum(enumKey: string, language: string, languages?: Languages): string {
+    if (this.type !== CustomFieldTypes.ENUM) return null;
+    if (!this.enumLabels || !this.enumLabels[enumKey] || !(this.enumLabels[enumKey] instanceof Label)) return enumKey;
+    else return this.enumLabels[enumKey].translate(language, languages) || enumKey;
   }
 }
