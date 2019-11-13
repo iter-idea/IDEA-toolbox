@@ -2,6 +2,7 @@ import { Resource } from './resource.model';
 import { CustomFieldTypes } from './customFieldTypes.enum';
 import { Label } from './label.model';
 import { Languages } from './languages.model';
+import { Suggestion } from './suggestion.model';
 
 export class CustomFieldMeta extends Resource {
   /**
@@ -177,9 +178,23 @@ export class CustomFieldMeta extends Resource {
   /**
    * Get the label to show for the enum, based on the translations available; if none, returns the key.
    */
-  public getEnum(enumKey: string, language: string, languages?: Languages): string {
+  public getEnumElement(enumKey: string, language?: string, languages?: Languages): string {
     if (this.type !== CustomFieldTypes.ENUM) return null;
-    if (!this.enumLabels || !this.enumLabels[enumKey] || !(this.enumLabels[enumKey] instanceof Label)) return enumKey;
+    if (
+      !this.enumLabels ||
+      !this.enumLabels[enumKey] ||
+      !(this.enumLabels[enumKey] instanceof Label) ||
+      !language ||
+      !languages
+    )
+      return enumKey;
     else return this.enumLabels[enumKey].translate(language, languages) || enumKey;
+  }
+  /**
+   * Get the enum in the form of array of Suggestions.
+   */
+  public getEnumAsSuggestion(language?: string, languages?: Languages): Array<Suggestion> {
+    if (this.type !== CustomFieldTypes.ENUM) return [];
+    else return this.enum.map(e => new Suggestion({ value: e, name: this.getEnumElement(e, language, languages) }));
   }
 }

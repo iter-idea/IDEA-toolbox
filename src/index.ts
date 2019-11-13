@@ -25,6 +25,7 @@ export * from './RCFolder.model';
 export * from './RCResource.model';
 export * from './resource.model';
 export * from './signedURL.model';
+export * from './suggestion.model';
 export * from './team.model';
 export * from './user.model';
 export * from './utils';
