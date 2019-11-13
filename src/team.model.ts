@@ -25,6 +25,10 @@ export class Team extends Resource {
    * If true, the team has been activated by the admins for the project selected; not stored, calculated at runtime.
    */
   public isActivatedOnProject: boolean;
+  /**
+   * Whether the requesting user is admin of the team or not.
+   */
+  public isRequestingUserAdmin: boolean;
 
   public load(x: any) {
     super.load(x);
@@ -33,6 +37,7 @@ export class Team extends Resource {
     this.ownerId = this.clean(x.ownerId, String);
     this.createdAt = this.clean(x.createdAt, d => new Date(d).getTime(), Date.now());
     this.isActivatedOnProject = this.clean(x.isActivatedOnProject, Boolean);
+    this.isRequestingUserAdmin = this.clean(x.isRequestingUserAdmin, Boolean);
   }
 
   public safeLoad(newData: any, safeData: any) {
@@ -41,6 +46,7 @@ export class Team extends Resource {
     this.ownerId = safeData.ownerId;
     this.createdAt = safeData.createdAt;
     delete this.isActivatedOnProject; // not stored, calculated at runtime
+    delete this.isRequestingUserAdmin; // not stored, calculated at runtime
   }
 
   public validate(): Array<string> {
