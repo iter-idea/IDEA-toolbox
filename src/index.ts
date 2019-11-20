@@ -1,5 +1,6 @@
 export * from './address.model';
 export * from './attachment.model';
+export * from './booleanChoices.enum';
 export * from './cacheable.model';
 export * from './cacheableResource.model';
 export * from './contacts.model';
