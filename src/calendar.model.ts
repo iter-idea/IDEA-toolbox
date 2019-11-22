@@ -18,14 +18,14 @@ export class Calendar extends Resource {
    */
   public calendarId: string;
   /**
-   * The id of the user owning the calendar, in case of private calendar (this cannot be changed).
-   */
-  public userId?: string;
-  /**
    * The id of the teamId owning the calendar, in case of shared calendar (this cannot be changed).
-   * If `userId` is set, this attribute is ignored.
    */
   public teamId?: string;
+  /**
+   * The id of the user owning the calendar, in case of private calendar (this cannot be changed).
+   * If `teamId` is set, this attribute is ignored.
+   */
+  public userId?: string;
   /**
    * The name of the calendar. Max 100 characters.
    */
@@ -46,8 +46,8 @@ export class Calendar extends Resource {
   public load(x: any) {
     super.load(x);
     this.calendarId = this.clean(x.calendarId, String);
-    if (x.userId) this.userId = this.clean(x.userId, String);
-    else if (x.teamId) this.teamId = this.clean(x.teamId, String);
+    if (x.teamId) this.teamId = this.clean(x.teamId, String);
+    else if (x.userId) this.userId = this.clean(x.userId, String);
     this.name = this.clean(x.name, String).slice(0, 100);
     this.description = this.clean(x.description, String).slice(0, 300);
     this.color = this.clean(x.color, String);
@@ -57,8 +57,8 @@ export class Calendar extends Resource {
   public safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.calendarId = safeData.calendarId;
-    if (safeData.userId) this.userId = safeData.userId;
-    else if (safeData.teamId) this.teamId = safeData.teamId;
+    if (safeData.teamId) this.teamId = safeData.teamId;
+    else if (safeData.userId) this.userId = safeData.userId;
     if (safeData.external) this.external = safeData.external;
   }
 
