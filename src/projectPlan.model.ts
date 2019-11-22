@@ -23,6 +23,11 @@ export enum ProjectPlatforms {
   WINDOWS = 'windows'
 }
 
+export enum ProjectPlanTargets {
+  USERS = 'users',
+  TEAMS = 'teams'
+}
+
 /**
  * Table: `idea_projects_plans`.
  *
@@ -82,6 +87,14 @@ export class ProjectPlan extends Resource {
    * If true, the plan is an anomaly and it needs to be threaded in special ways.
    */
   public special: boolean;
+  /**
+   * If true, the plan is set as Gold plan and this will be threaded in different ways according to the project.
+   */
+  public gold: boolean;
+  /**
+   * The plan targets: USERS, TEAMS.
+   */
+  public target: ProjectPlanTargets;
 
   public load(x: any, languages?: Languages) {
     super.load(x);
@@ -98,6 +111,8 @@ export class ProjectPlan extends Resource {
     this.description = new Label(x.description, languages);
     this.order = this.clean(x.order, Number, 0);
     this.special = this.clean(x.special, Boolean);
+    this.gold = this.clean(x.gold, Boolean);
+    this.target = this.clean(x.target, String, ProjectPlanTargets.USERS);
   }
 
   public safeLoad(newData: any, safeData: any, languages?: Languages) {
@@ -105,6 +120,7 @@ export class ProjectPlan extends Resource {
     this.project = safeData.project;
     this.planId = safeData.planId;
     this.special = safeData.special;
+    this.gold = safeData.gold;
   }
 
   public validate(languages?: Languages): Array<string> {
@@ -116,6 +132,7 @@ export class ProjectPlan extends Resource {
     if (this.iE(this.priceStr)) e.push('priceStr');
     if (!(this.duration in ProjectPlanDurations)) e.push('duration');
     if (!this.platforms.length || this.platforms.some(p => !(p in ProjectPlatforms))) e.push('platforms');
+    if (!(this.target in ProjectPlanTargets)) e.push('target');
     e = e.concat(this.title.validate(languages));
     return e;
   }
