@@ -1,4 +1,5 @@
 import { Resource } from './resource.model';
+import { ProjectSubscription } from './projectSubscription.model';
 import { epochDateTime } from './epoch';
 
 /**
@@ -21,6 +22,14 @@ export class User extends Resource {
    * Timestamp of creation.
    */
   public createdAt: epochDateTime;
+  /**
+   * Timestamp of when the user's subscription limits have been calculated.
+   */
+  public lastLimitsCheckAt: epochDateTime;
+  /**
+   * Current subscription to a Horace's plan (_calculated field_).
+   */
+  public subscription?: ProjectSubscription;
 
   public load(x: any) {
     super.load(x);
@@ -28,6 +37,8 @@ export class User extends Resource {
     this.email = this.clean(x.email, String);
     this.currentTeamId = this.clean(x.currentTeamId, String);
     this.createdAt = this.clean(x.createdAt, d => new Date(d).getTime(), Date.now());
+    this.lastLimitsCheckAt = this.clean(x.lastLimitsCheckAt, Number, 0);
+    if (x.subscription) this.subscription = new ProjectSubscription(x.subscription);
   }
 
   public safeLoad(newData: any, safeData: any) {
@@ -36,5 +47,7 @@ export class User extends Resource {
     this.userId = safeData.userId;
     this.currentTeamId = safeData.currentTeamId;
     this.createdAt = safeData.createdAt;
+    this.lastLimitsCheckAt = safeData.lastLimitsCheckAt;
+    delete this.subscription;
   }
 }
