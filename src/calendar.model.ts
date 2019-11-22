@@ -35,7 +35,7 @@ export class Calendar extends Resource {
    */
   public description: string;
   /**
-   * An identifying color for the calendar (HEX). E.g. `0010AA`.
+   * An identifying color for the calendar; e.g. `#0010AA`.
    */
   public color: string;
   /**
