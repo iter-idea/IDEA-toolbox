@@ -50,7 +50,7 @@ export class Appointment extends Resource {
   /**
    * An object linked to the appointment.
    */
-  public linkedTo: AppointmentLinkedObject;
+  public linkedTo?: AppointmentLinkedObject;
 
   public load(x: any) {
     super.load(x);
