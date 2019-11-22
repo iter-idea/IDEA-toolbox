@@ -56,9 +56,12 @@ export class Appointment extends Resource {
     super.load(x);
     this.appointmentId = this.clean(x.appointmentId, String);
     this.calendarId = this.clean(x.calendarId, String);
-    this.title = this.clean(x.title, String).slice(0, 100);
-    this.subtitle = this.clean(x.subtitle, String).slice(0, 100);
-    this.description = this.clean(x.description, String).slice(0, 300);
+    this.title = this.clean(x.title, String);
+    if (this.title) this.title = this.title.slice(0, 100);
+    this.subtitle = this.clean(x.subtitle, String);
+    if (this.subtitle) this.subtitle = this.subtitle.slice(0, 100);
+    this.description = this.clean(x.description, String);
+    if (this.description) this.description = this.description.slice(0, 300);
     this.startTime = this.clean(x.startTime, d => new Date(d).getTime());
     this.endTime = this.clean(x.endTime, d => new Date(d).getTime());
     this.allDay = this.clean(x.allDay, Boolean);

@@ -48,8 +48,10 @@ export class Calendar extends Resource {
     this.calendarId = this.clean(x.calendarId, String);
     if (x.teamId) this.teamId = this.clean(x.teamId, String);
     else if (x.userId) this.userId = this.clean(x.userId, String);
-    this.name = this.clean(x.name, String).slice(0, 100);
-    this.description = this.clean(x.description, String).slice(0, 300);
+    this.name = this.clean(x.name, String);
+    if (this.name) this.name = this.name.slice(0, 100);
+    this.description = this.clean(x.description, String);
+    if (this.description) this.description = this.description.slice(0, 300);
     this.color = this.clean(x.color, String);
     if (x.external) this.external = new ExternalCalendarInfo(x.external);
   }
