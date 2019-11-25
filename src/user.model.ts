@@ -23,9 +23,13 @@ export class User extends Resource {
    */
   public createdAt: epochDateTime;
   /**
-   * Timestamp of when the user's subscription limits have been calculated.
+   * Timestamp of when the user's subscription has been checked.
    */
-  public lastLimitsCheckAt: epochDateTime;
+  public lastSubscriptionCheckAt: epochDateTime;
+  /**
+   * If true, the user owns a Gold subscription for the requesting project.
+   */
+  public hasGoldSubscription: boolean;
   /**
    * Current subscription to a Horace's plan (_calculated field_).
    */
@@ -37,7 +41,8 @@ export class User extends Resource {
     this.email = this.clean(x.email, String);
     this.currentTeamId = this.clean(x.currentTeamId, String);
     this.createdAt = this.clean(x.createdAt, d => new Date(d).getTime(), Date.now());
-    this.lastLimitsCheckAt = this.clean(x.lastLimitsCheckAt, Number, 0);
+    this.lastSubscriptionCheckAt = this.clean(x.lastSubscriptionCheckAt, Number, 0);
+    this.hasGoldSubscription = this.clean(x.hasGoldSubscription, Boolean);
     if (x.subscription) this.subscription = new ProjectSubscription(x.subscription);
   }
 
@@ -47,7 +52,8 @@ export class User extends Resource {
     this.userId = safeData.userId;
     this.currentTeamId = safeData.currentTeamId;
     this.createdAt = safeData.createdAt;
-    this.lastLimitsCheckAt = safeData.lastLimitsCheckAt;
+    this.lastSubscriptionCheckAt = safeData.lastSubscriptionCheckAt;
+    this.hasGoldSubscription = safeData.hasGoldSubscription;
     delete this.subscription;
   }
 }
