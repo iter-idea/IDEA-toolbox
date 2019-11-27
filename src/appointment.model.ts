@@ -24,9 +24,9 @@ export class Appointment extends Resource {
    */
   public title: string;
   /**
-   * The subtitle of the appointment. Max 100 characters.
+   * The location of the appointment. Max 150 characters.
    */
-  public subtitle: string;
+  public location: string;
   /**
    * The description of the appointment. Max 300 characters.
    */
@@ -58,8 +58,8 @@ export class Appointment extends Resource {
     this.calendarId = this.clean(x.calendarId, String);
     this.title = this.clean(x.title, String);
     if (this.title) this.title = this.title.slice(0, 100);
-    this.subtitle = this.clean(x.subtitle, String);
-    if (this.subtitle) this.subtitle = this.subtitle.slice(0, 100);
+    this.location = this.clean(x.location, String);
+    if (this.location) this.location = this.location.slice(0, 150);
     this.description = this.clean(x.description, String);
     if (this.description) this.description = this.description.slice(0, 300);
     this.startTime = this.clean(x.startTime, d => new Date(d).getTime());
