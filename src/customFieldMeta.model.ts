@@ -161,7 +161,7 @@ export class CustomFieldMeta extends Resource {
           if (!field || !String(field).length) return false;
           break;
         case CustomFieldTypes.NUMBER:
-          if (isNaN(field) || field === 0) return false;
+          if (!field || isNaN(field)) return false;
           break;
       }
     // interval check
