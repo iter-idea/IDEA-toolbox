@@ -18,7 +18,7 @@ export class Calendar extends Resource {
    */
   public calendarId: string;
   /**
-   * The id of the teamId owning the calendar, in case of shared calendar (this cannot be changed).
+   * The id of the teamId owning the calendar, in case of team calendar (this cannot be changed).
    */
   public teamId?: string;
   /**
@@ -68,7 +68,6 @@ export class Calendar extends Resource {
     const e = super.validate();
     if (this.iE(this.name)) e.push('name');
     if (this.iE(this.color)) e.push('color');
-    if (this.external) this.external.validate().forEach(ea => e.push(`external.${ea}`));
     return e;
   }
 }
@@ -110,15 +109,6 @@ export class ExternalCalendarInfo extends Resource {
     this.userName = this.clean(x.userName, String);
     this.lastSyncAt = this.clean(x.lastSyncAt, d => new Date(d).getTime());
     this.syncBookmark = this.clean(x.syncBookmark, String);
-  }
-
-  public validate(): Array<string> {
-    const e = super.validate();
-    if (!(this.service in ExternalCalendarSources)) e.push('service');
-    if (this.iE(this.calendarId)) e.push('calendarId');
-    if (this.iE(this.userContext)) e.push('userContext');
-    if (this.iE(this.userName)) e.push('userName');
-    return e;
   }
 }
 
