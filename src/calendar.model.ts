@@ -89,10 +89,6 @@ export class ExternalCalendarInfo extends Resource {
    */
   public name: string;
   /**
-   * Name / email of the user in the external service.
-   */
-  public userName: string;
-  /**
    * The time of last synchronisation of the external calendar.
    */
   public lastSyncAt: epochDateTime;
@@ -106,7 +102,6 @@ export class ExternalCalendarInfo extends Resource {
     this.service = this.clean(x.service, String);
     this.calendarId = this.clean(x.calendarId, String);
     this.name = this.clean(x.name, String);
-    this.userName = this.clean(x.userName, String);
     this.lastSyncAt = this.clean(x.lastSyncAt, d => new Date(d).getTime());
     this.syncBookmark = this.clean(x.syncBookmark, String);
   }
