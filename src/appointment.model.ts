@@ -9,7 +9,7 @@ import { epochDateTime } from './epoch';
  *
  * Indexes:
  *  - calendarId-startTime-index (all)
- *  - masterAppointmentId-startTime-index (keys): to manage occurences
+ *  - calendarId-masterAppointmentId-index (include: appointmentId): to manage occurences
  */
 export class Appointment extends Resource {
   /**
