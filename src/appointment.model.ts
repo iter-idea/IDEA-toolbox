@@ -9,16 +9,21 @@ import { epochDateTime } from './epoch';
  *
  * Indexes:
  *  - calendarId-startTime-index (all)
+ *  - masterAppointmentId-startTime-index (keys): to manage occurences
  */
 export class Appointment extends Resource {
   /**
-   * The id (IUID) of the appointment.
+   * The id (IUID/external ID) of the appointment.
    */
   public appointmentId: string;
   /**
    * The id of the calendar currently containing the appointment (it could change).
    */
   public calendarId: string;
+  /**
+   * Master appointment id (optional): the id of the master appointment, in case this is an occurence.
+   */
+  public masterAppointmentId?: string;
   /**
    * The title of the appointment. Max 100 characters.
    */
@@ -56,6 +61,7 @@ export class Appointment extends Resource {
     super.load(x);
     this.appointmentId = this.clean(x.appointmentId, String);
     this.calendarId = this.clean(x.calendarId, String);
+    if (x.masterAppointmentId) this.masterAppointmentId = this.clean(x.masterAppointmentId, String);
     this.title = this.clean(x.title, String);
     if (this.title) this.title = this.title.slice(0, 100);
     this.location = this.clean(x.location, String);
@@ -72,6 +78,7 @@ export class Appointment extends Resource {
   public safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.appointmentId = safeData.appointmentId;
+    if (safeData.masterAppointmentId) this.masterAppointmentId = safeData.masterAppointmentId;
   }
 
   public validate(): Array<string> {
