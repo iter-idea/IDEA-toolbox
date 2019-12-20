@@ -3,13 +3,9 @@ import { Resource } from './resource.model';
 /**
  * Helper structure to create a confirmation flow before to change the email address used for login.
  *
- * Table: `idea_projects_emailChangeRequests`.
+ * Table: `idea_emailChangeRequests`.
  */
 export class EmailChangeRequest extends Resource {
-  /**
-   * The project where the user is part of.
-   */
-  public project: string;
   /**
    * The code that the user has to send to confirm the new email address.
    */
@@ -29,7 +25,6 @@ export class EmailChangeRequest extends Resource {
 
   public load(x: any) {
     super.load(x);
-    this.project = this.clean(x.project, String);
     this.confirmationCode = this.clean(x.confirmationCode, String);
     this.oldEmail = this.clean(x.oldEmail, String);
     this.newEmail = this.clean(x.newEmail, String);
