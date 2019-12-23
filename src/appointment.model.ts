@@ -72,18 +72,8 @@ export class Appointment extends Resource {
     this.startTime = this.clean(x.startTime, d => new Date(d).getTime());
     this.endTime = this.clean(x.endTime, d => new Date(d).getTime());
     this.allDay = this.clean(x.allDay, Boolean);
-    this.correctAllDay();
     this.timezone = this.clean(x.timezone, String);
     if (x.linkedTo) this.linkedTo = new AppointmentLinkedObject(x.linkedTo);
-  }
-  /**
-   * Be sure the duration is at least 24 hours.
-   */
-  public correctAllDay() {
-    if (this.allDay) {
-      Moment(this.startTime).startOf('day');
-      Moment(this.endTime).endOf('day');
-    }
   }
 
   public safeLoad(newData: any, safeData: any) {
