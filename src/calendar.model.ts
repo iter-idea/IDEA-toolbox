@@ -102,6 +102,11 @@ export class ExternalCalendarInfo extends Resource {
    * An optional syncBookmark if the external service supports incremental synchronisation.
    */
   public syncBookmark: string;
+  /**
+   * An optional pageBookmark if the external service supports incremental synchronisation.
+   * In case of synchronisation with multiple pages (Google); Microsoft manages this directly through the syncBookmark.
+   */
+  public pageBookmark: string;
 
   public load(x: any) {
     super.load(x);
@@ -110,6 +115,7 @@ export class ExternalCalendarInfo extends Resource {
     this.name = this.clean(x.name, String);
     this.lastSyncAt = this.clean(x.lastSyncAt, d => new Date(d).getTime());
     this.syncBookmark = this.clean(x.syncBookmark, String);
+    this.pageBookmark = this.clean(x.pageBookmark, String);
   }
 }
 
