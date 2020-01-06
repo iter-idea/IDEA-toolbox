@@ -99,6 +99,7 @@ export class Appointment extends Resource {
   public safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.appointmentId = safeData.appointmentId;
+    this.calendarId = safeData.calendarId;
     if (safeData.masterAppointmentId) this.masterAppointmentId = safeData.masterAppointmentId;
   }
 
