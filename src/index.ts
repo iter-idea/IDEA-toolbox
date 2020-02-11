@@ -1,4 +1,5 @@
 export * from './address.model';
+export * from './APIRequestLog.model';
 export * from './appointment.model';
 export * from './attachment.model';
 export * from './booleanChoices.enum';
