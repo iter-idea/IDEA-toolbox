@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Resource | idea-toolbox</title>
+	<title>APIRequestLog | idea-toolbox</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2376,28 +2376,64 @@ img {
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class="current tsd-kind-class">
-			<a href="resource.html" class="tsd-kind-icon">Resource</a>
+			<a href="apirequestlog.html" class="tsd-kind-icon">APIRequest<wbr>Log</a>
 			<ul>
-				<li class=" tsd-kind-constructor tsd-parent-kind-class">
-					<a href="resource.html#constructor" class="tsd-kind-icon">constructor</a>
+				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+					<a href="apirequestlog.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="resource.html#clean" class="tsd-kind-icon">clean</a>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="apirequestlog.html#action" class="tsd-kind-icon">action</a>
 				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="resource.html#cleanarray" class="tsd-kind-icon">clean<wbr>Array</a>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="apirequestlog.html#description" class="tsd-kind-icon">description</a>
 				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="resource.html#ie" class="tsd-kind-icon">iE</a>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="apirequestlog.html#expiresat" class="tsd-kind-icon">expires<wbr>At</a>
 				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="resource.html#load" class="tsd-kind-icon">load</a>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="apirequestlog.html#method" class="tsd-kind-icon">method</a>
 				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="resource.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="apirequestlog.html#path" class="tsd-kind-icon">path</a>
 				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="resource.html#validate" class="tsd-kind-icon">validate</a>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="apirequestlog.html#projectteamid" class="tsd-kind-icon">project<wbr>Team<wbr>Id</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="apirequestlog.html#requestsucceeded" class="tsd-kind-icon">request<wbr>Succeeded</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="apirequestlog.html#resource" class="tsd-kind-icon">resource</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="apirequestlog.html#resourceid" class="tsd-kind-icon">resource<wbr>Id</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="apirequestlog.html#sort" class="tsd-kind-icon">sort</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="apirequestlog.html#timestamp" class="tsd-kind-icon">timestamp</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="apirequestlog.html#userid" class="tsd-kind-icon">user<wbr>Id</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a href="apirequestlog.html#clean" class="tsd-kind-icon">clean</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a href="apirequestlog.html#cleanarray" class="tsd-kind-icon">clean<wbr>Array</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a href="apirequestlog.html#ie" class="tsd-kind-icon">iE</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a href="apirequestlog.html#load" class="tsd-kind-icon">load</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a href="apirequestlog.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a href="apirequestlog.html#validate" class="tsd-kind-icon">validate</a>
 				</li>
 			</ul>
 		</li>
@@ -2408,120 +2444,23 @@ img {
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>An abstract class to inherit to manage a resource model.</p>
+					<p>The log of an API request, in IDEA&#39;s format.</p>
 				</div>
+				<p>Table: <code>idea_logs</code>.</p>
+				<p>Indexes:</p>
+				<ul>
+					<li><code>projectTeamId-timestamp-index</code> (all).</li>
+				</ul>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">Resource</span>
+					<a href="resource.html" class="tsd-signature-type">Resource</a>
 					<ul class="tsd-hierarchy">
 						<li>
-							<a href="apirequestlog.html" class="tsd-signature-type">APIRequestLog</a>
-						</li>
-						<li>
-							<a href="rcattachedresource.html" class="tsd-signature-type">RCAttachedResource</a>
-						</li>
-						<li>
-							<a href="rcconfiguredfolder.html" class="tsd-signature-type">RCConfiguredFolder</a>
-						</li>
-						<li>
-							<a href="rcfolder.html" class="tsd-signature-type">RCFolder</a>
-						</li>
-						<li>
-							<a href="rcresource.html" class="tsd-signature-type">RCResource</a>
-						</li>
-						<li>
-							<a href="address.html" class="tsd-signature-type">Address</a>
-						</li>
-						<li>
-							<a href="appointment.html" class="tsd-signature-type">Appointment</a>
-						</li>
-						<li>
-							<a href="appointmentlinkedobject.html" class="tsd-signature-type">AppointmentLinkedObject</a>
-						</li>
-						<li>
-							<a href="attachment.html" class="tsd-signature-type">Attachment</a>
-						</li>
-						<li>
-							<a href="cacheableresource.html" class="tsd-signature-type">CacheableResource</a>
-						</li>
-						<li>
-							<a href="calendar.html" class="tsd-signature-type">Calendar</a>
-						</li>
-						<li>
-							<a href="externalcalendarinfo.html" class="tsd-signature-type">ExternalCalendarInfo</a>
-						</li>
-						<li>
-							<a href="externalcalendartoken.html" class="tsd-signature-type">ExternalCalendarToken</a>
-						</li>
-						<li>
-							<a href="check.html" class="tsd-signature-type">Check</a>
-						</li>
-						<li>
-							<a href="contacts.html" class="tsd-signature-type">Contacts</a>
-						</li>
-						<li>
-							<a href="languages.html" class="tsd-signature-type">Languages</a>
-						</li>
-						<li>
-							<a href="suggestion.html" class="tsd-signature-type">Suggestion</a>
-						</li>
-						<li>
-							<a href="customfieldmeta.html" class="tsd-signature-type">CustomFieldMeta</a>
-						</li>
-						<li>
-							<a href="customsectionmeta.html" class="tsd-signature-type">CustomSectionMeta</a>
-						</li>
-						<li>
-							<a href="customblockmeta.html" class="tsd-signature-type">CustomBlockMeta</a>
-						</li>
-						<li>
-							<a href="emailchangerequest.html" class="tsd-signature-type">EmailChangeRequest</a>
-						</li>
-						<li>
-							<a href="emaildata.html" class="tsd-signature-type">EmailData</a>
-						</li>
-						<li>
-							<a href="clienterror.html" class="tsd-signature-type">ClientError</a>
-						</li>
-						<li>
-							<a href="clientinfo.html" class="tsd-signature-type">ClientInfo</a>
-						</li>
-						<li>
-							<a href="errorreport.html" class="tsd-signature-type">ErrorReport</a>
-						</li>
-						<li>
-							<a href="invitation.html" class="tsd-signature-type">Invitation</a>
-						</li>
-						<li>
-							<a href="membership.html" class="tsd-signature-type">Membership</a>
-						</li>
-						<li>
-							<a href="teampermissions.html" class="tsd-signature-type">TeamPermissions</a>
-						</li>
-						<li>
-							<a href="notification.html" class="tsd-signature-type">Notification</a>
-						</li>
-						<li>
-							<a href="notificationspreferences.html" class="tsd-signature-type">NotificationsPreferences</a>
-						</li>
-						<li>
-							<a href="projectplan.html" class="tsd-signature-type">ProjectPlan</a>
-						</li>
-						<li>
-							<a href="projectsubscription.html" class="tsd-signature-type">ProjectSubscription</a>
-						</li>
-						<li>
-							<a href="signedurl.html" class="tsd-signature-type">SignedURL</a>
-						</li>
-						<li>
-							<a href="team.html" class="tsd-signature-type">Team</a>
-						</li>
-						<li>
-							<a href="user.html" class="tsd-signature-type">User</a>
+							<span class="target">APIRequestLog</span>
 						</li>
 					</ul>
 				</li>
@@ -2531,37 +2470,55 @@ img {
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
-					<section class="tsd-index-section ">
+					<section class="tsd-index-section tsd-is-inherited">
 						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="resource.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="apirequestlog.html#constructor" class="tsd-kind-icon">constructor</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Properties</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#action" class="tsd-kind-icon">action</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#description" class="tsd-kind-icon">description</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#expiresat" class="tsd-kind-icon">expires<wbr>At</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#method" class="tsd-kind-icon">method</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#path" class="tsd-kind-icon">path</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#projectteamid" class="tsd-kind-icon">project<wbr>Team<wbr>Id</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#requestsucceeded" class="tsd-kind-icon">request<wbr>Succeeded</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#resource" class="tsd-kind-icon">resource</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#resourceid" class="tsd-kind-icon">resource<wbr>Id</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#sort" class="tsd-kind-icon">sort</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#timestamp" class="tsd-kind-icon">timestamp</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#userid" class="tsd-kind-icon">user<wbr>Id</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="resource.html#clean" class="tsd-kind-icon">clean</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="resource.html#cleanarray" class="tsd-kind-icon">clean<wbr>Array</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="resource.html#ie" class="tsd-kind-icon">iE</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="resource.html#load" class="tsd-kind-icon">load</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="resource.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="resource.html#validate" class="tsd-kind-icon">validate</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="apirequestlog.html#clean" class="tsd-kind-icon">clean</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="apirequestlog.html#cleanarray" class="tsd-kind-icon">clean<wbr>Array</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="apirequestlog.html#ie" class="tsd-kind-icon">iE</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="apirequestlog.html#load" class="tsd-kind-icon">load</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="apirequestlog.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="apirequestlog.html#validate" class="tsd-kind-icon">validate</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
-		<section class="tsd-panel-group tsd-member-group ">
+		<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 			<h2>Constructors</h2>
-			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
-				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Resource<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="resource.html" class="tsd-signature-type">Resource</a></li>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">new APIRequest<wbr>Log<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="apirequestlog.html" class="tsd-signature-type">APIRequestLog</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
+							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#constructor">constructor</a></p>
 							<ul>
 								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b3b2762/src/resource.model.ts#L6">resource.model.ts:6</a></li>
 							</ul>
@@ -2596,22 +2553,206 @@ img {
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="resource.html" class="tsd-signature-type">Resource</a></h4>
+						<h4 class="tsd-returns-title">Returns <a href="apirequestlog.html" class="tsd-signature-type">APIRequestLog</a></h4>
 					</li>
 				</ul>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Properties</h2>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="action" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> action</h3>
+				<div class="tsd-signature tsd-kind-icon">action<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in APIRequestLog.model.ts:56</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Action detail; valid (mostly) for PATCH requests.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="description" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> description</h3>
+				<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in APIRequestLog.model.ts:60</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>For complex logs, it contains extra information.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="expiresat" class="tsd-anchor"></a>
+				<h3>expires<wbr>At</h3>
+				<div class="tsd-signature tsd-kind-icon">expires<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in APIRequestLog.model.ts:32</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>TTL of the record (in seconds); it&#39;s usually a month after the insertion.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="method" class="tsd-anchor"></a>
+				<h3>method</h3>
+				<div class="tsd-signature tsd-kind-icon">method<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in APIRequestLog.model.ts:48</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Enum: HTTP method (POST, GET, etc.).</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="path" class="tsd-anchor"></a>
+				<h3>path</h3>
+				<div class="tsd-signature tsd-kind-icon">path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in APIRequestLog.model.ts:40</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The determinated path for the resource; e.g. <code>/orders</code> or <code>/orders/12345/items</code>.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="projectteamid" class="tsd-anchor"></a>
+				<h3>project<wbr>Team<wbr>Id</h3>
+				<div class="tsd-signature tsd-kind-icon">project<wbr>Team<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in APIRequestLog.model.ts:16</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The key to identify the log stream; it&#39;s the concatenation of the project key with the teamId.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="requestsucceeded" class="tsd-anchor"></a>
+				<h3>request<wbr>Succeeded</h3>
+				<div class="tsd-signature tsd-kind-icon">request<wbr>Succeeded<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in APIRequestLog.model.ts:52</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>If true, the request ended successfully.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="resource" class="tsd-anchor"></a>
+				<h3>resource</h3>
+				<div class="tsd-signature tsd-kind-icon">resource<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in APIRequestLog.model.ts:36</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The resource involved in the log; e.g. <code>/orders</code> or <code>/orders/{orderId}/items</code>.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="resourceid" class="tsd-anchor"></a>
+				<h3>resource<wbr>Id</h3>
+				<div class="tsd-signature tsd-kind-icon">resource<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in APIRequestLog.model.ts:44</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The identifier of a specific element of the resource (<code>proxy</code>).</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="sort" class="tsd-anchor"></a>
+				<h3>sort</h3>
+				<div class="tsd-signature tsd-kind-icon">sort<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in APIRequestLog.model.ts:28</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The concatenation of the timestamp with the userId, to support scenarios of concurrency.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="timestamp" class="tsd-anchor"></a>
+				<h3>timestamp</h3>
+				<div class="tsd-signature tsd-kind-icon">timestamp<span class="tsd-signature-symbol">:</span> <a href="../globals.html#epochdatetime" class="tsd-signature-type">epochDateTime</a></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in APIRequestLog.model.ts:20</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Timestamp in which the log was captured.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="userid" class="tsd-anchor"></a>
+				<h3>user<wbr>Id</h3>
+				<div class="tsd-signature tsd-kind-icon">user<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in APIRequestLog.model.ts:24</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Id of the user linked to the log.</p>
+					</div>
+				</div>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 				<a name="clean" class="tsd-anchor"></a>
 				<h3>clean</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<li class="tsd-signature tsd-kind-icon">clean<span class="tsd-signature-symbol">(</span>origin<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, castFunction<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, defaultVal<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
+							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#clean">clean</a></p>
 							<ul>
 								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b3b2762/src/resource.model.ts#L105">resource.model.ts:105</a></li>
 							</ul>
@@ -2665,15 +2806,16 @@ img {
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 				<a name="cleanarray" class="tsd-anchor"></a>
 				<h3>clean<wbr>Array</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<li class="tsd-signature tsd-kind-icon">clean<wbr>Array<span class="tsd-signature-symbol">(</span>origin<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, castFunction<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, defaultVal<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
+							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#cleanarray">cleanArray</a></p>
 							<ul>
 								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b3b2762/src/resource.model.ts#L118">resource.model.ts:118</a></li>
 							</ul>
@@ -2727,15 +2869,16 @@ img {
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 				<a name="ie" class="tsd-anchor"></a>
 				<h3>iE</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<li class="tsd-signature tsd-kind-icon">iE<span class="tsd-signature-symbol">(</span>field<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
+							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#ie">iE</a></p>
 							<ul>
 								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b3b2762/src/resource.model.ts#L94">resource.model.ts:94</a></li>
 							</ul>
@@ -2758,59 +2901,40 @@ img {
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 				<a name="load" class="tsd-anchor"></a>
 				<h3>load</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">load<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<li class="tsd-signature tsd-kind-icon">load<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
+							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#load">load</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b3b2762/src/resource.model.ts#L42">resource.model.ts:42</a></li>
+								<li>Defined in APIRequestLog.model.ts:62</li>
 							</ul>
 						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Load the attributes from an already existing resource.</p>
-							</div>
-						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>newData: <span class="tsd-signature-type">any</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>the data to load</p>
-								</div>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">any</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>custom options to apply; they will depend on the child resource</p>
-									<p>Typical implementation:</p>
-									<pre><code> <span class="hljs-keyword">super</span>.load(<span class="hljs-keyword">new</span><span class="hljs-type">Data</span>);
- <span class="hljs-built_in">this</span>.attr = <span class="hljs-built_in">this</span>.clean(<span class="hljs-keyword">new</span><span class="hljs-type">Data</span>.attr, <span class="hljs-keyword">String</span>);
- <span class="hljs-built_in">this</span>.attr2 = <span class="hljs-built_in">this</span>.clean(<span class="hljs-keyword">new</span><span class="hljs-type">Data</span>.attr2, Number, <span class="hljs-number">0</span>);
- <span class="hljs-built_in">this</span>.attr3 = <span class="hljs-built_in">this</span>.clean(<span class="hljs-keyword">new</span><span class="hljs-type">Data</span>.attr3, a =&gt; <span class="hljs-keyword">new</span> <span class="hljs-type">Date</span>(a), Date.now());
- <span class="hljs-built_in">this</span>.arr = <span class="hljs-built_in">this</span>.cleanArray(arr, <span class="hljs-keyword">String</span>);
- <span class="hljs-comment">// ...</span></code></pre>
-								</div>
+								<h5>x: <span class="tsd-signature-type">any</span></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 				<a name="safeload" class="tsd-anchor"></a>
 				<h3>safe<wbr>Load</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<li class="tsd-signature tsd-kind-icon">safe<wbr>Load<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, safeData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
+							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#safeload">safeLoad</a></p>
 							<ul>
 								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b3b2762/src/resource.model.ts#L66">resource.model.ts:66</a></li>
 							</ul>
@@ -2854,15 +2978,16 @@ img {
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 				<a name="validate" class="tsd-anchor"></a>
 				<h3>validate</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<li class="tsd-signature tsd-kind-icon">validate<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
+							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#validate">validate</a></p>
 							<ul>
 								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b3b2762/src/resource.model.ts#L86">resource.model.ts:86</a></li>
 							</ul>
