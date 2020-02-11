@@ -7,13 +7,13 @@ import { epochDateTime } from './epoch';
  * Table: `idea_logs`.
  *
  * Indexes:
- *    - `projectTeamId-timestamp-index` (all).
+ *    - `logId-timestamp-index` (all).
  */
 export class APIRequestLog extends Resource {
   /**
-   * The key to identify the log stream; it's the concatenation of the project key with the teamId.
+   * The id to identify the log stream; usually, it's the concatenation of the project key with the teamId.
    */
-  public projectTeamId: string;
+  public logId: string;
   /**
    * Timestamp in which the log was captured.
    */
@@ -49,7 +49,7 @@ export class APIRequestLog extends Resource {
   /**
    * If true, the request ended successfully.
    */
-  public requestSucceeded: boolean;
+  public succeeded: boolean;
   /**
    * Action detail; valid (mostly) for PATCH requests.
    */
@@ -61,16 +61,16 @@ export class APIRequestLog extends Resource {
 
   public load(x: any) {
     super.load(x);
-    this.projectTeamId = this.clean(x.projectTeamId, String);
+    this.logId = this.clean(x.logId, String);
     this.timestamp = this.clean(x.timestamp, d => new Date(d).getTime(), Date.now());
     this.userId = this.clean(x.userId, String);
-    this.sort = `${this.timestamp}_${this.userId}`;
+    this.sort = `${this.timestamp}_${this.userId || null}`;
     this.expiresAt = Math.round((this.timestamp + 2629800) / 1000); // +1 month, cast to seconds
     this.resource = this.clean(x.resource, String);
     this.path = this.clean(x.path, String);
     this.resourceId = this.clean(x.resourceId, String);
     this.method = this.clean(x.method, String);
-    this.requestSucceeded = this.clean(x.requestSucceeded, Boolean);
+    this.succeeded = this.clean(x.succeeded, Boolean);
     if (x.action) this.action = this.clean(x.action, String);
     if (x.description) this.description = this.clean(x.description, String);
   }
