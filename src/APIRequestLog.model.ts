@@ -65,7 +65,7 @@ export class APIRequestLog extends Resource {
     this.timestamp = this.clean(x.timestamp, d => new Date(d).getTime(), Date.now());
     this.userId = this.clean(x.userId, String);
     this.sort = `${this.timestamp}_${this.userId || null}`;
-    this.expiresAt = Math.round((this.timestamp + 2629800) / 1000); // +1 month, cast to seconds
+    this.expiresAt = Math.round(this.timestamp / 1000) + 2629800; // cast to seconds, +1 month
     this.resource = this.clean(x.resource, String);
     this.path = this.clean(x.path, String);
     this.resourceId = this.clean(x.resourceId, String);
