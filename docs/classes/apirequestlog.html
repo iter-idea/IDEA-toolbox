@@ -2391,16 +2391,13 @@ img {
 					<a href="apirequestlog.html#expiresat" class="tsd-kind-icon">expires<wbr>At</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="apirequestlog.html#logid" class="tsd-kind-icon">log<wbr>Id</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="apirequestlog.html#method" class="tsd-kind-icon">method</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="apirequestlog.html#path" class="tsd-kind-icon">path</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="apirequestlog.html#projectteamid" class="tsd-kind-icon">project<wbr>Team<wbr>Id</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="apirequestlog.html#requestsucceeded" class="tsd-kind-icon">request<wbr>Succeeded</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="apirequestlog.html#resource" class="tsd-kind-icon">resource</a>
@@ -2410,6 +2407,9 @@ img {
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="apirequestlog.html#sort" class="tsd-kind-icon">sort</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="apirequestlog.html#succeeded" class="tsd-kind-icon">succeeded</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="apirequestlog.html#timestamp" class="tsd-kind-icon">timestamp</a>
@@ -2449,7 +2449,7 @@ img {
 				<p>Table: <code>idea_logs</code>.</p>
 				<p>Indexes:</p>
 				<ul>
-					<li><code>projectTeamId-timestamp-index</code> (all).</li>
+					<li><code>logId-timestamp-index</code> (all).</li>
 				</ul>
 			</div>
 		</section>
@@ -2482,13 +2482,13 @@ img {
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#action" class="tsd-kind-icon">action</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#description" class="tsd-kind-icon">description</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#expiresat" class="tsd-kind-icon">expires<wbr>At</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#logid" class="tsd-kind-icon">log<wbr>Id</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#method" class="tsd-kind-icon">method</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#path" class="tsd-kind-icon">path</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#projectteamid" class="tsd-kind-icon">project<wbr>Team<wbr>Id</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#requestsucceeded" class="tsd-kind-icon">request<wbr>Succeeded</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#resource" class="tsd-kind-icon">resource</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#resourceid" class="tsd-kind-icon">resource<wbr>Id</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#sort" class="tsd-kind-icon">sort</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#succeeded" class="tsd-kind-icon">succeeded</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#timestamp" class="tsd-kind-icon">timestamp</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apirequestlog.html#userid" class="tsd-kind-icon">user<wbr>Id</a></li>
 						</ul>
@@ -2520,7 +2520,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b3b2762/src/resource.model.ts#L6">resource.model.ts:6</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/resource.model.ts#L6">resource.model.ts:6</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2566,7 +2566,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">action<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in APIRequestLog.model.ts:56</li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/APIRequestLog.model.ts#L56">APIRequestLog.model.ts:56</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2581,7 +2581,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in APIRequestLog.model.ts:60</li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/APIRequestLog.model.ts#L60">APIRequestLog.model.ts:60</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2596,7 +2596,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">expires<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in APIRequestLog.model.ts:32</li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/APIRequestLog.model.ts#L32">APIRequestLog.model.ts:32</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2606,12 +2606,27 @@ img {
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="logid" class="tsd-anchor"></a>
+				<h3>log<wbr>Id</h3>
+				<div class="tsd-signature tsd-kind-icon">log<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/APIRequestLog.model.ts#L16">APIRequestLog.model.ts:16</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The id to identify the log stream; usually, it&#39;s the concatenation of the project key with the teamId.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 				<a name="method" class="tsd-anchor"></a>
 				<h3>method</h3>
 				<div class="tsd-signature tsd-kind-icon">method<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in APIRequestLog.model.ts:48</li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/APIRequestLog.model.ts#L48">APIRequestLog.model.ts:48</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2626,7 +2641,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in APIRequestLog.model.ts:40</li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/APIRequestLog.model.ts#L40">APIRequestLog.model.ts:40</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2636,42 +2651,12 @@ img {
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="projectteamid" class="tsd-anchor"></a>
-				<h3>project<wbr>Team<wbr>Id</h3>
-				<div class="tsd-signature tsd-kind-icon">project<wbr>Team<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in APIRequestLog.model.ts:16</li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>The key to identify the log stream; it&#39;s the concatenation of the project key with the teamId.</p>
-					</div>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="requestsucceeded" class="tsd-anchor"></a>
-				<h3>request<wbr>Succeeded</h3>
-				<div class="tsd-signature tsd-kind-icon">request<wbr>Succeeded<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in APIRequestLog.model.ts:52</li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>If true, the request ended successfully.</p>
-					</div>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 				<a name="resource" class="tsd-anchor"></a>
 				<h3>resource</h3>
 				<div class="tsd-signature tsd-kind-icon">resource<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in APIRequestLog.model.ts:36</li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/APIRequestLog.model.ts#L36">APIRequestLog.model.ts:36</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2686,7 +2671,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">resource<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in APIRequestLog.model.ts:44</li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/APIRequestLog.model.ts#L44">APIRequestLog.model.ts:44</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2701,7 +2686,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">sort<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in APIRequestLog.model.ts:28</li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/APIRequestLog.model.ts#L28">APIRequestLog.model.ts:28</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2711,12 +2696,27 @@ img {
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="succeeded" class="tsd-anchor"></a>
+				<h3>succeeded</h3>
+				<div class="tsd-signature tsd-kind-icon">succeeded<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/APIRequestLog.model.ts#L52">APIRequestLog.model.ts:52</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>If true, the request ended successfully.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 				<a name="timestamp" class="tsd-anchor"></a>
 				<h3>timestamp</h3>
 				<div class="tsd-signature tsd-kind-icon">timestamp<span class="tsd-signature-symbol">:</span> <a href="../globals.html#epochdatetime" class="tsd-signature-type">epochDateTime</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in APIRequestLog.model.ts:20</li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/APIRequestLog.model.ts#L20">APIRequestLog.model.ts:20</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2731,7 +2731,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">user<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in APIRequestLog.model.ts:24</li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/APIRequestLog.model.ts#L24">APIRequestLog.model.ts:24</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2754,7 +2754,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#clean">clean</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b3b2762/src/resource.model.ts#L105">resource.model.ts:105</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/resource.model.ts#L105">resource.model.ts:105</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2817,7 +2817,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#cleanarray">cleanArray</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b3b2762/src/resource.model.ts#L118">resource.model.ts:118</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/resource.model.ts#L118">resource.model.ts:118</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2880,7 +2880,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#ie">iE</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b3b2762/src/resource.model.ts#L94">resource.model.ts:94</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/resource.model.ts#L94">resource.model.ts:94</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2912,7 +2912,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#load">load</a></p>
 							<ul>
-								<li>Defined in APIRequestLog.model.ts:62</li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/APIRequestLog.model.ts#L62">APIRequestLog.model.ts:62</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2936,7 +2936,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#safeload">safeLoad</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b3b2762/src/resource.model.ts#L66">resource.model.ts:66</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/resource.model.ts#L66">resource.model.ts:66</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2989,7 +2989,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#validate">validate</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/b3b2762/src/resource.model.ts#L86">resource.model.ts:86</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/720f2f8/src/resource.model.ts#L86">resource.model.ts:86</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
