@@ -20,6 +20,7 @@ export * from './errorReport.model';
 export * from './invitation.model';
 export * from './label.model';
 export * from './languages.model';
+export * from './languages.enum';
 export * from './membership.model';
 export * from './notification.model';
 export * from './projectPlan.model';
