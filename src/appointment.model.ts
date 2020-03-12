@@ -54,6 +54,10 @@ export class Appointment extends Resource {
    */
   public timezone: string;
   /**
+   * In case the calendar is linked to external services, the link to access the external resource.
+   */
+  public linkToOrigin?: string;
+  /**
    * An object linked to the appointment.
    */
   public linkedTo?: AppointmentLinkedObject;
@@ -74,6 +78,7 @@ export class Appointment extends Resource {
     this.allDay = this.clean(x.allDay, Boolean);
     this.fixAllDayTime();
     this.timezone = this.clean(x.timezone || Moment.tz.guess(), String);
+    if (x.linkToOrigin) this.linkToOrigin = this.clean(x.linkToOrigin, String);
     if (x.linkedTo) this.linkedTo = new AppointmentLinkedObject(x.linkedTo);
   }
   /**

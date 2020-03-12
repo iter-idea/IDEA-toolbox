@@ -47,6 +47,11 @@ export class Calendar extends Resource {
    * Extra info about the calendar, if linked to an external service.
    */
   public external?: ExternalCalendarInfo;
+  /**
+   * In case of shared calendar, the IDs of the users that can manage the calendar's appointments.
+   * The default access for the users (not included in the list) is read-only.
+   */
+  public usersCanManageAppointments?: Array<string>;
 
   public load(x: any) {
     super.load(x);
@@ -60,6 +65,7 @@ export class Calendar extends Resource {
     this.color = this.clean(x.color, String);
     this.timezone = this.clean(x.timezone || Moment.tz.guess(), String);
     if (x.external) this.external = new ExternalCalendarInfo(x.external);
+    if (x.teamId) this.usersCanManageAppointments = this.cleanArray(x.usersCanManageAppointments, String);
   }
 
   public safeLoad(newData: any, safeData: any) {
@@ -75,6 +81,18 @@ export class Calendar extends Resource {
     if (this.iE(this.name)) e.push('name');
     if (this.iE(this.color)) e.push('color');
     return e;
+  }
+
+  /**
+   * Check whether the chosen user can edit the appointments of this calendar.
+   */
+  public canUserManageAppointments(userId: string): boolean {
+    // if the calendar is linked to external services, the user must have writing access
+    if (this.external && this.external.userAccess > ExternalCalendarPermissions.READER) return false;
+    // in case of shared calendar, the user must be in the list of the allowed ones
+    else if (this.teamId && !this.usersCanManageAppointments.some(x => x === userId)) return false;
+    // if no other condition denies it, the user is allowed
+    else return true;
   }
 }
 
@@ -107,6 +125,10 @@ export class ExternalCalendarInfo extends Resource {
    * In case of synchronisation with multiple pages (Google); Microsoft manages this directly through the syncBookmark.
    */
   public pageBookmark: string;
+  /**
+   * The access level to the calendar for the user who linked the external service.
+   */
+  public userAccess: ExternalCalendarPermissions;
 
   public load(x: any) {
     super.load(x);
@@ -116,7 +138,18 @@ export class ExternalCalendarInfo extends Resource {
     this.lastSyncAt = this.clean(x.lastSyncAt, d => new Date(d).getTime());
     this.syncBookmark = this.clean(x.syncBookmark, String);
     this.pageBookmark = this.clean(x.pageBookmark, String);
+    this.userAccess = this.clean(x.userAccess, Number);
   }
+}
+
+/**
+ * Possible permissions for an external calendar.
+ */
+export enum ExternalCalendarPermissions {
+  FREE_BUSY,
+  READER,
+  WRITER,
+  OWNER
 }
 
 /**
