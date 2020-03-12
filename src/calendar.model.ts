@@ -88,11 +88,17 @@ export class Calendar extends Resource {
    */
   public canUserManageAppointments(userId: string): boolean {
     // if the calendar is linked to external services, the user must have writing access
-    if (this.external && this.external.userAccess > ExternalCalendarPermissions.READER) return false;
+    if (this.external && this.external.userAccess < ExternalCalendarPermissions.WRITER) return false;
     // in case of shared calendar, the user must be in the list of the allowed ones
     else if (this.teamId && !this.usersCanManageAppointments.some(x => x === userId)) return false;
     // if no other condition denies it, the user is allowed
     else return true;
+  }
+  /**
+   * Whether the calendar is shared (linked to a team) or not.
+   */
+  public isShared(): boolean {
+    return Boolean(this.teamId);
   }
 }
 
