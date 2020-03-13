@@ -78,11 +78,7 @@ export class Calendar extends Resource {
 
   public validate(): Array<string> {
     const e = super.validate();
-    // external calendars can take default values from the services; local calendars must have basic properties
-    if (!this.external) {
-      if (this.iE(this.name)) e.push('name');
-      if (this.iE(this.color)) e.push('color');
-    }
+    if (this.iE(this.name)) e.push('name');
     return e;
   }
 
