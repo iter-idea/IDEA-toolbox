@@ -115,6 +115,8 @@ export function isEmpty(field: any, type?: string): boolean {
       return !Validator.isEmail(field);
     case 'phone':
       return !Validator.isMobilePhone(field, 'any');
+    case 'url':
+      return !Validator.isURL(field);
     default:
       return true;
   }
