@@ -26,6 +26,7 @@ export * from './membership.model';
 export * from './notification.model';
 export * from './projectPlan.model';
 export * from './projectSubscription.model';
+export * from './pushNotificationsPlatforms.enum';
 export * from './RCAttachedResource.model';
 export * from './RCConfiguredFolder.model';
 export * from './RCFolder.model';
