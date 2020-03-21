@@ -4,7 +4,7 @@ import { PushNotificationsPlatforms } from './pushNotificationsPlatforms.enum';
 /**
  * Devices for push notifications.
  */
-export class PushDevice extends Resource {
+export class PushNotificationsDevice extends Resource {
   /**
    * The device identification token (also known as device ID or registration ID).
    */
