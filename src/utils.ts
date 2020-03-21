@@ -129,7 +129,7 @@ export function isEmpty(field: any, type?: string): boolean {
  * @param content the content to log
  * @param important optional; if true, highlight the line in CloudWatch
  */
-export function logger(context: string, err: Error, content: string, important?: boolean) {
+export function logger(context: string, err: Error, content?: string, important?: boolean) {
   if (err) console.error('[ERROR]', context, '≫', err, content);
   else if (important) console.log(`[${context}]`, content);
   else console.log('.....', context, '≫', content); // to give less importance to debug info
