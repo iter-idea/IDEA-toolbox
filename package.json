@@ -28,10 +28,12 @@
   "homepage": "https://uatisdeproblem.github.io/IDEA-toolbox",
   "dependencies": {
     "moment-timezone": "^0.5.27",
+    "showdown": "^1.9.1",
     "validator": "^10.11.0"
   },
   "devDependencies": {
     "@types/moment-timezone": "^0.5.12",
+    "@types/showdown": "^1.9.3",
     "@types/validator": "^9.4.4",
     "tslint": "~5.15.0",
     "tslint-config-prettier": "^1.18.0",
