@@ -144,3 +144,32 @@ export function mdToHtml(mdString: string, options?: ConverterOptions): string {
   const markdownConverter = new Converter(options);
   return markdownConverter.makeHtml(mdString);
 }
+
+/**
+ * Get an array to iterate containing the keys of a string enum.
+ */
+export function loopStringEnumKeys(theEnum: any): Array<string> {
+  return Object.keys(theEnum);
+}
+/**
+ * Get an array to iterate containing the values of a string enum.
+ */
+export function loopStringEnumValues(theEnum: any): Array<string> {
+  return Object.keys(theEnum).map(key => theEnum[key]);
+}
+/**
+ * Get an array to iterate containing the keys of a numeric enum.
+ */
+export function loopNumericEnumKeys(theEnum: any): Array<number> {
+  return Object.keys(theEnum)
+    .filter(key => !isNaN(Number(key)))
+    .map(c => Number(c));
+}
+/**
+ * Get an array to iterate containing the values of a numeric enum.
+ */
+export function loopNumericEnumValues(theEnum: any): Array<string> {
+  return Object.keys(theEnum)
+    .filter(key => !isNaN(Number(theEnum[key])))
+    .map(c => String(c));
+}
