@@ -19,6 +19,7 @@ export * from './emailData.model';
 export * from './epoch';
 export * from './errorReport.model';
 export * from './invitation.model';
+export * from './ionicons.enum';
 export * from './label.model';
 export * from './languages.model';
 export * from './languages.enum';
