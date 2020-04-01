@@ -86,18 +86,8 @@ export class Appointment extends Resource {
    */
   public fixAllDayTime() {
     if (this.allDay) {
-      this.startTime = Number(
-        Moment(this.startTime)
-          .startOf('day')
-          .add(12, 'hours')
-          .format('x')
-      );
-      this.endTime = Number(
-        Moment(this.endTime)
-          .startOf('day')
-          .add(13, 'hours')
-          .format('x')
-      );
+      this.startTime = Number(Moment(this.startTime).startOf('day').add(12, 'hours').format('x'));
+      this.endTime = Number(Moment(this.endTime).startOf('day').add(13, 'hours').format('x'));
     }
   }
 

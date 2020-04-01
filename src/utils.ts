@@ -24,16 +24,10 @@ export function ISODateToItalianFormat(ds: string): string {
  */
 export function dateToLocale(date: Date, lang: string, short?: boolean, noYear?: boolean): string {
   let dayName = date.toLocaleDateString(lang, { weekday: short ? 'short' : 'long' });
-  dayName = dayName
-    .slice(0, 1)
-    .toUpperCase()
-    .concat(dayName.slice(1));
+  dayName = dayName.slice(0, 1).toUpperCase().concat(dayName.slice(1));
   const day = date.toLocaleDateString(lang, { day: 'numeric' });
   let month = date.toLocaleDateString(lang, { month: short ? 'short' : 'long' });
-  month = month
-    .slice(0, 1)
-    .toUpperCase()
-    .concat(month.slice(1));
+  month = month.slice(0, 1).toUpperCase().concat(month.slice(1));
   const year = date.toLocaleDateString(lang, { year: 'numeric' });
   return `${dayName} ${day} ${month} ${noYear ? '' : year}`;
 }
@@ -140,7 +134,7 @@ export function logger(context: string, err: Error, content?: string, important?
  * Format a markdown string to html.
  */
 export function mdToHtml(mdString: string, options?: ConverterOptions): string {
-  options = options || <ConverterOptions>{ simpleLineBreaks: true };
+  options = options || ({ simpleLineBreaks: true } as ConverterOptions);
   const markdownConverter = new Converter(options);
   return markdownConverter.makeHtml(mdString);
 }
