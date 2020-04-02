@@ -58,9 +58,9 @@ export class Appointment extends Resource {
    */
   public linkToOrigin?: string;
   /**
-   * An object linked to the appointment.
+   * A list of objects linked to the appointment.
    */
-  public linkedTo?: AppointmentLinkedObject;
+  public linkedTo?: Array<AppointmentLinkedObject>;
 
   public load(x: any) {
     super.load(x);
@@ -79,7 +79,7 @@ export class Appointment extends Resource {
     this.fixAllDayTime();
     this.timezone = this.clean(x.timezone || Moment.tz.guess(), String);
     if (x.linkToOrigin) this.linkToOrigin = this.clean(x.linkToOrigin, String);
-    if (x.linkedTo) this.linkedTo = new AppointmentLinkedObject(x.linkedTo);
+    if (x.linkedTo) this.linkedTo = this.cleanArray(x.linkedTo, o => new AppointmentLinkedObject(o));
   }
   /**
    * Set a default start/end day for all-day events; mid-day avoid any kind of timezone problem.
