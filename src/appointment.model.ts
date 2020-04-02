@@ -114,17 +114,25 @@ export class Appointment extends Resource {
  */
 export class AppointmentLinkedObject extends Resource {
   /**
+   * The type of the referenced object.
+   */
+  public type: AppointmentLinkedObjectTypes;
+  /**
    * The id of the referenced object.
    */
   public id: string;
-  /**
-   * The name of the referenced object.
-   */
-  public name: string;
 
   public load(x: any) {
     super.load(x);
+    this.type = this.clean(x.type, Number);
     this.id = this.clean(x.id, String);
-    this.name = this.clean(x.name, String);
   }
+}
+
+/**
+ * The linked object types.
+ */
+export enum AppointmentLinkedObjectTypes {
+  SCARLETT_ACTIVITY = 100,
+  ARTHUR_ACTIVITY = 200
 }
