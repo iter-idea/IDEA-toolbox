@@ -96,6 +96,7 @@ export class Appointment extends Resource {
     this.appointmentId = safeData.appointmentId;
     this.calendarId = safeData.calendarId;
     if (safeData.masterAppointmentId) this.masterAppointmentId = safeData.masterAppointmentId;
+    if (safeData.linkedTo) this.linkedTo = safeData.linkedTo;
   }
 
   public validate(): Array<string> {
@@ -127,6 +128,13 @@ export class AppointmentKeys extends Resource {
     this.appointmentId = this.clean(x.appointmentId, String);
     this.calendarId = this.clean(x.calendarId, String);
   }
+
+  public validate(): Array<string> {
+    const e = super.validate();
+    if (this.iE(this.appointmentId)) e.push('appointmentId');
+    if (this.iE(this.calendarId)) e.push('calendarId');
+    return e;
+  }
 }
 
 /**
@@ -146,6 +154,13 @@ export class AppointmentLinkedObject extends Resource {
     super.load(x);
     this.type = this.clean(x.type, Number);
     this.id = this.clean(x.id, String);
+  }
+
+  public validate(): Array<string> {
+    const e = super.validate();
+    if (!(this.type in AppointmentLinkedObjectTypes)) e.push('type');
+    if (this.iE(this.id)) e.push('id');
+    return e;
   }
 }
 
