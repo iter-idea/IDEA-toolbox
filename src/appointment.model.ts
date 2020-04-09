@@ -110,6 +110,26 @@ export class Appointment extends Resource {
 }
 
 /**
+ * A brief view of the appointment, composed by only its keys.
+ */
+export class AppointmentKeys extends Resource {
+  /**
+   * The id (IUID/external ID) of the appointment.
+   */
+  public appointmentId: string;
+  /**
+   * The id of the calendar currently containing the appointment (it could change).
+   */
+  public calendarId: string;
+
+  public load(x: any) {
+    super.load(x);
+    this.appointmentId = this.clean(x.appointmentId, String);
+    this.calendarId = this.clean(x.calendarId, String);
+  }
+}
+
+/**
  * A generic structure to reference to a linked object.
  */
 export class AppointmentLinkedObject extends Resource {
