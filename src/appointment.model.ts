@@ -122,11 +122,16 @@ export class AppointmentKeys extends Resource {
    * The id of the calendar currently containing the appointment (it could change).
    */
   public calendarId: string;
+  /**
+   * The id of the team, in case it's a shared calendar.
+   */
+  public teamId?: string;
 
   public load(x: any) {
     super.load(x);
     this.appointmentId = this.clean(x.appointmentId, String);
     this.calendarId = this.clean(x.calendarId, String);
+    if (x.teamId) this.teamId = this.clean(x.teamId, String);
   }
 
   public validate(): Array<string> {
