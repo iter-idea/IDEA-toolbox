@@ -16,6 +16,10 @@ export class Label {
   [key: string]: string | any;
 
   constructor(x?: any, languages?: Languages) {
+    this.load(x, languages);
+  }
+
+  public load(x?: any, languages?: Languages) {
     if (x) languages.available.forEach(l => (this[l] = x[l] ? String(x[l]) : null));
     else languages.available.forEach(l => (this[l] = null));
   }
