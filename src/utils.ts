@@ -154,6 +154,15 @@ export function loopStringEnumValues(theEnum: any): Array<string> {
 /**
  * Get an array to iterate containing the keys of a numeric enum.
  */
+export function getStringEnumKeyByValue(theEnum: any, value: string): string {
+  const el = Object.keys(theEnum)
+    .map(key => ({ value: theEnum[key], key }))
+    .find(x => x.value === value);
+  return el ? el.key : null;
+}
+/**
+ * Get an array to iterate containing the keys of a numeric enum.
+ */
 export function loopNumericEnumKeys(theEnum: any): Array<number> {
   return Object.keys(theEnum)
     .filter(key => !isNaN(Number(key)))
