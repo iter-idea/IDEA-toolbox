@@ -82,7 +82,7 @@ export class CustomFieldMeta extends Resource {
         this.max = this.clean(x.max, Number);
         break;
       case CustomFieldTypes.BOOLEAN:
-        this.default = this.clean(x.default, Boolean);
+        this.default = this.clean(x.default, Boolean, false);
         break;
     }
     this.obligatory = this.clean(x.obligatory, Boolean);

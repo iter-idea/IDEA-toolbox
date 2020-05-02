@@ -12,6 +12,10 @@ export class CustomSectionMeta extends Resource {
    */
   public name?: Label;
   /**
+   * The description of the section. Support to multilanguage. Optional.
+   */
+  public description?: Label;
+  /**
    * Ordered list of the fields (names) to expect in the section.
    * Example: `['name', 'surname', ...]`.
    */
@@ -45,6 +49,7 @@ export class CustomSectionMeta extends Resource {
   public load(x: any, languages: Languages) {
     super.load(x);
     if (x.name) this.name = new Label(x.name, languages);
+    if (x.description) this.description = new Label(x.description, languages);
     this.fieldsLegend = this.cleanArray(x.fieldsLegend, String);
     this.fields = {};
     this.fieldsLegend.forEach(f => (this.fields[f] = new CustomFieldMeta(x.fields[f], languages)));
