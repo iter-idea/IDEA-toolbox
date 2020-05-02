@@ -4,6 +4,9 @@ import { Label } from './label.model';
 import { Languages } from './languages.model';
 import { Suggestion } from './suggestion.model';
 
+/**
+ * Metadata of a custom field.
+ */
 export class CustomFieldMeta extends Resource {
   /**
    * The id of the team owning the field. Optional.
@@ -12,7 +15,7 @@ export class CustomFieldMeta extends Resource {
   /**
    * Id of the field.
    */
-  public fieldId: string;
+  public fieldId?: string;
   /**
    * Name of the field.
    */
@@ -28,12 +31,12 @@ export class CustomFieldMeta extends Resource {
   /**
    * The list of the possible values (strings); available only with type ENUM.
    */
-  public enum: Array<string>;
+  public enum?: Array<string>;
   /**
    * The translations of the enum keys; available only with type ENUM.
    * Not obligatory: the fallback is always the enum key.
    */
-  public enumLabels: { [key: string]: Label };
+  public enumLabels?: { [key: string]: Label };
   /**
    * Field default value.
    */
@@ -45,11 +48,11 @@ export class CustomFieldMeta extends Resource {
   /**
    * Min value the field can assume; available only with type NUMBER.
    */
-  public min: number;
+  public min?: number;
   /**
    * Max value the field can assume; available only with type NUMBER.
    */
-  public max: number;
+  public max?: number;
   /**
    * The icon to show to identify the field.
    */
@@ -58,36 +61,38 @@ export class CustomFieldMeta extends Resource {
   public load(x: any, languages?: Languages) {
     super.load(x, languages);
     if (x.teamId) this.clean(x.teamId, String);
-    this.fieldId = this.clean(x.fieldId, String);
+    if (x.fieldId) this.fieldId = this.clean(x.fieldId, String);
     this.name = new Label(x.name, languages);
     this.description = new Label(x.description, languages);
     this.type = this.clean(x.type, String, CustomFieldTypes.STRING);
-    this.enum = this.cleanArray(x.enum, String);
-    this.enumLabels = {};
-    if (x.enumLabels) this.enum.forEach(e => (this.enumLabels[e] = new Label(x.enumLabels[e], languages)));
     switch (this.type) {
       case CustomFieldTypes.STRING:
       case CustomFieldTypes.TEXT:
+        this.default = this.clean(x.default, String);
+        break;
       case CustomFieldTypes.ENUM:
         this.default = this.clean(x.default, String);
+        this.enum = this.cleanArray(x.enum, String);
+        this.enumLabels = {};
+        if (x.enumLabels) this.enum.forEach(e => (this.enumLabels[e] = new Label(x.enumLabels[e], languages)));
         break;
       case CustomFieldTypes.NUMBER:
         this.default = this.clean(x.default, Number);
+        this.min = this.clean(x.min, Number);
+        this.max = this.clean(x.max, Number);
         break;
       case CustomFieldTypes.BOOLEAN:
         this.default = this.clean(x.default, Boolean);
         break;
     }
     this.obligatory = this.clean(x.obligatory, Boolean);
-    this.min = this.clean(x.min, Number);
-    this.max = this.clean(x.max, Number);
     this.icon = this.clean(x.icon, String);
   }
 
   public safeLoad(newData: any, safeData: any, languages?: Languages) {
     super.safeLoad(newData, safeData, languages);
     if (safeData.teamId) this.teamId = safeData.teamId;
-    this.fieldId = safeData.fieldId;
+    if (safeData.fieldId) this.fieldId = safeData.fieldId;
   }
 
   public validate(languages?: Languages): Array<string> {
