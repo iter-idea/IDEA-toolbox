@@ -1,6 +1,6 @@
 {
   "name": "idea-toolbox",
-  "version": "5.18.12",
+  "version": "5.18.13",
   "description": "IDEA's utility functions",
   "engines": {
     "node": ">=6.0.0"
@@ -27,6 +27,7 @@
   },
   "homepage": "https://uatisdeproblem.github.io/IDEA-toolbox",
   "dependencies": {
+    "moment": "2.24.0",
     "moment-timezone": "^0.5.28",
     "showdown": "^1.9.1",
     "validator": "^10.11.0"
