@@ -1,6 +1,6 @@
 {
   "name": "idea-toolbox",
-  "version": "5.18.11",
+  "version": "5.18.12",
   "description": "IDEA's utility functions",
   "engines": {
     "node": ">=6.0.0"
@@ -32,7 +32,7 @@
     "validator": "^10.11.0"
   },
   "devDependencies": {
-    "@types/moment-timezone": "^0.5.12",
+    "@types/moment-timezone": "^0.5.13",
     "@types/showdown": "^1.9.3",
     "@types/validator": "^9.4.4",
     "prettier": "^2.0.2",
