@@ -12,15 +12,15 @@ export class EmailData extends Resource {
   /**
    * Default addresses to who to send the email in TO.
    */
-  public to?: Array<string>;
+  public to: Array<string>;
   /**
    * Default addresses to who to send the email in CC.
    */
-  public cc?: Array<string>;
+  public cc: Array<string>;
   /**
    * Default addresses to who to send the email in BCC.
    */
-  public bcc?: Array<string>;
+  public bcc: Array<string>;
 
   public load(x: any) {
     super.load(x);
