@@ -32,6 +32,6 @@ export class Languages extends Resource {
 /**
  * The languages available in a specific service. It must be redefined in every service.
  */
-export declare enum ServiceLanguages {
+export enum ServiceLanguages {
   English = 'en'
 }
