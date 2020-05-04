@@ -6,13 +6,13 @@ import { loopStringEnumValues } from './utils';
  */
 export class Languages extends Resource {
   /**
-   * The default language for a context (e.g. 'it', 'en', etc.).
+   * The default language for a context.
    */
-  public default: ServiceLanguages;
+  public default: ServiceLanguages | string;
   /**
-   * The available languages available in a context (e.g. 'it', 'en', etc.).
+   * The available languages available in a context.
    */
-  public available: Array<ServiceLanguages>;
+  public available: Array<ServiceLanguages | string>;
 
   public load(x: any) {
     super.load(x);
@@ -20,10 +20,11 @@ export class Languages extends Resource {
     this.available = this.cleanArray(x.available, String, [ServiceLanguages.English]);
   }
 
-  public validate() {
+  public validate(languagesOfSpecificService: any) {
     const e = super.validate();
     if (!this.default || !this.available.some(x => x === this.default)) e.push('default');
-    if (!this.available.every(l => loopStringEnumValues(ServiceLanguages).some(x => x === l))) e.push('available');
+    if (!this.available.every(l => loopStringEnumValues(languagesOfSpecificService).some(x => x === l)))
+      e.push('available');
     return e;
   }
 }
