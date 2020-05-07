@@ -14,6 +14,7 @@ export * from './customBlockMeta.model';
 export * from './customFieldMeta.model';
 export * from './customFieldTypes.enum';
 export * from './customSectionMeta.model';
+export * from './delta.model';
 export * from './emailChangeRequest.model';
 export * from './emailData.model';
 export * from './epoch';
