@@ -1,5 +1,6 @@
 export * from './address.model';
 export * from './amazonTranslateLanguages.enum';
+export * from './announcement.model';
 export * from './APIRequestLog.model';
 export * from './appointment.model';
 export * from './attachment.model';
