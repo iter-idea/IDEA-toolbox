@@ -1,6 +1,8 @@
 import Validator = require('validator');
 import { Converter, ConverterOptions } from 'showdown';
 
+import { markdown } from './markdown';
+
 /**
  * Utilities (static) functions, to support IDEA's projects.
  */
@@ -133,7 +135,7 @@ export function logger(context: string, err: Error, content?: string, important?
 /**
  * Format a markdown string to html.
  */
-export function mdToHtml(mdString: string, options?: ConverterOptions): string {
+export function mdToHtml(mdString: markdown | string, options?: ConverterOptions): string {
   options = options || ({ simpleLineBreaks: true } as ConverterOptions);
   const markdownConverter = new Converter(options);
   return markdownConverter.makeHtml(mdString);

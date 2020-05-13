@@ -1,4 +1,5 @@
 import { Resource } from './resource.model';
+import { markdown } from './markdown';
 
 /**
  * An object to pass to SNS topics that manage notifications.
@@ -27,9 +28,9 @@ export class Notification extends Resource {
    */
   public subject: string;
   /**
-   * The content of the notification; markdown support.
+   * The content of the notification.
    */
-  public content: string;
+  public content: markdown;
   /**
    * If set, an email notification is preferred to any other channel.
    */

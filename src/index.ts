@@ -25,6 +25,7 @@ export * from './ionicons.enum';
 export * from './label.model';
 export * from './languages.model';
 export * from './languages.enum';
+export * from './markdown';
 export * from './membership.model';
 export * from './notification.model';
 export * from './projectPlan.model';
