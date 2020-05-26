@@ -1,6 +1,6 @@
 {
   "name": "idea-toolbox",
-  "version": "5.21.0",
+  "version": "5.21.1",
   "description": "IDEA's utility functions",
   "engines": {
     "node": ">=6.0.0"
@@ -20,7 +20,7 @@
     "utilities",
     "resource"
   ],
-  "author": "iter IDEA <info@iter-idea.com> (https://iter-idea.com)",
+  "author": "ITER IDEA <info@iter-idea.com> (https://iter-idea.com)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/uatisdeproblem/IDEA-toolbox/issues"
