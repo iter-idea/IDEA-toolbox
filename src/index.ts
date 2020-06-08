@@ -9,6 +9,7 @@ export * from './cacheable.model';
 export * from './cacheableResource.model';
 export * from './calendar.model';
 export * from './check.model';
+export * from './contactRequest.model';
 export * from './contacts.model';
 export * from './countries.enum';
 export * from './customBlockMeta.model';
