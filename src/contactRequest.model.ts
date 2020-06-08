@@ -1,6 +1,6 @@
 import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
-import { ClientInfo } from './errorReport.model';
+import { ClientInfo } from './clientInfo.model';
 
 /**
  * Contact request from the Contacts Us box of the website or from specific campaigns.

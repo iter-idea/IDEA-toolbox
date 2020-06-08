@@ -9,6 +9,8 @@ export * from './cacheable.model';
 export * from './cacheableResource.model';
 export * from './calendar.model';
 export * from './check.model';
+export * from './clientInfo.model';
+export * from './clientError.model';
 export * from './contactRequest.model';
 export * from './contacts.model';
 export * from './countries.enum';
