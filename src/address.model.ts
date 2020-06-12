@@ -27,6 +27,10 @@ export class Address extends Resource {
    */
   public country: Countries;
   /**
+   * The geolocation, expressed in latitute and longitude.
+   */
+  public geolocation?: AddressGeolocation;
+  /**
    * Contact person / receiver.
    */
   public contact?: string;
@@ -51,6 +55,7 @@ export class Address extends Resource {
     this.city = this.clean(x.city, String);
     this.province = this.clean(x.province, String);
     this.country = this.clean(x.country, String);
+    if (x.geolocation) this.geolocation = new AddressGeolocation(x.geolocation);
     if (x.contact) this.contact = this.clean(x.contact, String);
     if (x.phone) this.phone = this.clean(x.phone, String);
     if (x.email) this.email = this.clean(x.email, String);
@@ -73,5 +78,25 @@ export class Address extends Resource {
     if (this.city || this.postcode) full = full.concat(`, ${this.city || ''} ${this.postcode || ''}`.trim());
     if (this.country) full = full.concat(` - ${this.country}`);
     return full.trim();
+  }
+}
+
+/**
+ * An address' geolocation expressed in latitute and longitude.
+ */
+export class AddressGeolocation extends Resource {
+  /**
+   * Latitude.
+   */
+  public lat: number;
+  /**
+   * Longitude.
+   */
+  public lng: number;
+
+  public load(x: any) {
+    super.load(x);
+    this.lat = this.clean(x.lat, Number);
+    this.lng = this.clean(x.lng, Number);
   }
 }
