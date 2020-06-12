@@ -42,10 +42,6 @@ export class Address extends Resource {
    * Contact person's email.
    */
   public email?: string;
-  /**
-   * Concatenation of all the address fields.
-   */
-  public fullAddress: string;
 
   public load(x: any) {
     super.load(x);
@@ -59,7 +55,6 @@ export class Address extends Resource {
     if (x.contact) this.contact = this.clean(x.contact, String);
     if (x.phone) this.phone = this.clean(x.phone, String);
     if (x.email) this.email = this.clean(x.email, String);
-    this.fullAddress = this.clean(this.getFullAddress(), String);
   }
 
   public validate(): Array<string> {
