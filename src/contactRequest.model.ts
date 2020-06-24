@@ -35,6 +35,10 @@ export class ContactRequest extends Resource {
    * The details of the client at the time of the error.
    */
   public client?: ClientInfo;
+  /**
+   * Any notes to attach to the request.
+   */
+  public notes?: string;
 
   public load(x: any) {
     super.load(x);
@@ -44,6 +48,7 @@ export class ContactRequest extends Resource {
     if (x.campaign) this.campaign = this.clean(x.campaign, String);
     if (x.wantsDemo) this.wantsDemo = true;
     if (x.client) this.client = new ClientInfo(x.client);
+    if (x.notes) this.notes = this.clean(x.notes, String);
   }
 
   public validate(): Array<string> {
