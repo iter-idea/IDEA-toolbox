@@ -136,6 +136,7 @@ export function logger(context: string, err: Error, content?: string, important?
  * Format a markdown string to html.
  */
 export function mdToHtml(mdString: markdown | string, options?: ConverterOptions): string {
+  if (!mdString) return '';
   options = options || ({ simpleLineBreaks: true } as ConverterOptions);
   const markdownConverter = new Converter(options);
   return markdownConverter.makeHtml(mdString);
