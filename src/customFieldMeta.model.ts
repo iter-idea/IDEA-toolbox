@@ -175,7 +175,9 @@ export class CustomFieldMeta extends Resource {
       if (this.max !== null && this.max !== undefined) if (field > this.max) return false;
     }
     // enum check
-    if (this.type === CustomFieldTypes.ENUM && !(this.enum || []).some(x => x === field)) return false;
+    if (this.type === CustomFieldTypes.ENUM) {
+      if (this.enum && this.enum.some(x => x === field)) return false;
+    }
     // return the value cleaned and forced
     return true;
   }
