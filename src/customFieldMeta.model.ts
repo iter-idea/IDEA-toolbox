@@ -176,7 +176,7 @@ export class CustomFieldMeta extends Resource {
     }
     // enum check
     if (this.type === CustomFieldTypes.ENUM) {
-      if (this.enum && this.enum.some(x => x === field)) return false;
+      if (!(this.enum && this.enum.some(x => x === field))) return false;
     }
     // return the value cleaned and forced
     return true;
