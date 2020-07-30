@@ -82,11 +82,11 @@ export class Appointment extends Resource {
     if (x.linkedTo) this.linkedTo = this.cleanArray(x.linkedTo, o => new AppointmentLinkedObject(o));
   }
   /**
-   * Set a default start/end day for all-day events; mid-day avoid any kind of timezone problem.
+   * Set a default start/end day for all-day events.
    */
   public fixAllDayTime() {
     if (this.allDay) {
-      this.startTime = Number(Moment(this.startTime).startOf('day').add(12, 'hours').format('x'));
+      this.startTime = Number(Moment(this.startTime).startOf('day').format('x'));
       this.endTime = Number(Moment(this.endTime).startOf('day').add(13, 'hours').format('x'));
     }
   }
