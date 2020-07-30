@@ -41,6 +41,7 @@ export class ProjectSubscription extends Resource {
   /**
    * The store reference id for the subscription.
    * It's an ID coming from the stores, used to double check that a purchase is actually linked to the subscriptionId.
+   * Stripe: `id`.
    * iOS: `original_transaction_id`.
    * Android: the first part of the `orderId`.
    */

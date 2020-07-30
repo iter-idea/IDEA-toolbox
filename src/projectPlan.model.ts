@@ -88,10 +88,6 @@ export class ProjectPlan extends Resource {
    */
   public special: boolean;
   /**
-   * If true, the plan is set as Gold plan and this will be threaded in different ways according to the project.
-   */
-  public gold: boolean;
-  /**
    * The plan targets: USERS, TEAMS.
    */
   public target: ProjectPlanTargets;
@@ -111,7 +107,6 @@ export class ProjectPlan extends Resource {
     this.description = new Label(x.description, languages);
     this.order = this.clean(x.order, Number, 0);
     this.special = this.clean(x.special, Boolean);
-    this.gold = this.clean(x.gold, Boolean);
     this.target = this.clean(x.target, String, ProjectPlanTargets.USERS);
   }
 
@@ -120,7 +115,7 @@ export class ProjectPlan extends Resource {
     this.project = safeData.project;
     this.planId = safeData.planId;
     this.special = safeData.special;
-    this.gold = safeData.gold;
+    this.target = safeData.target;
   }
 
   public validate(languages?: Languages): Array<string> {
