@@ -66,3 +66,30 @@ export class TeamPermissions extends Resource {
     this.admin = this.clean(x.admin, Boolean);
   }
 }
+
+/**
+ * Minimal info on the membership, to attach to other entities.
+ */
+export class MembershipSummary extends Resource {
+  /**
+   * The id of the member of the team.
+   */
+  public userId: string;
+  /**
+   * The name of the member of the team.
+   */
+  public name: string;
+
+  public load(x: any) {
+    super.load(x);
+    this.userId = this.clean(x.userId, String);
+    this.name = this.clean(x.name, String);
+  }
+
+  public validate(): Array<string> {
+    const e = super.validate();
+    if (this.iE(this.userId)) e.push('userId');
+    if (this.iE(this.name)) e.push('name');
+    return e;
+  }
+}
