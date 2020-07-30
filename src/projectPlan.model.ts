@@ -107,7 +107,7 @@ export class ProjectPlan extends Resource {
     this.description = new Label(x.description, languages);
     this.order = this.clean(x.order, Number, 0);
     this.special = this.clean(x.special, Boolean);
-    this.target = this.clean(x.target, String, ProjectPlanTargets.USERS);
+    this.target = this.clean(x.target, String, ProjectPlanTargets.TEAMS);
   }
 
   public safeLoad(newData: any, safeData: any, languages?: Languages) {
