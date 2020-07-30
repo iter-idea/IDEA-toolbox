@@ -1,6 +1,7 @@
 import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
 import { ProjectPlatforms } from './projectPlan.model';
+import { MembershipSummary } from './membership.model';
 
 /**
  * Table: `idea_projects_subscriptions`.
@@ -46,6 +47,10 @@ export class ProjectSubscription extends Resource {
    * Android: the first part of the `orderId`.
    */
   public storeReferenceId: string;
+  /**
+   * The user who manages the subscription.
+   */
+  public managedByUser: MembershipSummary;
 
   public load(x: any) {
     super.load(x);
@@ -56,11 +61,13 @@ export class ProjectSubscription extends Resource {
     this.autoRenewing = this.clean(x.autoRenewing, Boolean);
     this.platform = this.clean(x.platform, String);
     this.storeReferenceId = this.clean(x.storeReferenceId, String);
+    this.managedByUser = new MembershipSummary(x.managedByUser);
   }
 
   public safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.project = safeData.project;
     this.subscriptionId = safeData.subscriptionId;
+    this.managedByUser = safeData.managedByUser;
   }
 }
