@@ -9,6 +9,7 @@ import { epochDateTime } from './epoch';
  *
  * Indexes:
  *   - `teamResource-timestamp-index`; LSI, includes: deleted, element.
+ *   - `teamResource-timestamp-count`; LSI, includes: deleted.
  */
 export class DeltaRecord extends Resource {
   /**
@@ -131,4 +132,30 @@ export class DeltaNext extends Resource {
  */
 export enum DeltaResources {
   RESOURCE = 'RESOURCE'
+}
+
+/**
+ * A structure to have an overview of the number of elements for each resource.
+ */
+export class DeltaCount extends Resource {
+  /**
+   * Starting time to confront what's changed since then.
+   */
+  public since: epochDateTime;
+  /**
+   * The list of resources involved in this delta.
+   */
+  public resources: Array<DeltaResources | string>;
+  /**
+   * The count of elements for each resource.
+   */
+  public count: { [resource: string]: number };
+
+  public load(x: any) {
+    super.load(x);
+    this.since = this.clean(x.since, Number, 0) as epochDateTime;
+    this.resources = this.cleanArray(x.resources, String) as Array<DeltaResources | string>;
+    this.count = {};
+    if (x.count) this.resources.forEach(r => this.clean(x.count[r], Number));
+  }
 }
