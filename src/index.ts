@@ -28,7 +28,7 @@ export * from './ionicons.enum';
 export * from './label.model';
 export * from './languages.model';
 export * from './languages.enum';
-export * from './projectSubscriptionLimit.model';
+export * from './limitCounter.model';
 export * from './markdown';
 export * from './membership.model';
 export * from './notification.model';
