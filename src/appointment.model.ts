@@ -1,6 +1,7 @@
 import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
 import Moment = require('moment-timezone');
+import { MembershipSummary } from './membershipSummary.model';
 
 /**
  * Represents an appointment (event) in a calendar.
@@ -61,6 +62,14 @@ export class Appointment extends Resource {
    * A list of objects linked to the appointment.
    */
   public linkedTo?: Array<AppointmentLinkedObject>;
+  /**
+   * In case the user has been invited to the event, it represents the attendance status.
+   */
+  public attendance?: AppointmentAttendance;
+  /**
+   * The users supposed to partecipate to the event.
+   */
+  public attendees: Array<MembershipSummary>;
 
   public load(x: any) {
     super.load(x);
@@ -80,6 +89,8 @@ export class Appointment extends Resource {
     this.timezone = this.clean(x.timezone || Moment.tz.guess(), String);
     if (x.linkToOrigin) this.linkToOrigin = this.clean(x.linkToOrigin, String);
     if (x.linkedTo) this.linkedTo = this.cleanArray(x.linkedTo, o => new AppointmentLinkedObject(o));
+    if (x.attendance) this.attendance = this.clean(x.attendance, Number);
+    this.attendees = this.cleanArray(x.attendees, a => new MembershipSummary(a));
   }
   /**
    * Set a default start/end day for all-day events.
@@ -175,4 +186,14 @@ export class AppointmentLinkedObject extends Resource {
 export enum AppointmentLinkedObjectTypes {
   SCARLETT_ACTIVITY = 100,
   ARTHUR_ACTIVITY = 200
+}
+
+/**
+ * Possible attendance status for the appointment.
+ */
+export enum AppointmentAttendance {
+  NEEDS_ACTION,
+  DECLINED,
+  TENTATIVE,
+  ACCEPTED
 }
