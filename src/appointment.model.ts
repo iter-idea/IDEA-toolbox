@@ -1,11 +1,11 @@
+import Moment = require('moment-timezone');
+
 import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
-import Moment = require('moment-timezone');
-import { MembershipSummary } from './membershipSummary.model';
+import { MembershipSummary } from './membership.model';
 
 /**
  * Represents an appointment (event) in a calendar.
- * @todo in the future: alerts, status, guests, etc.
  *
  * Table: `idea_appointments`.
  *
