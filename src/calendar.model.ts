@@ -197,13 +197,3 @@ export enum ExternalCalendarSources {
   GOOGLE = 'GOOGLE',
   MICROSOFT = 'MICROSOFT'
 }
-
-/**
- * Possible attendance status for the appointment.
- */
-export enum AppointmentAttendance {
-  NEEDS_ACTION,
-  DECLINED,
-  TENTATIVE,
-  ACCEPTED
-}

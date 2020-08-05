@@ -89,7 +89,7 @@ export class Appointment extends Resource {
     this.timezone = this.clean(x.timezone || Moment.tz.guess(), String);
     if (x.linkToOrigin) this.linkToOrigin = this.clean(x.linkToOrigin, String);
     if (x.linkedTo) this.linkedTo = this.cleanArray(x.linkedTo, o => new AppointmentLinkedObject(o));
-    if (x.attendance) this.attendance = this.clean(x.attendance, Number);
+    if (x.attendance) this.attendance = this.clean(x.attendance, Number) as AppointmentAttendance;
     this.attendees = this.cleanArray(x.attendees, a => new MembershipSummary(a));
   }
   /**
@@ -192,8 +192,8 @@ export enum AppointmentLinkedObjectTypes {
  * Possible attendance status for the appointment.
  */
 export enum AppointmentAttendance {
-  NEEDS_ACTION,
-  DECLINED,
+  DECLINED = -1,
+  NEEDS_ACTION = 0,
   TENTATIVE,
   ACCEPTED
 }
