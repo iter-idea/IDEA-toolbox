@@ -134,6 +134,10 @@ export class ExternalCalendarInfo extends Resource {
    * The access level to the calendar for the user who linked the external service.
    */
   public userAccess: ExternalCalendarPermissions;
+  /**
+   * Email address with which the user has registered to the service.
+   */
+  public email: string;
 
   public load(x: any) {
     super.load(x);
@@ -144,6 +148,7 @@ export class ExternalCalendarInfo extends Resource {
     this.syncBookmark = this.clean(x.syncBookmark, String);
     this.pageBookmark = this.clean(x.pageBookmark, String);
     this.userAccess = this.clean(x.userAccess, Number);
+    this.email = this.clean(x.email, String);
   }
 }
 
