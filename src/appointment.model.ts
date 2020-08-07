@@ -93,7 +93,7 @@ export class Appointment extends Resource {
     this.timezone = this.clean(x.timezone || Moment.tz.guess(), String);
     if (x.linkToOrigin) this.linkToOrigin = this.clean(x.linkToOrigin, String);
     if (x.linkedTo) this.linkedTo = this.cleanArray(x.linkedTo, o => new AppointmentLinkedObject(o));
-    this.attendance = this.clean(x.attendance, Number) as AppointmentAttendance;
+    this.attendance = this.clean(x.attendance, Number, 0) as AppointmentAttendance;
     this.attendees = this.cleanArray(x.attendees, a => new MembershipSummary(a));
     this.organizer = new MembershipSummary(x.organizer);
   }
