@@ -65,11 +65,15 @@ export class Appointment extends Resource {
   /**
    * In case the user has been invited to the event, it represents the attendance status.
    */
-  public attendance?: AppointmentAttendance;
+  public attendance: AppointmentAttendance;
   /**
    * The users supposed to partecipate to the event.
    */
   public attendees: Array<MembershipSummary>;
+  /**
+   * The user who organized the event.
+   */
+  public organizer: MembershipSummary;
 
   public load(x: any) {
     super.load(x);
@@ -89,8 +93,9 @@ export class Appointment extends Resource {
     this.timezone = this.clean(x.timezone || Moment.tz.guess(), String);
     if (x.linkToOrigin) this.linkToOrigin = this.clean(x.linkToOrigin, String);
     if (x.linkedTo) this.linkedTo = this.cleanArray(x.linkedTo, o => new AppointmentLinkedObject(o));
-    if (x.attendance) this.attendance = this.clean(x.attendance, Number) as AppointmentAttendance;
+    this.attendance = this.clean(x.attendance, Number) as AppointmentAttendance;
     this.attendees = this.cleanArray(x.attendees, a => new MembershipSummary(a));
+    this.organizer = new MembershipSummary(x.organizer);
   }
   /**
    * Set a default start/end day for all-day events.
