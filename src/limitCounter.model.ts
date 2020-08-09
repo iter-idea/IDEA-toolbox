@@ -15,8 +15,8 @@ export class LimitCounter extends Resource {
 
   public load(x: any) {
     super.load(x);
-    this.counter = this.clean(x.counter, Number);
-    this.limit = this.clean(x.limit, Number);
+    this.counter = this.clean(x.counter, Number, 0);
+    this.limit = this.clean(x.limit, Number, 0);
   }
 
   /**
