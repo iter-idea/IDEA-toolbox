@@ -1,5 +1,6 @@
 import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
+import { MembershipSummary } from './membership.model';
 
 /**
  * A team's Resource Center folder.
@@ -28,17 +29,27 @@ export class RCFolder extends Resource {
    */
   public createdAt: epochDateTime;
   /**
-   * Timestamp of when the last update on one of its resources happened.
+   * The user who created the folder.
    */
-  public updatedAt: epochDateTime;
+  public createdBy: MembershipSummary;
+  /**
+   * Timestamp of last update.
+   */
+  public updatedAt?: epochDateTime;
+  /**
+   * The user who lastly updated the folder.
+   */
+  public updatedBy?: MembershipSummary;
 
   public load(x: any) {
     super.load(x);
     this.resourceCenterId = this.clean(x.resourceCenterId, String);
     this.folderId = this.clean(x.folderId, String);
     this.name = this.clean(x.name, String);
-    this.createdAt = this.clean(x.createdAt, a => new Date(a).getTime(), Date.now());
-    this.updatedAt = this.clean(x.updatedAt, a => new Date(a).getTime());
+    this.createdAt = this.clean(x.createdAt, d => new Date(d).getTime(), Date.now());
+    this.createdBy = new MembershipSummary(x.createdBy);
+    if (x.updatedAt) this.updatedAt = this.clean(x.updatedAt, d => new Date(d).getTime());
+    if (x.updatedBy) this.updatedBy = new MembershipSummary(x.updatedBy);
   }
 
   public safeLoad(newData: any, safeData: any) {
@@ -46,7 +57,9 @@ export class RCFolder extends Resource {
     this.resourceCenterId = safeData.resourceCenterId;
     this.folderId = safeData.folderId;
     this.createdAt = safeData.createdAt;
+    this.createdBy = safeData.createdBy;
     this.updatedAt = safeData.updatedAt;
+    this.updatedBy = safeData.updatedBy;
   }
 
   public validate(): Array<string> {
