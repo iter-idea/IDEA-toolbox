@@ -1,5 +1,7 @@
 import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
+import { MembershipSummary } from './membership.model';
+import { loopStringEnumValues } from './utils';
 
 /**
  * A team's Resource Center resource.
@@ -27,9 +29,9 @@ export class RCResource extends Resource {
    */
   public name: string;
   /**
-   * The format of the resource. (e.g. 'jpg', 'pdf').
+   * The format of the resource (e.g. 'jpg', 'pdf').
    */
-  public format: string;
+  public format: RCResourceFormats;
   /**
    * Timestamp of when the resource has been uploaded the last time.
    */
@@ -38,6 +40,18 @@ export class RCResource extends Resource {
    * Timestamp of when the resource has been created.
    */
   public createdAt: epochDateTime;
+  /**
+   * The user who created the resource.
+   */
+  public createdBy: MembershipSummary;
+  /**
+   * Timestamp of last update.
+   */
+  public updatedAt?: epochDateTime;
+  /**
+   * The user who lastly updated the resource.
+   */
+  public updatedBy?: MembershipSummary;
 
   public load(x: any) {
     super.load(x);
@@ -45,9 +59,12 @@ export class RCResource extends Resource {
     this.resourceId = this.clean(x.resourceId, String);
     this.folderId = this.clean(x.folderId, String);
     this.name = this.clean(x.name, String);
-    this.format = this.clean(x.format, String);
+    this.format = this.clean(x.format, String) as RCResourceFormats;
     this.version = this.clean(x.version, a => new Date(a).getTime());
-    this.createdAt = this.clean(x.createdAt, a => new Date(a).getTime(), Date.now());
+    this.createdAt = this.clean(x.createdAt, d => new Date(d).getTime(), Date.now());
+    this.createdBy = new MembershipSummary(x.createdBy);
+    if (x.updatedAt) this.updatedAt = this.clean(x.updatedAt, d => new Date(d).getTime());
+    if (x.updatedBy) this.updatedBy = new MembershipSummary(x.updatedBy);
   }
 
   public safeLoad(newData: any, safeData: any) {
@@ -55,13 +72,27 @@ export class RCResource extends Resource {
     this.resourceCenterFolderId = safeData.resourceCenterFolderId;
     this.resourceId = safeData.resourceId;
     this.folderId = safeData.folderId;
-    this.format = safeData.format;
+    this.version = safeData.version;
     this.createdAt = safeData.createdAt;
+    this.createdBy = safeData.createdBy;
+    this.updatedAt = safeData.updatedAt;
+    this.updatedBy = safeData.updatedBy;
   }
 
   public validate(): Array<string> {
     const e = super.validate();
     if (this.iE(this.name)) e.push(`name`);
+    if (!loopStringEnumValues(RCResourceFormats).some(x => x === this.format)) e.push('format');
     return e;
   }
+}
+
+/**
+ * The allowed formats for a resource.
+ */
+export enum RCResourceFormats {
+  JPG = 'jpg',
+  JPEG = 'jpeg',
+  PNG = 'png',
+  PDF = 'pdf'
 }
