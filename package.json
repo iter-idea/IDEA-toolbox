@@ -1,6 +1,6 @@
 {
   "name": "idea-toolbox",
-  "version": "5.23.10",
+  "version": "5.23.11",
   "description": "IDEA's utility functions",
   "engines": {
     "node": ">=6.0.0"
@@ -33,7 +33,6 @@
     "validator": "^10.11.0"
   },
   "devDependencies": {
-    "@types/moment-timezone": "^0.5.13",
     "@types/showdown": "^1.9.3",
     "@types/validator": "^9.4.4",
     "prettier": "^2.0.2",
@@ -41,7 +40,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.3.0",
     "typedoc": "^0.17.8",
-    "typescript": "^3.4.3",
+    "typescript": "^3.9.7",
     "typescript-tslint-plugin": "^0.3.1"
   }
 }
