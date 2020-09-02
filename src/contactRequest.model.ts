@@ -28,7 +28,7 @@ export class ContactRequest extends Resource {
    */
   public campaign?: string;
   /**
-   * If set, the requester would like to be contacted for a demo.
+   * If set, the requester specified if he/she would like to be contacted for a demo.
    */
   public wantsDemo?: boolean;
   /**
@@ -46,7 +46,7 @@ export class ContactRequest extends Resource {
     this.timestamp = this.clean(x.timestamp, d => new Date(d).getTime(), Date.now()) as epochDateTime;
     if (x.name) this.name = this.clean(x.name, String);
     if (x.campaign) this.campaign = this.clean(x.campaign, String);
-    if (x.wantsDemo) this.wantsDemo = true;
+    if (x.wantsDemo !== undefined) this.wantsDemo = this.clean(x.wantsDemo, Boolean);
     if (x.client) this.client = new ClientInfo(x.client);
     if (x.notes) this.notes = this.clean(x.notes, String);
   }
