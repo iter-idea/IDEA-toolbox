@@ -2,7 +2,6 @@ import Moment = require('moment-timezone');
 
 import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
-import { MembershipSummary } from './membership.model';
 
 /**
  * Represents an appointment (event) in a calendar.
@@ -63,17 +62,9 @@ export class Appointment extends Resource {
    */
   public linkedTo?: Array<AppointmentLinkedObject>;
   /**
-   * In case the user has been invited to the event, it represents the attendance status.
+   * The attendees supposed to partecipate to the event.
    */
-  public attendance: AppointmentAttendance;
-  /**
-   * The users supposed to partecipate to the event.
-   */
-  public attendees: Array<MembershipSummary>;
-  /**
-   * The user who organized the event.
-   */
-  public organizer: MembershipSummary;
+  public attendees: Array<AppointmentAttendee>;
 
   public load(x: any) {
     super.load(x);
@@ -93,9 +84,7 @@ export class Appointment extends Resource {
     this.timezone = this.clean(x.timezone || Moment.tz.guess(), String);
     if (x.linkToOrigin) this.linkToOrigin = this.clean(x.linkToOrigin, String);
     if (x.linkedTo) this.linkedTo = this.cleanArray(x.linkedTo, o => new AppointmentLinkedObject(o));
-    this.attendance = this.clean(x.attendance, Number, AppointmentAttendance.NEEDS_ACTION) as AppointmentAttendance;
-    this.attendees = this.cleanArray(x.attendees, a => new MembershipSummary(a));
-    this.organizer = new MembershipSummary(x.organizer);
+    this.attendees = this.cleanArray(x.attendees, a => new AppointmentAttendee(a));
   }
   /**
    * Set a default start/end day for all-day events.
@@ -123,6 +112,25 @@ export class Appointment extends Resource {
     if (this.iE(this.endTime)) e.push('endTime');
     if (this.iE(this.timezone)) e.push('timezone');
     return e;
+  }
+
+  /**
+   * Whether the user identified by the given email is the organizer of the event.
+   */
+  public emailIsOrganizer(email: string): boolean {
+    return this.attendees.find(a => a.email === email).organizer;
+  }
+  /**
+   * Whether the user identified by the given email owns this appointent.
+   */
+  public emailOwnsAppointment(email: string): boolean {
+    return this.attendees.find(a => a.email === email).self;
+  }
+  /**
+   * Get the email address of the organizer of the event.
+   */
+  public getOrganizerEmail(): string {
+    return this.attendees.find(a => a.organizer).email;
   }
 }
 
@@ -191,6 +199,36 @@ export class AppointmentLinkedObject extends Resource {
 export enum AppointmentLinkedObjectTypes {
   SCARLETT_ACTIVITY = 100,
   ARTHUR_ACTIVITY = 200
+}
+
+/**
+ * The info about the attendee to an appointment.
+ */
+export class AppointmentAttendee extends Resource {
+  /**
+   * The email to identify the attendee.
+   */
+  public email: string;
+  /**
+   * Whether the user identified by the email is the organizer of the event.
+   */
+  public organizer: boolean;
+  /**
+   * Whether this attendee record refers to the current user.
+   */
+  public self: boolean;
+  /**
+   * The attendance status.
+   */
+  public attendance: AppointmentAttendance;
+
+  public load(x: any) {
+    super.load(x);
+    this.email = this.clean(x.email, String);
+    this.organizer = this.clean(x.organizer, Boolean);
+    this.self = this.clean(x.self, Boolean);
+    this.attendance = this.clean(x.attendance, Number, AppointmentAttendance.NEEDS_ACTION) as AppointmentAttendance;
+  }
 }
 
 /**
