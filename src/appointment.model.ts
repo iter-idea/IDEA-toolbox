@@ -63,6 +63,7 @@ export class Appointment extends Resource {
   public linkedTo?: Array<AppointmentLinkedObject>;
   /**
    * The attendees supposed to partecipate to the event.
+   * It's an empty array in case the appointment is "private", i.e. the creator is the only attendee.
    */
   public attendees: Array<AppointmentAttendee>;
 
@@ -115,22 +116,30 @@ export class Appointment extends Resource {
   }
 
   /**
-   * Whether the user identified by the given email is the organizer of the event.
+   * Get the information on an attendee.
+   * The latter can be identified by email or, by default, as the attendee marked as `self`.
    */
-  public emailIsOrganizer(email: string): boolean {
-    return this.attendees.find(a => a.email === email).organizer;
+  public getAttendee(email?: string): AppointmentAttendee {
+    return this.attendees.find(a => (email ? a.email === email : a.self));
   }
   /**
-   * Whether the user identified by the given email owns this appointent.
+   * Get the attendance of the desired attendee.
+   * The latter can be identified by email or, by default, as the attendee marked as `self`.
    */
-  public emailOwnsAppointment(email: string): boolean {
-    return this.attendees.find(a => a.email === email).self;
+  public getAttendance(email?: string): AppointmentAttendance {
+    const attendee = this.getAttendee(email);
+    return attendee ? attendee.attendance : undefined;
   }
   /**
-   * Get the email address of the organizer of the event.
+   * Whether the user is the organizer of the event.
+   * The user can be identified by email or, by default, as the attendee marked as `self`.
    */
-  public getOrganizerEmail(): string {
-    return this.attendees.find(a => a.organizer).email;
+  public isOrganizer(email?: string): boolean {
+    // if the array is empty, the event is owned by the current user (there aren't other attendees)
+    if (!this.attendees.length) return true;
+    // otherwise, check whether the user is the organizer
+    const attendee = this.getAttendee(email);
+    return attendee ? attendee.organizer : false;
   }
 }
 
