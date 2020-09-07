@@ -41,6 +41,7 @@ export * from './RCConfiguredFolder.model';
 export * from './RCFolder.model';
 export * from './RCResource.model';
 export * from './resource.model';
+export * from './signature.model';
 export * from './signedURL.model';
 export * from './suggestion.model';
 export * from './team.model';
