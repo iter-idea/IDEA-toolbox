@@ -2,7 +2,7 @@ import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
 
 /**
- * The signature, composed by a signatory and various dataURI formats.
+ * The signature, composed by a signatory and various dataURL formats.
  */
 export class Signature extends Resource {
   /**
@@ -16,18 +16,21 @@ export class Signature extends Resource {
   /**
    * The PNG representation of the signature.
    */
-  public pngURL?: string;
-  /**
-   * The JPEG representation of the signature.
-   */
-  public jpegURL?: string;
+  public pngURL: string;
 
   public load(x: any) {
     super.load(x);
     this.signatory = this.clean(x.signatory, String);
     this.timestamp = this.clean(x.timestamp, t => new Date(t).getTime(), Date.now()) as epochDateTime;
-    if (x.pngURL) this.pngURL = this.clean(x.pngURL, String);
-    if (x.jpegURL) this.jpegURL = this.clean(x.jpegURL, String);
+    this.pngURL = this.clean(x.pngURL, String);
+  }
+
+  public validate(): Array<string> {
+    const e = super.validate();
+    if (this.iE(this.signatory)) e.push('signatory');
+    if (this.iE(this.timestamp)) e.push('timestamp');
+    if (this.iE(this.pngURL)) e.push('pngURL');
+    return e;
   }
 
   /**
@@ -35,9 +38,9 @@ export class Signature extends Resource {
    */
   public isSame(otherSignature: Signature, skipSignatory?: boolean): boolean {
     return (
-      this.pngURL === otherSignature.pngURL &&
-      this.jpegURL === otherSignature.jpegURL &&
+      otherSignature &&
       this.timestamp === otherSignature.timestamp &&
+      this.pngURL === otherSignature.pngURL &&
       (skipSignatory || this.signatory === otherSignature.signatory)
     );
   }
