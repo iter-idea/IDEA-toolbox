@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AppointmentLinkedObject | idea-toolbox</title>
+	<title>TimeInterval | idea-toolbox</title>
 	<meta name="description" content="Documentation for idea-toolbox">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2721,34 +2721,43 @@ img {
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class="current tsd-kind-class">
-			<a href="appointmentlinkedobject.html" class="tsd-kind-icon">Appointment<wbr>Linked<wbr>Object</a>
+			<a href="timeinterval.html" class="tsd-kind-icon">Time<wbr>Interval</a>
 			<ul>
 				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-					<a href="appointmentlinkedobject.html#constructor" class="tsd-kind-icon">constructor</a>
+					<a href="timeinterval.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="appointmentlinkedobject.html#id" class="tsd-kind-icon">id</a>
+					<a href="timeinterval.html#from" class="tsd-kind-icon">from</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="appointmentlinkedobject.html#type" class="tsd-kind-icon">type</a>
+					<a href="timeinterval.html#to" class="tsd-kind-icon">to</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a href="appointmentlinkedobject.html#clean" class="tsd-kind-icon">clean</a>
+					<a href="timeinterval.html#clean" class="tsd-kind-icon">clean</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a href="appointmentlinkedobject.html#cleanarray" class="tsd-kind-icon">clean<wbr>Array</a>
+					<a href="timeinterval.html#cleanarray" class="tsd-kind-icon">clean<wbr>Array</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="timeinterval.html#getduration" class="tsd-kind-icon">get<wbr>Duration</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a href="appointmentlinkedobject.html#ie" class="tsd-kind-icon">iE</a>
+					<a href="timeinterval.html#ie" class="tsd-kind-icon">iE</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="timeinterval.html#isset" class="tsd-kind-icon">is<wbr>Set</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-					<a href="appointmentlinkedobject.html#load" class="tsd-kind-icon">load</a>
+					<a href="timeinterval.html#load" class="tsd-kind-icon">load</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="timeinterval.html#reset" class="tsd-kind-icon">reset</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a href="appointmentlinkedobject.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a>
+					<a href="timeinterval.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-					<a href="appointmentlinkedobject.html#validate" class="tsd-kind-icon">validate</a>
+					<a href="timeinterval.html#validate" class="tsd-kind-icon">validate</a>
 				</li>
 			</ul>
 		</li>
@@ -2759,7 +2768,8 @@ img {
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>A generic structure to reference to a linked object.</p>
+					<p>An interval between two moments of the same day.
+					Note well: the timestamps should be stored and displayed considering UTC time (i.e. without any timezone).</p>
 				</div>
 			</div>
 		</section>
@@ -2770,7 +2780,7 @@ img {
 					<a href="resource.html" class="tsd-signature-type">Resource</a>
 					<ul class="tsd-hierarchy">
 						<li>
-							<span class="target">AppointmentLinkedObject</span>
+							<span class="target">TimeInterval</span>
 						</li>
 					</ul>
 				</li>
@@ -2783,25 +2793,28 @@ img {
 					<section class="tsd-index-section tsd-is-inherited">
 						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="appointmentlinkedobject.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="timeinterval.html#constructor" class="tsd-kind-icon">constructor</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointmentlinkedobject.html#id" class="tsd-kind-icon">id</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointmentlinkedobject.html#type" class="tsd-kind-icon">type</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="timeinterval.html#from" class="tsd-kind-icon">from</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="timeinterval.html#to" class="tsd-kind-icon">to</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="appointmentlinkedobject.html#clean" class="tsd-kind-icon">clean</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="appointmentlinkedobject.html#cleanarray" class="tsd-kind-icon">clean<wbr>Array</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="appointmentlinkedobject.html#ie" class="tsd-kind-icon">iE</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="appointmentlinkedobject.html#load" class="tsd-kind-icon">load</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="appointmentlinkedobject.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="appointmentlinkedobject.html#validate" class="tsd-kind-icon">validate</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="timeinterval.html#clean" class="tsd-kind-icon">clean</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="timeinterval.html#cleanarray" class="tsd-kind-icon">clean<wbr>Array</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="timeinterval.html#getduration" class="tsd-kind-icon">get<wbr>Duration</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="timeinterval.html#ie" class="tsd-kind-icon">iE</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="timeinterval.html#isset" class="tsd-kind-icon">is<wbr>Set</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="timeinterval.html#load" class="tsd-kind-icon">load</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="timeinterval.html#reset" class="tsd-kind-icon">reset</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="timeinterval.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="timeinterval.html#validate" class="tsd-kind-icon">validate</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2813,7 +2826,7 @@ img {
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Appointment<wbr>Linked<wbr>Object<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="appointmentlinkedobject.html" class="tsd-signature-type">AppointmentLinkedObject</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Time<wbr>Interval<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="timeinterval.html" class="tsd-signature-type">TimeInterval</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -2853,7 +2866,7 @@ img {
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="appointmentlinkedobject.html" class="tsd-signature-type">AppointmentLinkedObject</a></h4>
+						<h4 class="tsd-returns-title">Returns <a href="timeinterval.html" class="tsd-signature-type">TimeInterval</a></h4>
 					</li>
 				</ul>
 			</section>
@@ -2861,32 +2874,32 @@ img {
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="id" class="tsd-anchor"></a>
-				<h3>id</h3>
-				<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<a name="from" class="tsd-anchor"></a>
+				<h3>from</h3>
+				<div class="tsd-signature tsd-kind-icon">from<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1ec9ed2/src/appointment.model.ts#L189">appointment.model.ts:189</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1ec9ed2/src/timeInterval.model.ts#L11">timeInterval.model.ts:11</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>The id of the referenced object.</p>
+						<p>The moment in the day (UTC), when the interval starts; in ms.</p>
 					</div>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="type" class="tsd-anchor"></a>
-				<h3>type</h3>
-				<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="../enums/appointmentlinkedobjecttypes.html" class="tsd-signature-type">AppointmentLinkedObjectTypes</a></div>
+				<a name="to" class="tsd-anchor"></a>
+				<h3>to</h3>
+				<div class="tsd-signature tsd-kind-icon">to<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1ec9ed2/src/appointment.model.ts#L185">appointment.model.ts:185</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1ec9ed2/src/timeInterval.model.ts#L15">timeInterval.model.ts:15</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>The type of the referenced object.</p>
+						<p>The moment in the day (UTC), when the interval ends; in ms.</p>
 					</div>
 				</div>
 			</section>
@@ -3019,6 +3032,28 @@ img {
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="getduration" class="tsd-anchor"></a>
+				<h3>get<wbr>Duration</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Duration<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1ec9ed2/src/timeInterval.model.ts#L36">timeInterval.model.ts:36</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Get the duration of the interval (ms).</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 				<a name="ie" class="tsd-anchor"></a>
 				<h3>iE</h3>
@@ -3051,6 +3086,28 @@ img {
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="isset" class="tsd-anchor"></a>
+				<h3>is<wbr>Set</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">is<wbr>Set<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1ec9ed2/src/timeInterval.model.ts#L43">timeInterval.model.ts:43</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Whether the interval is set.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 				<a name="load" class="tsd-anchor"></a>
 				<h3>load</h3>
@@ -3062,7 +3119,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#load">load</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1ec9ed2/src/appointment.model.ts#L191">appointment.model.ts:191</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1ec9ed2/src/timeInterval.model.ts#L17">timeInterval.model.ts:17</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3071,6 +3128,28 @@ img {
 								<h5>x: <span class="tsd-signature-type">any</span></h5>
 							</li>
 						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="reset" class="tsd-anchor"></a>
+				<h3>reset</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">reset<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1ec9ed2/src/timeInterval.model.ts#L50">timeInterval.model.ts:50</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Reset the interval.</p>
+							</div>
+						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 					</li>
 				</ul>
@@ -3139,7 +3218,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#validate">validate</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1ec9ed2/src/appointment.model.ts#L197">appointment.model.ts:197</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1ec9ed2/src/timeInterval.model.ts#L23">timeInterval.model.ts:23</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
