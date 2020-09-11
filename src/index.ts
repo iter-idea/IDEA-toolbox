@@ -46,5 +46,6 @@ export * from './signedURL.model';
 export * from './suggestion.model';
 export * from './team.model';
 export * from './teamModules.model';
+export * from './timeInterval.model';
 export * from './user.model';
 export * from './utils';
