@@ -22,6 +22,13 @@ export class User extends Resource {
    */
   public createdAt: epochDateTime;
 
+  // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22
+  //  --> when all the projects are advanced to that version, you can remove this attribute
+  /**
+   * @deprecated
+   */
+  public currentTeamId: any;
+
   public load(x: any) {
     super.load(x);
     this.userId = this.clean(x.userId, String);
@@ -31,6 +38,10 @@ export class User extends Resource {
       if (x.currentTeamInProjects[project])
         this.currentTeamInProjects[project] = String(x.currentTeamInProjects[project]);
     this.createdAt = this.clean(x.createdAt, d => new Date(d).getTime(), Date.now());
+
+    // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22
+    //  --> when all the projects are advanced to that version, you can remove this attribute
+    this.currentTeamId = {};
   }
 
   public safeLoad(newData: any, safeData: any) {
@@ -39,6 +50,10 @@ export class User extends Resource {
     this.userId = safeData.userId;
     this.currentTeamInProjects = safeData.currentTeamInProjects;
     this.createdAt = safeData.createdAt;
+
+    // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22
+    //  --> when all the projects are advanced to that version, you can remove this attribute
+    this.currentTeamId = {};
   }
 
   /**
