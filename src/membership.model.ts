@@ -1,6 +1,10 @@
 import { Resource } from './resource.model';
 
 /**
+ * This class serve two purposes:
+ *  1. To represent the resource IDEA Membership, which is stored in the table below.
+ *  2. To give a generic representation to the concept of Membership in IDEA's project.
+ *
  * Table: `idea_teams_users`.
  *
  * Indexes:
@@ -17,6 +21,7 @@ export class Membership extends Resource {
   public userId: string;
   /**
    * The name of the user in the team.
+   * In generic scenarios, it's usually the user's email address.
    */
   public name: string;
   /**
@@ -56,6 +61,7 @@ export class MembershipSummary extends Resource {
   public userId: string;
   /**
    * The name of the member of the team.
+   * In generic scenarios, it's usually the user's email address.
    */
   public name: string;
 
