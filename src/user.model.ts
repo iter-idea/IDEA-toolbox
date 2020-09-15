@@ -27,7 +27,7 @@ export class User extends Resource {
   /**
    * @deprecated
    */
-  public currentTeamId: any;
+  public currentTeam: any;
 
   public load(x: any) {
     super.load(x);
@@ -41,7 +41,7 @@ export class User extends Resource {
 
     // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22
     //  --> when all the projects are advanced to that version, you can remove this attribute
-    this.currentTeamId = {};
+    this.currentTeam = {};
   }
 
   public safeLoad(newData: any, safeData: any) {
@@ -53,7 +53,7 @@ export class User extends Resource {
 
     // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22
     //  --> when all the projects are advanced to that version, you can remove this attribute
-    this.currentTeamId = {};
+    this.currentTeam = {};
   }
 
   /**
