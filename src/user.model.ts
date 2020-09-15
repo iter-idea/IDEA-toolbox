@@ -27,7 +27,7 @@ export class User extends Resource {
     this.userId = this.clean(x.userId, String);
     this.email = this.clean(x.email, String);
     this.currentTeamInProjects = {};
-    for (const project of x.currentTeamInProjects)
+    for (const project of Object.keys(x.currentTeamInProjects || {}))
       if (x.currentTeamInProjects[project])
         this.currentTeamInProjects[project] = String(x.currentTeamInProjects[project]);
     this.createdAt = this.clean(x.createdAt, d => new Date(d).getTime(), Date.now());
