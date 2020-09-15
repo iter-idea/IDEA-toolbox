@@ -14,44 +14,46 @@ export class Team extends Resource {
    */
   public name: string;
   /**
-   * The id of the owner.
-   */
-  public ownerId: string;
-  /**
    * Timestamp of creation.
    */
   public createdAt: epochDateTime;
   /**
-   * If true, the team has been activated by the admins for the project selected; not stored, calculated at runtime.
+   * The list of admins (userIds) of the team.
    */
-  public isActivatedOnProject: boolean;
+  public admins: Array<string>;
   /**
-   * Whether the requesting user is admin of the team or not.
+   * The list of projects (codes) in which the team is currently active.
    */
-  public isRequestingUserAdmin: boolean;
+  public activeInProjects: Array<string>;
 
   public load(x: any) {
     super.load(x);
     this.teamId = this.clean(x.teamId, String);
     this.name = this.clean(x.name, String);
-    this.ownerId = this.clean(x.ownerId, String);
     this.createdAt = this.clean(x.createdAt, d => new Date(d).getTime(), Date.now());
-    this.isActivatedOnProject = this.clean(x.isActivatedOnProject, Boolean);
-    this.isRequestingUserAdmin = this.clean(x.isRequestingUserAdmin, Boolean);
+    this.admins = this.cleanArray(x.admins, String);
+    this.activeInProjects = this.cleanArray(x.activeInProjects, String);
   }
 
   public safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.teamId = safeData.teamId;
-    this.ownerId = safeData.ownerId;
     this.createdAt = safeData.createdAt;
-    delete this.isActivatedOnProject; // not stored, calculated at runtime
-    delete this.isRequestingUserAdmin; // not stored, calculated at runtime
+    this.admins = safeData.admins;
+    this.activeInProjects = safeData.activeInProjects;
   }
 
   public validate(): Array<string> {
     const e = super.validate();
     if (this.iE(this.name)) e.push(`name`);
     return e;
+  }
+
+  /**
+   * Whether the chosen user is an admin of the team.
+   */
+  public isUserAdmin(userOrId: any | string): boolean {
+    const id = typeof userOrId === 'string' ? userOrId : (userOrId || {}).userId;
+    return this.admins.some(a => a === id);
   }
 }

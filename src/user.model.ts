@@ -14,9 +14,9 @@ export class User extends Resource {
    */
   public email: string;
   /**
-   * The currently selected team.
+   * The currently selected team in each project.
    */
-  public currentTeamId: string;
+  protected currentTeamInProjects: { [project: string]: string };
   /**
    * Timestamp of creation.
    */
@@ -26,7 +26,10 @@ export class User extends Resource {
     super.load(x);
     this.userId = this.clean(x.userId, String);
     this.email = this.clean(x.email, String);
-    this.currentTeamId = this.clean(x.currentTeamId, String);
+    this.currentTeamInProjects = {};
+    for (const project of x.currentTeamInProjects)
+      if (x.currentTeamInProjects[project])
+        this.currentTeamInProjects[project] = String(x.currentTeamInProjects[project]);
     this.createdAt = this.clean(x.createdAt, d => new Date(d).getTime(), Date.now());
   }
 
@@ -34,7 +37,21 @@ export class User extends Resource {
     super.safeLoad(newData, safeData);
     delete this.email; // stored only in Cognito
     this.userId = safeData.userId;
-    this.currentTeamId = safeData.currentTeamId;
+    this.currentTeamInProjects = safeData.currentTeamInProjects;
     this.createdAt = safeData.createdAt;
+  }
+
+  /**
+   * Get the current team for the user in the selected project.
+   */
+  public getCurrentTeamOfProject(project: string): string {
+    return this.currentTeamInProjects[project] || null;
+  }
+  /**
+   * Set (or reset) the current team for the user in the selected project.
+   */
+  public setCurrentTeamOfProject(project: string, teamId?: string) {
+    if (teamId) this.currentTeamInProjects[project] = String(teamId);
+    else delete this.currentTeamInProjects[project];
   }
 }
