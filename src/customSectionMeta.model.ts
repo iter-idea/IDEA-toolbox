@@ -54,7 +54,11 @@ export class CustomSectionMeta extends Resource {
     this.fields = {};
     this.fieldsLegend.forEach(f => (this.fields[f] = new CustomFieldMeta(x.fields[f], languages)));
     if (x.displayTemplate)
-      this.displayTemplate = (x.displayTemplate || []).map((z: Array<string>) => this.cleanArray(z, String));
+      this.displayTemplate = (x.displayTemplate || []).map((z: Array<string>) =>
+        this.cleanArray(z, String)
+          // filter out of the displayTemplate the fields which aren't in the fieldsLegend
+          .filter(dpf => this.fieldsLegend.some(f => f === dpf))
+      );
   }
 
   public validate(languages: Languages): Array<string> {
