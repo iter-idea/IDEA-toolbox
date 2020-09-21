@@ -168,6 +168,9 @@ export class CustomFieldMeta extends Resource {
         case CustomFieldTypes.NUMBER:
           if ((!field && field !== 0) || isNaN(field)) return false;
           break;
+        case CustomFieldTypes.BOOLEAN:
+          if (!field) return false;
+          break;
       }
     // interval check
     if (this.type === CustomFieldTypes.NUMBER) {
