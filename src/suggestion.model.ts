@@ -13,6 +13,10 @@ export class Suggestion extends Resource {
    */
   public name: string;
   /**
+   * A description with additional information on the suggestion.
+   */
+  public description: string;
+  /**
    * An optional first category.
    */
   public category1: any;
@@ -25,6 +29,7 @@ export class Suggestion extends Resource {
     super.load(x);
     this.value = x.value;
     this.name = this.clean(x.name, String);
+    this.description = this.clean(x.description, String);
     this.category1 = this.clean(x.category1, String);
     this.category2 = this.clean(x.category2, String);
   }
@@ -35,6 +40,7 @@ export class Suggestion extends Resource {
   public clear() {
     this.value = null;
     this.name = null;
+    this.description = null;
     this.category1 = null;
     this.category2 = null;
   }
