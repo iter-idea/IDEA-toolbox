@@ -116,6 +116,8 @@ export abstract class Resource {
    * @return cleaned array
    */
   public cleanArray(origin: Array<any>, castFunction: (x: any) => any, defaultVal?: any): Array<any> {
-    return (origin || []).map(x => (x ? castFunction(x) : defaultVal !== undefined ? defaultVal : null)).filter(x => x);
+    return (origin || [])
+      .map(x => (x || x === 0 ? castFunction(x) : defaultVal !== undefined ? defaultVal : null))
+      .filter(x => x);
   }
 }
