@@ -7,6 +7,7 @@ import { MembershipSummary } from './membership.model';
  * Table: `idea_projects_subscriptions`.
  *
  * Indexes:
+ * @todo in fhe future exclude `storeReceipt` from the indexes where not used (heavy string).
  *    - `project-validUntil-index` (LSI - all).
  *    - `project-planId-index` (LSI - all).
  *    - `project-storeReferenceId-index` (LSI - all).
@@ -48,6 +49,10 @@ export class ProjectSubscription extends Resource {
    */
   public storeReferenceId: string;
   /**
+   * The original receipt of the subscription, to later on check with the store if a subscription is still active.
+   */
+  public storeReceipt: string;
+  /**
    * The user who manages the subscription.
    */
   public managedByUser: MembershipSummary;
@@ -61,13 +66,7 @@ export class ProjectSubscription extends Resource {
     this.autoRenewing = this.clean(x.autoRenewing, Boolean);
     this.platform = this.clean(x.platform, String);
     this.storeReferenceId = this.clean(x.storeReferenceId, String);
+    this.storeReceipt = this.clean(x.storeReceipt, String);
     this.managedByUser = new MembershipSummary(x.managedByUser);
-  }
-
-  public safeLoad(newData: any, safeData: any) {
-    super.safeLoad(newData, safeData);
-    this.project = safeData.project;
-    this.subscriptionId = safeData.subscriptionId;
-    this.managedByUser = safeData.managedByUser;
   }
 }
