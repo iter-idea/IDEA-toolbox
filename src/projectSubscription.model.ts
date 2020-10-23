@@ -41,6 +41,10 @@ export class ProjectSubscription extends Resource {
    */
   public platform: ProjectPlatforms;
   /**
+   * The id of the plan in the store.
+   */
+  public storePlanId: string;
+  /**
    * The store reference id for the subscription.
    * It's an ID coming from the stores, used to double check that a purchase is actually linked to the subscriptionId.
    * Stripe: `id`.
@@ -65,6 +69,7 @@ export class ProjectSubscription extends Resource {
     this.validUntil = this.clean(x.validUntil, a => new Date(a).getTime());
     this.autoRenewing = this.clean(x.autoRenewing, Boolean);
     this.platform = this.clean(x.platform, String);
+    this.storePlanId = this.clean(x.storePlanId, String);
     this.storeReferenceId = this.clean(x.storeReferenceId, String);
     this.storeReceipt = this.clean(x.storeReceipt, String);
     this.managedByUser = new MembershipSummary(x.managedByUser);
