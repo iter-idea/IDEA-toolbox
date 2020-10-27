@@ -52,6 +52,10 @@ export class Calendar extends Resource {
    * The default access for the users (not included in the list) is read-only.
    */
   public usersCanManageAppointments?: Array<string>;
+  /**
+   * In case of shared calendar, the id of the user who created it.
+   */
+  public createdByUserId?: string;
 
   public load(x: any) {
     super.load(x);
@@ -66,6 +70,7 @@ export class Calendar extends Resource {
     this.timezone = this.clean(x.timezone || Moment.tz.guess(), String);
     if (x.external) this.external = new ExternalCalendarInfo(x.external);
     if (x.teamId) this.usersCanManageAppointments = this.cleanArray(x.usersCanManageAppointments, String);
+    if (x.teamId) this.createdByUserId = this.clean(x.createdByUserId, String);
   }
 
   public safeLoad(newData: any, safeData: any) {
@@ -74,6 +79,7 @@ export class Calendar extends Resource {
     if (safeData.teamId) this.teamId = safeData.teamId;
     else if (safeData.userId) this.userId = safeData.userId;
     if (safeData.external) this.external = safeData.external;
+    if (safeData.teamId && safeData.createdByUserId) this.createdByUserId = safeData.createdByUserId;
   }
 
   public validate(): Array<string> {
