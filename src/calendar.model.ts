@@ -49,7 +49,7 @@ export class Calendar extends Resource {
   public external?: ExternalCalendarInfo;
   /**
    * In case of shared calendar, the IDs of the users that can manage the calendar's appointments.
-   * The default access for the users (not included in the list) is read-only.
+   * If `null`, everyone can manage the calendar's appointments; if empty (`[]`), no one can (read-only).
    */
   public usersCanManageAppointments?: Array<string>;
   /**
@@ -69,7 +69,8 @@ export class Calendar extends Resource {
     this.color = this.clean(x.color, String);
     this.timezone = this.clean(x.timezone || Moment.tz.guess(), String);
     if (x.external) this.external = new ExternalCalendarInfo(x.external);
-    if (x.teamId) this.usersCanManageAppointments = this.cleanArray(x.usersCanManageAppointments, String);
+    if (x.teamId && x.usersCanManageAppointments)
+      this.usersCanManageAppointments = this.cleanArray(x.usersCanManageAppointments, String);
     if (x.teamId) this.createdByUserId = this.clean(x.createdByUserId, String);
   }
 
@@ -94,8 +95,9 @@ export class Calendar extends Resource {
   public canUserManageAppointments(userId: string): boolean {
     // if the calendar is linked to external services, the user must have writing access
     if (this.external && this.external.userAccess < ExternalCalendarPermissions.WRITER) return false;
-    // in case of shared calendar, the user must be in the list of the allowed ones
-    else if (this.teamId && !this.usersCanManageAppointments.some(x => x === userId)) return false;
+    // in case of shared calendar, and the allowance list is set, the user must be in the list of the allowed ones
+    else if (this.teamId && this.usersCanManageAppointments && !this.usersCanManageAppointments.some(x => x === userId))
+      return false;
     // if no other condition denies it, the user is allowed
     else return true;
   }
