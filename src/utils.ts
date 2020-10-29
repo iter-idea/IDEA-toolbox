@@ -127,9 +127,11 @@ export function isEmpty(field: any, type?: string): boolean {
  * @param important optional; if true, highlight the line in CloudWatch
  */
 export function logger(context: string, err?: Error, content?: any, important?: boolean) {
-  if (err) console.error('[ERROR]', '≫', err, content || '');
-  else if (important) console.log(`[${context}]`, content || '');
-  else console.log('.....', context, content ? '≫ '.concat(content) : ''); // to give less importance to debug info
+  const someContent = content !== undefined && content !== null;
+  if (err) console.error('[ERROR]', '≫', err, someContent ? content : '');
+  else if (important) console.log(`[${context}]`, someContent ? content : '');
+  // to give less importance to debug info
+  else console.log('.....', context, someContent ? '≫ '.concat(content) : '');
 }
 
 /**
