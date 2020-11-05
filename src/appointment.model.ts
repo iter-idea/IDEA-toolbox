@@ -22,10 +22,11 @@ export class Appointment extends Resource {
    */
   public calendarId: string;
   /**
-   * A unique id for the appointment, shared across different calendars;
-   * i.e. each appointment in different calendars may have different `appointmentId` but same `appointmentUniqueId`.
+   * A unique id for the appointment, shared across different calendars and calendaring systems (standard RFC5545);
+   * i.e. each appointment in different calendars may have different `appointmentId`, but it always have same `iCalUID`.
+   * Note: in many calendaring systems recurring events share the same `iCalUID`.
    */
-  public appointmentUniqueId: string;
+  public iCalUID: string;
   /**
    * Master appointment id (optional): the id of the master appointment, in case this is an occurence.
    */
@@ -76,7 +77,7 @@ export class Appointment extends Resource {
     super.load(x);
     this.appointmentId = this.clean(x.appointmentId, String);
     this.calendarId = this.clean(x.calendarId, String);
-    this.appointmentUniqueId = this.clean(x.appointmentUniqueId, String);
+    this.iCalUID = this.clean(x.iCalUID, String);
     if (x.masterAppointmentId) this.masterAppointmentId = this.clean(x.masterAppointmentId, String);
     this.title = this.clean(x.title, String);
     if (this.title) this.title = this.title.slice(0, 100);
@@ -107,7 +108,7 @@ export class Appointment extends Resource {
     super.safeLoad(newData, safeData);
     this.appointmentId = safeData.appointmentId;
     this.calendarId = safeData.calendarId;
-    this.appointmentUniqueId = safeData.appointmentUniqueId;
+    this.iCalUID = safeData.iCalUID;
     if (safeData.masterAppointmentId) this.masterAppointmentId = safeData.masterAppointmentId;
     if (safeData.linkedTo) this.linkedTo = safeData.linkedTo;
   }
@@ -163,11 +164,6 @@ export class AppointmentKeys extends Resource {
    */
   public calendarId: string;
   /**
-   * A unique id for the appointment, shared across different calendars;
-   * i.e. each appointment in different calendars may have different `appointmentId` but same `appointmentUniqueId`.
-   */
-  public appointmentUniqueId: string;
-  /**
    * The id of the team, in case it's a shared calendar.
    */
   public teamId?: string;
@@ -176,14 +172,12 @@ export class AppointmentKeys extends Resource {
     super.load(x);
     this.appointmentId = this.clean(x.appointmentId, String);
     this.calendarId = this.clean(x.calendarId, String);
-    this.appointmentUniqueId = this.clean(x.appointmentUniqueId, String);
     if (x.teamId) this.teamId = this.clean(x.teamId, String);
   }
 
   public validate(): Array<string> {
     const e = super.validate();
     if (this.iE(this.appointmentId)) e.push('appointmentId');
-    if (this.iE(this.appointmentUniqueId)) e.push('appointmentUniqueId');
     if (this.iE(this.calendarId)) e.push('calendarId');
     return e;
   }
