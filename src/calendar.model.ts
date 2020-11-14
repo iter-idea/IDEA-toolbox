@@ -112,7 +112,7 @@ export class Calendar extends Resource {
    * The id to use to represent the calendar, based on the fact the calendar is linked to external sources or not.
    */
   public getCalendarIdForAppointments(): string {
-    return this.external ? this.external.calendarId : this.calendarId;
+    return this.external ? this.external.service.concat('_', this.external.calendarId) : this.calendarId;
   }
 }
 
