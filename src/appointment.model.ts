@@ -4,21 +4,24 @@ import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
 
 /**
- * Represents an appointment (event) in a calendar.
+ * Represents an appointment (event) of a calendar.
  *
  * Table: `idea_appointments`.
  *
  * Indexes:
- *  - calendarId-startTime-index (all)
- *  - calendarId-masterAppointmentId-index (include: appointmentId): to manage occurences
+ *  - calendarId-startTime-index (LSI, all)
+ *  - calendarId-masterAppointmentId-index (LSI, keys); to manage occurences
  */
 export class Appointment extends Resource {
   /**
-   * The id (IUID/external ID) of the appointment.
+   * The id of the appointment.
+   * In case of external calendar, it's the external id; otherwise (local calendars), it's a IUID.
    */
   public appointmentId: string;
   /**
-   * The id of the calendar currently containing the appointment (it could change).
+   * The id of the calendar owning the appointment.
+   * For external calendars, it's the direct id of the external calendar (and not the id of `idea_calendars`),
+   * to avoid repetitions of appointments for each copy of the external calendar linked to an IDEA calendar.
    */
   public calendarId: string;
   /**
@@ -32,15 +35,15 @@ export class Appointment extends Resource {
    */
   public masterAppointmentId?: string;
   /**
-   * The title of the appointment. Max 100 characters.
+   * The title of the appointment.
    */
   public title: string;
   /**
-   * The location of the appointment. Max 150 characters.
+   * The location of the appointment.
    */
   public location: string;
   /**
-   * The description of the appointment. Max 300 characters.
+   * The description of the appointment.
    */
   public description: string;
   /**
@@ -80,11 +83,8 @@ export class Appointment extends Resource {
     this.iCalUID = this.clean(x.iCalUID, String);
     if (x.masterAppointmentId) this.masterAppointmentId = this.clean(x.masterAppointmentId, String);
     this.title = this.clean(x.title, String);
-    if (this.title) this.title = this.title.slice(0, 100);
     this.location = this.clean(x.location, String);
-    if (this.location) this.location = this.location.slice(0, 150);
     this.description = this.clean(x.description, String);
-    if (this.description) this.description = this.description.slice(0, 300);
     this.startTime = this.clean(x.startTime, d => new Date(d).getTime());
     this.endTime = this.clean(x.endTime, d => new Date(d).getTime());
     this.allDay = this.clean(x.allDay, Boolean);
@@ -95,7 +95,7 @@ export class Appointment extends Resource {
     this.attendees = this.cleanArray(x.attendees, a => new AppointmentAttendee(a));
   }
   /**
-   * Set a default start/end day for all-day events.
+   * Set a default start/end day for all-day events, to be compatible with external services.
    */
   public fixAllDayTime() {
     if (this.allDay) {
@@ -115,7 +115,6 @@ export class Appointment extends Resource {
 
   public validate(): Array<string> {
     const e = super.validate();
-    if (this.iE(this.calendarId)) e.push('calendarId');
     if (this.iE(this.title)) e.push('title');
     if (this.iE(this.startTime)) e.push('startTime');
     if (this.iE(this.endTime)) e.push('endTime');
@@ -156,11 +155,14 @@ export class Appointment extends Resource {
  */
 export class AppointmentKeys extends Resource {
   /**
-   * The id (IUID/external ID) of the appointment.
+   * The id of the appointment.
+   * In case of external calendar, it's the external id; otherwise (local calendars), it's a IUID.
    */
   public appointmentId: string;
   /**
-   * The id of the calendar currently containing the appointment (it could change).
+   * The id of the calendar owning the appointment.
+   * For external calendars, it's the direct id of the external calendar (and not the id of `idea_calendars`),
+   * to avoid repetitions of appointments for each copy of the external calendar linked to an IDEA calendar.
    */
   public calendarId: string;
   /**

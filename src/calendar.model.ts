@@ -10,8 +10,8 @@ import Moment = require('moment-timezone');
  * Table: `idea_calendars`.
  *
  * Indexes:
- *  - userId-name-index (all)
- *  - teamId-name-index (all)
+ *  - userId-name-index (GSI, all)
+ *  - teamId-name-index (GSI, all)
  */
 export class Calendar extends Resource {
   /**
@@ -106,6 +106,13 @@ export class Calendar extends Resource {
    */
   public isShared(): boolean {
     return Boolean(this.teamId);
+  }
+
+  /**
+   * The id to use to represent the calendar, based on the fact the calendar is linked to external sources or not.
+   */
+  public getCalendarIdForAppointments(): string {
+    return this.external ? this.external.calendarId : this.calendarId;
   }
 }
 
