@@ -26,6 +26,7 @@ export * from './errorReport.model';
 export * from './invitation.model';
 export * from './ionicons.enum';
 export * from './label.model';
+export * from './labelVariable.model';
 export * from './languages.model';
 export * from './languages.enum';
 export * from './limitCounter.model';
