@@ -33,6 +33,7 @@ export * from './limitCounter.model';
 export * from './markdown';
 export * from './membership.model';
 export * from './notification.model';
+export * from './pdfTemplate.model';
 export * from './projectPlan.model';
 export * from './projectSubscription.model';
 export * from './pushNotificationsDevice.model';
