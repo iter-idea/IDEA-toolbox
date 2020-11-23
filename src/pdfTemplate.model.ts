@@ -109,7 +109,7 @@ export class PDFTemplateSection extends Resource {
     if (this.isEither(ST.INNER_SECTION, ST.REPEATED_INNER_SECTION)) {
       if (!this.context) e.push('context');
       this.innerTemplate.forEach((s, i) => {
-        if (s.validate(languages, variables).length) e.push(`innerTemplate[${i}]`);
+        if (s.validate(languages).length) e.push(`innerTemplate[${i}]`);
       });
     }
     return e;
