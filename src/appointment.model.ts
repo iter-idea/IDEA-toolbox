@@ -2,6 +2,7 @@ import Moment = require('moment-timezone');
 
 import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
+import { Calendar, ExternalCalendarSources } from './calendar.model';
 
 /**
  * Represents an appointment (event) of a calendar.
@@ -11,6 +12,9 @@ import { epochDateTime } from './epoch';
  * Indexes:
  *  - calendarId-startTime-index (LSI, all)
  *  - calendarId-masterAppointmentId-index (LSI, keys); to manage occurences
+ *  - internalNotificationFiresOn-internalNotificationFiresAt-index (GSI); includes:
+ *        internalNotificationProject, internalNotificationTeamId, internalNotificationUserId,
+ *        notifications, title, startTime, endTime
  */
 export class Appointment extends Resource {
   /**
@@ -75,9 +79,58 @@ export class Appointment extends Resource {
    * It's an empty array in case the appointment is "private", i.e. the creator is the only attendee.
    */
   public attendees: Array<AppointmentAttendee>;
+  /**
+   * The appointment notifications and the specs for their execution.
+   * These may come from external calendars: in that case no internal notifications will fire.
+   * Note on notifications from external services.
+   *     - Microsoft: up to 1 notification, max 1 week before;
+   *     - Google: up to 5 notifications; max 4 weeks before;
+   *     - Multiple notifications at the same time are not allowed.
+   */
+  public notifications: Array<AppointmentNotification>;
+  /**
+   * Used to send notifications of internal appointments.
+   * In case of appointments on external calendars these will not be valued.
+   */
+  /**
+   * Date and hour in which the reminder is slotted (`YYYYMMDDHH`). Avoid timezones: UTC!!
+   * Used to quickly identify the reminders to manage in a particular time frame.
+   */
+  public internalNotificationFiresOn?: string;
+  /**
+   * Fine grain time of alert, expressed in minutes.
+   */
+  public internalNotificationFiresAt?: number;
+  /**
+   * Project from which the notification comes; useful to get the notification preferences.
+   */
+  public internalNotificationProject?: string;
+  /**
+   * Team of the user that need to be notified; useful to get the notification preferences.
+   */
+  public internalNotificationTeamId?: string;
+  /**
+   * User that need to be notified; useful to get the notification preferences.
+   */
+  public internalNotificationUserId?: string;
 
-  public load(x: any) {
-    super.load(x);
+  /**
+   * Update the appointment according to when a notification need to be  can view.
+   * Use static to run the method without instantiating the object.
+   */
+  public static calculateFiringTime(appointment: Appointment) {
+    // find the first notification to fire (max number of minutes to substract from the start time)
+    const maxNumMinutes = Math.max.apply(
+      null,
+      appointment.notifications.map(n => n.minutes)
+    );
+    const at = Moment(appointment.startTime).subtract(maxNumMinutes, 'minutes');
+    appointment.internalNotificationFiresOn = at.format('YYYYMMDDHH');
+    appointment.internalNotificationFiresAt = at.minutes();
+  }
+
+  public load(x: any, calendar: Calendar) {
+    super.load(x, calendar);
     this.appointmentId = this.clean(x.appointmentId, String);
     this.calendarId = this.clean(x.calendarId, String);
     this.iCalUID = this.clean(x.iCalUID, String);
@@ -91,6 +144,15 @@ export class Appointment extends Resource {
     this.fixAllDayTime();
     this.timezone = this.clean(x.timezone || Moment.tz.guess(), String);
     if (x.linkToOrigin) this.linkToOrigin = this.clean(x.linkToOrigin, String);
+    this.notifications = this.cleanArray(x.notifications, n => new AppointmentNotification(n));
+    if (!calendar.external && this.notifications.length) {
+      // appointment comes from an internal calendar, notifications will fire
+      this.internalNotificationProject = this.clean(x.internalNotificationProject, String);
+      this.internalNotificationTeamId = this.clean(x.internalNotificationTeamId, String);
+      this.internalNotificationUserId = this.clean(x.internalNotificationUserId, String);
+      this.removeDuplicateNotifications();
+      this.calculateFiringTime();
+    }
     if (x.linkedTo) this.linkedTo = this.cleanArray(x.linkedTo, o => new AppointmentLinkedObject(o));
     this.attendees = this.cleanArray(x.attendees, a => new AppointmentAttendee(a));
   }
@@ -104,13 +166,24 @@ export class Appointment extends Resource {
     }
   }
 
-  public safeLoad(newData: any, safeData: any) {
-    super.safeLoad(newData, safeData);
+  public safeLoad(newData: any, safeData: any, calendar: Calendar) {
+    super.safeLoad(newData, safeData, calendar);
     this.appointmentId = safeData.appointmentId;
     this.calendarId = safeData.calendarId;
     this.iCalUID = safeData.iCalUID;
     if (safeData.masterAppointmentId) this.masterAppointmentId = safeData.masterAppointmentId;
     if (safeData.linkedTo) this.linkedTo = safeData.linkedTo;
+    if (!calendar.external)
+      if (this.notifications.length) {
+        this.removeDuplicateNotifications();
+        this.calculateFiringTime();
+      } else {
+        delete this.internalNotificationProject;
+        delete this.internalNotificationTeamId;
+        delete this.internalNotificationUserId;
+        delete this.internalNotificationFiresAt;
+        delete this.internalNotificationFiresOn;
+      }
   }
 
   public validate(): Array<string> {
@@ -120,6 +193,21 @@ export class Appointment extends Resource {
     if (this.iE(this.endTime)) e.push('endTime');
     if (this.iE(this.timezone)) e.push('timezone');
     return e;
+  }
+
+  /**
+   * Helper to remove duplicates notifications for the same appointment.
+   */
+  protected removeDuplicateNotifications() {
+    this.notifications = this.notifications.filter(
+      (n, index, self) => index === self.findIndex(t => t.method === n.method && t.minutes === n.minutes)
+    );
+  }
+  /**
+   * Set the helpers to set the alarm for internal appointments.
+   */
+  protected calculateFiringTime() {
+    Appointment.calculateFiringTime(this);
   }
 
   /**
@@ -258,4 +346,52 @@ export enum AppointmentAttendance {
   NEEDS_ACTION = 0,
   TENTATIVE,
   ACCEPTED
+}
+
+/**
+ * The info about the appointment notification.
+ */
+export class AppointmentNotification extends Resource {
+  /**
+   * The method of the notification; available only for Google Calendars.
+   */
+  public method: AppointmentNotificationMethods;
+  /**
+   * The number of minutes before the event start time that the reminder occurs.
+   */
+  public minutes: number;
+
+  public load(x: any) {
+    super.load(x);
+    this.method = this.clean(x.method, String);
+    this.minutes = this.clean(x.minutes, Number);
+  }
+
+  public validate(externalService: ExternalCalendarSources): Array<string> {
+    const e = super.validate();
+    if (!(this.method in AppointmentNotificationMethods)) e.push('method');
+    // Microsoft allows allow notifications up to a maximum of one week in advance
+    if (externalService === ExternalCalendarSources.MICROSOFT && this.minutes > 10080) e.push('time');
+    // Google and internal allow notifications up to a maximum of 4 weeks in advance
+    if ((!externalService || ExternalCalendarSources.GOOGLE) && this.minutes > 4 * 10080) e.push('time');
+    return e;
+  }
+}
+
+/**
+ * Possible notification methods (currently supported for Google Calendars and internal calendars).
+ */
+export enum AppointmentNotificationMethods {
+  PUSH = 'PUSH',
+  EMAIL = 'EMAIL'
+}
+
+/**
+ * Possible notification units of time.
+ */
+export enum AppointmentNotificationUnitsOfTime {
+  MINUTES = 'MINUTES',
+  HOURS = 'HOURS',
+  DAYS = 'DAYS',
+  WEEKS = 'WEEKS'
 }
