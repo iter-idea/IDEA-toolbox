@@ -25,6 +25,10 @@ export class Membership extends Resource {
    */
   public name: string;
   /**
+   * If set, a short representation of the name, through initials.
+   */
+  public initials?: string;
+  /**
    * If `false`, the user joined the team.
    */
   public pendingInvitation: boolean;
@@ -33,6 +37,7 @@ export class Membership extends Resource {
     super.load(x);
     this.teamId = this.clean(x.teamId, String);
     this.userId = this.clean(x.userId, String);
+    if (x.initials) this.initials = this.clean(x.initials, String);
     this.name = this.clean(x.name, String);
     this.pendingInvitation = this.clean(x.pendingInvitation, Boolean, true);
   }
@@ -64,11 +69,16 @@ export class MembershipSummary extends Resource {
    * In generic scenarios, it's usually the user's email address.
    */
   public name: string;
+  /**
+   * If set, a short representation of the name, through initials.
+   */
+  public initials?: string;
 
   public load(x: any) {
     super.load(x);
     this.userId = this.clean(x.userId, String);
     this.name = this.clean(x.name, String);
+    if (x.initials) this.initials = this.clean(x.initials, String);
   }
 
   public validate(): Array<string> {
