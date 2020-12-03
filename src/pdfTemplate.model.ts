@@ -99,7 +99,6 @@ export class PDFTemplateSection extends Resource {
             if (complexField.content.validate(languages).length) e.push(`columns[${i}]`);
           } else {
             const simpleField: PDFTemplateSimpleField = field as PDFTemplateSimpleField;
-            if (simpleField.label.validate(languages).length) e.push(`columns[${i}]`);
             if (variables && !(variables || []).some(v => v.code === simpleField.code)) e.push(`columns[${i}]`);
           }
         }
