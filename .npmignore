@@ -1,0 +1,6 @@
+# IDEA .npmignore template
+
+.vscode/
+docs/
+node_modules/
+*.sh
