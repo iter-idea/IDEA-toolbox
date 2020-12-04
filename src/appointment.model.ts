@@ -2,7 +2,6 @@ import Moment = require('moment-timezone');
 
 import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
-import { Calendar, ExternalCalendarSources } from './calendar.model';
 
 /**
  * Represents an appointment (event) of a calendar.
@@ -89,48 +88,34 @@ export class Appointment extends Resource {
    */
   public notifications: Array<AppointmentNotification>;
   /**
-   * Used to send notifications of internal appointments.
-   * In case of appointments on external calendars these will not be valued.
-   */
-  /**
    * Date and hour in which the reminder is slotted (`YYYYMMDDHH`). Avoid timezones: UTC!!
    * Used to quickly identify the reminders to manage in a particular time frame.
+   * In case of appointments on external calendars these will not be valued.
    */
   public internalNotificationFiresOn?: string;
   /**
    * Fine grain time of alert, expressed in minutes.
+   * In case of appointments on external calendars these will not be valued.
    */
   public internalNotificationFiresAt?: number;
   /**
    * Project from which the notification comes; useful to get the notification preferences.
+   * * In case of appointments on external calendars these will not be valued.
    */
   public internalNotificationProject?: string;
   /**
    * Team of the user that need to be notified; useful to get the notification preferences.
+   * In case of appointments on external calendars these will not be valued.
    */
   public internalNotificationTeamId?: string;
   /**
    * User that need to be notified; useful to get the notification preferences.
+   * In case of appointments on external calendars these will not be valued.
    */
   public internalNotificationUserId?: string;
 
-  /**
-   * Update the appointment according to when a notification need to be  can view.
-   * Use static to run the method without instantiating the object.
-   */
-  public static calculateFiringTime(appointment: Appointment) {
-    // find the first notification to fire (max number of minutes to substract from the start time)
-    const maxNumMinutes = Math.max.apply(
-      null,
-      appointment.notifications.map(n => n.minutes)
-    );
-    const at = Moment(appointment.startTime).subtract(maxNumMinutes, 'minutes');
-    appointment.internalNotificationFiresOn = at.format('YYYYMMDDHH');
-    appointment.internalNotificationFiresAt = at.minutes();
-  }
-
-  public load(x: any, calendar: Calendar) {
-    super.load(x, calendar);
+  public load(x: any) {
+    super.load(x);
     this.appointmentId = this.clean(x.appointmentId, String);
     this.calendarId = this.clean(x.calendarId, String);
     this.iCalUID = this.clean(x.iCalUID, String);
@@ -145,7 +130,7 @@ export class Appointment extends Resource {
     this.timezone = this.clean(x.timezone || Moment.tz.guess(), String);
     if (x.linkToOrigin) this.linkToOrigin = this.clean(x.linkToOrigin, String);
     this.notifications = this.cleanArray(x.notifications, n => new AppointmentNotification(n));
-    if (!calendar.external && this.notifications.length) {
+    if (!this.linkToOrigin && this.notifications.length) {
       // appointment comes from an internal calendar, notifications will fire
       this.internalNotificationProject = this.clean(x.internalNotificationProject, String);
       this.internalNotificationTeamId = this.clean(x.internalNotificationTeamId, String);
@@ -166,14 +151,14 @@ export class Appointment extends Resource {
     }
   }
 
-  public safeLoad(newData: any, safeData: any, calendar: Calendar) {
-    super.safeLoad(newData, safeData, calendar);
+  public safeLoad(newData: any, safeData: any) {
+    super.safeLoad(newData, safeData);
     this.appointmentId = safeData.appointmentId;
     this.calendarId = safeData.calendarId;
     this.iCalUID = safeData.iCalUID;
     if (safeData.masterAppointmentId) this.masterAppointmentId = safeData.masterAppointmentId;
     if (safeData.linkedTo) this.linkedTo = safeData.linkedTo;
-    if (!calendar.external)
+    if (!this.linkToOrigin)
       if (this.notifications.length) {
         this.removeDuplicateNotifications();
         this.calculateFiringTime();
@@ -204,10 +189,17 @@ export class Appointment extends Resource {
     );
   }
   /**
-   * Set the helpers to set the alarm for internal appointments.
+   * Calculate the firing time for internal appointments.
    */
-  protected calculateFiringTime() {
-    Appointment.calculateFiringTime(this);
+  public calculateFiringTime() {
+    // find the first notification to fire (max number of minutes to substract from the start time)
+    const maxNumMinutes = Math.max.apply(
+      null,
+      this.notifications.map(n => n.minutes)
+    );
+    const at = Moment(this.startTime).subtract(maxNumMinutes, 'minutes');
+    this.internalNotificationFiresOn = at.format('YYYYMMDDHH');
+    this.internalNotificationFiresAt = at.minutes();
   }
 
   /**
@@ -353,7 +345,7 @@ export enum AppointmentAttendance {
  */
 export class AppointmentNotification extends Resource {
   /**
-   * The method of the notification; available only for Google Calendars.
+   * The method of the notification.
    */
   public method: AppointmentNotificationMethods;
   /**
@@ -363,18 +355,8 @@ export class AppointmentNotification extends Resource {
 
   public load(x: any) {
     super.load(x);
-    this.method = this.clean(x.method, String);
-    this.minutes = this.clean(x.minutes, Number);
-  }
-
-  public validate(externalService: ExternalCalendarSources): Array<string> {
-    const e = super.validate();
-    if (!(this.method in AppointmentNotificationMethods)) e.push('method');
-    // Microsoft allows allow notifications up to a maximum of one week in advance
-    if (externalService === ExternalCalendarSources.MICROSOFT && this.minutes > 10080) e.push('time');
-    // Google and internal allow notifications up to a maximum of 4 weeks in advance
-    if ((!externalService || ExternalCalendarSources.GOOGLE) && this.minutes > 4 * 10080) e.push('time');
-    return e;
+    this.method = this.clean(x.method, String) as AppointmentNotificationMethods;
+    this.minutes = this.clean(x.minutes, Number, 0);
   }
 }
 
