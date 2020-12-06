@@ -100,7 +100,7 @@ export class Appointment extends Resource {
   public internalNotificationFiresAt?: number;
   /**
    * Project from which the notification comes; useful to get the notification preferences.
-   * * In case of appointments on external calendars these will not be valued.
+   * In case of appointments on external calendars these will not be valued.
    */
   public internalNotificationProject?: string;
   /**
@@ -160,6 +160,9 @@ export class Appointment extends Resource {
     if (safeData.linkedTo) this.linkedTo = safeData.linkedTo;
     if (!this.linkToOrigin)
       if (this.notifications.length) {
+        this.internalNotificationProject = safeData.internalNotificationProject;
+        this.internalNotificationTeamId = safeData.internalNotificationTeamId;
+        this.internalNotificationUserId = safeData.internalNotificationUserId;
         this.removeDuplicateNotifications();
         this.calculateFiringTime();
       } else {
