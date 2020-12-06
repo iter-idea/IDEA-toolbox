@@ -2748,6 +2748,21 @@ img {
 					<a href="appointment.html#icaluid" class="tsd-kind-icon">i<wbr>CalUID</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="appointment.html#internalnotificationfiresat" class="tsd-kind-icon">internal<wbr>Notification<wbr>Fires<wbr>At</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="appointment.html#internalnotificationfireson" class="tsd-kind-icon">internal<wbr>Notification<wbr>Fires<wbr>On</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="appointment.html#internalnotificationproject" class="tsd-kind-icon">internal<wbr>Notification<wbr>Project</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="appointment.html#internalnotificationteamid" class="tsd-kind-icon">internal<wbr>Notification<wbr>Team<wbr>Id</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="appointment.html#internalnotificationuserid" class="tsd-kind-icon">internal<wbr>Notification<wbr>User<wbr>Id</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="appointment.html#linktoorigin" class="tsd-kind-icon">link<wbr>ToOrigin</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
@@ -2760,6 +2775,9 @@ img {
 					<a href="appointment.html#masterappointmentid" class="tsd-kind-icon">master<wbr>Appointment<wbr>Id</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="appointment.html#notifications" class="tsd-kind-icon">notifications</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="appointment.html#starttime" class="tsd-kind-icon">start<wbr>Time</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
@@ -2767,6 +2785,9 @@ img {
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="appointment.html#title" class="tsd-kind-icon">title</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="appointment.html#calculatefiringtime" class="tsd-kind-icon">calculate<wbr>Firing<wbr>Time</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a href="appointment.html#clean" class="tsd-kind-icon">clean</a>
@@ -2792,6 +2813,9 @@ img {
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 					<a href="appointment.html#load" class="tsd-kind-icon">load</a>
 				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="appointment.html#removeduplicatenotifications" class="tsd-kind-icon">remove<wbr>Duplicate<wbr>Notifications</a>
+				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 					<a href="appointment.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a>
 				</li>
@@ -2814,6 +2838,8 @@ img {
 				<ul>
 					<li>calendarId-startTime-index (LSI, all)</li>
 					<li>calendarId-masterAppointmentId-index (LSI, keys); to manage occurences</li>
+					<li>internalNotificationFiresOn-internalNotificationFiresAt-index (GSI); includes:<pre><code><span class="hljs-built_in">int</span>ernalNotificationProject, <span class="hljs-built_in">int</span>ernalNotificationTeamId, <span class="hljs-built_in">int</span>ernalNotificationUserId,
+notifications, title, startTime, endTime</code></pre></li>
 				</ul>
 			</div>
 		</section>
@@ -2850,10 +2876,16 @@ img {
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#description" class="tsd-kind-icon">description</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#endtime" class="tsd-kind-icon">end<wbr>Time</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#icaluid" class="tsd-kind-icon">i<wbr>CalUID</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#internalnotificationfiresat" class="tsd-kind-icon">internal<wbr>Notification<wbr>Fires<wbr>At</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#internalnotificationfireson" class="tsd-kind-icon">internal<wbr>Notification<wbr>Fires<wbr>On</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#internalnotificationproject" class="tsd-kind-icon">internal<wbr>Notification<wbr>Project</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#internalnotificationteamid" class="tsd-kind-icon">internal<wbr>Notification<wbr>Team<wbr>Id</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#internalnotificationuserid" class="tsd-kind-icon">internal<wbr>Notification<wbr>User<wbr>Id</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#linktoorigin" class="tsd-kind-icon">link<wbr>ToOrigin</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#linkedto" class="tsd-kind-icon">linked<wbr>To</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#location" class="tsd-kind-icon">location</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#masterappointmentid" class="tsd-kind-icon">master<wbr>Appointment<wbr>Id</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#notifications" class="tsd-kind-icon">notifications</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#starttime" class="tsd-kind-icon">start<wbr>Time</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#timezone" class="tsd-kind-icon">timezone</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="appointment.html#title" class="tsd-kind-icon">title</a></li>
@@ -2862,6 +2894,7 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="appointment.html#calculatefiringtime" class="tsd-kind-icon">calculate<wbr>Firing<wbr>Time</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="appointment.html#clean" class="tsd-kind-icon">clean</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="appointment.html#cleanarray" class="tsd-kind-icon">clean<wbr>Array</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="appointment.html#fixalldaytime" class="tsd-kind-icon">fix<wbr>All<wbr>Day<wbr>Time</a></li>
@@ -2870,6 +2903,7 @@ img {
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="appointment.html#ie" class="tsd-kind-icon">iE</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="appointment.html#isorganizer" class="tsd-kind-icon">is<wbr>Organizer</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="appointment.html#load" class="tsd-kind-icon">load</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="appointment.html#removeduplicatenotifications" class="tsd-kind-icon">remove<wbr>Duplicate<wbr>Notifications</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="appointment.html#safeload" class="tsd-kind-icon">safe<wbr>Load</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="appointment.html#validate" class="tsd-kind-icon">validate</a></li>
 						</ul>
@@ -2890,7 +2924,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/resource.model.ts#L6">resource.model.ts:6</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/resource.model.ts#L6">resource.model.ts:6</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2936,7 +2970,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">all<wbr>Day<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L60">appointment.model.ts:60</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L63">appointment.model.ts:63</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2951,7 +2985,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">appointment<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L20">appointment.model.ts:20</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L23">appointment.model.ts:23</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2967,7 +3001,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">attendees<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="appointmentattendee.html" class="tsd-signature-type">AppointmentAttendee</a><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L77">appointment.model.ts:77</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L80">appointment.model.ts:80</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2983,7 +3017,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">calendar<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L26">appointment.model.ts:26</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L29">appointment.model.ts:29</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3000,7 +3034,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L48">appointment.model.ts:48</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L51">appointment.model.ts:51</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3015,7 +3049,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">end<wbr>Time<span class="tsd-signature-symbol">:</span> <a href="../globals.html#epochdatetime" class="tsd-signature-type">epochDateTime</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L56">appointment.model.ts:56</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L59">appointment.model.ts:59</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3030,7 +3064,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">i<wbr>CalUID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L32">appointment.model.ts:32</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L35">appointment.model.ts:35</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3042,12 +3076,93 @@ img {
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="internalnotificationfiresat" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> internal<wbr>Notification<wbr>Fires<wbr>At</h3>
+				<div class="tsd-signature tsd-kind-icon">internal<wbr>Notification<wbr>Fires<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L100">appointment.model.ts:100</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Fine grain time of alert, expressed in minutes.
+						In case of appointments on external calendars these will not be valued.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="internalnotificationfireson" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> internal<wbr>Notification<wbr>Fires<wbr>On</h3>
+				<div class="tsd-signature tsd-kind-icon">internal<wbr>Notification<wbr>Fires<wbr>On<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L95">appointment.model.ts:95</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Date and hour in which the reminder is slotted (<code>YYYYMMDDHH</code>). Avoid timezones: UTC!!
+							Used to quickly identify the reminders to manage in a particular time frame.
+						In case of appointments on external calendars these will not be valued.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="internalnotificationproject" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> internal<wbr>Notification<wbr>Project</h3>
+				<div class="tsd-signature tsd-kind-icon">internal<wbr>Notification<wbr>Project<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L105">appointment.model.ts:105</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Project from which the notification comes; useful to get the notification preferences.
+						In case of appointments on external calendars these will not be valued.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="internalnotificationteamid" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> internal<wbr>Notification<wbr>Team<wbr>Id</h3>
+				<div class="tsd-signature tsd-kind-icon">internal<wbr>Notification<wbr>Team<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L110">appointment.model.ts:110</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Team of the user that need to be notified; useful to get the notification preferences.
+						In case of appointments on external calendars these will not be valued.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="internalnotificationuserid" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> internal<wbr>Notification<wbr>User<wbr>Id</h3>
+				<div class="tsd-signature tsd-kind-icon">internal<wbr>Notification<wbr>User<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L115">appointment.model.ts:115</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>User that need to be notified; useful to get the notification preferences.
+						In case of appointments on external calendars these will not be valued.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 				<a name="linktoorigin" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagOptional">Optional</span> link<wbr>ToOrigin</h3>
 				<div class="tsd-signature tsd-kind-icon">link<wbr>ToOrigin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L68">appointment.model.ts:68</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L71">appointment.model.ts:71</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3062,7 +3177,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">linked<wbr>To<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="appointmentlinkedobject.html" class="tsd-signature-type">AppointmentLinkedObject</a><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L72">appointment.model.ts:72</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L75">appointment.model.ts:75</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3077,7 +3192,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">location<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L44">appointment.model.ts:44</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L47">appointment.model.ts:47</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3092,7 +3207,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">master<wbr>Appointment<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L36">appointment.model.ts:36</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L39">appointment.model.ts:39</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3102,12 +3217,32 @@ img {
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="notifications" class="tsd-anchor"></a>
+				<h3>notifications</h3>
+				<div class="tsd-signature tsd-kind-icon">notifications<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="appointmentnotification.html" class="tsd-signature-type">AppointmentNotification</a><span class="tsd-signature-symbol">&gt;</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L89">appointment.model.ts:89</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The appointment notifications and the specs for their execution.
+							These may come from external calendars: in that case no internal notifications will fire.
+							Note on notifications from external services.
+							- Microsoft: up to 1 notification, max 1 week before;
+							- Google: up to 5 notifications; max 4 weeks before;
+						- Multiple notifications at the same time are not allowed.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 				<a name="starttime" class="tsd-anchor"></a>
 				<h3>start<wbr>Time</h3>
 				<div class="tsd-signature tsd-kind-icon">start<wbr>Time<span class="tsd-signature-symbol">:</span> <a href="../globals.html#epochdatetime" class="tsd-signature-type">epochDateTime</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L52">appointment.model.ts:52</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L55">appointment.model.ts:55</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3122,7 +3257,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">timezone<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L64">appointment.model.ts:64</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L67">appointment.model.ts:67</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3137,7 +3272,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">title<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L40">appointment.model.ts:40</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L43">appointment.model.ts:43</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3149,6 +3284,28 @@ img {
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="calculatefiringtime" class="tsd-anchor"></a>
+				<h3>calculate<wbr>Firing<wbr>Time</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">calculate<wbr>Firing<wbr>Time<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L197">appointment.model.ts:197</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Calculate the firing time for internal appointments.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 				<a name="clean" class="tsd-anchor"></a>
 				<h3>clean</h3>
@@ -3160,7 +3317,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#clean">clean</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/resource.model.ts#L105">resource.model.ts:105</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/resource.model.ts#L105">resource.model.ts:105</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3223,7 +3380,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#cleanarray">cleanArray</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/resource.model.ts#L118">resource.model.ts:118</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/resource.model.ts#L118">resource.model.ts:118</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3285,7 +3442,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L100">appointment.model.ts:100</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L147">appointment.model.ts:147</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3307,7 +3464,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L136">appointment.model.ts:136</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L219">appointment.model.ts:219</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3336,7 +3493,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L129">appointment.model.ts:129</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L212">appointment.model.ts:212</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3366,7 +3523,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="resource.html">Resource</a>.<a href="resource.html#ie">iE</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/resource.model.ts#L94">resource.model.ts:94</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/resource.model.ts#L94">resource.model.ts:94</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3397,7 +3554,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L144">appointment.model.ts:144</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L227">appointment.model.ts:227</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3427,7 +3584,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#load">load</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L79">appointment.model.ts:79</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L117">appointment.model.ts:117</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3436,6 +3593,28 @@ img {
 								<h5>x: <span class="tsd-signature-type">any</span></h5>
 							</li>
 						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="removeduplicatenotifications" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> remove<wbr>Duplicate<wbr>Notifications</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">remove<wbr>Duplicate<wbr>Notifications<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L189">appointment.model.ts:189</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Helper to remove duplicates notifications for the same appointment.</p>
+							</div>
+						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 					</li>
 				</ul>
@@ -3451,7 +3630,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#safeload">safeLoad</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L107">appointment.model.ts:107</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L154">appointment.model.ts:154</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3478,7 +3657,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="resource.html">Resource</a>.<a href="resource.html#validate">validate</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/1e6a4a7/src/appointment.model.ts#L116">appointment.model.ts:116</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/d5a66f2/src/appointment.model.ts#L177">appointment.model.ts:177</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -3505,6 +3684,7 @@ img {
 					</ul>
 					<ul class="tsd-legend">
 						<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
 					</ul>
 				</div>
 			</div>
