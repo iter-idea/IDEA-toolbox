@@ -43,7 +43,8 @@ export class PDFTemplateSection extends Resource {
    */
   public columns?: Array<PDFTemplateSimpleField | PDFTemplateComplexField | string>;
   /**
-   * The title of a HEADER section: a Label (markdown) supporting variables substitution (e.g. `Here's **@myVar**`).
+   * The title of a HEADER section or INNER_SECTION (or REPATED_INNER_SECTION).
+   * It's a Label (markdown) supporting variables substitution (e.g. `Here's **@myVar**`).
    * Note: the var substitution is made on runtime data, based on the section's context.
    */
   public title?: Label;
@@ -80,6 +81,12 @@ export class PDFTemplateSection extends Resource {
         break;
       case PDFTemplateSectionTypes.INNER_SECTION:
       case PDFTemplateSectionTypes.REPEATED_INNER_SECTION:
+        if (x.title) this.title = new Label(x.title, languages);
+        else {
+          // init the title equal to the section description
+          this.title = new Label(null, languages);
+          this.title[languages.default] = this.description;
+        }
         this.context = this.clean(x.context, String);
         this.innerTemplate = this.cleanArray(x.innerTemplate, t => new PDFTemplateSection(t, languages));
         break;
