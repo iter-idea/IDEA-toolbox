@@ -10,6 +10,14 @@ export class Notification extends Resource {
    */
   public project: string;
   /**
+   * A brief description of the notification.
+   */
+  public subject: string;
+  /**
+   * The content of the notification.
+   */
+  public content: markdown;
+  /**
    * The id of the team owner of the notification. Useful for branded notifications.
    */
   public teamId?: string;
@@ -24,27 +32,24 @@ export class Notification extends Resource {
    */
   public email?: string;
   /**
-   * A brief description of the notification.
-   */
-  public subject: string;
-  /**
-   * The content of the notification.
-   */
-  public content: markdown;
-  /**
    * If set, an email notification is preferred to any other channel.
    */
   public forceEmail?: boolean;
+  /**
+   * The event that triggered the notification; useful to gather specific notification preferences.
+   */
+  public event?: string;
 
   public load(x: any) {
     super.load(x);
     this.project = this.clean(x.project, String);
-    this.teamId = this.clean(x.teamId, String);
-    this.userId = this.clean(x.userId, String);
-    this.email = this.clean(x.email, String);
     this.subject = this.clean(x.subject, String);
     this.content = this.clean(x.content, String);
-    this.forceEmail = this.clean(x.forceEmail, Boolean);
+    if (x.teamId) this.teamId = this.clean(x.teamId, String);
+    if (x.userId) this.userId = this.clean(x.userId, String);
+    if (x.email) this.email = this.clean(x.email, String);
+    if (x.forceEmail) this.forceEmail = true;
+    if (x.event) this.event = this.clean(x.event, String);
   }
 }
 
