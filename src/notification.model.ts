@@ -49,15 +49,25 @@ export class Notification extends Resource {
 }
 
 /**
- * Preferences for receiving notifications.
+ * The interface for the preferences of notification (based on different events) of an IDEA project.
  */
-export class NotificationsPreferences extends Resource {
+export interface NotificationPreferences {
   /**
-   * If true, always send an email.
+   * The map of events with their notification preferences.
+   */
+  [event: string]: EventNotificationPreference;
+}
+
+/**
+ * Preferences for receiving notifications after a specific event.
+ */
+export class EventNotificationPreference extends Resource {
+  /**
+   * Whether to receive an email.
    */
   public email: boolean;
   /**
-   * If true, always send a push notification.
+   * Whether to receive a push notification.
    */
   public push: boolean;
 
