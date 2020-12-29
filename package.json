@@ -27,11 +27,9 @@
   },
   "homepage": "https://uatisdeproblem.github.io/IDEA-toolbox",
   "dependencies": {
-    "showdown": "^1.9.1",
     "validator": "^10.11.0"
   },
   "devDependencies": {
-    "@types/showdown": "^1.9.3",
     "@types/validator": "^9.4.4",
     "prettier": "^2.0.2",
     "tslint": "~5.15.0",
