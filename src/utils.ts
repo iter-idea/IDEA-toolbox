@@ -175,6 +175,6 @@ export function loopNumericEnumValues(theEnum: any): Array<string> {
 /**
  * Convert a markdown string to HTML.
  */
-export function mdToHTML(str: string): string {
+export function mdToHtml(str: string): string {
   return marked(str);
 }
