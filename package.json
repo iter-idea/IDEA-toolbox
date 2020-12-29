@@ -27,10 +27,10 @@
   },
   "homepage": "https://uatisdeproblem.github.io/IDEA-toolbox",
   "dependencies": {
-    "validator": "^10.11.0"
+    "validator": "^13.5.2"
   },
   "devDependencies": {
-    "@types/validator": "^9.4.4",
+    "@types/validator": "^13.1.2",
     "prettier": "^2.0.2",
     "tslint": "~5.15.0",
     "tslint-config-prettier": "^1.18.0",

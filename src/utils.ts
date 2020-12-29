@@ -1,4 +1,6 @@
-import Validator = require('validator');
+import isEmail from 'validator/lib/isEmail';
+import isMobilePhone from 'validator/lib/isMobilePhone';
+import isURL from 'validator/lib/isURL';
 
 /**
  * Utilities (static) functions, to support IDEA's projects.
@@ -106,11 +108,11 @@ export function isEmpty(field: any, type?: string): boolean {
       else return true;
     }
     case 'email':
-      return !Validator.isEmail(field);
+      return !isEmail(field);
     case 'phone':
-      return !Validator.isMobilePhone(field, 'any');
+      return !isMobilePhone(field, 'any');
     case 'url':
-      return !Validator.isURL(field);
+      return !isURL(field);
     default:
       return true;
   }
