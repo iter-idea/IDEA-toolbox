@@ -27,8 +27,6 @@
   },
   "homepage": "https://uatisdeproblem.github.io/IDEA-toolbox",
   "dependencies": {
-    "moment": "^2.24.0",
-    "moment-timezone": "^0.5.28",
     "showdown": "^1.9.1",
     "validator": "^10.11.0"
   },

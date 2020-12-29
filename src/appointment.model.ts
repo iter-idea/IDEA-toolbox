@@ -1,5 +1,3 @@
-import Moment = require('moment-timezone');
-
 import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
 
@@ -127,7 +125,7 @@ export class Appointment extends Resource {
     this.endTime = this.clean(x.endTime, d => new Date(d).getTime());
     this.allDay = this.clean(x.allDay, Boolean);
     this.fixAllDayTime();
-    this.timezone = this.clean(x.timezone || Moment.tz.guess(), String);
+    this.timezone = this.clean(x.timezone, String);
     if (x.linkToOrigin) this.linkToOrigin = this.clean(x.linkToOrigin, String);
     this.notifications = this.cleanArray(x.notifications, n => new AppointmentNotification(n));
     if (!this.linkToOrigin && this.notifications.length) {
@@ -146,8 +144,12 @@ export class Appointment extends Resource {
    */
   public fixAllDayTime() {
     if (this.allDay) {
-      this.startTime = Number(Moment(this.startTime).startOf('day').format('x'));
-      this.endTime = Number(Moment(this.endTime).startOf('day').add(13, 'hours').format('x'));
+      const start = new Date(this.startTime);
+      start.setHours(0, 0, 0);
+      this.startTime = start.getTime();
+      const end = new Date(this.endTime);
+      end.setHours(13, 0, 0);
+      this.endTime = end.getTime();
     }
   }
 
@@ -200,9 +202,15 @@ export class Appointment extends Resource {
       null,
       this.notifications.map(n => n.minutes)
     );
-    const at = Moment(this.startTime).subtract(maxNumMinutes, 'minutes');
-    this.internalNotificationFiresOn = at.format('YYYYMMDDHH');
-    this.internalNotificationFiresAt = at.minutes();
+    // prepare the support firing attributes
+    const at = new Date(this.startTime);
+    at.setMinutes(at.getMinutes() - maxNumMinutes);
+    this.internalNotificationFiresOn = String(at.getFullYear()).concat(
+      ('00' + (at.getMonth() + 1)).slice(-2),
+      ('00' + at.getDate()).slice(-2),
+      ('00' + at.getHours()).slice(-2)
+    );
+    this.internalNotificationFiresAt = at.getMinutes();
   }
 
   /**

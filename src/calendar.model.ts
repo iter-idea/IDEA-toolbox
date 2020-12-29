@@ -1,6 +1,5 @@
 import { Resource } from './resource.model';
 import { epochDateTime } from './epoch';
-import Moment = require('moment-timezone');
 
 /**
  * Representation of a calendar, which can be:
@@ -67,7 +66,7 @@ export class Calendar extends Resource {
     this.description = this.clean(x.description, String);
     if (this.description) this.description = this.description.slice(0, 300);
     this.color = this.clean(x.color, String);
-    this.timezone = this.clean(x.timezone || Moment.tz.guess(), String);
+    this.timezone = this.clean(x.timezone, String);
     if (x.external) this.external = new ExternalCalendarInfo(x.external);
     if (x.teamId && x.usersCanManageAppointments)
       this.usersCanManageAppointments = this.cleanArray(x.usersCanManageAppointments, String);
