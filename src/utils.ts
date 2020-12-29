@@ -1,6 +1,7 @@
 import isEmail from 'validator/lib/isEmail';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import isURL from 'validator/lib/isURL';
+import marked from 'marked';
 
 /**
  * Utilities (static) functions, to support IDEA's projects.
@@ -169,4 +170,11 @@ export function loopNumericEnumValues(theEnum: any): Array<string> {
   return Object.keys(theEnum)
     .filter(key => !isNaN(Number(theEnum[key])))
     .map(c => String(c));
+}
+
+/**
+ * Convert a markdown string to HTML.
+ */
+export function mdToHTML(str: string): string {
+  return marked(str);
 }
