@@ -31,14 +31,16 @@
     "validator": "^13.5.2"
   },
   "devDependencies": {
+    "@types/async": "^2.4.1",
     "@types/marked": "^1.2.1",
+    "@types/node": "^11.9.5",
     "@types/validator": "^13.1.2",
-    "prettier": "^2.0.2",
-    "tslint": "~5.15.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/parser": "^4.10.0",
+    "eslint": "^7.15.0",
+    "eslint-plugin-prettier": "^3.3.0",
+    "prettier": "^2.2.1",
     "typedoc": "^0.17.8",
-    "typescript": "^3.9.7",
-    "typescript-tslint-plugin": "^0.3.1"
+    "typescript": "^3.9.7"
   }
 }
