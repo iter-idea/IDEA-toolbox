@@ -49,7 +49,7 @@ export class Membership extends Resource {
     this.pendingInvitation = safeData.pendingInvitation;
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
     if (this.iE(this.name)) e.push('name');
     return e;
@@ -81,7 +81,7 @@ export class MembershipSummary extends Resource {
     if (x.initials) this.initials = this.clean(x.initials, String);
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
     if (this.iE(this.userId)) e.push('userId');
     if (this.iE(this.name)) e.push('name');

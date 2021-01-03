@@ -58,17 +58,17 @@ export class Delta extends Resource {
   /**
    * The list of resources involved in this delta.
    */
-  public resources: Array<DeltaResources | string>;
+  public resources: (DeltaResources | string)[];
   /**
    * The list of delta records for each resource.
    */
-  public records: { [resource: string]: Array<DeltaRecord> };
+  public records: { [resource: string]: DeltaRecord[] };
 
   public load(x: any) {
     super.load(x);
     this.since = this.clean(x.since, Number, 0) as epochDateTime;
     if (x.next) this.next = this.clean(x.next, String);
-    this.resources = this.cleanArray(x.resources, String) as Array<DeltaResources | string>;
+    this.resources = this.cleanArray(x.resources, String) as (DeltaResources | string)[];
     this.records = {};
     if (x.records) this.resources.forEach(r => this.cleanArray(x.records[r], y => new DeltaRecord(y)));
   }
@@ -76,7 +76,7 @@ export class Delta extends Resource {
   /**
    * Set the records of a resource to the delta.
    */
-  public setRecordsOfResource(records: Array<DeltaRecord>, resource: DeltaResources | string) {
+  public setRecordsOfResource(records: DeltaRecord[], resource: DeltaResources | string) {
     if (!this.resources.some(r => r === resource)) this.resources.push(resource);
     this.records[resource] = records;
   }
@@ -89,7 +89,7 @@ export class DeltaNext extends Resource {
   /**
    * The resources of which there is still data to acquire.
    */
-  public resources: Array<DeltaResources | string>;
+  public resources: (DeltaResources | string)[];
   /**
    * The lastEvaluatedKeys for getting the next page of the pagination, for each resources.
    */
@@ -97,7 +97,7 @@ export class DeltaNext extends Resource {
 
   public load(x: any) {
     super.load(x);
-    this.resources = this.cleanArray(x.resources, String) as Array<DeltaResources | string>;
+    this.resources = this.cleanArray(x.resources, String) as (DeltaResources | string)[];
     this.keys = {};
     if (x.keys) this.resources.forEach(r => (this.keys[r] = x.keys[r] || null));
   }
@@ -145,7 +145,7 @@ export class DeltaCount extends Resource {
   /**
    * The list of resources involved in this delta.
    */
-  public resources: Array<DeltaResources | string>;
+  public resources: (DeltaResources | string)[];
   /**
    * The count of elements for each resource.
    */
@@ -154,7 +154,7 @@ export class DeltaCount extends Resource {
   public load(x: any) {
     super.load(x);
     this.since = this.clean(x.since, Number, 0) as epochDateTime;
-    this.resources = this.cleanArray(x.resources, String) as Array<DeltaResources | string>;
+    this.resources = this.cleanArray(x.resources, String) as (DeltaResources | string)[];
     this.count = {};
     if (x.count) this.resources.forEach(r => this.clean(x.count[r], Number));
   }

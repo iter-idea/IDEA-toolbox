@@ -12,7 +12,7 @@ export class Languages extends Resource {
   /**
    * The available languages available in a context.
    */
-  public available: Array<ServiceLanguages | string>;
+  public available: (ServiceLanguages | string)[];
 
   public load(x: any) {
     super.load(x);

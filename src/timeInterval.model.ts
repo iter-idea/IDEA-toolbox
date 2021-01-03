@@ -20,7 +20,7 @@ export class TimeInterval extends Resource {
     this.to = this.clean(x.to, Number, 0);
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
     // the starting time can't be lower than 0
     if (this.iE(this.from) || this.from < 0) e.push('from');

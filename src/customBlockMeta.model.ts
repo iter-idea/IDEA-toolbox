@@ -7,7 +7,7 @@ export class CustomBlockMeta extends Resource {
    * Ordered list of the sections (names) to expect in the block.
    * Example: `['flowers', 'burgers', ...]`.
    */
-  public sectionsLegend: Array<string>;
+  public sectionsLegend: string[];
   /**
    * Object containg attributes of type CustomSectionMeta; e.g.
    * ´´´
@@ -25,7 +25,7 @@ export class CustomBlockMeta extends Resource {
     this.sectionsLegend.forEach(s => (this.sections[s] = new CustomSectionMeta(x.sections[s], languages)));
   }
 
-  public validate(languages: Languages): Array<string> {
+  public validate(languages: Languages): string[] {
     const e = super.validate();
     this.sectionsLegend.forEach(s => this.sections[s].validate(languages).forEach(es => e.push(`${s}.${es}`)));
     return e;
@@ -55,7 +55,7 @@ export class CustomBlockMeta extends Resource {
   /**
    * Validate the sections and return an array with errors, if any.
    */
-  public validateSections(sections: any): Array<string> {
+  public validateSections(sections: any): string[] {
     sections = sections || {};
     const e = new Array<string>();
     this.sectionsLegend.forEach(s => this.sections[s].validateFields(sections[s]).forEach(ef => e.push(`${s}.${ef}`)));

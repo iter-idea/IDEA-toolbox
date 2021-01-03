@@ -31,7 +31,7 @@ export class CustomFieldMeta extends Resource {
   /**
    * The list of the possible values (strings); available only with type ENUM.
    */
-  public enum?: Array<string>;
+  public enum?: string[];
   /**
    * The translations of the enum keys; available only with type ENUM.
    * Not obligatory: the fallback is always the enum key.
@@ -95,10 +95,10 @@ export class CustomFieldMeta extends Resource {
     if (safeData.fieldId) this.fieldId = safeData.fieldId;
   }
 
-  public validate(languages?: Languages): Array<string> {
+  public validate(languages?: Languages): string[] {
     const e = super.validate();
-    if (this.name.validate(languages).length) e.push(`name`);
-    if (this.type === CustomFieldTypes.ENUM && !(this.enum && this.enum.length)) e.push(`enum`);
+    if (this.name.validate(languages).length) e.push('name');
+    if (this.type === CustomFieldTypes.ENUM && !(this.enum && this.enum.length)) e.push('enum');
     return e;
   }
 
@@ -203,7 +203,7 @@ export class CustomFieldMeta extends Resource {
   /**
    * Get the enum in the form of array of Suggestions.
    */
-  public getEnumAsSuggestion(language?: string, languages?: Languages): Array<Suggestion> {
+  public getEnumAsSuggestion(language?: string, languages?: Languages): Suggestion[] {
     if (this.type !== CustomFieldTypes.ENUM) return [];
     else return this.enum.map(e => new Suggestion({ value: e, name: this.getEnumElement(e, language, languages) }));
   }

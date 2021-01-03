@@ -19,7 +19,7 @@ export class CustomSectionMeta extends Resource {
    * Ordered list of the fields (names) to expect in the section.
    * Example: `['name', 'surname', ...]`.
    */
-  public fieldsLegend: Array<string>;
+  public fieldsLegend: string[];
   /**
    * Object containg attributes of type CustomFieldMeta; e.g.
    * ```
@@ -44,7 +44,7 @@ export class CustomSectionMeta extends Resource {
    * [  f5   |  f8  ]
    * ```
    */
-  public displayTemplate?: Array<Array<string>>;
+  public displayTemplate?: string[][];
 
   public load(x: any, languages: Languages) {
     super.load(x);
@@ -54,14 +54,14 @@ export class CustomSectionMeta extends Resource {
     this.fields = {};
     this.fieldsLegend.forEach(f => (this.fields[f] = new CustomFieldMeta(x.fields[f], languages)));
     if (x.displayTemplate)
-      this.displayTemplate = (x.displayTemplate || []).map((z: Array<string>) =>
+      this.displayTemplate = (x.displayTemplate || []).map((z: string[]) =>
         this.cleanArray(z, String)
           // filter out of the displayTemplate the fields which aren't in the fieldsLegend
           .filter(dpf => this.fieldsLegend.some(f => f === dpf))
       );
   }
 
-  public validate(languages: Languages): Array<string> {
+  public validate(languages: Languages): string[] {
     const e = super.validate();
     this.fieldsLegend.forEach(f => this.fields[f].validate(languages).forEach(ea => e.push(`${f}.${ea}`)));
     return e;
@@ -91,7 +91,7 @@ export class CustomSectionMeta extends Resource {
   /**
    * Validate the fields and return an array with errors, if any.
    */
-  public validateFields(fields: any): Array<string> {
+  public validateFields(fields: any): string[] {
     fields = fields || {};
     const e = new Array<string>();
     this.fieldsLegend.forEach(f => (!this.fields[f].validateField(fields[f]) ? e.push(f) : null));

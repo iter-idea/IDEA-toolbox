@@ -79,9 +79,9 @@ export class RCResource extends Resource {
     this.updatedBy = safeData.updatedBy;
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
-    if (this.iE(this.name)) e.push(`name`);
+    if (this.iE(this.name)) e.push('name');
     if (!loopStringEnumValues(RCResourceFormats).some(x => x === this.format)) e.push('format');
     return e;
   }

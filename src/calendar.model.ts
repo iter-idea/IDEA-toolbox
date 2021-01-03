@@ -50,7 +50,7 @@ export class Calendar extends Resource {
    * In case of shared calendar, the IDs of the users that can manage the calendar's appointments.
    * If `null`, everyone can manage the calendar's appointments; if empty (`[]`), no one can (read-only).
    */
-  public usersCanManageAppointments?: Array<string>;
+  public usersCanManageAppointments?: string[];
   /**
    * In case of shared calendar, the id of the user who created it.
    */
@@ -82,7 +82,7 @@ export class Calendar extends Resource {
     if (safeData.teamId && safeData.createdByUserId) this.createdByUserId = safeData.createdByUserId;
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
     if (this.iE(this.name)) e.push('name');
     return e;

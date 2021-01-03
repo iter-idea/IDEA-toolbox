@@ -30,11 +30,11 @@ export class Attachment extends Resource {
     this.format = safeData.format;
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
-    if (this.iE(this.attachmentId)) e.push(`attachmentId`);
-    if (this.iE(this.name)) e.push(`name`);
-    if (this.iE(this.format)) e.push(`format`);
+    if (this.iE(this.attachmentId)) e.push('attachmentId');
+    if (this.iE(this.name)) e.push('name');
+    if (this.iE(this.format)) e.push('format');
     return e;
   }
 }

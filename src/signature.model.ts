@@ -25,7 +25,7 @@ export class Signature extends Resource {
     this.pngURL = this.clean(x.pngURL, String);
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
     if (this.iE(this.signatory)) e.push('signatory');
     if (this.iE(this.timestamp)) e.push('timestamp');

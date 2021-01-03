@@ -51,7 +51,7 @@ export class ContactRequest extends Resource {
     if (x.notes) this.notes = this.clean(x.notes, String);
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
     if (this.iE(this.email, 'email')) e.push('email');
     return e;

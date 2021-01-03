@@ -70,7 +70,7 @@ export class ProjectPlan extends Resource {
   /**
    * The platforms in which the plan is enabled (and therefore visible).
    */
-  public platforms: Array<ProjectPlatforms>;
+  public platforms: ProjectPlatforms[];
   /**
    * The title of the plan, in various languages.
    */
@@ -118,7 +118,7 @@ export class ProjectPlan extends Resource {
     this.target = safeData.target;
   }
 
-  public validate(languages?: Languages): Array<string> {
+  public validate(languages?: Languages): string[] {
     let e = super.validate();
     if (this.iE(this.storePlanId)) e.push('storePlanId');
     if (this.iE(this.price)) e.push('price');

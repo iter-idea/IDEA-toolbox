@@ -20,11 +20,11 @@ export class Team extends Resource {
   /**
    * The list of admins (userIds) of the team.
    */
-  public admins: Array<string>;
+  public admins: string[];
   /**
    * The list of projects (codes) in which the team is currently active.
    */
-  public activeInProjects: Array<string>;
+  public activeInProjects: string[];
 
   public load(x: any) {
     super.load(x);
@@ -43,9 +43,9 @@ export class Team extends Resource {
     this.activeInProjects = safeData.activeInProjects;
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
-    if (this.iE(this.name)) e.push(`name`);
+    if (this.iE(this.name)) e.push('name');
     return e;
   }
 

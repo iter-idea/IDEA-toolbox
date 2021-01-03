@@ -70,12 +70,12 @@ export class Appointment extends Resource {
   /**
    * A list of objects linked to the appointment.
    */
-  public linkedTo?: Array<AppointmentLinkedObject>;
+  public linkedTo?: AppointmentLinkedObject[];
   /**
    * The attendees supposed to partecipate to the event.
    * It's an empty array in case the appointment is "private", i.e. the creator is the only attendee.
    */
-  public attendees: Array<AppointmentAttendee>;
+  public attendees: AppointmentAttendee[];
   /**
    * The appointment notifications and the specs for their execution.
    * These may come from external calendars: in that case no internal notifications will fire.
@@ -84,7 +84,7 @@ export class Appointment extends Resource {
    *     - Google: up to 5 notifications; max 4 weeks before;
    *     - Multiple notifications at the same time are not allowed.
    */
-  public notifications: Array<AppointmentNotification>;
+  public notifications: AppointmentNotification[];
   /**
    * Date and hour in which the reminder is slotted (`YYYYMMDDHH`). Avoid timezones: UTC!!
    * Used to quickly identify the reminders to manage in a particular time frame.
@@ -176,7 +176,7 @@ export class Appointment extends Resource {
       }
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
     if (this.iE(this.title)) e.push('title');
     if (this.iE(this.startTime)) e.push('startTime');
@@ -206,9 +206,9 @@ export class Appointment extends Resource {
     const at = new Date(this.startTime);
     at.setMinutes(at.getMinutes() - maxNumMinutes);
     this.internalNotificationFiresOn = String(at.getFullYear()).concat(
-      ('00' + (at.getMonth() + 1)).slice(-2),
-      ('00' + at.getDate()).slice(-2),
-      ('00' + at.getHours()).slice(-2)
+      ('00' + String(at.getMonth() + 1)).slice(-2),
+      ('00' + String(at.getDate())).slice(-2),
+      ('00' + String(at.getHours())).slice(-2)
     );
     this.internalNotificationFiresAt = at.getMinutes();
   }
@@ -268,7 +268,7 @@ export class AppointmentKeys extends Resource {
     if (x.teamId) this.teamId = this.clean(x.teamId, String);
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
     if (this.iE(this.appointmentId)) e.push('appointmentId');
     if (this.iE(this.calendarId)) e.push('calendarId');
@@ -295,7 +295,7 @@ export class AppointmentLinkedObject extends Resource {
     this.id = this.clean(x.id, String);
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
     if (!(this.type in AppointmentLinkedObjectTypes)) e.push('type');
     if (this.iE(this.id)) e.push('id');

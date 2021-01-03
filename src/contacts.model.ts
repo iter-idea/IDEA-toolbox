@@ -21,7 +21,7 @@ export class Contacts extends Resource {
     if (x.name) this.name = this.clean(x.name, String);
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
     if (this.phone && this.iE(this.phone, 'phone')) e.push('phone');
     if (this.email && this.iE(this.email, 'email')) e.push('email');

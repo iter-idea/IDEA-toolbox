@@ -57,7 +57,7 @@ export class Address extends Resource {
     if (x.email) this.email = this.clean(x.email, String);
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
     if (this.iE(this.address)) e.push('address');
     if (this.iE(this.city)) e.push('city');

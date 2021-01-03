@@ -25,12 +25,12 @@ export class PushNotificationsDevice extends Resource {
     this.endpoint = this.clean(x.endpoint, String);
   }
 
-  public validate(complete?: boolean): Array<string> {
+  public validate(complete?: boolean): string[] {
     const e = super.validate();
-    if (this.iE(this.token)) e.push(`token`);
-    if (!(this.platform in PushNotificationsPlatforms)) e.push(`platform`);
+    if (this.iE(this.token)) e.push('token');
+    if (!(this.platform in PushNotificationsPlatforms)) e.push('platform');
     if (complete) {
-      if (this.iE(this.endpoint)) e.push(`endpoint`);
+      if (this.iE(this.endpoint)) e.push('endpoint');
     }
     return e;
   }

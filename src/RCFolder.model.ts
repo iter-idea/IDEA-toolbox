@@ -62,9 +62,9 @@ export class RCFolder extends Resource {
     this.updatedBy = safeData.updatedBy;
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
-    if (this.iE(this.name)) e.push(`name`);
+    if (this.iE(this.name)) e.push('name');
     return e;
   }
 }

@@ -25,9 +25,9 @@ export class RCConfiguredFolder extends Resource {
     this.name = safeData.folderId;
   }
 
-  public validate(): Array<string> {
+  public validate(): string[] {
     const e = super.validate();
-    if (this.iE(this.name)) e.push(`name`);
+    if (this.iE(this.name)) e.push('name');
     return e;
   }
 }

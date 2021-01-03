@@ -56,12 +56,12 @@ export function cleanStr(str: string, separator?: string): string {
  * @returns the joined array
  */
 export function joinArraysOnKeys(
-  mainTable: Array<any>,
-  lookupTable: Array<any>,
+  mainTable: any[],
+  lookupTable: any[],
   mainKey: string,
   lookupKey: string,
-  selectFunction: (attrMainTable: string, attrLookupTable: string) => Array<any>
-): Array<any> {
+  selectFunction: (attrMainTable: string, attrLookupTable: string) => any[]
+): any[] {
   const l = lookupTable.length;
   const m = mainTable.length;
   const lookupIndex = [];
@@ -99,7 +99,7 @@ export function isEmpty(field: any, type?: string): boolean {
     case 'number':
       return field <= 0;
     case 'boolean':
-      return !Boolean(field);
+      return !field;
     case 'date':
     case 'object': {
       if (field instanceof Date || type === 'date') {
@@ -128,6 +128,7 @@ export function isEmpty(field: any, type?: string): boolean {
  */
 export function logger(context: string, err?: Error, content?: any, important?: boolean) {
   const someContent = content !== undefined && content !== null;
+  // eslint-disable-next-line no-console
   if (err) console.error('[ERROR]', '≫', err, someContent ? content : '');
   else if (important) console.log(`[${context}]`, someContent ? content : '');
   // to give less importance to debug info
@@ -137,13 +138,13 @@ export function logger(context: string, err?: Error, content?: any, important?: 
 /**
  * Get an array to iterate containing the keys of a string enum.
  */
-export function loopStringEnumKeys(theEnum: any): Array<string> {
+export function loopStringEnumKeys(theEnum: any): string[] {
   return Object.keys(theEnum);
 }
 /**
  * Get an array to iterate containing the values of a string enum.
  */
-export function loopStringEnumValues(theEnum: any): Array<string> {
+export function loopStringEnumValues(theEnum: any): string[] {
   return Object.keys(theEnum).map(key => theEnum[key]);
 }
 /**
@@ -158,7 +159,7 @@ export function getStringEnumKeyByValue(theEnum: any, value: string): string {
 /**
  * Get an array to iterate containing the keys of a numeric enum.
  */
-export function loopNumericEnumKeys(theEnum: any): Array<number> {
+export function loopNumericEnumKeys(theEnum: any): number[] {
   return Object.keys(theEnum)
     .filter(key => !isNaN(Number(key)))
     .map(c => Number(c));
@@ -166,7 +167,7 @@ export function loopNumericEnumKeys(theEnum: any): Array<number> {
 /**
  * Get an array to iterate containing the values of a numeric enum.
  */
-export function loopNumericEnumValues(theEnum: any): Array<string> {
+export function loopNumericEnumValues(theEnum: any): string[] {
   return Object.keys(theEnum)
     .filter(key => !isNaN(Number(theEnum[key])))
     .map(c => String(c));

@@ -24,7 +24,7 @@ export class Label {
     else languages.available.forEach(l => (this[l] = null));
   }
 
-  public validate(languages: Languages): Array<string> {
+  public validate(languages: Languages): string[] {
     if (!this[languages.default]) return [languages.default];
     else return [];
   }

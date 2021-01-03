@@ -23,7 +23,7 @@ export abstract class CacheableResource extends Resource implements Cacheable {
     this.mAt = Date.now();
   }
 
-  public validate(options?: any): Array<string> {
+  public validate(options?: any): string[] {
     const e = super.validate(options);
     this.tick();
     return e;

@@ -41,6 +41,7 @@ export abstract class Resource {
    */
   public load(newData: any, options?: any) {
     newData = newData || {};
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     options = options || {};
   }
 
@@ -83,7 +84,8 @@ export abstract class Resource {
    *  return e;
    *  ```
    */
-  public validate(options?: any): Array<string> {
+  public validate(options?: any): string[] {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     options = options || {};
     return new Array<string>();
   }
@@ -115,7 +117,7 @@ export abstract class Resource {
    * @param defaultVal if set, the fallback value instead of `null`
    * @return cleaned array
    */
-  public cleanArray(origin: Array<any>, castFunction: (x: any) => any, defaultVal?: any): Array<any> {
+  public cleanArray(origin: any[], castFunction: (x: any) => any, defaultVal?: any): any[] {
     return (origin || [])
       .map(x => (x || x === 0 ? castFunction(x) : defaultVal !== undefined ? defaultVal : null))
       .filter(x => x);

@@ -41,7 +41,7 @@ export class PDFTemplateSection extends Resource {
    *  - `-`, to indicate that the field in the previous column span over the represented column;
    *  - null, to indicate a blank column.
    */
-  public columns?: Array<PDFTemplateSimpleField | PDFTemplateComplexField | string>;
+  public columns?: (PDFTemplateSimpleField | PDFTemplateComplexField | string)[];
   /**
    * The title of a HEADER section or INNER_SECTION (or REPATED_INNER_SECTION).
    * It's a Label (markdown) supporting variables substitution (e.g. `Here's **@myVar**`).
@@ -55,7 +55,7 @@ export class PDFTemplateSection extends Resource {
   /**
    * The inner template for a INNER_SECTION or REPEATED_INNER_SECTION (inception).
    */
-  public innerTemplate?: Array<PDFTemplateSection>;
+  public innerTemplate?: PDFTemplateSection[];
 
   public load(x: any, languages?: Languages) {
     super.load(x);
@@ -93,7 +93,7 @@ export class PDFTemplateSection extends Resource {
     }
   }
 
-  public validate(languages: Languages, variables?: Array<LabelVariable | StringVariable>): Array<string> {
+  public validate(languages: Languages, variables?: (LabelVariable | StringVariable)[]): string[] {
     const e = super.validate();
     const ST = PDFTemplateSectionTypes;
     if (!(this.type in ST)) e.push('type');
@@ -124,7 +124,7 @@ export class PDFTemplateSection extends Resource {
   /**
    * Check whether the section is among one of the types selected.
    */
-  public isEither(...types: Array<PDFTemplateSectionTypes>): boolean {
+  public isEither(...types: PDFTemplateSectionTypes[]): boolean {
     return types.some(t => this.type === t);
   }
 
@@ -134,7 +134,7 @@ export class PDFTemplateSection extends Resource {
   public isColumnEmpty(indexInColumns: number): boolean {
     // skip in case the section isn't of type ROW
     if (this.type !== PDFTemplateSectionTypes.ROW) return false;
-    else return !Boolean(this.columns[indexInColumns]);
+    else return !this.columns[indexInColumns];
   }
 
   /**
@@ -247,11 +247,11 @@ export interface PDFTemplateBlueprint {
   /**
    * The variables available in templates of this blueprint.
    */
-  variables: Array<LabelVariable>;
+  variables: LabelVariable[];
   /**
    * The blueprints of inner sections.
    */
-  innerBlueprints?: Array<PDFTemplateSectionBlueprint>;
+  innerBlueprints?: PDFTemplateSectionBlueprint[];
 }
 /**
  * It represent the blueprint of an inner section of a PDF template blueprint.
