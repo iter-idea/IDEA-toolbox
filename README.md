@@ -4,20 +4,12 @@ Utility functions to support iter IDEA's projects.
 
 ## Installation
 
-`npm install idea-toolbox`
+`npm i idea-toolbox`
 
-## Usage
-
-Javascript
+## Usage example
 
 ```
-const IdeaX = require('idea-toolbox');
-```
-
-Typescript
-
-```
-import IdeaX = require('idea-toolbox');
+import { Appointment } from 'idea-toolbox';
 ```
 
 ## Documentation
