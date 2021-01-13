@@ -1,7 +1,7 @@
 import isEmail from 'validator/lib/isEmail';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import isURL from 'validator/lib/isURL';
-import marked from 'marked';
+import Marked = require('marked');
 
 /**
  * Utilities (static) functions, to support IDEA's projects.
@@ -177,5 +177,5 @@ export function loopNumericEnumValues(theEnum: any): string[] {
  * Convert a markdown string to HTML.
  */
 export function mdToHtml(str: string): string {
-  return marked(str);
+  return Marked(str);
 }
