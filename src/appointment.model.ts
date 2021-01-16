@@ -125,7 +125,7 @@ export class Appointment extends Resource {
     this.endTime = this.clean(x.endTime, d => new Date(d).getTime());
     this.allDay = this.clean(x.allDay, Boolean);
     this.fixAllDayTime();
-    this.timezone = this.clean(x.timezone, String);
+    this.timezone = this.clean(x.timezone, String, Intl.DateTimeFormat().resolvedOptions().timeZone);
     if (x.linkToOrigin) this.linkToOrigin = this.clean(x.linkToOrigin, String);
     this.notifications = this.cleanArray(x.notifications, n => new AppointmentNotification(n));
     if (!this.linkToOrigin && this.notifications.length) {

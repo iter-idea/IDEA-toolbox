@@ -66,7 +66,7 @@ export class Calendar extends Resource {
     this.description = this.clean(x.description, String);
     if (this.description) this.description = this.description.slice(0, 300);
     this.color = this.clean(x.color, String);
-    this.timezone = this.clean(x.timezone, String);
+    this.timezone = this.clean(x.timezone, String, Intl.DateTimeFormat().resolvedOptions().timeZone);
     if (x.external) this.external = new ExternalCalendarInfo(x.external);
     if (x.teamId && x.usersCanManageAppointments)
       this.usersCanManageAppointments = this.cleanArray(x.usersCanManageAppointments, String);
