@@ -180,5 +180,5 @@ export function loopNumericEnumValues(theEnum: any): string[] {
  */
 export function mdToHtml(mdString: markdown | string): string {
   if (!mdString) return '';
-  return Marked(mdString);
+  return Marked(mdString, { gfm: true, breaks: true });
 }
