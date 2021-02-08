@@ -27,7 +27,7 @@
   },
   "homepage": "https://uatisdeproblem.github.io/IDEA-toolbox",
   "dependencies": {
-    "marked": "^1.2.7",
+    "marked": "^2.0.0",
     "validator": "^13.5.2"
   },
   "devDependencies": {
