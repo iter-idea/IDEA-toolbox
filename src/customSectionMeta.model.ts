@@ -52,7 +52,7 @@ export class CustomSectionMeta extends Resource {
     if (x.description) this.description = new Label(x.description, languages);
     this.fieldsLegend = this.cleanArray(x.fieldsLegend, String);
     this.fields = {};
-    x.fields = {};
+    x.fields = x.fields || {};
     this.fieldsLegend.forEach(f => (this.fields[f] = new CustomFieldMeta(x.fields[f], languages)));
     if (x.displayTemplate)
       this.displayTemplate = (x.displayTemplate || []).map((z: string[]) =>
