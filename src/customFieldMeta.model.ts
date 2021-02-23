@@ -60,7 +60,7 @@ export class CustomFieldMeta extends Resource {
 
   public load(x: any, languages?: Languages) {
     super.load(x, languages);
-    if (x.teamId) this.clean(x.teamId, String);
+    if (x.teamId) this.teamId = this.clean(x.teamId, String);
     if (x.fieldId) this.fieldId = this.clean(x.fieldId, String);
     this.name = new Label(x.name, languages);
     this.description = new Label(x.description, languages);
