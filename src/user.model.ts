@@ -21,11 +21,6 @@ export class User extends Resource {
    * Timestamp of creation.
    */
   public createdAt: epochDateTime;
-  /**
-   * Whether the user is a robot (e.g. used for data-exchange purposes) or a physical (real) user.
-   * Note: robot users can't sign-into the apps front-end.
-   */
-  public isRobot?: boolean;
 
   // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22
   //  --> when all the projects are advanced to that version, you can remove this attribute
@@ -44,7 +39,6 @@ export class User extends Resource {
         if (x.currentTeamInProjects[project])
           this.currentTeamInProjects[project] = String(x.currentTeamInProjects[project]);
     this.createdAt = this.clean(x.createdAt, d => new Date(d).getTime(), Date.now());
-    if (x.isRobot) this.isRobot = true;
 
     // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22
     //  --> when all the projects are advanced to that version, you can remove this attribute
@@ -57,7 +51,6 @@ export class User extends Resource {
     this.userId = safeData.userId;
     this.currentTeamInProjects = safeData.currentTeamInProjects;
     this.createdAt = safeData.createdAt;
-    if (safeData.isRobot) this.isRobot = true;
 
     // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22
     //  --> when all the projects are advanced to that version, you can remove this attribute
