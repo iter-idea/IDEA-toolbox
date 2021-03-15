@@ -1,83 +1,59 @@
+import { epochISOString } from './epoch';
 import { Resource } from './resource.model';
 
 export class ClientInfo extends Resource {
   /**
    * Current timestamp from the client.
    */
-  public timestamp: Date;
+  public timestamp: epochISOString;
   /**
-   * The timezone of the client.
+   * Info about the client's platform.
    */
-  public timezone: number;
+  public platform: string;
   /**
-   * In which page the client was on.
+   * The client's screen width.
    */
-  public pageOn: string;
+  public screenWidth: number;
+  /**
+   * The client's screen height.
+   */
+  public screenHeight: number;
+  /**
+   * Whether the client is in landscape mode; otherwise, portrait.
+   */
+  public isLandscape: boolean;
+  /**
+   * The current url on the client.
+   */
+  public url: string;
   /**
    * The page referrer of the client.
    */
   public referrer: string;
   /**
-   * The browser name.
+   * Whether the client was online at the time of the error.
    */
-  public browserName: string;
+  public isOnline: boolean;
   /**
-   * The browser engine.
+   * The client's language.
    */
-  public browserEngine: string;
+  public language: string;
   /**
-   * The browser version.
+   * The client's user agent.
    */
-  public browserVersion: string;
-  /**
-   * The browser user agent.
-   */
-  public browserUserAgent: string;
-  /**
-   * The browser language.
-   */
-  public browserLanguage: string;
-  /**
-   * The connection status of the browser.
-   */
-  public browserOnline: boolean;
-  /**
-   * The platform of the browser.
-   */
-  public browserPlatform: string;
-  /**
-   * The screen width.
-   */
-  public screenWidth: number;
-  /**
-   * The screen height.
-   */
-  public screenHeight: number;
-  /**
-   * The screen color depth.
-   */
-  public screenColorDepth: number;
-  /**
-   * The screen pixl depth.
-   */
-  public screenPixelDepth: number;
+  public userAgent: string;
 
   public load(x: any) {
     super.load(x);
-    this.timestamp = this.clean(x.timestamp, a => new Date(a).getTime(), Date.now());
-    this.timezone = this.clean(x.timezone, Number);
-    this.pageOn = this.clean(x.pageOn, String);
-    this.referrer = this.clean(x.referrer, String);
-    this.browserName = this.clean(x.browserName, String);
-    this.browserEngine = this.clean(x.browserEngine, String);
-    this.browserVersion = this.clean(x.browserVersion, String);
-    this.browserUserAgent = this.clean(x.browserUserAgent, String);
-    this.browserLanguage = this.clean(x.browserLanguage, String);
-    this.browserOnline = this.clean(x.browserOnline, Boolean);
-    this.browserPlatform = this.clean(x.browserPlatform, String);
+    this.timestamp = this.clean(x.timestamp, t => new Date(t).toISOString()) as epochISOString;
+    this.platform = this.clean(x.platform, String);
     this.screenWidth = this.clean(x.screenWidth, Number);
     this.screenHeight = this.clean(x.screenHeight, Number);
-    this.screenColorDepth = this.clean(x.screenColorDepth, Number);
-    this.screenPixelDepth = this.clean(x.screenPixelDepth, Number);
+    this.isLandscape = this.clean(x.isLandscape, Boolean);
+    this.url = this.clean(x.url, String);
+    this.referrer = this.clean(x.referrer, String);
+    this.isOnline = this.clean(x.isOnline, Boolean);
+    this.language = this.clean(x.language, String);
+    this.userAgent = this.clean(x.userAgent, String);
   }
 }

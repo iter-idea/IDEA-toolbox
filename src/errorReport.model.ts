@@ -1,30 +1,47 @@
 import { Resource } from './resource.model';
-import { epochDateTime } from './epoch';
 import { ClientInfo } from './clientInfo.model';
-import { ClientError } from './clientError.model';
-
-const EXPIRES_AT_DEFAULT_MARING_SEC = 5184000; // 60 days
+import { epochISOString } from './epoch';
 
 /**
  * Table: `idea_projects_errorsReports`.
  */
 export class ErrorReport extends Resource {
   /**
-   * Project / product key.
+   * Project/product key.
    */
   public project: string;
   /**
-   * The timestamp of creation (server).
+   * The version of the project/product.
    */
-  public createdAt: epochDateTime;
+  public version: string;
   /**
-   * Expiration time, in seconds.
+   * The stage currently set (dev/prod/etc.).
+   */
+  public stage: string;
+  /**
+   * The language currently set.
+   */
+  public language: string;
+  /**
+   * The timestamp of creation (backend).
+   */
+  public createdAt: epochISOString;
+  /**
+   * Timestamp of when the report should expire, expressed in seconds.
    */
   public expiresAt: number;
   /**
-   * The details of the error.
+   * The type of the error.
    */
-  public error: ClientError;
+  public type: string;
+  /**
+   * The error message.
+   */
+  public error: string;
+  /**
+   * The error stack (stringified).
+   */
+  public stack: string;
   /**
    * The details of the client at the time of the error.
    */
@@ -33,16 +50,14 @@ export class ErrorReport extends Resource {
   public load(x: any) {
     super.load(x);
     this.project = this.clean(x.project, String);
-    this.createdAt = this.clean(x.createdAt, a => new Date(a), Date.now());
-    this.expiresAt = Math.round(new Date(this.createdAt).getTime() / 1000 + EXPIRES_AT_DEFAULT_MARING_SEC);
-    this.error = new ClientError(x.error);
+    this.version = this.clean(x.version, String);
+    this.stage = this.clean(x.stage, String);
+    this.language = this.clean(x.language, String);
+    this.createdAt = this.clean(x.createdAt, t => new Date(t).toISOString()) as epochISOString;
+    this.expiresAt = this.clean(x.expiresAt, Number);
+    this.type = this.clean(x.type, String);
+    this.error = this.clean(x.error, String);
+    this.stack = this.clean(x.stack, String);
     this.client = new ClientInfo(x.client);
-  }
-
-  public safeLoad(newData: any, safeData: any) {
-    this.safeLoad(newData, safeData);
-    this.project = safeData.project;
-    this.createdAt = safeData.createdAt;
-    this.expiresAt = Math.round(safeData.createdAt / 1000 + EXPIRES_AT_DEFAULT_MARING_SEC);
   }
 }
