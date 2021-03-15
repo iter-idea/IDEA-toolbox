@@ -2820,9 +2820,6 @@ img {
 			<a href="classes/check.html" class="tsd-kind-icon">Check</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="classes/clienterror.html" class="tsd-kind-icon">Client<wbr>Error</a>
-		</li>
-		<li class=" tsd-kind-class">
 			<a href="classes/clientinfo.html" class="tsd-kind-icon">Client<wbr>Info</a>
 		</li>
 		<li class=" tsd-kind-class">
@@ -2860,6 +2857,9 @@ img {
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="classes/errorreport.html" class="tsd-kind-icon">Error<wbr>Report</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/errorwhitelisted.html" class="tsd-kind-icon">Error<wbr>Whitelisted</a>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="classes/eventnotificationpreference.html" class="tsd-kind-icon">Event<wbr>Notification<wbr>Preference</a>
@@ -2979,10 +2979,10 @@ img {
 			<a href="globals.html#epochdatetime" class="tsd-kind-icon">epoch<wbr>Date<wbr>Time</a>
 		</li>
 		<li class=" tsd-kind-type-alias">
-			<a href="globals.html#markdown" class="tsd-kind-icon">markdown</a>
+			<a href="globals.html#epochisostring" class="tsd-kind-icon">epochISOString</a>
 		</li>
-		<li class=" tsd-kind-variable">
-			<a href="globals.html#expires_at_default_maring_sec" class="tsd-kind-icon">EXPIRES_<wbr>AT_<wbr>DEFAULT_<wbr>MARING_<wbr>SEC</a>
+		<li class=" tsd-kind-type-alias">
+			<a href="globals.html#markdown" class="tsd-kind-icon">markdown</a>
 		</li>
 		<li class=" tsd-kind-variable">
 			<a href="globals.html#marked" class="tsd-kind-icon">Marked</a>
@@ -3090,7 +3090,6 @@ img {
 							<li class="tsd-kind-class"><a href="classes/cacheableresource.html" class="tsd-kind-icon">Cacheable<wbr>Resource</a></li>
 							<li class="tsd-kind-class"><a href="classes/calendar.html" class="tsd-kind-icon">Calendar</a></li>
 							<li class="tsd-kind-class"><a href="classes/check.html" class="tsd-kind-icon">Check</a></li>
-							<li class="tsd-kind-class"><a href="classes/clienterror.html" class="tsd-kind-icon">Client<wbr>Error</a></li>
 							<li class="tsd-kind-class"><a href="classes/clientinfo.html" class="tsd-kind-icon">Client<wbr>Info</a></li>
 							<li class="tsd-kind-class"><a href="classes/contactrequest.html" class="tsd-kind-icon">Contact<wbr>Request</a></li>
 							<li class="tsd-kind-class"><a href="classes/contacts.html" class="tsd-kind-icon">Contacts</a></li>
@@ -3104,6 +3103,7 @@ img {
 							<li class="tsd-kind-class"><a href="classes/emailchangerequest.html" class="tsd-kind-icon">Email<wbr>Change<wbr>Request</a></li>
 							<li class="tsd-kind-class"><a href="classes/emaildata.html" class="tsd-kind-icon">Email<wbr>Data</a></li>
 							<li class="tsd-kind-class"><a href="classes/errorreport.html" class="tsd-kind-icon">Error<wbr>Report</a></li>
+							<li class="tsd-kind-class"><a href="classes/errorwhitelisted.html" class="tsd-kind-icon">Error<wbr>Whitelisted</a></li>
 							<li class="tsd-kind-class"><a href="classes/eventnotificationpreference.html" class="tsd-kind-icon">Event<wbr>Notification<wbr>Preference</a></li>
 							<li class="tsd-kind-class"><a href="classes/externalcalendarinfo.html" class="tsd-kind-icon">External<wbr>Calendar<wbr>Info</a></li>
 							<li class="tsd-kind-class"><a href="classes/externalcalendartoken.html" class="tsd-kind-icon">External<wbr>Calendar<wbr>Token</a></li>
@@ -3153,13 +3153,13 @@ img {
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-type-alias"><a href="globals.html#epochdate" class="tsd-kind-icon">epoch<wbr>Date</a></li>
 							<li class="tsd-kind-type-alias"><a href="globals.html#epochdatetime" class="tsd-kind-icon">epoch<wbr>Date<wbr>Time</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#epochisostring" class="tsd-kind-icon">epochISOString</a></li>
 							<li class="tsd-kind-type-alias"><a href="globals.html#markdown" class="tsd-kind-icon">markdown</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Variables</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-variable"><a href="globals.html#expires_at_default_maring_sec" class="tsd-kind-icon">EXPIRES_<wbr>AT_<wbr>DEFAULT_<wbr>MARING_<wbr>SEC</a></li>
 							<li class="tsd-kind-variable"><a href="globals.html#marked" class="tsd-kind-icon">Marked</a></li>
 						</ul>
 					</section>
@@ -3191,7 +3191,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">epoch<wbr>Date<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/epoch.ts#L6">epoch.ts:6</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/epoch.ts#L6">epoch.ts:6</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3207,7 +3207,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">epoch<wbr>Date<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/epoch.ts#L12">epoch.ts:12</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/epoch.ts#L12">epoch.ts:12</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3218,12 +3218,28 @@ img {
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="epochisostring" class="tsd-anchor"></a>
+				<h3>epochISOString</h3>
+				<div class="tsd-signature tsd-kind-icon">epochISOString<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/epoch.ts#L18">epoch.ts:18</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Alias to avoid explaining the type for each variable.</p>
+					</div>
+					<p>It&#39;s a date time in epoch format (reference date) stored in ISO string.</p>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
 				<a name="markdown" class="tsd-anchor"></a>
 				<h3>markdown</h3>
 				<div class="tsd-signature tsd-kind-icon">markdown<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/markdown.ts#L6">markdown.ts:6</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/markdown.ts#L6">markdown.ts:6</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3237,22 +3253,12 @@ img {
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Variables</h2>
 			<section class="tsd-panel tsd-member tsd-kind-variable">
-				<a name="expires_at_default_maring_sec" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagConst">Const</span> EXPIRES_<wbr>AT_<wbr>DEFAULT_<wbr>MARING_<wbr>SEC</h3>
-				<div class="tsd-signature tsd-kind-icon">EXPIRES_<wbr>AT_<wbr>DEFAULT_<wbr>MARING_<wbr>SEC<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">5184000</span><span class="tsd-signature-symbol"> = 5184000</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/errorReport.model.ts#L6">errorReport.model.ts:6</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-variable">
 				<a name="marked" class="tsd-anchor"></a>
 				<h3>Marked</h3>
 				<div class="tsd-signature tsd-kind-icon">Marked<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">marked</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/utils.ts#L4">utils.ts:4</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/utils.ts#L4">utils.ts:4</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3269,7 +3275,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/utils.ts#L17">utils.ts:17</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/utils.ts#L17">utils.ts:17</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3301,7 +3307,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/utils.ts#L45">utils.ts:45</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/utils.ts#L45">utils.ts:45</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3339,7 +3345,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/utils.ts#L29">utils.ts:29</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/utils.ts#L29">utils.ts:29</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3389,7 +3395,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/utils.ts#L155">utils.ts:155</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/utils.ts#L155">utils.ts:155</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3420,7 +3426,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/utils.ts#L93">utils.ts:93</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/utils.ts#L93">utils.ts:93</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3459,7 +3465,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/utils.ts#L60">utils.ts:60</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/utils.ts#L60">utils.ts:60</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3538,7 +3544,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/utils.ts#L131">utils.ts:131</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/utils.ts#L131">utils.ts:131</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3587,7 +3593,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/utils.ts#L164">utils.ts:164</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/utils.ts#L164">utils.ts:164</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3615,7 +3621,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/utils.ts#L172">utils.ts:172</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/utils.ts#L172">utils.ts:172</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3643,7 +3649,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/utils.ts#L143">utils.ts:143</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/utils.ts#L143">utils.ts:143</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3671,7 +3677,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/utils.ts#L149">utils.ts:149</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/utils.ts#L149">utils.ts:149</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3699,7 +3705,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/c1d85b3/src/utils.ts#L181">utils.ts:181</a></li>
+								<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/75bb769/src/utils.ts#L181">utils.ts:181</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
