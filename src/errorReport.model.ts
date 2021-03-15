@@ -19,10 +19,6 @@ export class ErrorReport extends Resource {
    */
   public stage: string;
   /**
-   * The language currently set.
-   */
-  public language: string;
-  /**
    * The timestamp of creation (backend).
    */
   public createdAt: epochISOString;
@@ -52,7 +48,6 @@ export class ErrorReport extends Resource {
     this.project = this.clean(x.project, String);
     this.version = this.clean(x.version, String);
     this.stage = this.clean(x.stage, String);
-    this.language = this.clean(x.language, String);
     this.createdAt = this.clean(x.createdAt, t => new Date(t).toISOString()) as epochISOString;
     this.expiresAt = this.clean(x.expiresAt, Number);
     this.type = this.clean(x.type, String);
