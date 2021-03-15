@@ -10,3 +10,9 @@ export type epochDate = number;
  * It's a date time in epoch format (reference date) stored in ms.
  */
 export type epochDateTime = number;
+/**
+ * Alias to avoid explaining the type for each variable.
+ *
+ * It's a date time in epoch format (reference date) stored in ISO string.
+ */
+export type epochISOString = string;
