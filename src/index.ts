@@ -43,6 +43,7 @@ export * from './RCConfiguredFolder.model';
 export * from './RCFolder.model';
 export * from './RCResource.model';
 export * from './resource.model';
+export * from './sentiment.enum';
 export * from './signature.model';
 export * from './signedURL.model';
 export * from './stringVariable.model';
