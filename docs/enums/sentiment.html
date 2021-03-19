@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ExternalCalendarSources | idea-toolbox</title>
+	<title>Sentiment | idea-toolbox</title>
 	<meta name="description" content="Documentation for idea-toolbox">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2721,13 +2721,19 @@ img {
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class="current tsd-kind-enum">
-			<a href="externalcalendarsources.html" class="tsd-kind-icon">External<wbr>Calendar<wbr>Sources</a>
+			<a href="sentiment.html" class="tsd-kind-icon">Sentiment</a>
 			<ul>
 				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="externalcalendarsources.html#google" class="tsd-kind-icon">GOOGLE</a>
+					<a href="sentiment.html#mixed" class="tsd-kind-icon">MIXED</a>
 				</li>
 				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="externalcalendarsources.html#microsoft" class="tsd-kind-icon">MICROSOFT</a>
+					<a href="sentiment.html#negative" class="tsd-kind-icon">NEGATIVE</a>
+				</li>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="sentiment.html#neutral" class="tsd-kind-icon">NEUTRAL</a>
+				</li>
+				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+					<a href="sentiment.html#positive" class="tsd-kind-icon">POSITIVE</a>
 				</li>
 			</ul>
 		</li>
@@ -2738,7 +2744,7 @@ img {
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Possible services as source for external calendars.</p>
+					<p>The inferred sentiment (on a text) on which Amazon Comprehend has the highest level of confidence in.</p>
 				</div>
 			</div>
 		</section>
@@ -2749,8 +2755,10 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Enumeration members</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="externalcalendarsources.html#google" class="tsd-kind-icon">GOOGLE</a></li>
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="externalcalendarsources.html#microsoft" class="tsd-kind-icon">MICROSOFT</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="sentiment.html#mixed" class="tsd-kind-icon">MIXED</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="sentiment.html#negative" class="tsd-kind-icon">NEGATIVE</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="sentiment.html#neutral" class="tsd-kind-icon">NEUTRAL</a></li>
+							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="sentiment.html#positive" class="tsd-kind-icon">POSITIVE</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2759,22 +2767,42 @@ img {
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Enumeration members</h2>
 			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-				<a name="google" class="tsd-anchor"></a>
-				<h3>GOOGLE</h3>
-				<div class="tsd-signature tsd-kind-icon">GOOGLE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;GOOGLE&quot;</span></div>
+				<a name="mixed" class="tsd-anchor"></a>
+				<h3>MIXED</h3>
+				<div class="tsd-signature tsd-kind-icon">MIXED<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;MIXED&quot;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/edf5a6d/src/calendar.model.ts#L211">calendar.model.ts:211</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/edf5a6d/src/sentiment.enum.ts#L8">sentiment.enum.ts:8</a></li>
 					</ul>
 				</aside>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-				<a name="microsoft" class="tsd-anchor"></a>
-				<h3>MICROSOFT</h3>
-				<div class="tsd-signature tsd-kind-icon">MICROSOFT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;MICROSOFT&quot;</span></div>
+				<a name="negative" class="tsd-anchor"></a>
+				<h3>NEGATIVE</h3>
+				<div class="tsd-signature tsd-kind-icon">NEGATIVE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;NEGATIVE&quot;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/edf5a6d/src/calendar.model.ts#L212">calendar.model.ts:212</a></li>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/edf5a6d/src/sentiment.enum.ts#L6">sentiment.enum.ts:6</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+				<a name="neutral" class="tsd-anchor"></a>
+				<h3>NEUTRAL</h3>
+				<div class="tsd-signature tsd-kind-icon">NEUTRAL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;NEUTRAL&quot;</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/edf5a6d/src/sentiment.enum.ts#L7">sentiment.enum.ts:7</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+				<a name="positive" class="tsd-anchor"></a>
+				<h3>POSITIVE</h3>
+				<div class="tsd-signature tsd-kind-icon">POSITIVE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;POSITIVE&quot;</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/uatisdeproblem/IDEA-toolbox/blob/edf5a6d/src/sentiment.enum.ts#L5">sentiment.enum.ts:5</a></li>
 					</ul>
 				</aside>
 			</section>
