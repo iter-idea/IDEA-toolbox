@@ -29,24 +29,24 @@ export class Membership extends Resource {
    */
   public initials?: string;
   /**
-   * If `false`, the user joined the team.
+   * Whether the user has still to accept the invitation to join the team.
    */
-  public pendingInvitation: boolean;
+  public pendingInvitation?: boolean;
 
   public load(x: any) {
     super.load(x);
     this.teamId = this.clean(x.teamId, String);
     this.userId = this.clean(x.userId, String);
-    if (x.initials) this.initials = this.clean(x.initials, String);
     this.name = this.clean(x.name, String);
-    this.pendingInvitation = this.clean(x.pendingInvitation, Boolean, true);
+    if (x.initials) this.initials = this.clean(x.initials, String);
+    if (x.pendingInvitation) this.pendingInvitation = true;
   }
 
   public safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.teamId = safeData.teamId;
     this.userId = safeData.userId;
-    this.pendingInvitation = safeData.pendingInvitation;
+    if (safeData.pendingInvitation) this.pendingInvitation = safeData.pendingInvitation;
   }
 
   public validate(): string[] {

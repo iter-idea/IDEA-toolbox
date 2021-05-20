@@ -22,7 +22,7 @@ export class User extends Resource {
    */
   public createdAt: epochDateTime;
 
-  // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22
+  // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22 (only Mario is missing)
   //  --> when all the projects are advanced to that version, you can remove this attribute
   /**
    * @deprecated
@@ -40,7 +40,7 @@ export class User extends Resource {
           this.currentTeamInProjects[project] = String(x.currentTeamInProjects[project]);
     this.createdAt = this.clean(x.createdAt, d => new Date(d).getTime(), Date.now());
 
-    // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22
+    // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22 (only Mario is missing)
     //  --> when all the projects are advanced to that version, you can remove this attribute
     this.currentTeam = {};
   }
@@ -52,7 +52,7 @@ export class User extends Resource {
     this.currentTeamInProjects = safeData.currentTeamInProjects;
     this.createdAt = safeData.createdAt;
 
-    // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22
+    // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22 (only Mario is missing)
     //  --> when all the projects are advanced to that version, you can remove this attribute
     this.currentTeam = {};
   }

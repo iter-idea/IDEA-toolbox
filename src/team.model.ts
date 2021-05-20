@@ -18,10 +18,6 @@ export class Team extends Resource {
    */
   public createdAt: epochDateTime;
   /**
-   * The list of admins (userIds) of the team.
-   */
-  public admins: string[];
-  /**
    * The list of projects (codes) in which the team is currently active.
    */
   public activeInProjects: string[];
@@ -31,7 +27,6 @@ export class Team extends Resource {
     this.teamId = this.clean(x.teamId, String);
     this.name = this.clean(x.name, String);
     this.createdAt = this.clean(x.createdAt, d => new Date(d).getTime(), Date.now());
-    this.admins = this.cleanArray(x.admins, String);
     this.activeInProjects = this.cleanArray(x.activeInProjects, String);
   }
 
@@ -39,7 +34,6 @@ export class Team extends Resource {
     super.safeLoad(newData, safeData);
     this.teamId = safeData.teamId;
     this.createdAt = safeData.createdAt;
-    this.admins = safeData.admins;
     this.activeInProjects = safeData.activeInProjects;
   }
 
@@ -47,13 +41,5 @@ export class Team extends Resource {
     const e = super.validate();
     if (this.iE(this.name)) e.push('name');
     return e;
-  }
-
-  /**
-   * Whether the chosen user is an admin of the team.
-   */
-  public isUserAdmin(userOrId: any | string): boolean {
-    const id = typeof userOrId === 'string' ? userOrId : (userOrId || {}).userId;
-    return this.admins.some(a => a === id);
   }
 }
