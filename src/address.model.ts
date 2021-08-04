@@ -67,12 +67,58 @@ export class Address extends Resource {
     return e;
   }
 
-  public getFullAddress() {
-    let full = this.address || '';
-    if (this.address2) full = full.concat(` (${this.address2})`);
-    if (this.city || this.postcode) full = full.concat(`, ${this.city || ''} ${this.postcode || ''}`.trim());
-    if (this.country) full = full.concat(` - ${this.country}`);
-    return full.trim();
+  /**
+   * Get a string representing the formatted full address.
+   */
+  public getFullAddress(
+    display: {
+      address?: boolean;
+      address2?: boolean;
+      city?: boolean;
+      postcode?: boolean;
+      province?: boolean;
+      country?: boolean;
+    } = {}
+  ) {
+    display = Object.assign(
+      {
+        address: true,
+        address2: true,
+        city: true,
+        postcode: true,
+        province: true,
+        country: true
+      },
+      display
+    );
+    let res = '';
+
+    if (this.address?.trim() && display.address) res = res.concat(this.address.trim());
+    if (this.address2?.trim() && display.address2) {
+      if (res.length) res = res.concat(` (${this.address2.trim()})`);
+      else res = res.concat(this.address2.trim());
+    }
+
+    if (this.city?.trim() && display.city) {
+      if (res.length) res = res.concat(`, ${this.city.trim()}`);
+      else res = res.concat(this.city.trim());
+    }
+    if (this.postcode?.trim() && display.postcode) {
+      if (this.city?.trim() && display.city) res = res.concat(` ${this.postcode.trim()}`);
+      else if (res.length) res = res.concat(`, ${this.postcode.trim()}`);
+      else res = res.concat(this.postcode.trim());
+    }
+    if (this.province?.trim() && display.province) {
+      if (res.length) res = res.concat(` (${this.province.trim()})`);
+      else res = res.concat(this.province.trim());
+    }
+
+    if (this.country?.trim() && display.country) {
+      if (res.length) res = res.concat(` - ${this.country.trim()}`);
+      else res = res.concat(this.country.trim());
+    }
+
+    return res.trim();
   }
 }
 
