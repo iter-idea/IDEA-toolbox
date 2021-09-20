@@ -130,7 +130,7 @@ export function isEmpty(field: any, type?: string): boolean {
  * @param content the content to log
  * @param important optional; if true, highlight the line in CloudWatch
  */
-export function logger(context: string, err?: Error | null | undefined, content?: any, important?: boolean) {
+export function logger(context: string, err?: Error | any, content?: any, important?: boolean) {
   const someContent = content !== undefined && content !== null;
   // eslint-disable-next-line no-console
   if (err) console.error('[ERROR]', '≫', err, someContent ? content : '');
