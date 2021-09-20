@@ -1,5 +1,8 @@
 import { epochDateTime } from './epoch';
 
+/**
+ * @deprecated
+ */
 export interface Cacheable {
   /**
    * "Modified at" information on the resource.

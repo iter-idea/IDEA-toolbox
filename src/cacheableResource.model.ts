@@ -4,6 +4,7 @@ import { Resource } from './resource.model';
 
 /**
  * An abstract class to inherit to manage a resource model.
+ * @deprecated
  */
 export abstract class CacheableResource extends Resource implements Cacheable {
   /**

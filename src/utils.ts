@@ -13,6 +13,7 @@ import { markdown } from './markdown';
  * Convert an ISODate string to the Italian format.
  * @param ds new Date().toISOString();
  * @returns cleaned date
+ * @deprecated
  */
 export function ISODateToItalianFormat(ds: string): string {
   return `${ds.slice(8, 10)}/${ds.slice(5, 7)}/${ds.slice(0, 4)}`;
@@ -25,6 +26,7 @@ export function ISODateToItalianFormat(ds: string): string {
  * @param short if true, get the short version of the date
  * @param noYear if true, don't concat the year
  * @returns the date converted
+ * @deprecated
  */
 export function dateToLocale(date: Date, lang: string, short?: boolean, noYear?: boolean): string {
   let dayName = date.toLocaleDateString(lang, { weekday: short ? 'short' : 'long' });
@@ -128,7 +130,7 @@ export function isEmpty(field: any, type?: string): boolean {
  * @param content the content to log
  * @param important optional; if true, highlight the line in CloudWatch
  */
-export function logger(context: string, err?: Error, content?: any, important?: boolean) {
+export function logger(context: string, err?: Error | null | undefined, content?: any, important?: boolean) {
   const someContent = content !== undefined && content !== null;
   // eslint-disable-next-line no-console
   if (err) console.error('[ERROR]', '≫', err, someContent ? content : '');
