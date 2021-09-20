@@ -38,61 +38,61 @@ export class ProjectPlan extends Resource {
   /**
    * Project / product key.
    */
-  public project: string;
+  project: string;
   /**
    * The id of the project plan.
    */
-  public planId: string;
+  planId: string;
   /**
    * The id of the plan in the stores (aka Product ID).
    */
-  public storePlanId: string;
+  storePlanId: string;
   /**
    * The price, based on the currency set.
    */
-  public price: number;
+  price: number;
   /**
    * The currency ISO code: EUR, USD, etc.
    */
-  public currency: string;
+  currency: string;
   /**
    * The currency symbol: €, $, etc.
    */
-  public currencySymbol: string;
+  currencySymbol: string;
   /**
    * The string version of the price, with the currency symbol concatenated.
    */
-  public priceStr: string;
+  priceStr: string;
   /**
    * The plan duration.
    */
-  public duration: ProjectPlanDurations;
+  duration: ProjectPlanDurations;
   /**
    * The platforms in which the plan is enabled (and therefore visible).
    */
-  public platforms: ProjectPlatforms[];
+  platforms: ProjectPlatforms[];
   /**
    * The title of the plan, in various languages.
    */
-  public title: Label;
+  title: Label;
   /**
    * The description of the plan, in various languages.
    */
-  public description: Label;
+  description: Label;
   /**
    * Order with which to sort the plan when shown.
    */
-  public order: number;
+  order: number;
   /**
    * If true, the plan is an anomaly and it needs to be threaded in special ways.
    */
-  public special: boolean;
+  special: boolean;
   /**
    * The plan targets: USERS, TEAMS.
    */
-  public target: ProjectPlanTargets;
+  target: ProjectPlanTargets;
 
-  public load(x: any, languages?: Languages) {
+  load(x: any, languages?: Languages) {
     super.load(x);
     this.project = this.clean(x.project, String);
     this.planId = this.clean(x.planId, String);
@@ -110,7 +110,7 @@ export class ProjectPlan extends Resource {
     this.target = this.clean(x.target, String, ProjectPlanTargets.TEAMS);
   }
 
-  public safeLoad(newData: any, safeData: any, languages?: Languages) {
+  safeLoad(newData: any, safeData: any, languages?: Languages) {
     this.safeLoad(newData, safeData, languages);
     this.project = safeData.project;
     this.planId = safeData.planId;
@@ -118,7 +118,7 @@ export class ProjectPlan extends Resource {
     this.target = safeData.target;
   }
 
-  public validate(languages?: Languages): string[] {
+  validate(languages?: Languages): string[] {
     let e = super.validate();
     if (this.iE(this.storePlanId)) e.push('storePlanId');
     if (this.iE(this.price)) e.push('price');

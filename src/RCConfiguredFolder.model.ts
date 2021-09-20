@@ -7,25 +7,25 @@ export class RCConfiguredFolder extends Resource {
   /**
    * The id of the folder.
    */
-  public folderId: string;
+  folderId: string;
   /**
    * The name of the folder.
    */
-  public name: string;
+  name: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.folderId = this.clean(x.folderId, String);
     this.name = this.clean(x.name, String);
   }
 
-  public safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.folderId = safeData.folderId;
     this.name = safeData.folderId;
   }
 
-  public validate(): string[] {
+  validate(): string[] {
     const e = super.validate();
     if (this.iE(this.name)) e.push('name');
     return e;

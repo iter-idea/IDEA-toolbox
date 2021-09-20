@@ -9,21 +9,21 @@ export class EmailChangeRequest extends Resource {
   /**
    * The code that the user has to send to confirm the new email address.
    */
-  public confirmationCode: string;
+  confirmationCode: string;
   /**
    * The old email, to change.
    */
-  public oldEmail: string;
+  oldEmail: string;
   /**
    * The new email address that the user wants to set.
    */
-  public newEmail: string;
+  newEmail: string;
   /**
    * Expiration time, in seconds.
    */
-  public expiresAt: number;
+  expiresAt: number;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.confirmationCode = this.clean(x.confirmationCode, String);
     this.oldEmail = this.clean(x.oldEmail, String);

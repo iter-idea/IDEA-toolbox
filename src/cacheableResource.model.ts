@@ -10,7 +10,7 @@ export abstract class CacheableResource extends Resource implements Cacheable {
   /**
    * "Modified at" information on the resource.
    */
-  public mAt: epochDateTime;
+  mAt: epochDateTime;
 
   constructor(x?: any, options?: any) {
     super(x, options);
@@ -20,11 +20,11 @@ export abstract class CacheableResource extends Resource implements Cacheable {
   /**
    * Update `mAt` after a change in the object.
    */
-  public tick() {
+  tick() {
     this.mAt = Date.now();
   }
 
-  public validate(options?: any): string[] {
+  validate(options?: any): string[] {
     const e = super.validate(options);
     this.tick();
     return e;

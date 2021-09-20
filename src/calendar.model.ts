@@ -16,47 +16,47 @@ export class Calendar extends Resource {
   /**
    * The id (IUID) of the calendar.
    */
-  public calendarId: string;
+  calendarId: string;
   /**
    * The id of the teamId owning the calendar, in case of team calendar (this cannot be changed).
    */
-  public teamId?: string;
+  teamId?: string;
   /**
    * The id of the user owning the calendar, in case of private calendar (this cannot be changed).
    * If `teamId` is set, this attribute is ignored.
    */
-  public userId?: string;
+  userId?: string;
   /**
    * The name of the calendar. Max 100 characters.
    */
-  public name: string;
+  name: string;
   /**
    * The description of the calendar. Max 300 characters.
    */
-  public description: string;
+  description: string;
   /**
    * An identifying color for the calendar; e.g. `#0010AA`.
    */
-  public color: string;
+  color: string;
   /**
    * A default timezone for the calendar.
    */
-  public timezone: string;
+  timezone: string;
   /**
    * Extra info about the calendar, if linked to an external service.
    */
-  public external?: ExternalCalendarInfo;
+  external?: ExternalCalendarInfo;
   /**
    * In case of shared calendar, the IDs of the users that can manage the calendar's appointments.
    * If `null`, everyone can manage the calendar's appointments; if empty (`[]`), no one can (read-only).
    */
-  public usersCanManageAppointments?: string[];
+  usersCanManageAppointments?: string[];
   /**
    * In case of shared calendar, the id of the user who created it.
    */
-  public createdByUserId?: string;
+  createdByUserId?: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.calendarId = this.clean(x.calendarId, String);
     if (x.teamId) this.teamId = this.clean(x.teamId, String);
@@ -73,7 +73,7 @@ export class Calendar extends Resource {
     if (x.teamId) this.createdByUserId = this.clean(x.createdByUserId, String);
   }
 
-  public safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.calendarId = safeData.calendarId;
     if (safeData.teamId) this.teamId = safeData.teamId;
@@ -82,7 +82,7 @@ export class Calendar extends Resource {
     if (safeData.teamId && safeData.createdByUserId) this.createdByUserId = safeData.createdByUserId;
   }
 
-  public validate(): string[] {
+  validate(): string[] {
     const e = super.validate();
     if (this.iE(this.name)) e.push('name');
     return e;
@@ -91,7 +91,7 @@ export class Calendar extends Resource {
   /**
    * Check whether the chosen user can edit the appointments of this calendar.
    */
-  public canUserManageAppointments(userId: string): boolean {
+  canUserManageAppointments(userId: string): boolean {
     // if the calendar is linked to external services, the user must have writing access
     if (this.external && this.external.userAccess < ExternalCalendarPermissions.WRITER) return false;
     // in case of shared calendar, and the allowance list is set, the user must be in the list of the allowed ones
@@ -103,14 +103,14 @@ export class Calendar extends Resource {
   /**
    * Whether the calendar is shared (linked to a team) or not.
    */
-  public isShared(): boolean {
+  isShared(): boolean {
     return Boolean(this.teamId);
   }
 
   /**
    * The id to use to represent the calendar, based on the fact the calendar is linked to external sources or not.
    */
-  public getCalendarIdForAppointments(): string {
+  getCalendarIdForAppointments(): string {
     return this.external ? this.external.service.concat('_', this.external.calendarId) : this.calendarId;
   }
 }
@@ -122,38 +122,38 @@ export class ExternalCalendarInfo extends Resource {
   /**
    * The external service from which the calendar comes.
    */
-  public service: ExternalCalendarSources;
+  service: ExternalCalendarSources;
   /**
    * Id of the external calendar.
    */
-  public calendarId: string;
+  calendarId: string;
   /**
    * Name of the calendar in the external service.
    */
-  public name: string;
+  name: string;
   /**
    * The time of last synchronisation of the external calendar.
    */
-  public lastSyncAt: epochDateTime;
+  lastSyncAt: epochDateTime;
   /**
    * An optional syncBookmark if the external service supports incremental synchronisation.
    */
-  public syncBookmark: string;
+  syncBookmark: string;
   /**
    * An optional pageBookmark if the external service supports incremental synchronisation.
    * In case of synchronisation with multiple pages (Google); Microsoft manages this directly through the syncBookmark.
    */
-  public pageBookmark: string;
+  pageBookmark: string;
   /**
    * The access level to the calendar for the user who linked the external service.
    */
-  public userAccess: ExternalCalendarPermissions;
+  userAccess: ExternalCalendarPermissions;
   /**
    * Email address with which the user has registered to the service.
    */
-  public email: string;
+  email: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.service = this.clean(x.service, String);
     this.calendarId = this.clean(x.calendarId, String);
@@ -185,19 +185,19 @@ export class ExternalCalendarToken extends Resource {
   /**
    * The id external service calendar.
    */
-  public calendarId: string;
+  calendarId: string;
   /**
    * The token to perform API requests to the external service.
    */
-  public token: string;
+  token: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.calendarId = this.clean(x.calendarId, String);
     this.token = this.clean(x.token, String);
   }
 
-  public safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.calendarId = safeData.calendarId;
     this.token = safeData.token;

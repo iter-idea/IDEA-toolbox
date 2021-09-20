@@ -14,26 +14,26 @@ export class Membership extends Resource {
   /**
    * The id of the team.
    */
-  public teamId: string;
+  teamId: string;
   /**
    * The id of the user (Cognito sub).
    */
-  public userId: string;
+  userId: string;
   /**
    * The name of the user in the team.
    * In generic scenarios, it's usually the user's email address.
    */
-  public name: string;
+  name: string;
   /**
    * If set, a short representation of the name, through initials.
    */
-  public initials?: string;
+  initials?: string;
   /**
    * Whether the user has still to accept the invitation to join the team.
    */
-  public pendingInvitation?: boolean;
+  pendingInvitation?: boolean;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.teamId = this.clean(x.teamId, String);
     this.userId = this.clean(x.userId, String);
@@ -42,14 +42,14 @@ export class Membership extends Resource {
     if (x.pendingInvitation) this.pendingInvitation = true;
   }
 
-  public safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.teamId = safeData.teamId;
     this.userId = safeData.userId;
     if (safeData.pendingInvitation) this.pendingInvitation = safeData.pendingInvitation;
   }
 
-  public validate(): string[] {
+  validate(): string[] {
     const e = super.validate();
     if (this.iE(this.name)) e.push('name');
     return e;
@@ -63,25 +63,25 @@ export class MembershipSummary extends Resource {
   /**
    * The id of the member of the team.
    */
-  public userId: string;
+  userId: string;
   /**
    * The name of the member of the team.
    * In generic scenarios, it's usually the user's email address.
    */
-  public name: string;
+  name: string;
   /**
    * If set, a short representation of the name, through initials.
    */
-  public initials?: string;
+  initials?: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.userId = this.clean(x.userId, String);
     this.name = this.clean(x.name, String);
     if (x.initials) this.initials = this.clean(x.initials, String);
   }
 
-  public validate(): string[] {
+  validate(): string[] {
     const e = super.validate();
     if (this.iE(this.userId)) e.push('userId');
     if (this.iE(this.name)) e.push('name');

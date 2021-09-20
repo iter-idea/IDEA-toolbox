@@ -13,53 +13,53 @@ export class APIRequestLog extends Resource {
   /**
    * The id to identify the log stream; usually, it's the concatenation of the project key with the teamId.
    */
-  public logId: string;
+  logId: string;
   /**
    * Timestamp in which the log was captured.
    */
-  public timestamp: epochDateTime;
+  timestamp: epochDateTime;
   /**
    * Id of the user linked to the log.
    */
-  public userId: string;
+  userId: string;
   /**
    * The concatenation of the timestamp with the userId, to support scenarios of concurrency.
    */
-  public sort: string;
+  sort: string;
   /**
    * TTL of the record (in seconds); it's usually a month after the insertion.
    */
-  public expiresAt: number;
+  expiresAt: number;
   /**
    * The resource involved in the log; e.g. `/orders` or `/orders/{orderId}/items`.
    */
-  public resource: string;
+  resource: string;
   /**
    * The determinated path for the resource; e.g. `/orders` or `/orders/12345/items`.
    */
-  public path: string;
+  path: string;
   /**
    * The identifier of a specific element of the resource (`proxy`).
    */
-  public resourceId: string;
+  resourceId: string;
   /**
    * Enum: HTTP method (POST, GET, etc.).
    */
-  public method: string;
+  method: string;
   /**
    * If true, the request ended successfully.
    */
-  public succeeded: boolean;
+  succeeded: boolean;
   /**
    * Action detail; valid (mostly) for PATCH requests.
    */
-  public action?: string;
+  action?: string;
   /**
    * For complex logs, it contains extra information.
    */
-  public description?: string;
+  description?: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.logId = this.clean(x.logId, String);
     this.timestamp = this.clean(x.timestamp, d => new Date(d).getTime(), Date.now());

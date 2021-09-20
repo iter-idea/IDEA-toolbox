@@ -8,11 +8,11 @@ export class User extends Resource {
   /**
    * Cognito sub.
    */
-  public userId: string;
+  userId: string;
   /**
    * === username (from Cognito, **not in DynamoDB**).
    */
-  public email: string;
+  email: string;
   /**
    * The currently selected team in each project.
    */
@@ -20,16 +20,16 @@ export class User extends Resource {
   /**
    * Timestamp of creation.
    */
-  public createdAt: epochDateTime;
+  createdAt: epochDateTime;
 
   // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22 (only Mario is missing)
   //  --> when all the projects are advanced to that version, you can remove this attribute
   /**
    * @deprecated
    */
-  public currentTeam: any;
+  currentTeam: any;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.userId = this.clean(x.userId, String);
     this.email = this.clean(x.email, String);
@@ -45,7 +45,7 @@ export class User extends Resource {
     this.currentTeam = {};
   }
 
-  public safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     delete this.email; // stored only in Cognito
     this.userId = safeData.userId;
@@ -60,13 +60,13 @@ export class User extends Resource {
   /**
    * Get the current team for the user in the selected project.
    */
-  public getCurrentTeamOfProject(project: string): string {
+  getCurrentTeamOfProject(project: string): string {
     return this.currentTeamInProjects[project] || null;
   }
   /**
    * Set (or reset) the current team for the user in the selected project.
    */
-  public setCurrentTeamOfProject(project: string, teamId?: string) {
+  setCurrentTeamOfProject(project: string, teamId?: string) {
     if (teamId) this.currentTeamInProjects[project] = String(teamId);
     else delete this.currentTeamInProjects[project];
   }

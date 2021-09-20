@@ -15,25 +15,25 @@ export class DeltaRecord extends Resource {
   /**
    * The concatenation of teamId and resource.
    */
-  public teamResource: string;
+  teamResource: string;
   /**
    * The id of the record; it could be a concatenation of the element ids.
    */
-  public id: string;
+  id: string;
   /**
    * The timestamp when the record was lastly updated.
    */
-  public timestamp: epochDateTime;
+  timestamp: epochDateTime;
   /**
    * If set, the record shows the element was deleted.
    */
-  public deleted?: boolean;
+  deleted?: boolean;
   /**
    * The current state of the element, if not deleted.
    */
-  public element?: any;
+  element?: any;
 
-  public load(x?: any) {
+  load(x?: any) {
     super.load(x);
     this.teamResource = this.clean(x.teamResource, String);
     this.id = this.clean(x.id, String);
@@ -50,21 +50,21 @@ export class Delta extends Resource {
   /**
    * Starting time to confront what's changed since then.
    */
-  public since: epochDateTime;
+  since: epochDateTime;
   /**
    * If set, there are more resesources to acquire, so it contains the link to request another page.
    */
-  public next?: string;
+  next?: string;
   /**
    * The list of resources involved in this delta.
    */
-  public resources: (DeltaResources | string)[];
+  resources: (DeltaResources | string)[];
   /**
    * The list of delta records for each resource.
    */
-  public records: { [resource: string]: DeltaRecord[] };
+  records: { [resource: string]: DeltaRecord[] };
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.since = this.clean(x.since, Number, 0) as epochDateTime;
     if (x.next) this.next = this.clean(x.next, String);
@@ -76,7 +76,7 @@ export class Delta extends Resource {
   /**
    * Set the records of a resource to the delta.
    */
-  public setRecordsOfResource(records: DeltaRecord[], resource: DeltaResources | string) {
+  setRecordsOfResource(records: DeltaRecord[], resource: DeltaResources | string) {
     if (!this.resources.some(r => r === resource)) this.resources.push(resource);
     this.records[resource] = records;
   }
@@ -89,13 +89,13 @@ export class DeltaNext extends Resource {
   /**
    * The resources of which there is still data to acquire.
    */
-  public resources: (DeltaResources | string)[];
+  resources: (DeltaResources | string)[];
   /**
    * The lastEvaluatedKeys for getting the next page of the pagination, for each resources.
    */
-  public keys: { [resource: string]: any };
+  keys: { [resource: string]: any };
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.resources = this.cleanArray(x.resources, String) as (DeltaResources | string)[];
     this.keys = {};
@@ -105,7 +105,7 @@ export class DeltaNext extends Resource {
   /**
    * Add the keys of a resource to the DeltaNext.
    */
-  public addKeyOfResource(key: { [resource: string]: any }, resource: DeltaResources | string) {
+  addKeyOfResource(key: { [resource: string]: any }, resource: DeltaResources | string) {
     if (!this.resources.some(r => r === resource)) this.resources.push(resource);
     this.keys[resource] = key;
   }
@@ -113,7 +113,7 @@ export class DeltaNext extends Resource {
   /**
    * Remove a resource from the structure.
    */
-  public removeResource(resource: DeltaResources | string) {
+  removeResource(resource: DeltaResources | string) {
     delete this.keys[resource];
     this.resources.splice(this.resources.indexOf(resource), 1);
   }
@@ -121,7 +121,7 @@ export class DeltaNext extends Resource {
   /**
    * Whether the DeltaNext is needed; it depends if there are still resources to be managed.
    */
-  public isNeeded() {
+  isNeeded() {
     return this.resources.length;
   }
 }
@@ -141,17 +141,17 @@ export class DeltaCount extends Resource {
   /**
    * Starting time to confront what's changed since then.
    */
-  public since: epochDateTime;
+  since: epochDateTime;
   /**
    * The list of resources involved in this delta.
    */
-  public resources: (DeltaResources | string)[];
+  resources: (DeltaResources | string)[];
   /**
    * The count of elements for each resource.
    */
-  public count: { [resource: string]: number };
+  count: { [resource: string]: number };
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.since = this.clean(x.since, Number, 0) as epochDateTime;
     this.resources = this.cleanArray(x.resources, String) as (DeltaResources | string)[];

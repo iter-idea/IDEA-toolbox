@@ -9,41 +9,41 @@ export class ErrorReport extends Resource {
   /**
    * Project/product key.
    */
-  public project: string;
+  project: string;
   /**
    * The version of the project/product.
    */
-  public version: string;
+  version: string;
   /**
    * The stage currently set (dev/prod/etc.).
    */
-  public stage: string;
+  stage: string;
   /**
    * The timestamp of creation (backend).
    */
-  public createdAt: epochISOString;
+  createdAt: epochISOString;
   /**
    * Timestamp of when the report should expire, expressed in seconds.
    */
-  public expiresAt: number;
+  expiresAt: number;
   /**
    * The type of the error.
    */
-  public type: string;
+  type: string;
   /**
    * The error message.
    */
-  public error: string;
+  error: string;
   /**
    * The error stack (stringified).
    */
-  public stack: string;
+  stack: string;
   /**
    * The details of the client at the time of the error.
    */
-  public client: ClientInfo;
+  client: ClientInfo;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.project = this.clean(x.project, String);
     this.version = this.clean(x.version, String);

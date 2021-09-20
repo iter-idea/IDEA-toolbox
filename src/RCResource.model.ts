@@ -15,45 +15,45 @@ export class RCResource extends Resource {
   /**
    * Concatenation of resourceCenter and folder id (`resourceCenterId_folderId`).
    */
-  public resourceCenterFolderId: string;
+  resourceCenterFolderId: string;
   /**
    * The id of the resource.
    */
-  public resourceId: string;
+  resourceId: string;
   /**
    * The folder of the resource.
    */
-  public folderId: string;
+  folderId: string;
   /**
    * The name of the resource. This can be changed when attaching to the entity.
    */
-  public name: string;
+  name: string;
   /**
    * The format of the resource (e.g. 'jpg', 'pdf').
    */
-  public format: RCResourceFormats;
+  format: RCResourceFormats;
   /**
    * Timestamp of when the resource has been uploaded the last time.
    */
-  public version: epochDateTime;
+  version: epochDateTime;
   /**
    * Timestamp of when the resource has been created.
    */
-  public createdAt: epochDateTime;
+  createdAt: epochDateTime;
   /**
    * The user who created the resource.
    */
-  public createdBy: MembershipSummary;
+  createdBy: MembershipSummary;
   /**
    * Timestamp of last update.
    */
-  public updatedAt?: epochDateTime;
+  updatedAt?: epochDateTime;
   /**
    * The user who lastly updated the resource.
    */
-  public updatedBy?: MembershipSummary;
+  updatedBy?: MembershipSummary;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.resourceCenterFolderId = this.clean(x.resourceCenterFolderId, String);
     this.resourceId = this.clean(x.resourceId, String);
@@ -67,7 +67,7 @@ export class RCResource extends Resource {
     if (x.updatedBy) this.updatedBy = new MembershipSummary(x.updatedBy);
   }
 
-  public safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.resourceCenterFolderId = safeData.resourceCenterFolderId;
     this.resourceId = safeData.resourceId;
@@ -79,7 +79,7 @@ export class RCResource extends Resource {
     this.updatedBy = safeData.updatedBy;
   }
 
-  public validate(): string[] {
+  validate(): string[] {
     const e = super.validate();
     if (this.iE(this.name)) e.push('name');
     if (!loopStringEnumValues(RCResourceFormats).some(x => x === this.format)) e.push('format');

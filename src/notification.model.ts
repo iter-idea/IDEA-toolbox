@@ -8,39 +8,39 @@ export class Notification extends Resource {
   /**
    * The project from which we fire the notification.
    */
-  public project: string;
+  project: string;
   /**
    * A brief description of the notification.
    */
-  public subject: string;
+  subject: string;
   /**
    * The content of the notification.
    */
-  public content: markdown;
+  content: markdown;
   /**
    * The id of the team owner of the notification. Useful for branded notifications.
    */
-  public teamId?: string;
+  teamId?: string;
   /**
    * The id of the user receiver.
    * Either userId or email must be set.
    */
-  public userId?: string;
+  userId?: string;
   /**
    * In case the user doesn't exist (!userId), the email address to which send an email notification.
    * Either email or userId must be set.
    */
-  public email?: string;
+  email?: string;
   /**
    * If set, an email notification is preferred to any other channel.
    */
-  public forceEmail?: boolean;
+  forceEmail?: boolean;
   /**
    * The event that triggered the notification; useful to gather specific notification preferences.
    */
-  public event?: string;
+  event?: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.project = this.clean(x.project, String);
     this.subject = this.clean(x.subject, String);
@@ -70,13 +70,13 @@ export class EventNotificationPreference extends Resource {
   /**
    * Whether to receive an email.
    */
-  public email: boolean;
+  email: boolean;
   /**
    * Whether to receive a push notification.
    */
-  public push: boolean;
+  push: boolean;
 
-  public load(x?: any) {
+  load(x?: any) {
     super.load(x);
     this.email = this.clean(x.email, Boolean, true);
     this.push = this.clean(x.push, Boolean, true);

@@ -4,29 +4,29 @@ export class Check extends Resource {
   /**
    * The unique identifier for the check element.
    */
-  public value: string | number;
+  value: string | number;
   /**
    * Displayed name (description) of the check element.
    */
-  public name: string;
+  name: string;
   /**
    * Whether the check is true or false.
    */
-  public checked: boolean;
+  checked: boolean;
   /**
    * Elements not included in the current search because of other filters.
    */
-  public hidden: boolean;
+  hidden: boolean;
   /**
    * URL to an avatar to display for the element.
    */
-  public avatar: string;
+  avatar: string;
   /**
    * The color shape to display (instead of an avatar) for the element.
    */
-  public color: string;
+  color: string;
 
-  public load(x?: any) {
+  load(x?: any) {
     if (x) x = typeof x === 'object' ? x : { value: x }; // backward compatibility
     super.load(x);
     this.value = this.clean(x.value, v => (typeof v === 'number' ? Number(v) : String(v)));

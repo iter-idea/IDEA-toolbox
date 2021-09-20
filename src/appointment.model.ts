@@ -18,64 +18,64 @@ export class Appointment extends Resource {
    * The id of the appointment.
    * In case of external calendar, it's the external id; otherwise (local calendars), it's a IUID.
    */
-  public appointmentId: string;
+  appointmentId: string;
   /**
    * The id of the calendar owning the appointment.
    * For external calendars, it's the direct id of the external calendar (and not the id of `idea_calendars`),
    * to avoid repetitions of appointments for each copy of the external calendar linked to an IDEA calendar.
    */
-  public calendarId: string;
+  calendarId: string;
   /**
    * A unique id for the appointment, shared across different calendars and calendaring systems (standard RFC5545);
    * i.e. each appointment in different calendars may have different `appointmentId`, but it always have same `iCalUID`.
    * Note: in many calendaring systems recurring events share the same `iCalUID`.
    */
-  public iCalUID: string;
+  iCalUID: string;
   /**
    * Master appointment id (optional): the id of the master appointment, in case this is an occurence.
    */
-  public masterAppointmentId?: string;
+  masterAppointmentId?: string;
   /**
    * The title of the appointment.
    */
-  public title: string;
+  title: string;
   /**
    * The location of the appointment.
    */
-  public location: string;
+  location: string;
   /**
    * The description of the appointment.
    */
-  public description: string;
+  description: string;
   /**
    * The starting time of the appointment.
    */
-  public startTime: epochDateTime;
+  startTime: epochDateTime;
   /**
    * The ending time of the appointment.
    */
-  public endTime: epochDateTime;
+  endTime: epochDateTime;
   /**
    * If true, it's an all-day event.
    */
-  public allDay: boolean;
+  allDay: boolean;
   /**
    * The timezone for the appointent start and end.
    */
-  public timezone: string;
+  timezone: string;
   /**
    * In case the calendar is linked to external services, the link to access the external resource.
    */
-  public linkToOrigin?: string;
+  linkToOrigin?: string;
   /**
    * A list of objects linked to the appointment.
    */
-  public linkedTo?: AppointmentLinkedObject[];
+  linkedTo?: AppointmentLinkedObject[];
   /**
    * The attendees supposed to partecipate to the event.
    * It's an empty array in case the appointment is "private", i.e. the creator is the only attendee.
    */
-  public attendees: AppointmentAttendee[];
+  attendees: AppointmentAttendee[];
   /**
    * The appointment notifications and the specs for their execution.
    * These may come from external calendars: in that case no internal notifications will fire.
@@ -84,35 +84,35 @@ export class Appointment extends Resource {
    *     - Google: up to 5 notifications; max 4 weeks before;
    *     - Multiple notifications at the same time are not allowed.
    */
-  public notifications: AppointmentNotification[];
+  notifications: AppointmentNotification[];
   /**
    * Date and hour in which the reminder is slotted (`YYYYMMDDHH`). Avoid timezones: UTC!!
    * Used to quickly identify the reminders to manage in a particular time frame.
    * In case of appointments on external calendars these will not be valued.
    */
-  public internalNotificationFiresOn?: string;
+  internalNotificationFiresOn?: string;
   /**
    * Fine grain time of alert, expressed in minutes.
    * In case of appointments on external calendars these will not be valued.
    */
-  public internalNotificationFiresAt?: number;
+  internalNotificationFiresAt?: number;
   /**
    * Project from which the notification comes; useful to get the notification preferences.
    * In case of appointments on external calendars these will not be valued.
    */
-  public internalNotificationProject?: string;
+  internalNotificationProject?: string;
   /**
    * Team of the user that need to be notified; useful to get the notification preferences.
    * In case of appointments on external calendars these will not be valued.
    */
-  public internalNotificationTeamId?: string;
+  internalNotificationTeamId?: string;
   /**
    * User that need to be notified; useful to get the notification preferences.
    * In case of appointments on external calendars these will not be valued.
    */
-  public internalNotificationUserId?: string;
+  internalNotificationUserId?: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.appointmentId = this.clean(x.appointmentId, String);
     this.calendarId = this.clean(x.calendarId, String);
@@ -142,7 +142,7 @@ export class Appointment extends Resource {
   /**
    * Set a default start/end day for all-day events, to be compatible with external services.
    */
-  public fixAllDayTime() {
+  fixAllDayTime() {
     if (this.allDay) {
       const start = new Date(this.startTime);
       start.setHours(0, 0, 0);
@@ -153,7 +153,7 @@ export class Appointment extends Resource {
     }
   }
 
-  public safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.appointmentId = safeData.appointmentId;
     this.calendarId = safeData.calendarId;
@@ -176,7 +176,7 @@ export class Appointment extends Resource {
       }
   }
 
-  public validate(): string[] {
+  validate(): string[] {
     const e = super.validate();
     if (this.iE(this.title)) e.push('title');
     if (this.iE(this.startTime)) e.push('startTime');
@@ -196,7 +196,7 @@ export class Appointment extends Resource {
   /**
    * Calculate the firing time for internal appointments.
    */
-  public calculateFiringTime() {
+  calculateFiringTime() {
     // find the first notification to fire (max number of minutes to substract from the start time)
     const maxNumMinutes = Math.max.apply(
       null,
@@ -217,14 +217,14 @@ export class Appointment extends Resource {
    * Get the information on an attendee.
    * The latter can be identified by email or, by default, as the attendee marked as `self`.
    */
-  public getAttendee(email?: string): AppointmentAttendee {
+  getAttendee(email?: string): AppointmentAttendee {
     return this.attendees.find(a => (email ? a.email === email : a.self));
   }
   /**
    * Get the attendance of the desired attendee.
    * The latter can be identified by email or, by default, as the attendee marked as `self`.
    */
-  public getAttendance(email?: string): AppointmentAttendance {
+  getAttendance(email?: string): AppointmentAttendance {
     const attendee = this.getAttendee(email);
     return attendee ? attendee.attendance : undefined;
   }
@@ -232,7 +232,7 @@ export class Appointment extends Resource {
    * Whether the user is the organizer of the event.
    * The user can be identified by email or, by default, as the attendee marked as `self`.
    */
-  public isOrganizer(email?: string): boolean {
+  isOrganizer(email?: string): boolean {
     // if the array is empty, the event is owned by the current user (there aren't other attendees)
     if (!this.attendees.length) return true;
     // otherwise, check whether the user is the organizer
@@ -249,26 +249,26 @@ export class AppointmentKeys extends Resource {
    * The id of the appointment.
    * In case of external calendar, it's the external id; otherwise (local calendars), it's a IUID.
    */
-  public appointmentId: string;
+  appointmentId: string;
   /**
    * The id of the calendar owning the appointment.
    * For external calendars, it's the direct id of the external calendar (and not the id of `idea_calendars`),
    * to avoid repetitions of appointments for each copy of the external calendar linked to an IDEA calendar.
    */
-  public calendarId: string;
+  calendarId: string;
   /**
    * The id of the team, in case it's a shared calendar.
    */
-  public teamId?: string;
+  teamId?: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.appointmentId = this.clean(x.appointmentId, String);
     this.calendarId = this.clean(x.calendarId, String);
     if (x.teamId) this.teamId = this.clean(x.teamId, String);
   }
 
-  public validate(): string[] {
+  validate(): string[] {
     const e = super.validate();
     if (this.iE(this.appointmentId)) e.push('appointmentId');
     if (this.iE(this.calendarId)) e.push('calendarId');
@@ -283,19 +283,19 @@ export class AppointmentLinkedObject extends Resource {
   /**
    * The type of the referenced object.
    */
-  public type: AppointmentLinkedObjectTypes;
+  type: AppointmentLinkedObjectTypes;
   /**
    * The id of the referenced object.
    */
-  public id: string;
+  id: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.type = this.clean(x.type, Number);
     this.id = this.clean(x.id, String);
   }
 
-  public validate(): string[] {
+  validate(): string[] {
     const e = super.validate();
     if (!(this.type in AppointmentLinkedObjectTypes)) e.push('type');
     if (this.iE(this.id)) e.push('id');
@@ -318,21 +318,21 @@ export class AppointmentAttendee extends Resource {
   /**
    * The email to identify the attendee.
    */
-  public email: string;
+  email: string;
   /**
    * Whether the user identified by the email is the organizer of the event.
    */
-  public organizer: boolean;
+  organizer: boolean;
   /**
    * Whether this attendee record refers to the current user.
    */
-  public self: boolean;
+  self: boolean;
   /**
    * The attendance status.
    */
-  public attendance: AppointmentAttendance;
+  attendance: AppointmentAttendance;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.email = this.clean(x.email, String);
     this.organizer = this.clean(x.organizer, Boolean);
@@ -358,13 +358,13 @@ export class AppointmentNotification extends Resource {
   /**
    * The method of the notification.
    */
-  public method: AppointmentNotificationMethods;
+  method: AppointmentNotificationMethods;
   /**
    * The number of minutes before the event start time that the reminder occurs.
    */
-  public minutes: number;
+  minutes: number;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.method = this.clean(x.method, String) as AppointmentNotificationMethods;
     this.minutes = this.clean(x.minutes, Number, 0);

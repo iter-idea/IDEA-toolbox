@@ -16,34 +16,34 @@ export class ProjectSubscription extends Resource {
   /**
    * Project / product key.
    */
-  public project: string;
+  project: string;
   /**
    * The id of the subscription (the target of the subscription to a plan).
    * Each project has its own meaning of it (e.g. teamId, userId, etc.).
    * Note: it should be a unique id in the entire project; add prefixes accordingly.
    */
-  public subscriptionId: string;
+  subscriptionId: string;
   /**
    * The id of the project plan.
    */
-  public planId: string;
+  planId: string;
   /**
    * The timestamp until this subscription is active.
    */
-  public validUntil: epochDateTime;
+  validUntil: epochDateTime;
   /**
    * If false, the subscription won't renew after its set expiration.
    */
-  public autoRenewing: boolean;
+  autoRenewing: boolean;
   /**
    * The platform from which the subscription has been completed.
    * It will be possible to manage the subscription only from the platform in which it was firstly created.
    */
-  public platform: ProjectPlatforms;
+  platform: ProjectPlatforms;
   /**
    * The id of the plan in the store.
    */
-  public storePlanId: string;
+  storePlanId: string;
   /**
    * The store reference id for the subscription.
    * It's an ID coming from the stores, used to double check that a purchase is actually linked to the subscriptionId.
@@ -51,17 +51,17 @@ export class ProjectSubscription extends Resource {
    * iOS: `original_transaction_id`.
    * Android: the first part of the `orderId`.
    */
-  public storeReferenceId: string;
+  storeReferenceId: string;
   /**
    * The original receipt of the subscription, to later on check with the store if a subscription is still active.
    */
-  public storeReceipt: string;
+  storeReceipt: string;
   /**
    * The user who manages the subscription.
    */
-  public managedByUser: MembershipSummary;
+  managedByUser: MembershipSummary;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.project = this.clean(x.project, String);
     this.subscriptionId = this.clean(x.subscriptionId, String);

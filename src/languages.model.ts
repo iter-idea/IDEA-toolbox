@@ -8,19 +8,19 @@ export class Languages extends Resource {
   /**
    * The default language for a context.
    */
-  public default: ServiceLanguages | string;
+  default: ServiceLanguages | string;
   /**
    * The available languages available in a context.
    */
-  public available: (ServiceLanguages | string)[];
+  available: (ServiceLanguages | string)[];
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.default = this.clean(x.default, String, ServiceLanguages.English);
     this.available = this.cleanArray(x.available, String, [ServiceLanguages.English]);
   }
 
-  public validate(languagesOfSpecificService: any) {
+  validate(languagesOfSpecificService: any) {
     const e = super.validate();
     if (!this.default || !this.available.some(x => x === this.default)) e.push('default');
     if (!this.available.every(l => loopStringEnumValues(languagesOfSpecificService).some(x => x === l)))

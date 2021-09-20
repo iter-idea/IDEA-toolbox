@@ -7,13 +7,13 @@ export class SignedURL extends Resource {
   /**
    * The signed URL.
    */
-  public url: string;
+  url: string;
   /**
    * An optional identificator for various purposes.
    */
-  public id?: string;
+  id?: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.url = this.clean(x.url, String);
     if (x.id) this.id = this.clean(x.id, String);

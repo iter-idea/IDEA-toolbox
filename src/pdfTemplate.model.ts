@@ -25,15 +25,15 @@ export class PDFTemplateSection extends Resource {
   /**
    * The type of section.
    */
-  public type: PDFTemplateSectionTypes;
+  type: PDFTemplateSectionTypes;
   /**
    * A description to help identify the section in the template.
    */
-  public description?: string;
+  description?: string;
   /**
    * Whether to show a border around the section.
    */
-  public border?: boolean;
+  border?: boolean;
   /**
    * The content of the 12 columns of a ROW section.
    * Each element of the array may contain:
@@ -41,23 +41,23 @@ export class PDFTemplateSection extends Resource {
    *  - `-`, to indicate that the field in the previous column span over the represented column;
    *  - null, to indicate a blank column.
    */
-  public columns?: (PDFTemplateSimpleField | PDFTemplateComplexField | string)[];
+  columns?: (PDFTemplateSimpleField | PDFTemplateComplexField | string)[];
   /**
    * The title of a HEADER section or INNER_SECTION (or REPATED_INNER_SECTION).
    * It's a Label (markdown) supporting variables substitution (e.g. `Here's **@myVar**`).
    * Note: the var substitution is made on runtime data, based on the section's context.
    */
-  public title?: Label;
+  title?: Label;
   /**
    * The context to consider for the data of a INNER_SECTION or REPEATED_INNER_SECTION (inception).
    */
-  public context?: string;
+  context?: string;
   /**
    * The inner template for a INNER_SECTION or REPEATED_INNER_SECTION (inception).
    */
-  public innerTemplate?: PDFTemplateSection[];
+  innerTemplate?: PDFTemplateSection[];
 
-  public load(x: any, languages?: Languages) {
+  load(x: any, languages?: Languages) {
     super.load(x);
     this.type = this.clean(x.type, Number, 0) as PDFTemplateSectionTypes;
     if (x.description) this.description = this.clean(x.description, String);
@@ -93,7 +93,7 @@ export class PDFTemplateSection extends Resource {
     }
   }
 
-  public validate(languages: Languages, variables?: (LabelVariable | StringVariable)[]): string[] {
+  validate(languages: Languages, variables?: (LabelVariable | StringVariable)[]): string[] {
     const e = super.validate();
     const ST = PDFTemplateSectionTypes;
     if (!(this.type in ST)) e.push('type');
@@ -124,14 +124,14 @@ export class PDFTemplateSection extends Resource {
   /**
    * Check whether the section is among one of the types selected.
    */
-  public isEither(...types: PDFTemplateSectionTypes[]): boolean {
+  isEither(...types: PDFTemplateSectionTypes[]): boolean {
     return types.some(t => this.type === t);
   }
 
   /**
    * Whether the column identified by the index is empty or not.
    */
-  public isColumnEmpty(indexInColumns: number): boolean {
+  isColumnEmpty(indexInColumns: number): boolean {
     // skip in case the section isn't of type ROW
     if (this.type !== PDFTemplateSectionTypes.ROW) return false;
     else return !this.columns[indexInColumns];
@@ -141,7 +141,7 @@ export class PDFTemplateSection extends Resource {
    * Whether the column identified by the index contains or not a field.
    * It returns false in case the section isn't of type ROW.
    */
-  public doesColumnContainAField(indexInColumns: number): boolean {
+  doesColumnContainAField(indexInColumns: number): boolean {
     // skip in case the section isn't of type ROW
     if (this.type !== PDFTemplateSectionTypes.ROW) return false;
     // if '-', it means that in the previous columns there's a field spanning over the current column
@@ -150,7 +150,7 @@ export class PDFTemplateSection extends Resource {
   /**
    * Given the index of a column containing a field, return on how many columns the field spans.
    */
-  public getColumnFieldSize(indexInColumns: number): number {
+  getColumnFieldSize(indexInColumns: number): number {
     let size = 1;
     if (this.doesColumnContainAField(indexInColumns))
       while (++indexInColumns < 12 && this.columns[indexInColumns] === '-') size++;
@@ -159,7 +159,7 @@ export class PDFTemplateSection extends Resource {
   /**
    * Remove a field from the columns that it occupied before.
    */
-  public removeFieldFromOccupiedColumns(colIndex: number) {
+  removeFieldFromOccupiedColumns(colIndex: number) {
     // skip if the column doesn't contain a field
     if (!this.doesColumnContainAField(colIndex)) return;
     // remove it from the starting column
@@ -193,14 +193,14 @@ export class PDFTemplateSimpleField extends Resource {
   /**
    * The field's label.
    */
-  public label: Label;
+  label: Label;
   /**
    * The direct reference to a variable to substitute (e.g. `@myVar`).
    * Note: the variable substitution is made on runtime data, based on the section's context.
    */
-  public code: string;
+  code: string;
 
-  public load(x: any, languages: Languages) {
+  load(x: any, languages: Languages) {
     super.load(x);
     this.label = new Label(x.label, languages);
     this.code = this.clean(x.code, String);
@@ -209,7 +209,7 @@ export class PDFTemplateSimpleField extends Resource {
   /**
    * Quickly recognize the nature of the field (simple/complex).
    */
-  public isComplex(): boolean {
+  isComplex(): boolean {
     return false;
   }
 }
@@ -221,9 +221,9 @@ export class PDFTemplateComplexField extends Resource {
    * A Label (markdown support) that may contain variables to subsitute (e.g. `Here's **@myVar**`).
    * Note: the variable substitution is made on runtime data, based on the section's context.
    */
-  public content: Label;
+  content: Label;
 
-  public load(x: any, languages: Languages) {
+  load(x: any, languages: Languages) {
     super.load(x);
     this.content = new Label(x.content, languages);
   }
@@ -231,7 +231,7 @@ export class PDFTemplateComplexField extends Resource {
   /**
    * Quickly recognize the nature of the field (simple/complex).
    */
-  public isComplex(): boolean {
+  isComplex(): boolean {
     return true;
   }
 }

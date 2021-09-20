@@ -7,25 +7,25 @@ export class Suggestion extends Resource {
   /**
    * The value; it could be of any type.
    */
-  public value: any;
+  value: any;
   /**
    * The name to show for the suggestion.
    */
-  public name: string;
+  name: string;
   /**
    * A description with additional information on the suggestion.
    */
-  public description: string;
+  description: string;
   /**
    * An optional first category.
    */
-  public category1: any;
+  category1: any;
   /**
    * An optional second category.
    */
-  public category2: any;
+  category2: any;
 
-  public load(x?: any) {
+  load(x?: any) {
     super.load(x);
     this.value = x.value;
     this.name = this.clean(x.name, String);
@@ -37,7 +37,7 @@ export class Suggestion extends Resource {
   /**
    * Clear the suggestion.
    */
-  public clear() {
+  clear() {
     this.value = null;
     this.name = null;
     this.description = null;

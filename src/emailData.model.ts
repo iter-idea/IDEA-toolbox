@@ -4,25 +4,25 @@ export class EmailData extends Resource {
   /**
    * The default email subject.
    */
-  public subject: string;
+  subject: string;
   /**
    * The default email content.
    */
-  public content: string;
+  content: string;
   /**
    * Default addresses to who to send the email in TO.
    */
-  public to: string[];
+  to: string[];
   /**
    * Default addresses to who to send the email in CC.
    */
-  public cc: string[];
+  cc: string[];
   /**
    * Default addresses to who to send the email in BCC.
    */
-  public bcc: string[];
+  bcc: string[];
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.subject = this.clean(x.subject, String);
     this.content = this.clean(x.content, String);

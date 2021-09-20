@@ -8,19 +8,19 @@ export class TimeInterval extends Resource {
   /**
    * The moment in the day (UTC), when the interval starts; in ms.
    */
-  public from: number;
+  from: number;
   /**
    * The moment in the day (UTC), when the interval ends; in ms.
    */
-  public to: number;
+  to: number;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.from = this.clean(x.from, Number, 0);
     this.to = this.clean(x.to, Number, 0);
   }
 
-  public validate(): string[] {
+  validate(): string[] {
     const e = super.validate();
     // the starting time can't be lower than 0
     if (this.iE(this.from) || this.from < 0) e.push('from');
@@ -33,21 +33,21 @@ export class TimeInterval extends Resource {
   /**
    * Get the duration of the interval (ms).
    */
-  public getDuration(): number {
+  getDuration(): number {
     return (this.to || 0) - (this.from || 0);
   }
 
   /**
    * Whether the interval is set.
    */
-  public isSet(): boolean {
+  isSet(): boolean {
     return this.getDuration() > 0;
   }
 
   /**
    * Reset the interval.
    */
-  public reset() {
+  reset() {
     this.from = 0;
     this.to = 0;
   }

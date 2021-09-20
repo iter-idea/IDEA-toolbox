@@ -7,30 +7,30 @@ export class Attachment extends Resource {
   /**
    * The id of the attachment.
    */
-  public attachmentId: string;
+  attachmentId: string;
   /**
    * The name of the resource. This can be changed when attaching to the resource.
    */
-  public name: string;
+  name: string;
   /**
    * The format of the resource. (e.g. 'jpg', 'pdf').
    */
-  public format: string;
+  format: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.attachmentId = this.clean(x.attachmentId, String);
     this.name = this.clean(x.name, String);
     this.format = this.clean(x.format, String);
   }
 
-  public safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.attachmentId = safeData.attachmentId;
     this.format = safeData.format;
   }
 
-  public validate(): string[] {
+  validate(): string[] {
     const e = super.validate();
     if (this.iE(this.attachmentId)) e.push('attachmentId');
     if (this.iE(this.name)) e.push('name');

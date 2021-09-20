@@ -10,16 +10,16 @@ export class CustomSectionMeta extends Resource {
   /**
    * The name of the section. Support to multilanguage. Optional.
    */
-  public name?: Label;
+  name?: Label;
   /**
    * The description of the section. Support to multilanguage. Optional.
    */
-  public description?: Label;
+  description?: Label;
   /**
    * Ordered list of the fields (names) to expect in the section.
    * Example: `['name', 'surname', ...]`.
    */
-  public fieldsLegend: string[];
+  fieldsLegend: string[];
   /**
    * Object containg attributes of type CustomFieldMeta; e.g.
    * ```
@@ -28,7 +28,7 @@ export class CustomSectionMeta extends Resource {
    * ...
    * ```
    */
-  public fields: CustomFieldsMeta;
+  fields: CustomFieldsMeta;
   /**
    * Matrix that sets the way the section is shown in the template; when null, a section won't be shown in the template.
    * Optional.
@@ -44,9 +44,9 @@ export class CustomSectionMeta extends Resource {
    * [  f5   |  f8  ]
    * ```
    */
-  public displayTemplate?: string[][];
+  displayTemplate?: string[][];
 
-  public load(x: any, languages: Languages) {
+  load(x: any, languages: Languages) {
     super.load(x);
     if (x.name) this.name = new Label(x.name, languages);
     if (x.description) this.description = new Label(x.description, languages);
@@ -62,7 +62,7 @@ export class CustomSectionMeta extends Resource {
       );
   }
 
-  public validate(languages: Languages): string[] {
+  validate(languages: Languages): string[] {
     const e = super.validate();
     this.fieldsLegend.forEach(f => this.fields[f].validate(languages).forEach(ea => e.push(`${f}.${ea}`)));
     return e;
@@ -71,7 +71,7 @@ export class CustomSectionMeta extends Resource {
   /**
    * Set the default values of the specified fields.
    */
-  public setFieldsDefaultValues() {
+  setFieldsDefaultValues() {
     const fields: any = {};
     this.fieldsLegend.forEach(f => (fields[f] = this.fields[f].fieldDefaultValue()));
     return fields;
@@ -82,7 +82,7 @@ export class CustomSectionMeta extends Resource {
    * @param fields the fields target of the load action
    * @param newFields the values to set in the fields
    */
-  public loadFields(newFields: any): any {
+  loadFields(newFields: any): any {
     const fields: any = {};
     newFields = newFields || {};
     this.fieldsLegend.forEach(f => (fields[f] = this.fields[f].loadField(newFields[f])));
@@ -92,7 +92,7 @@ export class CustomSectionMeta extends Resource {
   /**
    * Validate the fields and return an array with errors, if any.
    */
-  public validateFields(fields: any): string[] {
+  validateFields(fields: any): string[] {
     fields = fields || {};
     const e = new Array<string>();
     this.fieldsLegend.forEach(f => (!this.fields[f].validateField(fields[f]) ? e.push(f) : null));

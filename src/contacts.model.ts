@@ -4,24 +4,24 @@ export class Contacts extends Resource {
   /**
    * Contact person's phone.
    */
-  public phone?: string;
+  phone?: string;
   /**
    * Contact person's email.
    */
-  public email?: string;
+  email?: string;
   /**
    * Fullname/nickname.
    */
-  public name?: string;
+  name?: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     if (x.phone) this.phone = this.clean(x.phone, String);
     if (x.email) this.email = this.clean(x.email, String);
     if (x.name) this.name = this.clean(x.name, String);
   }
 
-  public validate(): string[] {
+  validate(): string[] {
     const e = super.validate();
     if (this.phone && this.iE(this.phone, 'phone')) e.push('phone');
     if (this.email && this.iE(this.email, 'email')) e.push('email');

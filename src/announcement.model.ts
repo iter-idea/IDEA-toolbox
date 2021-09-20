@@ -4,13 +4,13 @@ export class Announcement extends Resource {
   /**
    * The content of the announcement.
    */
-  public content: string;
+  content: string;
   /**
    * Whether it's a maintenance announcement; if so, the use of the service is temporarily blocked.
    */
-  public maintenance?: boolean;
+  maintenance?: boolean;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.content = this.clean(x.content, String);
     if (x.maintenance) this.maintenance = true;

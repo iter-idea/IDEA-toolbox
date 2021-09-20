@@ -5,45 +5,45 @@ export class ClientInfo extends Resource {
   /**
    * Current timestamp from the client.
    */
-  public timestamp: epochISOString;
+  timestamp: epochISOString;
   /**
    * Info about the client's platform.
    */
-  public platform: string;
+  platform: string;
   /**
    * The client's screen width.
    */
-  public screenWidth: number;
+  screenWidth: number;
   /**
    * The client's screen height.
    */
-  public screenHeight: number;
+  screenHeight: number;
   /**
    * Whether the client is in landscape mode; otherwise, portrait.
    */
-  public isLandscape: boolean;
+  isLandscape: boolean;
   /**
    * The current url on the client.
    */
-  public url: string;
+  url: string;
   /**
    * The page referrer of the client.
    */
-  public referrer: string;
+  referrer: string;
   /**
    * Whether the client was online at the time of the error.
    */
-  public isOnline: boolean;
+  isOnline: boolean;
   /**
    * The client's language.
    */
-  public language: string;
+  language: string;
   /**
    * The client's user agent.
    */
-  public userAgent: string;
+  userAgent: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.timestamp = this.clean(x.timestamp, t => new Date(t).toISOString()) as epochISOString;
     this.platform = this.clean(x.platform, String);

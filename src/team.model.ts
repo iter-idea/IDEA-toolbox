@@ -8,21 +8,21 @@ export class Team extends Resource {
   /**
    * The id of the team
    */
-  public teamId: string;
+  teamId: string;
   /**
    * The team name.
    */
-  public name: string;
+  name: string;
   /**
    * Timestamp of creation.
    */
-  public createdAt: epochDateTime;
+  createdAt: epochDateTime;
   /**
    * The list of projects (codes) in which the team is currently active.
    */
-  public activeInProjects: string[];
+  activeInProjects: string[];
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.teamId = this.clean(x.teamId, String);
     this.name = this.clean(x.name, String);
@@ -30,14 +30,14 @@ export class Team extends Resource {
     this.activeInProjects = this.cleanArray(x.activeInProjects, String);
   }
 
-  public safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.teamId = safeData.teamId;
     this.createdAt = safeData.createdAt;
     this.activeInProjects = safeData.activeInProjects;
   }
 
-  public validate(): string[] {
+  validate(): string[] {
     const e = super.validate();
     if (this.iE(this.name)) e.push('name');
     return e;

@@ -15,33 +15,33 @@ export class RCFolder extends Resource {
    * The id of the resource center (as collection of folders managed by a team).
    * Usually the concatenation of project and team id (`project_teamId`), but open to custom scenarios.
    */
-  public resourceCenterId: string;
+  resourceCenterId: string;
   /**
    * The id of the folder.
    */
-  public folderId: string;
+  folderId: string;
   /**
    * The name of the folder.
    */
-  public name: string;
+  name: string;
   /**
    * Timestamp of when the folder has been created.
    */
-  public createdAt: epochDateTime;
+  createdAt: epochDateTime;
   /**
    * The user who created the folder.
    */
-  public createdBy: MembershipSummary;
+  createdBy: MembershipSummary;
   /**
    * Timestamp of last update.
    */
-  public updatedAt?: epochDateTime;
+  updatedAt?: epochDateTime;
   /**
    * The user who lastly updated the folder.
    */
-  public updatedBy?: MembershipSummary;
+  updatedBy?: MembershipSummary;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.resourceCenterId = this.clean(x.resourceCenterId, String);
     this.folderId = this.clean(x.folderId, String);
@@ -52,7 +52,7 @@ export class RCFolder extends Resource {
     if (x.updatedBy) this.updatedBy = new MembershipSummary(x.updatedBy);
   }
 
-  public safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.resourceCenterId = safeData.resourceCenterId;
     this.folderId = safeData.folderId;
@@ -62,7 +62,7 @@ export class RCFolder extends Resource {
     this.updatedBy = safeData.updatedBy;
   }
 
-  public validate(): string[] {
+  validate(): string[] {
     const e = super.validate();
     if (this.iE(this.name)) e.push('name');
     return e;

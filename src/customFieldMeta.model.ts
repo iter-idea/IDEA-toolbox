@@ -11,54 +11,54 @@ export class CustomFieldMeta extends Resource {
   /**
    * The id of the team owning the field. Optional.
    */
-  public teamId?: string;
+  teamId?: string;
   /**
    * Id of the field.
    */
-  public fieldId?: string;
+  fieldId?: string;
   /**
    * Name of the field.
    */
-  public name: Label;
+  name: Label;
   /**
    * Explanation of the field.
    */
-  public description: Label;
+  description: Label;
   /**
    * The type of the custom field.
    */
-  public type: CustomFieldTypes;
+  type: CustomFieldTypes;
   /**
    * The list of the possible values (strings); available only with type ENUM.
    */
-  public enum?: string[];
+  enum?: string[];
   /**
    * The translations of the enum keys; available only with type ENUM.
    * Not obligatory: the fallback is always the enum key.
    */
-  public enumLabels?: { [key: string]: Label };
+  enumLabels?: { [key: string]: Label };
   /**
    * Field default value.
    */
-  public default: any;
+  default: any;
   /**
    * If true, an obligatory check will be performed; ignored with type BOOLEAN.
    */
-  public obligatory: boolean;
+  obligatory: boolean;
   /**
    * Min value the field can assume; available only with type NUMBER.
    */
-  public min?: number;
+  min?: number;
   /**
    * Max value the field can assume; available only with type NUMBER.
    */
-  public max?: number;
+  max?: number;
   /**
    * The icon to show to identify the field.
    */
-  public icon: string;
+  icon: string;
 
-  public load(x: any, languages?: Languages) {
+  load(x: any, languages?: Languages) {
     super.load(x, languages);
     if (x.teamId) this.teamId = this.clean(x.teamId, String);
     if (x.fieldId) this.fieldId = this.clean(x.fieldId, String);
@@ -89,13 +89,13 @@ export class CustomFieldMeta extends Resource {
     this.icon = this.clean(x.icon, String);
   }
 
-  public safeLoad(newData: any, safeData: any, languages?: Languages) {
+  safeLoad(newData: any, safeData: any, languages?: Languages) {
     super.safeLoad(newData, safeData, languages);
     if (safeData.teamId) this.teamId = safeData.teamId;
     if (safeData.fieldId) this.fieldId = safeData.fieldId;
   }
 
-  public validate(languages?: Languages): string[] {
+  validate(languages?: Languages): string[] {
     const e = super.validate();
     if (this.name.validate(languages).length) e.push('name');
     if (this.type === CustomFieldTypes.ENUM && !(this.enum && this.enum.length)) e.push('enum');
@@ -107,7 +107,7 @@ export class CustomFieldMeta extends Resource {
    * @param field the field to check
    * @return the determinated default value, based on the type
    */
-  public fieldDefaultValue(): any {
+  fieldDefaultValue(): any {
     let field: any = this.default || null;
     // if a default value is not set, force based on type
     if (!field)
@@ -131,7 +131,7 @@ export class CustomFieldMeta extends Resource {
    * Load a value based on the field configuration.
    * @param field the value to load
    */
-  public loadField(newField: any): any {
+  loadField(newField: any): any {
     let field: any;
     switch (this.type) {
       case CustomFieldTypes.STRING:
@@ -156,7 +156,7 @@ export class CustomFieldMeta extends Resource {
    * @param field the value to check
    * @return return false in case of error
    */
-  public validateField(field: any): boolean {
+  validateField(field: any): boolean {
     // obligatory fields check
     if (this.obligatory)
       switch (this.type) {
@@ -188,7 +188,7 @@ export class CustomFieldMeta extends Resource {
   /**
    * Get the label to show for the enum, based on the translations available; if none, returns the key.
    */
-  public getEnumElement(enumKey: string, language?: string, languages?: Languages): string {
+  getEnumElement(enumKey: string, language?: string, languages?: Languages): string {
     if (this.type !== CustomFieldTypes.ENUM) return null;
     if (
       !this.enumLabels ||
@@ -203,7 +203,7 @@ export class CustomFieldMeta extends Resource {
   /**
    * Get the enum in the form of array of Suggestions.
    */
-  public getEnumAsSuggestion(language?: string, languages?: Languages): Suggestion[] {
+  getEnumAsSuggestion(language?: string, languages?: Languages): Suggestion[] {
     if (this.type !== CustomFieldTypes.ENUM) return [];
     else return this.enum.map(e => new Suggestion({ value: e, name: this.getEnumElement(e, language, languages) }));
   }

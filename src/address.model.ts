@@ -5,45 +5,45 @@ export class Address extends Resource {
   /**
    * Main address or company name.
    */
-  public address: string;
+  address: string;
   /**
    * Apartment, suite, unit, building, floor, etc.
    */
-  public address2?: string;
+  address2?: string;
   /**
    * Postal code/zip code.
    */
-  public postcode: string;
+  postcode: string;
   /**
    * Town/city.
    */
-  public city: string;
+  city: string;
   /**
    * Province, district, area.
    */
-  public province: string;
+  province: string;
   /**
    * Country.
    */
-  public country: Countries;
+  country: Countries;
   /**
    * The geolocation, expressed in latitute and longitude.
    */
-  public geolocation?: AddressGeolocation;
+  geolocation?: AddressGeolocation;
   /**
    * Contact person / receiver.
    */
-  public contact?: string;
+  contact?: string;
   /**
    * Contact person's phone.
    */
-  public phone?: string;
+  phone?: string;
   /**
    * Contact person's email.
    */
-  public email?: string;
+  email?: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.address = this.clean(x.address, String);
     if (x.address2) this.address2 = this.clean(x.address2, String);
@@ -57,7 +57,7 @@ export class Address extends Resource {
     if (x.email) this.email = this.clean(x.email, String);
   }
 
-  public validate(): string[] {
+  validate(): string[] {
     const e = super.validate();
     if (this.iE(this.address)) e.push('address');
     if (this.iE(this.city)) e.push('city');
@@ -70,7 +70,7 @@ export class Address extends Resource {
   /**
    * Get a string representing the formatted full address.
    */
-  public getFullAddress(
+  getFullAddress(
     display: {
       address?: boolean;
       address2?: boolean;
@@ -129,13 +129,13 @@ export class AddressGeolocation extends Resource {
   /**
    * Latitude.
    */
-  public lat: number;
+  lat: number;
   /**
    * Longitude.
    */
-  public lng: number;
+  lng: number;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.lat = this.clean(x.lat, Number);
     this.lng = this.clean(x.lng, Number);

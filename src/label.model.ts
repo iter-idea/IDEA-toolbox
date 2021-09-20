@@ -19,12 +19,12 @@ export class Label {
     this.load(x, languages);
   }
 
-  public load(x?: any, languages?: Languages) {
+  load(x?: any, languages?: Languages) {
     if (x) languages.available.forEach(l => (this[l] = x[l] ? String(x[l]) : null));
     else languages.available.forEach(l => (this[l] = null));
   }
 
-  public validate(languages: Languages): string[] {
+  validate(languages: Languages): string[] {
     if (!this[languages.default]) return [languages.default];
     else return [];
   }
@@ -32,7 +32,7 @@ export class Label {
   /**
    * Translate the label in the desired language; in case there's no translation, get the default one.
    */
-  public translate(language: string, languages: Languages) {
+  translate(language: string, languages: Languages) {
     return this[language] || this[languages.default];
   }
 }

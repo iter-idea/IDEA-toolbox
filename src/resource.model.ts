@@ -39,7 +39,7 @@ export abstract class Resource {
    *  // ...
    *  ```
    */
-  public load(newData: any, options?: any) {
+  load(newData: any, options?: any) {
     newData = newData || {};
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     options = options || {};
@@ -64,7 +64,7 @@ export abstract class Resource {
    *  _Note well_: there is no need to call `this.load()`, since it's implicitly called from `super.safeLoad()`,
    *  which will anyway use the child version of the method.
    */
-  public safeLoad(newData: any, safeData: any, options?: any) {
+  safeLoad(newData: any, safeData: any, options?: any) {
     newData = newData || {};
     safeData = safeData || {};
     options = options || {};
@@ -84,7 +84,7 @@ export abstract class Resource {
    *  return e;
    *  ```
    */
-  public validate(options?: any): string[] {
+  validate(options?: any): string[] {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     options = options || {};
     return new Array<string>();
@@ -93,7 +93,7 @@ export abstract class Resource {
   /**
    * Shortcut to Utils.isEmpty to check the emptiness of a field.
    */
-  public iE(field: any, type?: string): boolean {
+  iE(field: any, type?: string): boolean {
     return isEmpty(field, type);
   }
 
@@ -104,7 +104,7 @@ export abstract class Resource {
    * @param defaultVal if set, the fallback value instead of `null`
    * @return cleaned attribute
    */
-  public clean(origin: any, castFunction: (x: any) => any, defaultVal?: any): any {
+  clean(origin: any, castFunction: (x: any) => any, defaultVal?: any): any {
     if (Array.isArray(origin)) return this.cleanArray(origin, castFunction);
     if (castFunction === Boolean) return Boolean(origin);
     else return origin || origin === 0 ? castFunction(origin) : defaultVal !== undefined ? defaultVal : null;
@@ -117,7 +117,7 @@ export abstract class Resource {
    * @param defaultVal if set, the fallback value instead of `null`
    * @return cleaned array
    */
-  public cleanArray(origin: any[], castFunction: (x: any) => any, defaultVal?: any): any[] {
+  cleanArray(origin: any[], castFunction: (x: any) => any, defaultVal?: any): any[] {
     return (origin || [])
       .map(x => (x || x === 0 ? castFunction(x) : defaultVal !== undefined ? defaultVal : null))
       .filter(x => x);

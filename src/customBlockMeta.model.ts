@@ -7,7 +7,7 @@ export class CustomBlockMeta extends Resource {
    * Ordered list of the sections (names) to expect in the block.
    * Example: `['flowers', 'burgers', ...]`.
    */
-  public sectionsLegend: string[];
+  sectionsLegend: string[];
   /**
    * Object containg attributes of type CustomSectionMeta; e.g.
    * ´´´
@@ -16,16 +16,16 @@ export class CustomBlockMeta extends Resource {
    * ...
    * ```
    */
-  public sections: CustomSectionsMeta;
+  sections: CustomSectionsMeta;
 
-  public load(x: any, languages: Languages) {
+  load(x: any, languages: Languages) {
     super.load(x, languages);
     this.sectionsLegend = this.cleanArray(x.sectionsLegend, String);
     this.sections = {};
     this.sectionsLegend.forEach(s => (this.sections[s] = new CustomSectionMeta(x.sections[s], languages)));
   }
 
-  public validate(languages: Languages): string[] {
+  validate(languages: Languages): string[] {
     const e = super.validate();
     this.sectionsLegend.forEach(s => this.sections[s].validate(languages).forEach(es => e.push(`${s}.${es}`)));
     return e;
@@ -34,7 +34,7 @@ export class CustomBlockMeta extends Resource {
   /**
    * Set the default values of the specified sections.
    */
-  public setSectionsDefaultValues(): any {
+  setSectionsDefaultValues(): any {
     const sections: any = {};
     this.sectionsLegend.forEach(s => (sections[s] = this.sections[s].setFieldsDefaultValues()));
     return sections;
@@ -45,7 +45,7 @@ export class CustomBlockMeta extends Resource {
    * @param sections the sections target of the load action
    * @param newSections the values to set in the sections
    */
-  public loadSections(newSections: any): any {
+  loadSections(newSections: any): any {
     const sections: any = {};
     newSections = newSections || {};
     this.sectionsLegend.forEach(s => (sections[s] = this.sections[s].loadFields(newSections[s])));
@@ -55,7 +55,7 @@ export class CustomBlockMeta extends Resource {
   /**
    * Validate the sections and return an array with errors, if any.
    */
-  public validateSections(sections: any): string[] {
+  validateSections(sections: any): string[] {
     sections = sections || {};
     const e = new Array<string>();
     this.sectionsLegend.forEach(s => this.sections[s].validateFields(sections[s]).forEach(ef => e.push(`${s}.${ef}`)));

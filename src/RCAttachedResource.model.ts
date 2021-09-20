@@ -8,29 +8,29 @@ export class RCAttachedResource extends Resource {
   /**
    * The id of the resource.
    */
-  public resourceId: string;
+  resourceId: string;
   /**
    * The folder of the resource.
    */
-  public folderId: string;
+  folderId: string;
   /**
    * The name of the resource. This can be changed when attaching to the entity.
    */
-  public name: string;
+  name: string;
   /**
    * The original name of the file.
    */
-  public originalName: string;
+  originalName: string;
   /**
    * The format of the resource. (e.g. 'jpg', 'pdf').
    */
-  public format: string;
+  format: string;
   /**
    * Timestamp of the latest version of the resource at the time it was attached to the entity.
    */
-  public version: epochDateTime;
+  version: epochDateTime;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.resourceId = this.clean(x.resourceId, String);
     this.folderId = this.clean(x.folderId, String);
@@ -40,7 +40,7 @@ export class RCAttachedResource extends Resource {
     this.version = this.clean(x.version, a => new Date(a).getTime(), Date.now());
   }
 
-  public safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any) {
     super.safeLoad(newData, safeData);
     this.resourceId = safeData.resourceId;
     this.folderId = safeData.folderId;
@@ -48,7 +48,7 @@ export class RCAttachedResource extends Resource {
     this.format = safeData.format;
   }
 
-  public validate(): string[] {
+  validate(): string[] {
     const e = super.validate();
     if (this.iE(this.name)) e.push('name');
     return e;

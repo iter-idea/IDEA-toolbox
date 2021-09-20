@@ -10,21 +10,21 @@ export class ErrorWhitelisted extends Resource {
   /**
    * Project/product key.
    */
-  public project: string;
+  project: string;
   /**
    * The error message.
    */
-  public error: string;
+  error: string;
   /**
    * Timestamp when the error was whitelisted.
    */
-  public createdAt: epochISOString;
+  createdAt: epochISOString;
   /**
    * Some notes or an explanation why the error is whitelisted.
    */
-  public notes: string;
+  notes: string;
 
-  public load(x: any) {
+  load(x: any) {
     super.load(x);
     this.project = this.clean(x.project, String);
     this.error = this.clean(x.error, String);
