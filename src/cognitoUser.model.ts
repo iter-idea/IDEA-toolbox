@@ -44,12 +44,12 @@ export class CognitoUser extends Resource {
    * Whether the user is part of the administrators group.
    */
   isAdmin(): boolean {
-    return this.groups.some(x => x === 'admins');
+    return this.groups.includes('admins');
   }
   /**
    * Whether the user is part of the robots group.
    */
   isRobot(): boolean {
-    return this.groups.some(x => x === 'robots');
+    return this.groups.includes('robots');
   }
 }
