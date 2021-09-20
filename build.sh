@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # other parameters
+SRC_FOLDER='./src'
 C='\033[4;32m' # color
 NC='\033[0m'   # reset (no color)
 
