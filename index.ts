@@ -24,6 +24,7 @@ export * from './src/emailData.model';
 export * from './src/epoch';
 export * from './src/errorReport.model';
 export * from './src/errorWhitelisted.model';
+export * from './src/excelRow.model';
 export * from './src/invitation.model';
 export * from './src/ionicons.enum';
 export * from './src/label.model';
