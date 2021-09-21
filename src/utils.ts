@@ -117,7 +117,7 @@ export function isEmpty(field: any, type: string = typeof field): boolean {
     case 'url':
       return !isURL(field);
     case 'domain':
-      return !isFQDN(field);
+      return !isFQDN(field, { require_tld: false });
     default:
       return true;
   }
