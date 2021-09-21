@@ -1,7 +1,9 @@
 import isEmail from 'validator/lib/isEmail';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import isURL from 'validator/lib/isURL';
-import Marked = require('marked');
+import isFQDN from 'validator/lib/isFQDN';
+import isDate from 'validator/lib/isDate';
+import Marked from 'marked';
 
 import { markdown } from './markdown';
 
@@ -86,38 +88,36 @@ export function joinArraysOnKeys(
 }
 
 /**
- * Check if a field (/variable) is empty, based on its type.
+ * Check if a field (/variable) is empty or invalid, based on its type.
  * If the type isn't passed as a parameter, it will be auto-detected.
  * @param field the field to check
- * @param type optional; set to force a type check; enum: string, number, date, boolean, email, phone
- * @returns return if the field is empty or not
+ * @param type set to force a type check; enum: string, number, boolean, object, date, email, phone, url, domain
+ * @returns return if the field is empty/invalid or not
  */
-export function isEmpty(field: any, type?: string): boolean {
-  if (!field) return true; // null, undefined
-  if (!type) type = typeof field; // try to auto-detect
-  if (!type) return true; // undefined
-  // check emptiness based on the type
+export function isEmpty(field: any, type: string = typeof field): boolean {
+  if (field === null || field === undefined) return true;
+  if (!type) return true;
   switch (type) {
     case 'string':
-      return field.trim().length <= 0;
+      return !field.trim().length;
     case 'number':
-      return field <= 0;
+      return field === 0;
     case 'boolean':
       return !field;
+    case 'object':
+      if (field instanceof Array) return field.filter(i => i).length <= 0;
+      else if (field instanceof Set) return field.size <= 0;
+      else return Object.keys(field).length <= 0;
     case 'date':
-    case 'object': {
-      if (field instanceof Date || type === 'date') {
-        const d = new Date(field);
-        return !(d instanceof Date && !isNaN(d.valueOf()));
-      } else if (field instanceof Array) return field.filter((i: any) => i).length <= 0;
-      else return true;
-    }
+      return !isDate(field);
     case 'email':
       return !isEmail(field);
     case 'phone':
       return !isMobilePhone(field, 'any');
     case 'url':
       return !isURL(field);
+    case 'domain':
+      return !isFQDN(field);
     default:
       return true;
   }
