@@ -1,3 +1,5 @@
+import { isEmpty } from './utils';
+
 /**
  * A user stored in a Cognito User Pool.
  */
@@ -35,6 +37,16 @@ export class CognitoUser {
         .filter(a => a.startsWith('custom:'))
         .forEach(a => (this.custom[a.slice('custom:'.length + 1)] = x[a]));
     }
+  }
+
+  /**
+   * Check whether the user's attributes are valid.
+   */
+  validate(): string[] {
+    const e: string[] = [];
+    if (isEmpty(this.name)) e.push('name');
+    if (isEmpty(this.email, 'email')) e.push('email');
+    return e;
   }
 
   /**
