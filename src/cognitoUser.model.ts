@@ -21,21 +21,21 @@ export class CognitoUser {
    */
   groups: string[];
   /**
-   * The user's custom attributes.
+   * The user's (custom) attributes.
    */
-  custom: { [attribute: string]: string | number };
+  attributes: { [attribute: string]: string | number };
 
   constructor(x: any = {}) {
     this.userId = x.userId || x.sub;
     this.email = x.email;
     this.name = x.name;
     this.groups = x.groups || x['cognito:groups']?.split(',');
-    if (x.custom) this.custom = x.custom;
+    if (x.attributes) this.attributes = x.attributes;
     else {
-      this.custom = {};
+      this.attributes = {};
       Object.keys(x)
         .filter(a => a.startsWith('custom:'))
-        .forEach(a => (this.custom[a.slice('custom:'.length + 1)] = x[a]));
+        .forEach(a => (this.attributes[a.slice('custom:'.length)] = x[a]));
     }
   }
 
