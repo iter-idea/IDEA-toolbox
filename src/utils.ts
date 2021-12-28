@@ -107,10 +107,10 @@ export function isEmpty(field: any, type: string = typeof field): boolean {
     case 'object':
       if (field instanceof Array) return field.filter(i => i).length <= 0;
       else if (field instanceof Set) return field.size <= 0;
-      else if (field instanceof Date) return !isDate(field.toISOString());
+      else if (field instanceof Date) return !isDate(field.toISOString().slice(0, 10));
       else return Object.keys(field).length <= 0;
     case 'date':
-      return !isDate(field);
+      return !isDate(new Date(field)?.toISOString().slice(0, 10));
     case 'email':
       return !isEmail(field);
     case 'phone':
