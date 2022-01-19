@@ -18,7 +18,6 @@
   },
   "files.trimTrailingWhitespace": true,
   "git.confirmSync": false,
-  "editor.renderIndentGuides": true,
   "editor.renderLineHighlight": "all",
   "workbench.iconTheme": "vs-seti",
   "window.zoomLevel": 0,
