@@ -3,7 +3,7 @@ import isMobilePhone from 'validator/lib/isMobilePhone';
 import isURL from 'validator/lib/isURL';
 import isFQDN from 'validator/lib/isFQDN';
 import isDate from 'validator/lib/isDate';
-import Marked from 'marked';
+import { marked } from 'marked';
 
 import { markdown } from './markdown';
 
@@ -183,5 +183,5 @@ export function loopNumericEnumValues(theEnum: any): string[] {
  */
 export function mdToHtml(mdString: markdown | string): string {
   if (!mdString) return '';
-  return Marked(mdString, { gfm: true, breaks: true });
+  return marked(mdString, { gfm: true, breaks: true });
 }
