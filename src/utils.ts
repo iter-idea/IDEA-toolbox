@@ -130,6 +130,7 @@ export function isEmpty(field: any, type: string = typeof field): boolean {
  * @param err error
  * @param content the content to log
  * @param important optional; if true, highlight the line in CloudWatch
+ * @deprecated use IDEA-AWS Logger class instead.
  */
 export function logger(context: string, err?: Error | any, content?: any, important?: boolean) {
   const someContent = content !== undefined && content !== null;
