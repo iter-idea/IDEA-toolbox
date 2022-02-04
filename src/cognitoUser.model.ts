@@ -29,7 +29,13 @@ export class CognitoUser {
     this.userId = x.userId || x.sub;
     this.email = x.email;
     this.name = x.name;
-    this.groups = x.groups || x['cognito:groups']?.split(',') || [];
+    this.groups =
+      x.groups ||
+      (x['cognito:groups']
+        ? Array.isArray(x['cognito:groups'])
+          ? x['cognito:groups']
+          : x['cognito:groups'].split(',')
+        : []);
     if (x.attributes) this.attributes = x.attributes;
     else {
       this.attributes = {};
