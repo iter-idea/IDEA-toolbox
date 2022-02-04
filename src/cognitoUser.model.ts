@@ -26,16 +26,10 @@ export class CognitoUser {
   attributes: { [attribute: string]: string | number };
 
   constructor(x: any = {}) {
-    this.userId = x.userId || x.sub;
+    this.userId = x.userId ?? x.sub;
     this.email = x.email;
     this.name = x.name;
-    this.groups =
-      x.groups ||
-      (x['cognito:groups']
-        ? Array.isArray(x['cognito:groups'])
-          ? x['cognito:groups']
-          : x['cognito:groups'].split(',')
-        : []);
+    this.groups = x.groups ?? this.parseGroupsFromClaims(x['cognito:groups']);
     if (x.attributes) this.attributes = x.attributes;
     else {
       this.attributes = {};
@@ -43,6 +37,16 @@ export class CognitoUser {
         .filter(a => a.startsWith('custom:'))
         .forEach(a => (this.attributes[a.slice('custom:'.length)] = x[a]));
     }
+  }
+  // the groups claim can come in many forms, depending on the input payload type and version.
+  private parseGroupsFromClaims(groupsClaim: string | string[]): string[] {
+    if (!groupsClaim) return [];
+    // ['myGroup1', 'myGroup2']
+    if (Array.isArray(groupsClaim)) return groupsClaim;
+    // '[myGroup1 myGroup2]'
+    if (groupsClaim.startsWith('[')) return groupsClaim.slice(1, groupsClaim.length - 1).split(' ');
+    // 'myGroup1, myGroup2'
+    else return groupsClaim.split(',');
   }
 
   /**
