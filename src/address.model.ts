@@ -93,27 +93,27 @@ export class Address extends Resource {
     );
     let res = '';
 
-    if (this.address?.trim() && display.address) res = res.concat(this.address.trim());
-    if (this.address2?.trim() && display.address2) {
+    if (this.address && this.address.trim() && display.address) res = res.concat(this.address.trim());
+    if (this.address2 && this.address2.trim() && display.address2) {
       if (res.length) res = res.concat(` (${this.address2.trim()})`);
       else res = res.concat(this.address2.trim());
     }
 
-    if (this.city?.trim() && display.city) {
+    if (this.city && this.city.trim() && display.city) {
       if (res.length) res = res.concat(`, ${this.city.trim()}`);
       else res = res.concat(this.city.trim());
     }
-    if (this.postcode?.trim() && display.postcode) {
-      if (this.city?.trim() && display.city) res = res.concat(` ${this.postcode.trim()}`);
+    if (this.postcode && this.postcode.trim() && display.postcode) {
+      if (this.city && this.city.trim() && display.city) res = res.concat(` ${this.postcode.trim()}`);
       else if (res.length) res = res.concat(`, ${this.postcode.trim()}`);
       else res = res.concat(this.postcode.trim());
     }
-    if (this.province?.trim() && display.province) {
+    if (this.province && this.province.trim() && display.province) {
       if (res.length) res = res.concat(` (${this.province.trim()})`);
       else res = res.concat(this.province.trim());
     }
 
-    if (this.country?.trim() && display.country) {
+    if (this.country && this.country.trim() && display.country) {
       if (res.length) res = res.concat(` - ${this.country.trim()}`);
       else res = res.concat(this.country.trim());
     }
