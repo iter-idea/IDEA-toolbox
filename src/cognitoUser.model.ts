@@ -26,10 +26,10 @@ export class CognitoUser {
   attributes: { [attribute: string]: string | number };
 
   constructor(x: any = {}) {
-    this.userId = x.userId ?? x.sub;
+    this.userId = x.userId || x.sub;
     this.email = x.email;
     this.name = x.name;
-    this.groups = x.groups ?? this.parseGroupsFromClaims(x['cognito:groups']);
+    this.groups = x.groups || this.parseGroupsFromClaims(x['cognito:groups']);
     if (x.attributes) this.attributes = x.attributes;
     else {
       this.attributes = {};
