@@ -17,6 +17,10 @@ export class CognitoUser {
    */
   name: string;
   /**
+   * The URI to the user's picture.
+   */
+  picture: string;
+  /**
    * The list of groups containing the user.
    */
   groups: string[];
@@ -29,6 +33,7 @@ export class CognitoUser {
     this.userId = x.userId || x.sub;
     this.email = x.email;
     this.name = x.name;
+    this.picture = x.picture;
     this.groups = x.groups || this.parseGroupsFromClaims(x['cognito:groups']);
     if (x.attributes) this.attributes = x.attributes;
     else {
