@@ -6,6 +6,7 @@ import isDate from 'validator/lib/isDate';
 import { marked } from 'marked';
 
 import { markdown } from './markdown';
+import { epochISODateString } from './epoch';
 
 /**
  * Utilities (static) functions, to support IDEA's projects.
@@ -19,6 +20,13 @@ import { markdown } from './markdown';
  */
 export function ISODateToItalianFormat(ds: string): string {
   return `${ds.slice(8, 10)}/${ds.slice(5, 7)}/${ds.slice(0, 4)}`;
+}
+/**
+ * Parse a date in the format YYYY-MM-DD.
+ */
+export function toISODate(date: Date | string | number): epochISODateString {
+  if (!date) return null;
+  return new Date(date).toISOString().slice(0, 10);
 }
 
 /**
