@@ -14,4 +14,4 @@ import { Appointment } from 'idea-toolbox';
 
 ## Documentation
 
-Documentation generated with TypeDoc: [link](https://uatisdeproblem.github.io/IDEA-toolbox).
+Documentation generated with TypeDoc: [link](https://iter-idea.github.io/IDEA-toolbox).
