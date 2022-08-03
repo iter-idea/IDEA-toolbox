@@ -1,6 +1,6 @@
 {
   "name": "idea-toolbox",
-  "version": "6.5.18",
+  "version": "6.5.19",
   "description": "IDEA's utility functions",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
