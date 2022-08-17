@@ -25,6 +25,18 @@ export class Check extends Resource {
    * The color shape to display (instead of an avatar) for the element.
    */
   color: string;
+  /**
+   * A description with additional information on the check.
+   */
+  description: string;
+  /**
+   * An optional first category.
+   */
+  category1: any;
+  /**
+   * An optional second category.
+   */
+  category2: any;
 
   load(x?: any) {
     if (x) x = typeof x === 'object' ? x : { value: x }; // backward compatibility
@@ -35,5 +47,8 @@ export class Check extends Resource {
     this.hidden = this.clean(x.hidden, Boolean);
     this.avatar = this.clean(x.avatar, String);
     this.color = this.clean(x.color, String);
+    this.description = this.clean(x.description, String);
+    this.category1 = this.clean(x.category1, String);
+    this.category2 = this.clean(x.category2, String);
   }
 }
