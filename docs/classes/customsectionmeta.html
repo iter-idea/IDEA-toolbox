@@ -23,7 +23,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">CustomSectionMeta</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/customSectionMeta.model.ts#L9">src/customSectionMeta.model.ts:9</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/customSectionMeta.model.ts#L9">src/customSectionMeta.model.ts:9</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -58,7 +58,7 @@
 <section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a id="constructor" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>constructor</span><a href="#constructor" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-<li class="tsd-signature tsd-anchor-link" id="constructor.new_CustomSectionMeta">new <wbr/>Custom<wbr/>Section<wbr/>Meta<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="CustomSectionMeta.html" class="tsd-signature-type" data-tsd-kind="Class">CustomSectionMeta</a><a href="#constructor.new_CustomSectionMeta" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="constructor.new_CustomSectionMeta">new <wbr/>Custom<wbr/>Section<wbr/>Meta<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{}</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="CustomSectionMeta.html" class="tsd-signature-type" data-tsd-kind="Class">CustomSectionMeta</a><a href="#constructor.new_CustomSectionMeta" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Object initialization, setting all the default values.</p>
 </div>
@@ -66,22 +66,24 @@
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> newData: <span class="tsd-signature-type">any</span></h5>
+<h5>newData: <span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> = {}</span></h5>
 <div class="tsd-comment tsd-typography"><p>the data to load, optional</p>
-</div></li>
+</div>
+<ul class="tsd-parameters"></ul></li>
 <li>
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> options: <span class="tsd-signature-type">any</span></h5>
+<h5>options: <span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> = {}</span></h5>
 <div class="tsd-comment tsd-typography"><p>custom options to apply; they will depend on the child resource</p>
 <p>Usually, there is no need to implement the constructor; implicitly, it will call the <code>load</code> of the child resource
 and therefore loading all the resources with default values.
 If needed, this is the suggested implementation:</p>
 <pre><code><span class="hl-4">super</span><span class="hl-1">();</span><br/><span class="hl-4">this</span><span class="hl-1">.</span><span class="hl-5">load</span><span class="hl-1">(</span><span class="hl-2">x</span><span class="hl-1">);</span><br/><span class="hl-6">// ...</span>
 </code></pre>
-</div></li></ul></div>
+</div>
+<ul class="tsd-parameters"></ul></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="CustomSectionMeta.html" class="tsd-signature-type" data-tsd-kind="Class">CustomSectionMeta</a></h4><aside class="tsd-sources">
 <p>Inherited from <a href="Resource.html">Resource</a>.<a href="Resource.html#constructor">constructor</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/resource.model.ts#L21">src/resource.model.ts:21</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/resource.model.ts#L21">src/resource.model.ts:21</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="description" class="tsd-anchor"></a>
@@ -90,7 +92,7 @@ If needed, this is the suggested implementation:</p>
 <div class="tsd-comment tsd-typography"><p>The description of the section. Support to multilanguage. Optional.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/customSectionMeta.model.ts#L17">src/customSectionMeta.model.ts:17</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/customSectionMeta.model.ts#L17">src/customSectionMeta.model.ts:17</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="displayTemplate" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>display<wbr/>Template</span><a href="#displayTemplate" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">display<wbr/>Template<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span></div>
@@ -104,7 +106,7 @@ Optional.</p>
 </code></pre>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/customSectionMeta.model.ts#L47">src/customSectionMeta.model.ts:47</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/customSectionMeta.model.ts#L47">src/customSectionMeta.model.ts:47</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="fields" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>fields</span><a href="#fields" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">fields<span class="tsd-signature-symbol">:</span> <a href="../interfaces/CustomFieldsMeta.html" class="tsd-signature-type" data-tsd-kind="Interface">CustomFieldsMeta</a></div>
@@ -113,7 +115,7 @@ Optional.</p>
 </code></pre>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/customSectionMeta.model.ts#L31">src/customSectionMeta.model.ts:31</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/customSectionMeta.model.ts#L31">src/customSectionMeta.model.ts:31</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="fieldsLegend" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>fields<wbr/>Legend</span><a href="#fieldsLegend" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">fields<wbr/>Legend<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
@@ -121,14 +123,14 @@ Optional.</p>
 Example: <code>[&#39;name&#39;, &#39;surname&#39;, ...]</code>.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/customSectionMeta.model.ts#L22">src/customSectionMeta.model.ts:22</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/customSectionMeta.model.ts#L22">src/customSectionMeta.model.ts:22</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="name" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>name</span><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">name<span class="tsd-signature-symbol">?:</span> <a href="Label.html" class="tsd-signature-type" data-tsd-kind="Class">Label</a></div>
 <div class="tsd-comment tsd-typography"><p>The name of the section. Support to multilanguage. Optional.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/customSectionMeta.model.ts#L13">src/customSectionMeta.model.ts:13</a></li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/customSectionMeta.model.ts#L13">src/customSectionMeta.model.ts:13</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="clean" class="tsd-anchor"></a>
@@ -169,7 +171,7 @@ Example: <code>[&#39;name&#39;, &#39;surname&#39;, ...]</code>.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="Resource.html">Resource</a>.<a href="Resource.html#clean">clean</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/resource.model.ts#L107">src/resource.model.ts:107</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/resource.model.ts#L102">src/resource.model.ts:102</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="cleanArray" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>clean<wbr/>Array</span><a href="#cleanArray" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -208,11 +210,11 @@ Example: <code>[&#39;name&#39;, &#39;surname&#39;, ...]</code>.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="Resource.html">Resource</a>.<a href="Resource.html#cleanArray">cleanArray</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/resource.model.ts#L120">src/resource.model.ts:120</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/resource.model.ts#L115">src/resource.model.ts:115</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="iE" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>iE</span><a href="#iE" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-<li class="tsd-signature tsd-anchor-link" id="iE.iE-1">iE<span class="tsd-signature-symbol">(</span>field<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><a href="#iE.iE-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="iE.iE-1">iE<span class="tsd-signature-symbol">(</span>field<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, type<span class="tsd-signature-symbol">?: </span><a href="../types/isEmptyFieldTypes.html" class="tsd-signature-type" data-tsd-kind="Type alias">isEmptyFieldTypes</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><a href="#iE.iE-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Shortcut to Utils.isEmpty to check the emptiness of a field.</p>
 </div>
@@ -222,11 +224,11 @@ Example: <code>[&#39;name&#39;, &#39;surname&#39;, ...]</code>.</p>
 <li>
 <h5>field: <span class="tsd-signature-type">any</span></h5></li>
 <li>
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> type: <span class="tsd-signature-type">string</span></h5></li></ul></div>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> type: <a href="../types/isEmptyFieldTypes.html" class="tsd-signature-type" data-tsd-kind="Type alias">isEmptyFieldTypes</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="Resource.html">Resource</a>.<a href="Resource.html#iE">iE</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/resource.model.ts#L96">src/resource.model.ts:96</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/resource.model.ts#L91">src/resource.model.ts:91</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="load" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>load</span><a href="#load" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -251,7 +253,7 @@ Example: <code>[&#39;name&#39;, &#39;surname&#39;, ...]</code>.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Overrides <a href="Resource.html">Resource</a>.<a href="Resource.html#load">load</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/customSectionMeta.model.ts#L49">src/customSectionMeta.model.ts:49</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/customSectionMeta.model.ts#L49">src/customSectionMeta.model.ts:49</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="loadFields" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>load<wbr/>Fields</span><a href="#loadFields" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -268,11 +270,11 @@ Example: <code>[&#39;name&#39;, &#39;surname&#39;, ...]</code>.</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/customSectionMeta.model.ts#L85">src/customSectionMeta.model.ts:85</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/customSectionMeta.model.ts#L85">src/customSectionMeta.model.ts:85</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="safeLoad" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>safe<wbr/>Load</span><a href="#safeLoad" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-<li class="tsd-signature tsd-anchor-link" id="safeLoad.safeLoad-1">safe<wbr/>Load<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, safeData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#safeLoad.safeLoad-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="safeLoad.safeLoad-1">safe<wbr/>Load<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, safeData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#safeLoad.safeLoad-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Load the attributes from an already existing resource and then force some attributes to assume <em>safeData</em> values.
 The function is usually used in the back-end to mix together db data with new data, without the risk of changing
@@ -290,18 +292,19 @@ ids and other attributes which are managed in appositely curated scenario.</p>
 <div class="tsd-comment tsd-typography"><p>the attributes to force to specific values</p>
 </div></li>
 <li>
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> options: <span class="tsd-signature-type">any</span></h5>
+<h5>options: <span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> = {}</span></h5>
 <div class="tsd-comment tsd-typography"><p>custom options to apply; they will depend on the child resource</p>
 <p>Typical implementation:</p>
 <pre><code><span class="hl-4">super</span><span class="hl-1">.</span><span class="hl-5">safeLoad</span><span class="hl-1">(</span><span class="hl-2">newData</span><span class="hl-1">, </span><span class="hl-2">safeData</span><span class="hl-1">);</span><br/><span class="hl-4">this</span><span class="hl-1">.</span><span class="hl-2">keyAttr</span><span class="hl-1"> = </span><span class="hl-2">safeData</span><span class="hl-1">.</span><span class="hl-2">keyAttr</span><span class="hl-1">;</span><br/><span class="hl-4">this</span><span class="hl-1">.</span><span class="hl-2">importantAttr</span><span class="hl-1"> = </span><span class="hl-2">safeData</span><span class="hl-1">.</span><span class="hl-2">importantAttr</span><span class="hl-1">;</span><br/><span class="hl-4">this</span><span class="hl-1">.</span><span class="hl-2">isDraft</span><span class="hl-1"> = </span><span class="hl-2">safeData</span><span class="hl-1">.</span><span class="hl-2">isDraft</span><span class="hl-1">;</span><br/><span class="hl-6">// ...</span>
 </code></pre>
 <p> <em>Note well</em>: there is no need to call <code>this.load()</code>, since it&#39;s implicitly called from <code>super.safeLoad()</code>,
  which will anyway use the child version of the method.</p>
-</div></li></ul></div>
+</div>
+<ul class="tsd-parameters"></ul></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="Resource.html">Resource</a>.<a href="Resource.html#safeLoad">safeLoad</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/resource.model.ts#L67">src/resource.model.ts:67</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/resource.model.ts#L64">src/resource.model.ts:64</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="setFieldsDefaultValues" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Fields<wbr/>Default<wbr/>Values</span><a href="#setFieldsDefaultValues" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -311,7 +314,7 @@ ids and other attributes which are managed in appositely curated scenario.</p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/customSectionMeta.model.ts#L74">src/customSectionMeta.model.ts:74</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/customSectionMeta.model.ts#L74">src/customSectionMeta.model.ts:74</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="validate" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>validate</span><a href="#validate" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -334,7 +337,7 @@ ids and other attributes which are managed in appositely curated scenario.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
 <p>Overrides <a href="Resource.html">Resource</a>.<a href="Resource.html#validate">validate</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/customSectionMeta.model.ts#L65">src/customSectionMeta.model.ts:65</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/customSectionMeta.model.ts#L65">src/customSectionMeta.model.ts:65</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="validateFields" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>validate<wbr/>Fields</span><a href="#validateFields" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -349,7 +352,7 @@ ids and other attributes which are managed in appositely curated scenario.</p>
 <h5>fields: <span class="tsd-signature-type">any</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/2f9429a/src/customSectionMeta.model.ts#L95">src/customSectionMeta.model.ts:95</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/5df8c31/src/customSectionMeta.model.ts#L95">src/customSectionMeta.model.ts:95</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
