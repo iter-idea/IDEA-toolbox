@@ -1,4 +1,4 @@
-import { isEmpty } from './utils';
+import { isEmpty, isEmptyFieldTypes } from './utils';
 
 /**
  * An abstract class to inherit to manage a resource model.
@@ -18,9 +18,7 @@ export abstract class Resource {
    *  // ...
    *  ```
    */
-  constructor(newData?: any, options?: any) {
-    newData = newData || {};
-    options = options || {};
+  constructor(newData = {}, options = {}) {
     this.load(newData, options);
   }
 
@@ -39,10 +37,9 @@ export abstract class Resource {
    *  // ...
    *  ```
    */
-  load(newData: any, options?: any) {
-    newData = newData || {};
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    options = options || {};
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  load(newData: any, options = {}): void {
+    newData = newData ?? {};
   }
 
   /**
@@ -64,10 +61,9 @@ export abstract class Resource {
    *  _Note well_: there is no need to call `this.load()`, since it's implicitly called from `super.safeLoad()`,
    *  which will anyway use the child version of the method.
    */
-  safeLoad(newData: any, safeData: any, options?: any) {
-    newData = newData || {};
-    safeData = safeData || {};
-    options = options || {};
+  safeLoad(newData: any, safeData: any, options = {}): void {
+    newData = newData ?? {};
+    safeData = safeData ?? {};
     this.load(newData, options);
   }
 
@@ -84,16 +80,15 @@ export abstract class Resource {
    *  return e;
    *  ```
    */
-  validate(options?: any): string[] {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    options = options || {};
-    return new Array<string>();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  validate(options = {}): string[] {
+    return [];
   }
 
   /**
    * Shortcut to Utils.isEmpty to check the emptiness of a field.
    */
-  iE(field: any, type?: string): boolean {
+  iE(field: any, type?: isEmptyFieldTypes): boolean {
     return isEmpty(field, type);
   }
 
@@ -118,7 +113,7 @@ export abstract class Resource {
    * @return cleaned array
    */
   cleanArray(origin: any[], castFunction: (x: any) => any, defaultVal?: any): any[] {
-    return (origin || [])
+    return (origin ?? [])
       .map(x => (x || x === 0 ? castFunction(x) : defaultVal !== undefined ? defaultVal : null))
       .filter(x => x);
   }

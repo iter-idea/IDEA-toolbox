@@ -63,10 +63,7 @@ export const joinArraysOnKeys = (
  * @param fieldType set to force a type check
  * @returns return if the field is empty/invalid or not
  */
-export const isEmpty = (
-  field: any,
-  fieldType?: 'string' | 'number' | 'boolean' | 'object' | 'date' | 'email' | 'phone' | 'url' | 'domain'
-): boolean => {
+export const isEmpty = (field: any, fieldType?: isEmptyFieldTypes): boolean => {
   if (field === null || field === undefined) return true;
   const type = fieldType ?? typeof field;
   if (!type) return true;
@@ -96,6 +93,16 @@ export const isEmpty = (
       return true;
   }
 };
+export type isEmptyFieldTypes =
+  | 'string'
+  | 'number'
+  | 'boolean'
+  | 'object'
+  | 'date'
+  | 'email'
+  | 'phone'
+  | 'url'
+  | 'domain';
 
 /**
  * Convert a markdown string to HTML.
