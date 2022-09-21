@@ -4,6 +4,7 @@ export * from './src/announcement.model';
 export * from './src/APIRequestLog.model';
 export * from './src/appointment.model';
 export * from './src/attachment.model';
+export * from './src/auth0User.model';
 export * from './src/booleanChoices.enum';
 export * from './src/cacheable.model';
 export * from './src/cacheableResource.model';
