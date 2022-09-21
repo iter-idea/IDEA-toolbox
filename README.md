@@ -9,7 +9,7 @@ Utility functions to support iter IDEA's projects.
 ## Usage example
 
 ```
-import { Appointment } from 'idea-toolbox';
+import { Address } from 'idea-toolbox';
 ```
 
 ## Documentation
