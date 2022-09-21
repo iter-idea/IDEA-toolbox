@@ -50,7 +50,7 @@ export class Auth0User extends Resource {
   load(x: any): void {
     this.userId = this.clean(x.userId ?? x.sub, String);
     this.email = this.clean(x.email, String);
-    this.email = this.clean(x.emailVerified ?? x.email_verified, Boolean);
+    this.emailVerified = this.clean(x.emailVerified ?? x.email_verified, Boolean);
     this.name = this.clean(x.name, String);
     this.nickname = this.clean(x.nickname, String);
     this.picture = this.clean(x.picture, String);
