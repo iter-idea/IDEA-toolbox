@@ -61,7 +61,7 @@ export class Address extends Resource {
     const e = super.validate();
     if (this.iE(this.address)) e.push('address');
     if (this.iE(this.city)) e.push('city');
-    if (!(this.country in Countries)) e.push('country');
+    if (!Object.values(Countries).includes(this.country)) e.push('country');
     if (this.phone && this.iE(this.phone, 'phone')) e.push('phone');
     if (this.email && this.iE(this.email, 'email')) e.push('email');
     return e;
