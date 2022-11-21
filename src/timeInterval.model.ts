@@ -14,16 +14,18 @@ export class TimeInterval extends Resource {
    */
   to: number;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.from = this.clean(x.from, Number, 0);
     this.to = this.clean(x.to, Number, 0);
+    // if "from" is set, the default value for "to" is the next midnight
+    if (this.from && this.to === 0) this.to = 86400000;
   }
 
   validate(): string[] {
     const e = super.validate();
     // the starting time can't be lower than 0
-    if (this.iE(this.from) || this.from < 0) e.push('from');
+    if (this.from < 0) e.push('from');
     // the ending time can't be lower than the start and can't be higher than 24 hours
     const aDayInMs = 86400000;
     if (this.iE(this.to) || this.to > aDayInMs || this.from > this.to) e.push('to');
@@ -47,7 +49,7 @@ export class TimeInterval extends Resource {
   /**
    * Reset the interval.
    */
-  reset() {
+  reset(): void {
     this.from = 0;
     this.to = 0;
   }
