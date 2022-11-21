@@ -32,7 +32,7 @@ notifications, title, startTime, endTime</li>
 <ul class="tsd-hierarchy">
 <li><span class="target">Appointment</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L16">src/appointment.model.ts:16</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L16">src/appointment.model.ts:16</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -85,7 +85,7 @@ notifications, title, startTime, endTime</li>
 <section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a id="constructor" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>constructor</span><a href="#constructor" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-<li class="tsd-signature tsd-anchor-link" id="constructor.new_Appointment">new <wbr/>Appointment<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{}</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Appointment.html" class="tsd-signature-type" data-tsd-kind="Class">Appointment</a><a href="#constructor.new_Appointment" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="constructor.new_Appointment">new <wbr/>Appointment<span class="tsd-signature-symbol">(</span>newData<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Appointment.html" class="tsd-signature-type" data-tsd-kind="Class">Appointment</a><a href="#constructor.new_Appointment" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Object initialization, setting all the default values.</p>
 </div>
@@ -93,24 +93,22 @@ notifications, title, startTime, endTime</li>
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5>newData: <span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> = {}</span></h5>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> newData: <span class="tsd-signature-type">any</span></h5>
 <div class="tsd-comment tsd-typography"><p>the data to load, optional</p>
-</div>
-<ul class="tsd-parameters"></ul></li>
+</div></li>
 <li>
-<h5>options: <span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> = {}</span></h5>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> options: <span class="tsd-signature-type">any</span></h5>
 <div class="tsd-comment tsd-typography"><p>custom options to apply; they will depend on the child resource</p>
 <p>Usually, there is no need to implement the constructor; implicitly, it will call the <code>load</code> of the child resource
 and therefore loading all the resources with default values.
 If needed, this is the suggested implementation:</p>
 <pre><code><span class="hl-4">super</span><span class="hl-1">();</span><br/><span class="hl-4">this</span><span class="hl-1">.</span><span class="hl-5">load</span><span class="hl-1">(</span><span class="hl-2">x</span><span class="hl-1">);</span><br/><span class="hl-6">// ...</span>
 </code></pre>
-</div>
-<ul class="tsd-parameters"></ul></li></ul></div>
+</div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="Appointment.html" class="tsd-signature-type" data-tsd-kind="Class">Appointment</a></h4><aside class="tsd-sources">
 <p>Inherited from <a href="Resource.html">Resource</a>.<a href="Resource.html#constructor">constructor</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/resource.model.ts#L21">src/resource.model.ts:21</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/resource.model.ts#L21">src/resource.model.ts:21</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="allDay" class="tsd-anchor"></a>
@@ -119,7 +117,7 @@ If needed, this is the suggested implementation:</p>
 <div class="tsd-comment tsd-typography"><p>If true, it&#39;s an all-day event.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L61">src/appointment.model.ts:61</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L61">src/appointment.model.ts:61</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="appointmentId" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>appointment<wbr/>Id</span><a href="#appointmentId" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">appointment<wbr/>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -127,7 +125,7 @@ If needed, this is the suggested implementation:</p>
 In case of external calendar, it&#39;s the external id; otherwise (local calendars), it&#39;s a IUID.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L21">src/appointment.model.ts:21</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L21">src/appointment.model.ts:21</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="attendees" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>attendees</span><a href="#attendees" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">attendees<span class="tsd-signature-symbol">:</span> <a href="AppointmentAttendee.html" class="tsd-signature-type" data-tsd-kind="Class">AppointmentAttendee</a><span class="tsd-signature-symbol">[]</span></div>
@@ -135,7 +133,7 @@ In case of external calendar, it&#39;s the external id; otherwise (local calenda
 It&#39;s an empty array in case the appointment is &quot;private&quot;, i.e. the creator is the only attendee.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L78">src/appointment.model.ts:78</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L78">src/appointment.model.ts:78</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="calendarId" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>calendar<wbr/>Id</span><a href="#calendarId" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">calendar<wbr/>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -144,21 +142,21 @@ For external calendars, it&#39;s the direct id of the external calendar (and not
 to avoid repetitions of appointments for each copy of the external calendar linked to an IDEA calendar.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L27">src/appointment.model.ts:27</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L27">src/appointment.model.ts:27</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="description" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>description</span><a href="#description" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>The description of the appointment.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L49">src/appointment.model.ts:49</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L49">src/appointment.model.ts:49</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="endTime" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>end<wbr/>Time</span><a href="#endTime" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">end<wbr/>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>The ending time of the appointment.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L57">src/appointment.model.ts:57</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L57">src/appointment.model.ts:57</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="iCalUID" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>i<wbr/>CalUID</span><a href="#iCalUID" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">i<wbr/>CalUID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -167,7 +165,7 @@ i.e. each appointment in different calendars may have different <code>appointmen
 Note: in many calendaring systems recurring events share the same <code>iCalUID</code>.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L33">src/appointment.model.ts:33</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L33">src/appointment.model.ts:33</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="internalNotificationFiresAt" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>internal<wbr/>Notification<wbr/>Fires<wbr/>At</span><a href="#internalNotificationFiresAt" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">internal<wbr/>Notification<wbr/>Fires<wbr/>At<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
@@ -175,7 +173,7 @@ Note: in many calendaring systems recurring events share the same <code>iCalUID<
 In case of appointments on external calendars these will not be valued.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L98">src/appointment.model.ts:98</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L98">src/appointment.model.ts:98</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="internalNotificationFiresOn" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>internal<wbr/>Notification<wbr/>Fires<wbr/>On</span><a href="#internalNotificationFiresOn" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">internal<wbr/>Notification<wbr/>Fires<wbr/>On<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
@@ -184,7 +182,7 @@ Used to quickly identify the reminders to manage in a particular time frame.
 In case of appointments on external calendars these will not be valued.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L93">src/appointment.model.ts:93</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L93">src/appointment.model.ts:93</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="internalNotificationProject" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>internal<wbr/>Notification<wbr/>Project</span><a href="#internalNotificationProject" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">internal<wbr/>Notification<wbr/>Project<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
@@ -192,7 +190,7 @@ In case of appointments on external calendars these will not be valued.</p>
 In case of appointments on external calendars these will not be valued.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L103">src/appointment.model.ts:103</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L103">src/appointment.model.ts:103</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="internalNotificationTeamId" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>internal<wbr/>Notification<wbr/>Team<wbr/>Id</span><a href="#internalNotificationTeamId" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">internal<wbr/>Notification<wbr/>Team<wbr/>Id<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
@@ -200,7 +198,7 @@ In case of appointments on external calendars these will not be valued.</p>
 In case of appointments on external calendars these will not be valued.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L108">src/appointment.model.ts:108</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L108">src/appointment.model.ts:108</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="internalNotificationUserId" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>internal<wbr/>Notification<wbr/>User<wbr/>Id</span><a href="#internalNotificationUserId" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">internal<wbr/>Notification<wbr/>User<wbr/>Id<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
@@ -208,35 +206,35 @@ In case of appointments on external calendars these will not be valued.</p>
 In case of appointments on external calendars these will not be valued.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L113">src/appointment.model.ts:113</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L113">src/appointment.model.ts:113</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="linkToOrigin" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>link<wbr/>To<wbr/>Origin</span><a href="#linkToOrigin" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">link<wbr/>To<wbr/>Origin<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>In case the calendar is linked to external services, the link to access the external resource.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L69">src/appointment.model.ts:69</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L69">src/appointment.model.ts:69</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="linkedTo" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>linked<wbr/>To</span><a href="#linkedTo" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">linked<wbr/>To<span class="tsd-signature-symbol">?:</span> <a href="AppointmentLinkedObject.html" class="tsd-signature-type" data-tsd-kind="Class">AppointmentLinkedObject</a><span class="tsd-signature-symbol">[]</span></div>
 <div class="tsd-comment tsd-typography"><p>A list of objects linked to the appointment.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L73">src/appointment.model.ts:73</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L73">src/appointment.model.ts:73</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="location" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>location</span><a href="#location" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">location<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>The location of the appointment.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L45">src/appointment.model.ts:45</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L45">src/appointment.model.ts:45</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="masterAppointmentId" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>master<wbr/>Appointment<wbr/>Id</span><a href="#masterAppointmentId" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">master<wbr/>Appointment<wbr/>Id<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>Master appointment id (optional): the id of the master appointment, in case this is an occurence.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L37">src/appointment.model.ts:37</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L37">src/appointment.model.ts:37</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="notifications" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>notifications</span><a href="#notifications" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">notifications<span class="tsd-signature-symbol">:</span> <a href="AppointmentNotification.html" class="tsd-signature-type" data-tsd-kind="Class">AppointmentNotification</a><span class="tsd-signature-symbol">[]</span></div>
@@ -248,28 +246,28 @@ Note on notifications from external services.
     - Multiple notifications at the same time are not allowed.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L87">src/appointment.model.ts:87</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L87">src/appointment.model.ts:87</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="startTime" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>start<wbr/>Time</span><a href="#startTime" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">start<wbr/>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>The starting time of the appointment.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L53">src/appointment.model.ts:53</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L53">src/appointment.model.ts:53</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="timezone" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>timezone</span><a href="#timezone" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">timezone<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>The timezone for the appointent start and end.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L65">src/appointment.model.ts:65</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L65">src/appointment.model.ts:65</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="title" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>title</span><a href="#title" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">title<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>The title of the appointment.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L41">src/appointment.model.ts:41</a></li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L41">src/appointment.model.ts:41</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="calculateFiringTime" class="tsd-anchor"></a>
@@ -281,7 +279,7 @@ Note on notifications from external services.
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L199">src/appointment.model.ts:199</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L199">src/appointment.model.ts:199</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="clean" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>clean</span><a href="#clean" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -320,7 +318,7 @@ Note on notifications from external services.
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="Resource.html">Resource</a>.<a href="Resource.html#clean">clean</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/resource.model.ts#L102">src/resource.model.ts:102</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/resource.model.ts#L107">src/resource.model.ts:107</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="cleanArray" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>clean<wbr/>Array</span><a href="#cleanArray" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -359,7 +357,7 @@ Note on notifications from external services.
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="Resource.html">Resource</a>.<a href="Resource.html#cleanArray">cleanArray</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/resource.model.ts#L115">src/resource.model.ts:115</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/resource.model.ts#L120">src/resource.model.ts:120</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="fixAllDayTime" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>fix<wbr/>All<wbr/>Day<wbr/>Time</span><a href="#fixAllDayTime" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -369,7 +367,7 @@ Note on notifications from external services.
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L145">src/appointment.model.ts:145</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L145">src/appointment.model.ts:145</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getAttendance" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get<wbr/>Attendance</span><a href="#getAttendance" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -385,7 +383,7 @@ The latter can be identified by email or, by default, as the attendee marked as 
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> email: <span class="tsd-signature-type">string</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="../enums/AppointmentAttendance.html" class="tsd-signature-type" data-tsd-kind="Enumeration">AppointmentAttendance</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L227">src/appointment.model.ts:227</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L227">src/appointment.model.ts:227</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getAttendee" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get<wbr/>Attendee</span><a href="#getAttendee" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -401,7 +399,7 @@ The latter can be identified by email or, by default, as the attendee marked as 
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> email: <span class="tsd-signature-type">string</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="AppointmentAttendee.html" class="tsd-signature-type" data-tsd-kind="Class">AppointmentAttendee</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L220">src/appointment.model.ts:220</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L220">src/appointment.model.ts:220</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="iE" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>iE</span><a href="#iE" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -419,7 +417,7 @@ The latter can be identified by email or, by default, as the attendee marked as 
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="Resource.html">Resource</a>.<a href="Resource.html#iE">iE</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/resource.model.ts#L91">src/resource.model.ts:91</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/resource.model.ts#L96">src/resource.model.ts:96</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="isOrganizer" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>is<wbr/>Organizer</span><a href="#isOrganizer" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -435,7 +433,7 @@ The user can be identified by email or, by default, as the attendee marked as <c
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> email: <span class="tsd-signature-type">string</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L235">src/appointment.model.ts:235</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L235">src/appointment.model.ts:235</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="load" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>load</span><a href="#load" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -453,7 +451,7 @@ The user can be identified by email or, by default, as the attendee marked as <c
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Overrides <a href="Resource.html">Resource</a>.<a href="Resource.html#load">load</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L115">src/appointment.model.ts:115</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L115">src/appointment.model.ts:115</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a id="removeDuplicateNotifications" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagProtected">Protected</code> <span>remove<wbr/>Duplicate<wbr/>Notifications</span><a href="#removeDuplicateNotifications" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
@@ -463,7 +461,7 @@ The user can be identified by email or, by default, as the attendee marked as <c
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L191">src/appointment.model.ts:191</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L191">src/appointment.model.ts:191</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="safeLoad" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>safe<wbr/>Load</span><a href="#safeLoad" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -487,7 +485,7 @@ ids and other attributes which are managed in appositely curated scenario.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Overrides <a href="Resource.html">Resource</a>.<a href="Resource.html#safeLoad">safeLoad</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L156">src/appointment.model.ts:156</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L156">src/appointment.model.ts:156</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="validate" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>validate</span><a href="#validate" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -503,7 +501,7 @@ ids and other attributes which are managed in appositely curated scenario.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
 <p>Overrides <a href="Resource.html">Resource</a>.<a href="Resource.html#validate">validate</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/fde0fd4/src/appointment.model.ts#L179">src/appointment.model.ts:179</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/iter-idea/IDEA-toolbox/blob/87c464e/src/appointment.model.ts#L179">src/appointment.model.ts:179</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
