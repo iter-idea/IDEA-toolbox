@@ -18,7 +18,9 @@ export abstract class Resource {
    *  // ...
    *  ```
    */
-  constructor(newData = {}, options = {}) {
+  constructor(newData?: any, options?: any) {
+    newData = newData ?? {};
+    options = options ?? {};
     this.load(newData, options);
   }
 
@@ -37,9 +39,10 @@ export abstract class Resource {
    *  // ...
    *  ```
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  load(newData: any, options = {}): void {
+  load(newData: any, options?: any): void {
     newData = newData ?? {};
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    options = options ?? {};
   }
 
   /**
@@ -61,9 +64,10 @@ export abstract class Resource {
    *  _Note well_: there is no need to call `this.load()`, since it's implicitly called from `super.safeLoad()`,
    *  which will anyway use the child version of the method.
    */
-  safeLoad(newData: any, safeData: any, options = {}): void {
+  safeLoad(newData: any, safeData: any, options?: any): void {
     newData = newData ?? {};
     safeData = safeData ?? {};
+    options = options ?? {};
     this.load(newData, options);
   }
 
@@ -80,8 +84,9 @@ export abstract class Resource {
    *  return e;
    *  ```
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  validate(options = {}): string[] {
+  validate(options?: any): string[] {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    options = options || {};
     return [];
   }
 
