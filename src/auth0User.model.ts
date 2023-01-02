@@ -48,13 +48,13 @@ export class Auth0User extends Resource {
   preferences: { [preference: string]: any };
 
   load(x: any): void {
-    this.userId = this.clean(x.userId ?? x.sub, String);
+    this.userId = this.clean(x.userId || x.sub, String);
     this.email = this.clean(x.email, String);
-    this.emailVerified = this.clean(x.emailVerified ?? x.email_verified, Boolean);
+    this.emailVerified = this.clean(x.emailVerified || x.email_verified, Boolean);
     this.name = this.clean(x.name, String);
     this.nickname = this.clean(x.nickname, String);
     this.picture = this.clean(x.picture, String);
-    this.updatedAt = this.clean(x.updatedAt ?? x.updated_at, t => new Date(t).toISOString());
+    this.updatedAt = this.clean(x.updatedAt || x.updated_at, t => new Date(t).toISOString());
 
     this.groups = this.cleanArray(x.groups, String);
     this.attributes = x.attributes ?? {};
