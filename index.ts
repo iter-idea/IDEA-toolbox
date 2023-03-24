@@ -3,6 +3,7 @@ export * from './src/amazonTranslateLanguages.enum';
 export * from './src/announcement.model';
 export * from './src/APIRequestLog.model';
 export * from './src/appointment.model';
+export * from './src/appStatus.model';
 export * from './src/attachment.model';
 export * from './src/auth0User.model';
 export * from './src/booleanChoices.enum';
