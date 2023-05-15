@@ -15,8 +15,12 @@ import { epochISODateString } from './epoch';
 /**
  * Parse a date in the format `YYYY-MM-DD`.
  */
-export const toISODate = (date: Date | string | number): epochISODateString =>
-  !date ? null : new Date(date).toISOString().slice(0, 10);
+export const toISODate = (date: Date | string | number): epochISODateString => {
+  if (!date) return null;
+  const dateResistantToTimeZones = new Date(date);
+  dateResistantToTimeZones.setHours(12, 0, 0, 0);
+  !date ? null : dateResistantToTimeZones.toISOString().slice(0, 10);
+};
 
 /**
  * Clean a string to use it within filenames and so.
