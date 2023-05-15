@@ -19,7 +19,7 @@ export const toISODate = (date: Date | string | number): epochISODateString => {
   if (!date) return null;
   const dateResistantToTimeZones = new Date(date);
   dateResistantToTimeZones.setHours(12, 0, 0, 0);
-  !date ? null : dateResistantToTimeZones.toISOString().slice(0, 10);
+  return dateResistantToTimeZones.toISOString().slice(0, 10);
 };
 
 /**
