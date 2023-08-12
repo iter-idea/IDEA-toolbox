@@ -31,16 +31,14 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
-    "@tsconfig/node16": "^1.0.3",
-    "@types/aws-lambda": "^8.10.101",
+    "@tsconfig/node18": "^18.2.0",
     "@types/marked": "^4.0.3",
-    "@types/node": "^18.6.3",
+    "@types/node": "^18.17.4",
     "@types/validator": "^13.7.4",
-    "@typescript-eslint/eslint-plugin": "^5.32.0",
-    "@typescript-eslint/parser": "^5.32.0",
-    "aws-sdk": "^2.1187.0",
-    "eslint": "^8.21.0",
-    "typedoc": "^0.23.10",
-    "typescript": "^4.7.4"
+    "@typescript-eslint/eslint-plugin": "^5.47.0",
+    "@typescript-eslint/parser": "^5.47.0",
+    "eslint": "^8.46.0",
+    "typedoc": "^0.24.8",
+    "typescript": "^5.1.6"
   }
 }
