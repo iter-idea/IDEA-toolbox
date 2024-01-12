@@ -76,6 +76,8 @@ export const isEmpty = (field: any, fieldType?: isEmptyFieldTypes): boolean => {
       return !field.trim().length;
     case 'number':
       return field === 0;
+    case 'positiveNumber':
+      return field <= 0;
     case 'boolean':
       return !field;
     case 'object':
@@ -100,6 +102,7 @@ export const isEmpty = (field: any, fieldType?: isEmptyFieldTypes): boolean => {
 export type isEmptyFieldTypes =
   | 'string'
   | 'number'
+  | 'positiveNumber'
   | 'boolean'
   | 'object'
   | 'date'
