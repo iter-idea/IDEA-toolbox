@@ -107,7 +107,12 @@ export abstract class Resource {
   clean(origin: any, castFunction: (x: any) => any, defaultVal?: any): any {
     if (Array.isArray(origin)) return this.cleanArray(origin, castFunction);
     if (castFunction === Boolean) return Boolean(origin);
-    else return origin || origin === 0 ? castFunction(origin) : defaultVal !== undefined ? defaultVal : null;
+    else
+      return origin || origin === 0 || origin === false
+        ? castFunction(origin)
+        : defaultVal !== undefined
+        ? defaultVal
+        : null;
   }
 
   /**
@@ -118,8 +123,8 @@ export abstract class Resource {
    * @return cleaned array
    */
   cleanArray(origin: any[], castFunction: (x: any) => any, defaultVal?: any): any[] {
-    return (origin || [])
-      .map(x => (x || x === 0 ? castFunction(x) : defaultVal !== undefined ? defaultVal : null))
-      .filter(x => x || x === 0);
+    return (origin ?? [])
+      .map(x => (x || x === 0 || x === false ? castFunction(x) : defaultVal !== undefined ? defaultVal : null))
+      .filter(x => x || x === 0 || x === false);
   }
 }
