@@ -17,14 +17,14 @@ export class Attachment extends Resource {
    */
   format: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.attachmentId = this.clean(x.attachmentId, String);
     this.name = this.clean(x.name, String);
     this.format = this.clean(x.format, String);
   }
 
-  safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any): void {
     super.safeLoad(newData, safeData);
     this.attachmentId = safeData.attachmentId;
     this.format = safeData.format;

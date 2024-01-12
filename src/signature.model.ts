@@ -18,7 +18,7 @@ export class Signature extends Resource {
    */
   pngURL: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.signatory = this.clean(x.signatory, String);
     this.timestamp = this.clean(x.timestamp, t => new Date(t).getTime(), Date.now()) as epochDateTime;

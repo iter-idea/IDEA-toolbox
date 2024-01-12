@@ -23,7 +23,7 @@ export class EmailChangeRequest extends Resource {
    */
   expiresAt: number;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.confirmationCode = this.clean(x.confirmationCode, String);
     this.oldEmail = this.clean(x.oldEmail, String);

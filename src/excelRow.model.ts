@@ -9,7 +9,7 @@ export class ExcelRow extends Resource {
    */
   __rowNum__: number;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.__rowNum__ = this.clean(x.__rowNum__, Number);
   }

@@ -10,7 +10,7 @@ export class Announcement extends Resource {
    */
   maintenance?: boolean;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.content = this.clean(x.content, String);
     if (x.maintenance) this.maintenance = true;

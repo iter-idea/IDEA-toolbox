@@ -13,7 +13,7 @@ export class SignedURL extends Resource {
    */
   id?: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.url = this.clean(x.url, String);
     if (x.id) this.id = this.clean(x.id, String);

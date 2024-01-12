@@ -18,7 +18,7 @@ export class CustomBlockMeta extends Resource {
    */
   sections: CustomSectionsMeta;
 
-  load(x: any, languages: Languages) {
+  load(x: any, languages: Languages): void {
     super.load(x, languages);
     this.sectionsLegend = this.cleanArray(x.sectionsLegend, String);
     this.sections = {};

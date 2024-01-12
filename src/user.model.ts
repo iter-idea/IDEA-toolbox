@@ -22,14 +22,7 @@ export class User extends Resource {
    */
   createdAt: epochDateTime;
 
-  // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22 (only Mario is missing)
-  //  --> when all the projects are advanced to that version, you can remove this attribute
-  /**
-   * @deprecated
-   */
-  currentTeam: any;
-
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.userId = this.clean(x.userId, String);
     this.email = this.clean(x.email, String);
@@ -39,22 +32,14 @@ export class User extends Resource {
         if (x.currentTeamInProjects[project])
           this.currentTeamInProjects[project] = String(x.currentTeamInProjects[project]);
     this.createdAt = this.clean(x.createdAt, d => new Date(d).getTime(), Date.now());
-
-    // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22 (only Mario is missing)
-    //  --> when all the projects are advanced to that version, you can remove this attribute
-    this.currentTeam = {};
   }
 
-  safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any): void {
     super.safeLoad(newData, safeData);
     delete this.email; // stored only in Cognito
     this.userId = safeData.userId;
     this.currentTeamInProjects = safeData.currentTeamInProjects;
     this.createdAt = safeData.createdAt;
-
-    // @todo kept for retrocompatibility before `IDEA Ionic Extra v5.15.x` #22 (only Mario is missing)
-    //  --> when all the projects are advanced to that version, you can remove this attribute
-    this.currentTeam = {};
   }
 
   /**
@@ -66,7 +51,7 @@ export class User extends Resource {
   /**
    * Set (or reset) the current team for the user in the selected project.
    */
-  setCurrentTeamOfProject(project: string, teamId?: string) {
+  setCurrentTeamOfProject(project: string, teamId?: string): void {
     if (teamId) this.currentTeamInProjects[project] = String(teamId);
     else delete this.currentTeamInProjects[project];
   }

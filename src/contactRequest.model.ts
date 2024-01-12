@@ -40,7 +40,7 @@ export class ContactRequest extends Resource {
    */
   notes?: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.email = this.clean(x.email, String);
     this.timestamp = this.clean(x.timestamp, d => new Date(d).getTime(), Date.now()) as epochDateTime;

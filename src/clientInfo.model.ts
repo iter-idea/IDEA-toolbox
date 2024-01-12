@@ -43,7 +43,7 @@ export class ClientInfo extends Resource {
    */
   userAgent: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.timestamp = this.clean(x.timestamp, t => new Date(t).toISOString()) as epochISOString;
     this.platform = this.clean(x.platform, String);

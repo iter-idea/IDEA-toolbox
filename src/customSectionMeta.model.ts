@@ -46,16 +46,16 @@ export class CustomSectionMeta extends Resource {
    */
   displayTemplate?: string[][];
 
-  load(x: any, languages: Languages) {
+  load(x: any, languages: Languages): void {
     super.load(x);
     if (x.name) this.name = new Label(x.name, languages);
     if (x.description) this.description = new Label(x.description, languages);
     this.fieldsLegend = this.cleanArray(x.fieldsLegend, String);
     this.fields = {};
-    x.fields = x.fields || {};
+    x.fields = x.fields ?? {};
     this.fieldsLegend.forEach(f => (this.fields[f] = new CustomFieldMeta(x.fields[f], languages)));
     if (x.displayTemplate)
-      this.displayTemplate = (x.displayTemplate || []).map((z: string[]) =>
+      this.displayTemplate = (x.displayTemplate ?? []).map((z: string[]): any[] =>
         this.cleanArray(z, String)
           // filter out of the displayTemplate the fields which aren't in the fieldsLegend
           .filter(dpf => this.fieldsLegend.some(f => f === dpf))
@@ -71,7 +71,7 @@ export class CustomSectionMeta extends Resource {
   /**
    * Set the default values of the specified fields.
    */
-  setFieldsDefaultValues() {
+  setFieldsDefaultValues(): any {
     const fields: any = {};
     this.fieldsLegend.forEach(f => (fields[f] = this.fields[f].fieldDefaultValue()));
     return fields;
@@ -84,7 +84,7 @@ export class CustomSectionMeta extends Resource {
    */
   loadFields(newFields: any): any {
     const fields: any = {};
-    newFields = newFields || {};
+    newFields = newFields ?? {};
     this.fieldsLegend.forEach(f => (fields[f] = this.fields[f].loadField(newFields[f])));
     return fields;
   }
@@ -93,7 +93,7 @@ export class CustomSectionMeta extends Resource {
    * Validate the fields and return an array with errors, if any.
    */
   validateFields(fields: any): string[] {
-    fields = fields || {};
+    fields = fields ?? {};
     const e = new Array<string>();
     this.fieldsLegend.forEach(f => (!this.fields[f].validateField(fields[f]) ? e.push(f) : null));
     return e;

@@ -7,7 +7,6 @@ import { MembershipSummary } from './membership.model';
  * Table: `idea_projects_subscriptions`.
  *
  * Indexes:
- * @todo in fhe future exclude `storeReceipt` from the indexes where not used (heavy string).
  *    - `project-validUntil-index` (LSI - all).
  *    - `project-planId-index` (LSI - all).
  *    - `project-storeReferenceId-index` (LSI - all).
@@ -61,7 +60,7 @@ export class ProjectSubscription extends Resource {
    */
   managedByUser: MembershipSummary;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.project = this.clean(x.project, String);
     this.subscriptionId = this.clean(x.subscriptionId, String);

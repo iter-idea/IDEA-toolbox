@@ -22,19 +22,19 @@ export class LimitCounter extends Resource {
   /**
    * Add a number to the counter; default: 1.
    */
-  add(number?: number, forceLimit?: boolean) {
+  add(number?: number, forceLimit?: boolean): void {
     if (forceLimit || this.canAdd()) this.counter += number || 1;
   }
   /**
    * Substract a number to the counter; default: 1.
    */
-  subtract(number?: number, forceLimit?: boolean) {
+  subtract(number?: number, forceLimit?: boolean): void {
     if (forceLimit || this.canSubtract()) this.counter -= number || 1;
   }
   /**
    * Reset the counter.
    */
-  reset() {
+  reset(): void {
     this.counter = 0;
   }
 

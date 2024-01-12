@@ -18,7 +18,7 @@ export class PushNotificationsDevice extends Resource {
    */
   endpoint: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.token = this.clean(x.token, String);
     this.platform = this.clean(x.platform, String);

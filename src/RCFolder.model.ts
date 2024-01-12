@@ -41,7 +41,7 @@ export class RCFolder extends Resource {
    */
   updatedBy?: MembershipSummary;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.resourceCenterId = this.clean(x.resourceCenterId, String);
     this.folderId = this.clean(x.folderId, String);
@@ -52,7 +52,7 @@ export class RCFolder extends Resource {
     if (x.updatedBy) this.updatedBy = new MembershipSummary(x.updatedBy);
   }
 
-  safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any): void {
     super.safeLoad(newData, safeData);
     this.resourceCenterId = safeData.resourceCenterId;
     this.folderId = safeData.folderId;

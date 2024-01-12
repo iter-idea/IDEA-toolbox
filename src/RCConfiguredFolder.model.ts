@@ -13,13 +13,13 @@ export class RCConfiguredFolder extends Resource {
    */
   name: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.folderId = this.clean(x.folderId, String);
     this.name = this.clean(x.name, String);
   }
 
-  safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any): void {
     super.safeLoad(newData, safeData);
     this.folderId = safeData.folderId;
     this.name = safeData.folderId;

@@ -24,7 +24,7 @@ export class ErrorWhitelisted extends Resource {
    */
   notes: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.project = this.clean(x.project, String);
     this.error = this.clean(x.error, String);

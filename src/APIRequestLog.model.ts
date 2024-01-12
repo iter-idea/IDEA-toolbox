@@ -59,7 +59,7 @@ export class APIRequestLog extends Resource {
    */
   description?: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.logId = this.clean(x.logId, String);
     this.timestamp = this.clean(x.timestamp, d => new Date(d).getTime(), Date.now());

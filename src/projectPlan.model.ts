@@ -92,7 +92,7 @@ export class ProjectPlan extends Resource {
    */
   target: ProjectPlanTargets;
 
-  load(x: any, languages?: Languages) {
+  load(x: any, languages?: Languages): void {
     super.load(x);
     this.project = this.clean(x.project, String);
     this.planId = this.clean(x.planId, String);
@@ -110,7 +110,7 @@ export class ProjectPlan extends Resource {
     this.target = this.clean(x.target, String, ProjectPlanTargets.TEAMS);
   }
 
-  safeLoad(newData: any, safeData: any, languages?: Languages) {
+  safeLoad(newData: any, safeData: any, languages?: Languages): void {
     this.safeLoad(newData, safeData, languages);
     this.project = safeData.project;
     this.planId = safeData.planId;

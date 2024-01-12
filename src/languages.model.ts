@@ -14,13 +14,13 @@ export class Languages extends Resource {
    */
   available: (ServiceLanguages | string)[];
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.default = this.clean(x.default, String, ServiceLanguages.English);
     this.available = this.cleanArray(x.available, String, [ServiceLanguages.English]);
   }
 
-  validate(languagesOfSpecificService: any) {
+  validate(languagesOfSpecificService: any): string[] {
     const e = super.validate();
     if (!this.default || !this.available.some(x => x === this.default)) e.push('default');
     if (!this.available.every(l => loopStringEnumValues(languagesOfSpecificService).some(x => x === l)))

@@ -58,7 +58,7 @@ export class CustomFieldMeta extends Resource {
    */
   icon: string;
 
-  load(x: any, languages?: Languages) {
+  load(x: any, languages?: Languages): void {
     super.load(x, languages);
     if (x.teamId) this.teamId = this.clean(x.teamId, String);
     if (x.fieldId) this.fieldId = this.clean(x.fieldId, String);
@@ -89,7 +89,7 @@ export class CustomFieldMeta extends Resource {
     this.icon = this.clean(x.icon, String);
   }
 
-  safeLoad(newData: any, safeData: any, languages?: Languages) {
+  safeLoad(newData: any, safeData: any, languages?: Languages): void {
     super.safeLoad(newData, safeData, languages);
     if (safeData.teamId) this.teamId = safeData.teamId;
     if (safeData.fieldId) this.fieldId = safeData.fieldId;

@@ -112,7 +112,7 @@ export class Appointment extends Resource {
    */
   internalNotificationUserId?: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.appointmentId = this.clean(x.appointmentId, String);
     this.calendarId = this.clean(x.calendarId, String);
@@ -142,7 +142,7 @@ export class Appointment extends Resource {
   /**
    * Set a default start/end day for all-day events, to be compatible with external services.
    */
-  fixAllDayTime() {
+  fixAllDayTime(): void {
     if (this.allDay) {
       const start = new Date(this.startTime);
       start.setHours(0, 0, 0);
@@ -153,7 +153,7 @@ export class Appointment extends Resource {
     }
   }
 
-  safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any): void {
     super.safeLoad(newData, safeData);
     this.appointmentId = safeData.appointmentId;
     this.calendarId = safeData.calendarId;
@@ -188,7 +188,7 @@ export class Appointment extends Resource {
   /**
    * Helper to remove duplicates notifications for the same appointment.
    */
-  protected removeDuplicateNotifications() {
+  protected removeDuplicateNotifications(): void {
     this.notifications = this.notifications.filter(
       (n, index, self) => index === self.findIndex(t => t.method === n.method && t.minutes === n.minutes)
     );
@@ -196,7 +196,7 @@ export class Appointment extends Resource {
   /**
    * Calculate the firing time for internal appointments.
    */
-  calculateFiringTime() {
+  calculateFiringTime(): void {
     // find the first notification to fire (max number of minutes to substract from the start time)
     const maxNumMinutes = Math.max.apply(
       null,
@@ -261,7 +261,7 @@ export class AppointmentKeys extends Resource {
    */
   teamId?: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.appointmentId = this.clean(x.appointmentId, String);
     this.calendarId = this.clean(x.calendarId, String);
@@ -289,7 +289,7 @@ export class AppointmentLinkedObject extends Resource {
    */
   id: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.type = this.clean(x.type, Number);
     this.id = this.clean(x.id, String);
@@ -332,7 +332,7 @@ export class AppointmentAttendee extends Resource {
    */
   attendance: AppointmentAttendance;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.email = this.clean(x.email, String);
     this.organizer = this.clean(x.organizer, Boolean);
@@ -364,7 +364,7 @@ export class AppointmentNotification extends Resource {
    */
   minutes: number;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.method = this.clean(x.method, String) as AppointmentNotificationMethods;
     this.minutes = this.clean(x.minutes, Number, 0);

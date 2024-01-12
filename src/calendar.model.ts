@@ -56,7 +56,7 @@ export class Calendar extends Resource {
    */
   createdByUserId?: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.calendarId = this.clean(x.calendarId, String);
     if (x.teamId) this.teamId = this.clean(x.teamId, String);
@@ -73,7 +73,7 @@ export class Calendar extends Resource {
     if (x.teamId) this.createdByUserId = this.clean(x.createdByUserId, String);
   }
 
-  safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any): void {
     super.safeLoad(newData, safeData);
     this.calendarId = safeData.calendarId;
     if (safeData.teamId) this.teamId = safeData.teamId;
@@ -153,7 +153,7 @@ export class ExternalCalendarInfo extends Resource {
    */
   email: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.service = this.clean(x.service, String);
     this.calendarId = this.clean(x.calendarId, String);
@@ -191,13 +191,13 @@ export class ExternalCalendarToken extends Resource {
    */
   token: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.calendarId = this.clean(x.calendarId, String);
     this.token = this.clean(x.token, String);
   }
 
-  safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any): void {
     super.safeLoad(newData, safeData);
     this.calendarId = safeData.calendarId;
     this.token = safeData.token;

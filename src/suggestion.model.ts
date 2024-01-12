@@ -25,7 +25,7 @@ export class Suggestion extends Resource {
    */
   category2: any;
 
-  load(x?: any) {
+  load(x?: any): void {
     super.load(x);
     this.value = x.value;
     this.name = this.clean(x.name, String);
@@ -37,7 +37,7 @@ export class Suggestion extends Resource {
   /**
    * Clear the suggestion.
    */
-  clear() {
+  clear(): void {
     this.value = null;
     this.name = null;
     this.description = null;

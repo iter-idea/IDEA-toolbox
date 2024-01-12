@@ -22,7 +22,7 @@ export class EmailData extends Resource {
    */
   bcc: string[];
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.subject = this.clean(x.subject, String);
     this.content = this.clean(x.content, String);

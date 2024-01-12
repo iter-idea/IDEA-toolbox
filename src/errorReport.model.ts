@@ -43,7 +43,7 @@ export class ErrorReport extends Resource {
    */
   client: ClientInfo;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.project = this.clean(x.project, String);
     this.version = this.clean(x.version, String);

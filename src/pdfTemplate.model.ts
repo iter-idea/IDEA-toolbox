@@ -57,7 +57,7 @@ export class PDFTemplateSection extends Resource {
    */
   innerTemplate?: PDFTemplateSection[];
 
-  load(x: any, languages?: Languages) {
+  load(x: any, languages?: Languages): void {
     super.load(x);
     this.type = this.clean(x.type, Number, 0) as PDFTemplateSectionTypes;
     if (x.description) this.description = this.clean(x.description, String);
@@ -159,13 +159,13 @@ export class PDFTemplateSection extends Resource {
   /**
    * Remove a field from the columns that it occupied before.
    */
-  removeFieldFromOccupiedColumns(colIndex: number) {
+  removeFieldFromOccupiedColumns(colIndex: number): void {
     // skip if the column doesn't contain a field
     if (!this.doesColumnContainAField(colIndex)) return;
     // remove it from the starting column
     this.columns[colIndex] = null;
     // remove it from all the other columns on which it span
-    this.columns.slice(colIndex + 1).some((c, index) => {
+    this.columns.slice(colIndex + 1).some((c, index): boolean => {
       if (c === '-') {
         this.columns[colIndex + 1 + index] = null;
         return false;
@@ -200,7 +200,7 @@ export class PDFTemplateSimpleField extends Resource {
    */
   code: string;
 
-  load(x: any, languages: Languages) {
+  load(x: any, languages: Languages): void {
     super.load(x);
     this.label = new Label(x.label, languages);
     this.code = this.clean(x.code, String);
@@ -223,7 +223,7 @@ export class PDFTemplateComplexField extends Resource {
    */
   content: Label;
 
-  load(x: any, languages: Languages) {
+  load(x: any, languages: Languages): void {
     super.load(x);
     this.content = new Label(x.content, languages);
   }

@@ -20,7 +20,7 @@ export abstract class CacheableResource extends Resource implements Cacheable {
   /**
    * Update `mAt` after a change in the object.
    */
-  tick() {
+  tick(): void {
     this.mAt = Date.now();
   }
 

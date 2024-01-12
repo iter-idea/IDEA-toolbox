@@ -38,7 +38,7 @@ export class Check extends Resource {
    */
   category2: any;
 
-  load(x?: any) {
+  load(x?: any): void {
     if (x) x = typeof x === 'object' ? x : { value: x }; // backward compatibility
     super.load(x);
     this.value = this.clean(x.value, v => (typeof v === 'number' ? Number(v) : String(v)));

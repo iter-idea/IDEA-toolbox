@@ -14,7 +14,7 @@ export class Contacts extends Resource {
    */
   name?: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     if (x.phone) this.phone = this.clean(x.phone, String);
     if (x.email) this.email = this.clean(x.email, String);

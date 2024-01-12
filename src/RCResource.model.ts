@@ -53,7 +53,7 @@ export class RCResource extends Resource {
    */
   updatedBy?: MembershipSummary;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.resourceCenterFolderId = this.clean(x.resourceCenterFolderId, String);
     this.resourceId = this.clean(x.resourceId, String);
@@ -67,7 +67,7 @@ export class RCResource extends Resource {
     if (x.updatedBy) this.updatedBy = new MembershipSummary(x.updatedBy);
   }
 
-  safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any): void {
     super.safeLoad(newData, safeData);
     this.resourceCenterFolderId = safeData.resourceCenterFolderId;
     this.resourceId = safeData.resourceId;

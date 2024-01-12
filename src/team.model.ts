@@ -22,7 +22,7 @@ export class Team extends Resource {
    */
   activeInProjects: string[];
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.teamId = this.clean(x.teamId, String);
     this.name = this.clean(x.name, String);
@@ -30,7 +30,7 @@ export class Team extends Resource {
     this.activeInProjects = this.cleanArray(x.activeInProjects, String);
   }
 
-  safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any): void {
     super.safeLoad(newData, safeData);
     this.teamId = safeData.teamId;
     this.createdAt = safeData.createdAt;

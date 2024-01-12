@@ -25,7 +25,7 @@ export class Invitation extends Resource {
    */
   expiresAt: number;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.invitationCode = this.clean(x.invitationCode, String);
     this.teamId = this.clean(x.teamId, String);
@@ -33,7 +33,7 @@ export class Invitation extends Resource {
     this.expiresAt = this.clean(x.expiresAt, Number);
   }
 
-  safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any): void {
     super.safeLoad(newData, safeData);
     this.invitationCode = safeData.invitationCode;
     this.teamId = safeData.teamId;

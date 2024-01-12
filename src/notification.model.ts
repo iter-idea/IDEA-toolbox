@@ -40,7 +40,7 @@ export class Notification extends Resource {
    */
   event?: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.project = this.clean(x.project, String);
     this.subject = this.clean(x.subject, String);
@@ -76,7 +76,7 @@ export class EventNotificationPreference extends Resource {
    */
   push: boolean;
 
-  load(x?: any) {
+  load(x?: any): void {
     super.load(x);
     this.email = this.clean(x.email, Boolean, true);
     this.push = this.clean(x.push, Boolean, true);

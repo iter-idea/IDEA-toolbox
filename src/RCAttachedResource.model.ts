@@ -30,7 +30,7 @@ export class RCAttachedResource extends Resource {
    */
   version: epochDateTime;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.resourceId = this.clean(x.resourceId, String);
     this.folderId = this.clean(x.folderId, String);
@@ -40,7 +40,7 @@ export class RCAttachedResource extends Resource {
     this.version = this.clean(x.version, a => new Date(a).getTime(), Date.now());
   }
 
-  safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any): void {
     super.safeLoad(newData, safeData);
     this.resourceId = safeData.resourceId;
     this.folderId = safeData.folderId;

@@ -33,7 +33,7 @@ export class Membership extends Resource {
    */
   pendingInvitation?: boolean;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.teamId = this.clean(x.teamId, String);
     this.userId = this.clean(x.userId, String);
@@ -42,7 +42,7 @@ export class Membership extends Resource {
     if (x.pendingInvitation) this.pendingInvitation = true;
   }
 
-  safeLoad(newData: any, safeData: any) {
+  safeLoad(newData: any, safeData: any): void {
     super.safeLoad(newData, safeData);
     this.teamId = safeData.teamId;
     this.userId = safeData.userId;
@@ -74,7 +74,7 @@ export class MembershipSummary extends Resource {
    */
   initials?: string;
 
-  load(x: any) {
+  load(x: any): void {
     super.load(x);
     this.userId = this.clean(x.userId, String);
     this.name = this.clean(x.name, String);

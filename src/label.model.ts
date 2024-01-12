@@ -19,7 +19,7 @@ export class Label {
     this.load(x, languages);
   }
 
-  load(x?: any, languages?: Languages) {
+  load(x?: any, languages?: Languages): void {
     if (x) languages.available.forEach(l => (this[l] = x[l] ? String(x[l]) : null));
     else languages.available.forEach(l => (this[l] = null));
   }
@@ -32,7 +32,7 @@ export class Label {
   /**
    * Translate the label in the desired language; in case there's no translation, get the default one.
    */
-  translate(language: string, languages: Languages) {
+  translate(language: string, languages: Languages): any {
     return this[language] || this[languages.default];
   }
 }
