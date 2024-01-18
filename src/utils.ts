@@ -1,8 +1,8 @@
-import isEmail from 'validator/es/lib/isEmail';
-import isMobilePhone from 'validator/es/lib/isMobilePhone';
-import isURL from 'validator/es/lib/isURL';
-import isFQDN from 'validator/es/lib/isFQDN';
-import isDate from 'validator/es/lib/isDate';
+import isEmail from 'validator/lib/isEmail';
+import isMobilePhone from 'validator/lib/isMobilePhone';
+import isURL from 'validator/lib/isURL';
+import isFQDN from 'validator/lib/isFQDN';
+import isDate from 'validator/lib/isDate';
 import { marked } from 'marked';
 
 import { markdown } from './markdown';
