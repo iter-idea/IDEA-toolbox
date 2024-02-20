@@ -123,7 +123,7 @@ export abstract class Resource {
    * @return cleaned array
    */
   cleanArray(origin: any[], castFunction: (x: any) => any, defaultVal?: any): any[] {
-    return (origin ?? [])
+    return (origin || [])
       .map(x => (x || x === 0 || x === false ? castFunction(x) : defaultVal !== undefined ? defaultVal : null))
       .filter(x => x || x === 0 || x === false);
   }
