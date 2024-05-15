@@ -71,32 +71,36 @@ export const isEmpty = (field: any, fieldType?: isEmptyFieldTypes): boolean => {
   if (field === null || field === undefined) return true;
   const type = fieldType ?? typeof field;
   if (!type) return true;
-  switch (type) {
-    case 'string':
-      return !field.trim().length;
-    case 'number':
-      return field === 0;
-    case 'positiveNumber':
-      return field <= 0;
-    case 'boolean':
-      return !field;
-    case 'object':
-      if (field instanceof Array) return field.filter(i => i).length <= 0;
-      else if (field instanceof Set) return field.size <= 0;
-      else if (field instanceof Date) return !isDate(field.toISOString().slice(0, 10));
-      else return Object.keys(field).length <= 0;
-    case 'date':
-      return !isDate(new Date(field).toISOString().slice(0, 10));
-    case 'email':
-      return !isEmail(field);
-    case 'phone':
-      return !isMobilePhone(field, 'any');
-    case 'url':
-      return !isURL(field);
-    case 'domain':
-      return !isFQDN(field, { require_tld: false });
-    default:
-      return true;
+  try {
+    switch (type) {
+      case 'string':
+        return !field.trim().length;
+      case 'number':
+        return field === 0;
+      case 'positiveNumber':
+        return field <= 0;
+      case 'boolean':
+        return !field;
+      case 'object':
+        if (field instanceof Array) return field.filter(i => i).length <= 0;
+        else if (field instanceof Set) return field.size <= 0;
+        else if (field instanceof Date) return !isDate(field.toISOString().slice(0, 10));
+        else return Object.keys(field).length <= 0;
+      case 'date':
+        return !isDate(new Date(field).toISOString().slice(0, 10));
+      case 'email':
+        return !isEmail(field);
+      case 'phone':
+        return !isMobilePhone(field, 'any');
+      case 'url':
+        return !isURL(field);
+      case 'domain':
+        return !isFQDN(field, { require_tld: false });
+      default:
+        return true;
+    }
+  } catch (error) {
+    return true;
   }
 };
 export type isEmptyFieldTypes =
