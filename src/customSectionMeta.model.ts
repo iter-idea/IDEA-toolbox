@@ -79,7 +79,6 @@ export class CustomSectionMeta extends Resource {
 
   /**
    * Load the values of the specified fields.
-   * @param fields the fields target of the load action
    * @param newFields the values to set in the fields
    */
   loadFields(newFields: any): any {

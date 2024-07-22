@@ -104,7 +104,6 @@ export class CustomFieldMeta extends Resource {
 
   /**
    * Set a default value for the field, based on its type.
-   * @param field the field to check
    * @return the determinated default value, based on the type
    */
   fieldDefaultValue(): any {
@@ -129,7 +128,7 @@ export class CustomFieldMeta extends Resource {
 
   /**
    * Load a value based on the field configuration.
-   * @param field the value to load
+   * @param newField the value to load
    */
   loadField(newField: any): any {
     let field: any;

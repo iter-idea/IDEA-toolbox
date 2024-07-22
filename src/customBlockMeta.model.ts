@@ -42,7 +42,6 @@ export class CustomBlockMeta extends Resource {
 
   /**
    * Load the values of the specified sections.
-   * @param sections the sections target of the load action
    * @param newSections the values to set in the sections
    */
   loadSections(newSections: any): any {
