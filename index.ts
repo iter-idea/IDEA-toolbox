@@ -13,6 +13,7 @@ export * from './src/calendar.model';
 export * from './src/check.model';
 export * from './src/clientInfo.model';
 export * from './src/cognitoUser.model';
+export * from './src/colors.model';
 export * from './src/contactRequest.model';
 export * from './src/contacts.model';
 export * from './src/countries.enum';
