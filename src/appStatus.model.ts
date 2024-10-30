@@ -38,6 +38,7 @@ export class AppStatus extends Resource {
 
 /**
  * The internal information about the status of an app's version.
+ * @deprecated prefer the new method via asset (vs via API).
  */
 export interface InternalAppVersionStatus {
   /**
