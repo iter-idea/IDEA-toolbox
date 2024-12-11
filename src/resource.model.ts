@@ -106,7 +106,7 @@ export abstract class Resource {
    */
   clean(origin: any, castFunction: (x: any) => any, defaultVal?: any): any {
     if (Array.isArray(origin)) return this.cleanArray(origin, castFunction);
-    if (castFunction === Boolean) return Boolean(origin);
+    if (castFunction === Boolean) return defaultVal === true ? origin !== false : Boolean(origin); // #25
     else
       return origin || origin === 0 || origin === false
         ? castFunction(origin)
