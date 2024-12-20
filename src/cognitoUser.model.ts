@@ -25,7 +25,7 @@ export class CognitoUser {
    */
   groups: string[];
   /**
-   * Whether the user is disabled.
+   * Whether the user has been disabled.
    */
   disabled: boolean;
   /**
