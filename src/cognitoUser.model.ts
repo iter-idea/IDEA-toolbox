@@ -25,6 +25,10 @@ export class CognitoUser {
    */
   groups: string[];
   /**
+   * Whether the user is disabled.
+   */
+  disabled: boolean;
+  /**
    * The user's (custom) attributes.
    */
   attributes: { [attribute: string]: string | number };
@@ -35,6 +39,7 @@ export class CognitoUser {
     this.name = x.name;
     this.picture = x.picture;
     this.groups = x.groups || this.parseGroupsFromClaims(x['cognito:groups']);
+    this.disabled = x.disabled;
     if (x.attributes) this.attributes = x.attributes;
     else {
       this.attributes = {};
