@@ -31,7 +31,7 @@ export class CognitoUser {
   /**
    * The user's (custom) attributes.
    */
-  attributes: { [attribute: string]: string | number };
+  attributes: { [attribute: string]: string | number | boolean };
 
   constructor(x: any = {}) {
     this.userId = x.userId || x.sub;
