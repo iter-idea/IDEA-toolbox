@@ -23,15 +23,19 @@ export const toISOString = (date: Date | string | number): ISOString | null =>
  * Get the ISO string version of a date in the format `YYYY-MM-DDTHH:mm`.
  * It doesn't say anything about the timezone.
  */
-export const toISODateTime = (date: Date | string | number): ISODateTimeString | null =>
+export const toISODateTimeString = (date: Date | string | number): ISODateTimeString | null =>
   date ? parseToUTCDateString(date).slice(0, 16) : null;
 
 /**
  * Get the ISO string version of a date in the format `YYYY-MM-DD`.
  * It doesn't say anything about the timezone.
  */
-export const toISODate = (date: Date | string | number): ISODateString | null =>
+export const toISODateString = (date: Date | string | number): ISODateString | null =>
   date ? parseToUTCDateString(date).slice(0, 10) : null;
+/**
+ * @deprecated use toISODateString instead.
+ */
+export const toISODate = toISODateString;
 
 /**
  * Parses a date input and returns a UTC string formatted as "YYYY-MM-DDTHH:mm:ss.SSS".
@@ -40,7 +44,7 @@ export const toISODate = (date: Date | string | number): ISODateString | null =>
  * - If the input is a string without a timezone, it will be treated as a UTC wall-clock time, with no timezone shift.
  *   This is useful for preserving stored values like "2025-04-08T15:30" as-is in UTC.
  */
-function parseToUTCDateString(input: Date | number | string): string {
+const parseToUTCDateString = (input: Date | number | string): string => {
   let date: Date;
 
   if (input instanceof Date) date = input;
@@ -67,7 +71,7 @@ function parseToUTCDateString(input: Date | number | string): string {
   const seconds = String(date.getUTCSeconds()).padStart(2, '0');
   const milliseconds = String(date.getUTCMilliseconds()).padStart(3, '0');
   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`;
-}
+};
 
 /**
  * Clean a string to use it within filenames and so.
