@@ -1,5 +1,6 @@
-import { epochISOString } from './epoch';
 import { Resource } from './resource.model';
+import { ISOString } from './epoch';
+import { toISOString } from './utils';
 
 /**
  * A whitelisted error for a project, i.e. an error to ignore during the reporting for a specific project.
@@ -18,7 +19,7 @@ export class ErrorWhitelisted extends Resource {
   /**
    * Timestamp when the error was whitelisted.
    */
-  createdAt: epochISOString;
+  createdAt: ISOString;
   /**
    * Some notes or an explanation why the error is whitelisted.
    */
@@ -28,7 +29,7 @@ export class ErrorWhitelisted extends Resource {
     super.load(x);
     this.project = this.clean(x.project, String);
     this.error = this.clean(x.error, String);
-    this.createdAt = this.clean(x.createdAt, t => new Date(t).toISOString()) as epochISOString;
+    this.createdAt = this.clean(x.createdAt, toISOString);
     this.notes = this.clean(x.notes, String);
   }
 }

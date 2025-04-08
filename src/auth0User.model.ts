@@ -1,5 +1,6 @@
-import { epochISOString } from './epoch';
 import { Resource } from './resource.model';
+import { ISOString } from './epoch';
+import { toISOString } from './utils';
 
 /**
  * A user stored in a Auth0 User Pool.
@@ -32,7 +33,7 @@ export class Auth0User extends Resource {
   /**
    * The timestamp of last update of the user.
    */
-  updatedAt: epochISOString;
+  updatedAt: ISOString;
 
   /**
    * The list of groups the user is part of.
@@ -54,7 +55,7 @@ export class Auth0User extends Resource {
     this.name = this.clean(x.name, String);
     this.nickname = this.clean(x.nickname, String);
     this.picture = this.clean(x.picture, String);
-    this.updatedAt = this.clean(x.updatedAt || x.updated_at, t => new Date(t).toISOString());
+    this.updatedAt = this.clean(x.updatedAt || x.updated_at, toISOString);
 
     this.groups = this.cleanArray(x.groups, String);
     this.attributes = x.attributes ?? {};

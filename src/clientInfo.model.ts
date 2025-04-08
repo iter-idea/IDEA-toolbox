@@ -1,11 +1,12 @@
-import { epochISOString } from './epoch';
 import { Resource } from './resource.model';
+import { ISOString } from './epoch';
+import { toISOString } from './utils';
 
 export class ClientInfo extends Resource {
   /**
    * Current timestamp from the client.
    */
-  timestamp: epochISOString;
+  timestamp: ISOString;
   /**
    * Info about the client's platform.
    */
@@ -45,7 +46,7 @@ export class ClientInfo extends Resource {
 
   load(x: any): void {
     super.load(x);
-    this.timestamp = this.clean(x.timestamp, t => new Date(t).toISOString()) as epochISOString;
+    this.timestamp = this.clean(x.timestamp, toISOString);
     this.platform = this.clean(x.platform, String);
     this.screenWidth = this.clean(x.screenWidth, Number);
     this.screenHeight = this.clean(x.screenHeight, Number);

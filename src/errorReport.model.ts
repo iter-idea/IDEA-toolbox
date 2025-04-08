@@ -1,6 +1,7 @@
 import { Resource } from './resource.model';
 import { ClientInfo } from './clientInfo.model';
-import { epochISOString } from './epoch';
+import { ISOString } from './epoch';
+import { toISOString } from './utils';
 
 /**
  * Table: `idea_projects_errorsReports`.
@@ -21,7 +22,7 @@ export class ErrorReport extends Resource {
   /**
    * The timestamp of creation (backend).
    */
-  createdAt: epochISOString;
+  createdAt: ISOString;
   /**
    * Timestamp of when the report should expire, expressed in seconds.
    */
@@ -48,7 +49,7 @@ export class ErrorReport extends Resource {
     this.project = this.clean(x.project, String);
     this.version = this.clean(x.version, String);
     this.stage = this.clean(x.stage, String);
-    this.createdAt = this.clean(x.createdAt, t => new Date(t).toISOString()) as epochISOString;
+    this.createdAt = this.clean(x.createdAt, toISOString);
     this.expiresAt = this.clean(x.expiresAt, Number);
     this.type = this.clean(x.type, String);
     this.error = this.clean(x.error, String);

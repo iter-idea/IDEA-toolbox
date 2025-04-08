@@ -6,21 +6,68 @@ import isDate from 'validator/lib/isDate';
 import { marked } from 'marked';
 
 import { markdown } from './markdown';
-import { epochISODateString } from './epoch';
+import { ISODateString, ISODateTimeString, ISOString } from './epoch';
 
 //
 // Utilities (static) functions, to support IDEA's projects.
 //
 
 /**
- * Parse a date in the format `YYYY-MM-DD`.
+ * Get the ISO string version of a date in the format `YYYY-MM-DDTHH:mm:ss.sssZ`.
+ * The timezone is always UTC, as denoted by the suffix `Z`.
  */
-export const toISODate = (date: Date | string | number): epochISODateString => {
-  if (!date) return null;
-  const dateResistantToTimeZones = new Date(date);
-  dateResistantToTimeZones.setHours(12, 0, 0, 0);
-  return dateResistantToTimeZones.toISOString().slice(0, 10);
-};
+export const toISOString = (date: Date | string | number): ISOString | null =>
+  date ? new Date(date).toISOString() : null;
+
+/**
+ * Get the ISO string version of a date in the format `YYYY-MM-DDTHH:mm`.
+ * It doesn't say anything about the timezone.
+ */
+export const toISODateTime = (date: Date | string | number): ISODateTimeString | null =>
+  date ? parseToUTCDateString(date).slice(0, 16) : null;
+
+/**
+ * Get the ISO string version of a date in the format `YYYY-MM-DD`.
+ * It doesn't say anything about the timezone.
+ */
+export const toISODate = (date: Date | string | number): ISODateString | null =>
+  date ? parseToUTCDateString(date).slice(0, 10) : null;
+
+/**
+ * Parses a date input and returns a UTC string formatted as "YYYY-MM-DDTHH:mm:ss.SSS".
+ * - If the input is a Date or a timestamp (number), it will be treated as UTC.
+ * - If the input is a string with a timezone (e.g., "Z", "+02:00"), it will be correctly parsed and converted to UTC.
+ * - If the input is a string without a timezone, it will be treated as a UTC wall-clock time, with no timezone shift.
+ *   This is useful for preserving stored values like "2025-04-08T15:30" as-is in UTC.
+ */
+function parseToUTCDateString(input: Date | number | string): string {
+  let date: Date;
+
+  if (input instanceof Date) date = input;
+  else if (typeof input === 'number') date = new Date(input);
+  else if (typeof input === 'string') {
+    const hasTimezone = /Z|[+-]\d{2}:\d{2}$/.test(input);
+    if (hasTimezone) date = new Date(input);
+    else {
+      const match = input.match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?$/);
+      if (!match) throw new Error(`Invalid date format without timezone: ${input}`);
+      const [, y, m, d, h, min, sec = '0', ms = '0'] = match;
+      date = new Date(
+        Date.UTC(Number(y), Number(m) - 1, Number(d), Number(h), Number(min), Number(sec), Number(ms.padEnd(3, '0')))
+      );
+    }
+    if (isNaN(date.getTime())) throw new Error(`Invalid date string: ${input}`);
+  } else throw new Error('Unsupported date input');
+
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  const hours = String(date.getUTCHours()).padStart(2, '0');
+  const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+  const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+  const milliseconds = String(date.getUTCMilliseconds()).padStart(3, '0');
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`;
+}
 
 /**
  * Clean a string to use it within filenames and so.
