@@ -53,9 +53,9 @@ const parseToUTCDateString = (input: Date | number | string): string => {
     const hasTimezone = /Z|[+-]\d{2}:\d{2}$/.test(input);
     if (hasTimezone) date = new Date(input);
     else {
-      const match = input.match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?$/);
+      const match = input.match(/^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?)?$/);
       if (!match) throw new Error(`Invalid date format without timezone: ${input}`);
-      const [, y, m, d, h, min, sec = '0', ms = '0'] = match;
+      const [, y, m, d, h = '0', min = '0', sec = '0', ms = '0'] = match;
       date = new Date(
         Date.UTC(Number(y), Number(m) - 1, Number(d), Number(h), Number(min), Number(sec), Number(ms.padEnd(3, '0')))
       );
