@@ -30,8 +30,12 @@ export const toISODateTimeString = (date: Date | string | number): ISODateTimeSt
  * Get the ISO string version of a date in the format `YYYY-MM-DD`.
  * It doesn't say anything about the timezone.
  */
-export const toISODateString = (date: Date | string | number): ISODateString | null =>
-  date ? parseToUTCDateString(date).slice(0, 10) : null;
+export const toISODateString = (date: Date | string | number): ISODateString | null => {
+  if (!date) return null;
+  const dateResistantToTimeZones = new Date(date);
+  dateResistantToTimeZones.setHours(12, 0, 0, 0);
+  return dateResistantToTimeZones.toISOString().slice(0, 10);
+};
 /**
  * @deprecated use toISODateString instead.
  */
