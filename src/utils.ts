@@ -18,7 +18,6 @@ import { ISODateString, ISODateTimeString, ISOString } from './epoch';
  */
 export const toISOString = (date: Date | number | ISOString | ISODateTimeString | ISODateString): ISOString | null =>
   date ? toDate(date).toISOString() : null;
-
 /**
  * Get the ISO string version of a date in the format `YYYY-MM-DDTHH:mm`.
  * It doesn't say anything about the timezone.
@@ -26,7 +25,6 @@ export const toISOString = (date: Date | number | ISOString | ISODateTimeString 
 export const toISODateTimeString = (
   date: Date | number | ISOString | ISODateTimeString | ISODateString
 ): ISODateTimeString | null => (date ? toDate(date).toISOString().slice(0, 16) : null);
-
 /**
  * Get the ISO string version of a date in the format `YYYY-MM-DD`.
  * It doesn't say anything about the timezone.
@@ -35,10 +33,18 @@ export const toISODateString = (
   date: Date | number | ISOString | ISODateTimeString | ISODateString
 ): ISODateString | null => (date ? toDate(date).toISOString().slice(0, 10) : null);
 /**
+ * Get the ISO string version of a date in the format `YYYY-MM-DD`.
+ * Note: it always forces the internal time to 12.00 to make the date timezone-resistant.
  * @deprecated use toISODateString instead.
  */
-export const toISODate = toISODateString;
-
+export const toISODate = (
+  date: Date | number | ISOString | ISODateTimeString | ISODateString
+): ISODateString | null => {
+  if (!date) return null;
+  const dateResistantToTimeZones = new Date(date);
+  dateResistantToTimeZones.setHours(12, 0, 0, 0);
+  return dateResistantToTimeZones.toISOString().slice(0, 10);
+};
 /**
  * Return a Date object by parsing a string input date.
  * - If the input is a string with a timezone (e.g., "Z", "+02:00"), it will be correctly parsed and converted to UTC.
