@@ -46,9 +46,10 @@ export const toISODate = toISODateString;
  * - If the input is a Date or a timestamp (number), it will be treated as UTC.
  *   This is useful for preserving stored values like "2025-04-08T15:30" as-is in UTC.
  */
-export const toDate = (input: ISOString | ISODateTimeString | ISODateString | Date | number): Date => {
+export const toDate = (input: ISOString | ISODateTimeString | ISODateString | Date | number): Date | null => {
   let date: Date;
-  if (input instanceof Date || typeof input === 'number') date = new Date(input);
+  if (!input) date = null;
+  else if (input instanceof Date || typeof input === 'number') date = new Date(input);
   else if (typeof input === 'string') {
     const hasTimezone = /Z|[+-]\d{2}:\d{2}$/.test(input);
     if (hasTimezone) date = new Date(input);
