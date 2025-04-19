@@ -56,5 +56,6 @@ export * from './src/suggestion.model';
 export * from './src/team.model';
 export * from './src/teamModules.model';
 export * from './src/timeInterval.model';
+export * from './src/timeZones.model';
 export * from './src/user.model';
 export * from './src/utils';
