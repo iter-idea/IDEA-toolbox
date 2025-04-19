@@ -16,43 +16,39 @@ import { ISODateString, ISODateTimeString, ISOString } from './epoch';
  * Get the ISO string version of a date in the format `YYYY-MM-DDTHH:mm:ss.sssZ`.
  * The timezone is always UTC, as denoted by the suffix `Z`.
  */
-export const toISOString = (date: Date | string | number): ISOString | null =>
-  date ? new Date(date).toISOString() : null;
+export const toISOString = (date: Date | number | ISOString | ISODateTimeString | ISODateString): ISOString | null =>
+  date ? toDate(date).toISOString() : null;
 
 /**
  * Get the ISO string version of a date in the format `YYYY-MM-DDTHH:mm`.
  * It doesn't say anything about the timezone.
  */
-export const toISODateTimeString = (date: Date | string | number): ISODateTimeString | null =>
-  date ? parseToUTCDateString(date).slice(0, 16) : null;
+export const toISODateTimeString = (
+  date: Date | number | ISOString | ISODateTimeString | ISODateString
+): ISODateTimeString | null => (date ? toDate(date).toISOString().slice(0, 16) : null);
 
 /**
  * Get the ISO string version of a date in the format `YYYY-MM-DD`.
  * It doesn't say anything about the timezone.
  */
-export const toISODateString = (date: Date | string | number): ISODateString | null => {
-  if (!date) return null;
-  const dateResistantToTimeZones = new Date(date);
-  dateResistantToTimeZones.setHours(12, 0, 0, 0);
-  return dateResistantToTimeZones.toISOString().slice(0, 10);
-};
+export const toISODateString = (
+  date: Date | number | ISOString | ISODateTimeString | ISODateString
+): ISODateString | null => (date ? toDate(date).toISOString().slice(0, 10) : null);
 /**
  * @deprecated use toISODateString instead.
  */
 export const toISODate = toISODateString;
 
 /**
- * Parses a date input and returns a UTC string formatted as "YYYY-MM-DDTHH:mm:ss.SSS".
- * - If the input is a Date or a timestamp (number), it will be treated as UTC.
+ * Return a Date object by parsing a string input date.
  * - If the input is a string with a timezone (e.g., "Z", "+02:00"), it will be correctly parsed and converted to UTC.
  * - If the input is a string without a timezone, it will be treated as a UTC wall-clock time, with no timezone shift.
+ * - If the input is a Date or a timestamp (number), it will be treated as UTC.
  *   This is useful for preserving stored values like "2025-04-08T15:30" as-is in UTC.
  */
-const parseToUTCDateString = (input: Date | number | string): string => {
+export const toDate = (input: ISOString | ISODateTimeString | ISODateString | Date | number): Date => {
   let date: Date;
-
-  if (input instanceof Date) date = input;
-  else if (typeof input === 'number') date = new Date(input);
+  if (input instanceof Date || typeof input === 'number') date = new Date(input);
   else if (typeof input === 'string') {
     const hasTimezone = /Z|[+-]\d{2}:\d{2}$/.test(input);
     if (hasTimezone) date = new Date(input);
@@ -66,15 +62,7 @@ const parseToUTCDateString = (input: Date | number | string): string => {
     }
     if (isNaN(date.getTime())) throw new Error(`Invalid date string: ${input}`);
   } else throw new Error('Unsupported date input');
-
-  const year = date.getUTCFullYear();
-  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-  const day = String(date.getUTCDate()).padStart(2, '0');
-  const hours = String(date.getUTCHours()).padStart(2, '0');
-  const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-  const seconds = String(date.getUTCSeconds()).padStart(2, '0');
-  const milliseconds = String(date.getUTCMilliseconds()).padStart(3, '0');
-  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`;
+  return date;
 };
 
 /**
