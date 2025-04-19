@@ -15,12 +15,6 @@ export type epochDateTime = number;
  * The type is an alias to avoid further explanation for each variable.
  */
 export type ISOString = string;
-/**
- * It's a date time in epoch format (reference date) stored in ISO string: `YYYY-MM-DDTHH:mm`.
- * It doesn't say anything about the timezone.
- * The type is an alias to avoid further explanation for each variable.
- */
-export type ISODateTimeString = string;
 /*
  * It's a date time stored as ISO string: `YYYY-MM-DD`.
  * It doesn't say anything about the timezone.

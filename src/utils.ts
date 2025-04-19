@@ -6,7 +6,7 @@ import isDate from 'validator/lib/isDate';
 import { marked } from 'marked';
 
 import { markdown } from './markdown';
-import { ISODateString, ISODateTimeString, ISOString } from './epoch';
+import { ISODateString, ISOString } from './epoch';
 
 //
 // Utilities (static) functions, to support IDEA's projects.
@@ -16,61 +16,37 @@ import { ISODateString, ISODateTimeString, ISOString } from './epoch';
  * Get the ISO string version of a date in the format `YYYY-MM-DDTHH:mm:ss.sssZ`.
  * The timezone is always UTC, as denoted by the suffix `Z`.
  */
-export const toISOString = (date: Date | number | ISOString | ISODateTimeString | ISODateString): ISOString | null =>
-  date ? toDate(date).toISOString() : null;
+export const toISOString = (input: Date | number | ISOString | ISODateString): ISOString | null => {
+  if (!input) return null;
+  const date = input instanceof Date ? input : new Date(input);
+  return date.toISOString();
+};
 /**
- * Get the ISO string version of a date in the format `YYYY-MM-DDTHH:mm`.
- * It doesn't say anything about the timezone.
+ * Get the current date and time in the format `YYYY-MM-DDTHH:mm:ss.sssZ`.
+ * The timezone is always UTC, as denoted by the suffix `Z`.
  */
-export const toISODateTimeString = (
-  date: Date | number | ISOString | ISODateTimeString | ISODateString
-): ISODateTimeString | null => (date ? toDate(date).toISOString().slice(0, 16) : null);
-/**
- * Get the ISO string version of a date in the format `YYYY-MM-DD`.
- * It doesn't say anything about the timezone.
- */
-export const toISODateString = (
-  date: Date | number | ISOString | ISODateTimeString | ISODateString
-): ISODateString | null => (date ? toDate(date).toISOString().slice(0, 10) : null);
+export const nowISOString = (): ISOString => toISOString(new Date());
+
 /**
  * Get the ISO string version of a date in the format `YYYY-MM-DD`.
- * Note: it always forces the internal time to 12.00 to make the date timezone-resistant.
- * @deprecated use toISODateString instead.
+ * It doesn't say anything about the timezone.
  */
-export const toISODate = (
-  date: Date | number | ISOString | ISODateTimeString | ISODateString
-): ISODateString | null => {
-  if (!date) return null;
-  const dateResistantToTimeZones = new Date(date);
+export const toISODateString = (input: Date | number | ISOString | ISODateString): ISODateString | null => {
+  if (!input) return null;
+  /// it forces the internal time to 12.00 to make the date timezone-resistant
+  const dateResistantToTimeZones = new Date(input);
   dateResistantToTimeZones.setHours(12, 0, 0, 0);
   return dateResistantToTimeZones.toISOString().slice(0, 10);
 };
 /**
- * Return a Date object by parsing a string input date.
- * - If the input is a string with a timezone (e.g., "Z", "+02:00"), it will be correctly parsed and converted to UTC.
- * - If the input is a string without a timezone, it will be treated as a UTC wall-clock time, with no timezone shift.
- * - If the input is a Date or a timestamp (number), it will be treated as UTC.
- *   This is useful for preserving stored values like "2025-04-08T15:30" as-is in UTC.
+ * @deprecated use toISODateString instead
  */
-export const toDate = (input: ISOString | ISODateTimeString | ISODateString | Date | number): Date | null => {
-  let date: Date;
-  if (!input) date = null;
-  else if (input instanceof Date || typeof input === 'number') date = new Date(input);
-  else if (typeof input === 'string') {
-    const hasTimezone = /Z|[+-]\d{2}:\d{2}$/.test(input);
-    if (hasTimezone) date = new Date(input);
-    else {
-      const match = input.match(/^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?)?$/);
-      if (!match) throw new Error(`Invalid date format without timezone: ${input}`);
-      const [, y, m, d, h = '0', min = '0', sec = '0', ms = '0'] = match;
-      date = new Date(
-        Date.UTC(Number(y), Number(m) - 1, Number(d), Number(h), Number(min), Number(sec), Number(ms.padEnd(3, '0')))
-      );
-    }
-    if (isNaN(date.getTime())) throw new Error(`Invalid date string: ${input}`);
-  } else throw new Error('Unsupported date input');
-  return date;
-};
+export const toISODate = toISODateString;
+/**
+ * Get the current date in the format `YYYY-MM-DD`.
+ * It doesn't say anything about the timezone.
+ */
+export const nowISODateString = (): ISODateString => toISODateString(new Date());
 
 /**
  * Clean a string to use it within filenames and so.
