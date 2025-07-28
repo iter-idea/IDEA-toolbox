@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "lint": "eslint --ext .ts",
+    "lint": "eslint '**/*.{ts,tsx}'",
     "compile": "tsc --build",
     "docs": "typedoc index.ts --customCss ./docs.style.css",
     "build": "./build.sh",

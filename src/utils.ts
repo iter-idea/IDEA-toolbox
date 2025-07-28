@@ -125,7 +125,7 @@ export const isEmpty = (field: any, fieldType?: isEmptyFieldTypes): boolean => {
       default:
         return true;
     }
-  } catch (error) {
+  } catch (_) {
     return true;
   }
 };
