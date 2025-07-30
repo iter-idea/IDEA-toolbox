@@ -31,7 +31,7 @@
     "validator": "^13.15.15"
   },
   "devDependencies": {
-    "@tsconfig/node20": "^20.1.6",
+    "@tsconfig/node22": "^22.0.2",
     "@types/node": "^22.16.5",
     "@types/validator": "^13.15.2",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
