@@ -26,8 +26,9 @@
     "url": "https://github.com/iter-idea/IDEA-toolbox/issues"
   },
   "homepage": "https://iter-idea.github.io/IDEA-toolbox/",
+  "_comment": "Don't use marked > v15 because it breaks Lambda functions, since it doesn't compile in commonjs",
   "dependencies": {
-    "marked": "^16.1.1",
+    "marked": "^15.0.12",
     "validator": "^13.15.15"
   },
   "devDependencies": {
