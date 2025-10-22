@@ -33,7 +33,12 @@ export const nowISOString = (): ISOString => toISOString(new Date());
  */
 export const toISODateString = (input: Date | number | ISOString | ISODateString): ISODateString | null => {
   if (!input) return null;
-  /// it forces the internal time to 12.00 to make the date timezone-resistant
+  try {
+    if ((input as string).match(/\d{4}-\d{2}-\d{2}/gm)) input += 'T12:00:00.000Z';
+  } catch (_) {
+    // input is not an ISODateString, ignore error
+  }
+  // it forces the internal time to 12.00 to make the date timezone-resistant
   const dateResistantToTimeZones = new Date(input);
   dateResistantToTimeZones.setHours(12, 0, 0, 0);
   return dateResistantToTimeZones.toISOString().slice(0, 10);
