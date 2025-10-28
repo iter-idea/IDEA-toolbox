@@ -1,53 +1,38 @@
 /**
- * A list of the main global timeZones to use for handling dates (via their offsets).
+ * Offset in minutes for the given zone at the given instant (default: now).
  */
-export const TIMEZONE_OFFSETS: Record<string, string> = {
-  'Africa/Cairo': '+0200',
-  'Africa/Johannesburg': '+0200',
-  'Africa/Lagos': '+0100',
-  'Africa/Nairobi': '+0300',
-  'America/Anchorage': '-0800',
-  'America/Argentina/Buenos_Aires': '-0300',
-  'America/Bogota': '-0500',
-  'America/Chicago': '-0500',
-  'America/Denver': '-0600',
-  'America/Lima': '-0500',
-  'America/Los_Angeles': '-0700',
-  'America/Mexico_City': '-0600',
-  'America/New_York': '-0400',
-  'America/Sao_Paulo': '-0300',
-  'America/Toronto': '-0400',
-  'Asia/Almaty': '+0600',
-  'Asia/Bangkok': '+0700',
-  'Asia/Dubai': '+0400',
-  'Asia/Ho_Chi_Minh': '+0700',
-  'Asia/Hong_Kong': '+0800',
-  'Asia/Jakarta': '+0700',
-  'Asia/Karachi': '+0500',
-  'Asia/Kolkata': '+0530',
-  'Asia/Kuala_Lumpur': '+0800',
-  'Asia/Manila': '+0800',
-  'Asia/Seoul': '+0900',
-  'Asia/Shanghai': '+0800',
-  'Asia/Singapore': '+0800',
-  'Asia/Tashkent': '+0500',
-  'Asia/Tokyo': '+0900',
-  'Atlantic/Reykjavik': '+0000',
-  'Australia/Brisbane': '+1000',
-  'Australia/Melbourne': '+1000',
-  'Australia/Perth': '+0800',
-  'Australia/Sydney': '+1000',
-  'Europe/Athens': '+0300',
-  'Europe/Berlin': '+0200',
-  'Europe/Istanbul': '+0300',
-  'Europe/London': '+0100',
-  'Europe/Madrid': '+0200',
-  'Europe/Moscow': '+0300',
-  'Europe/Paris': '+0200',
-  'Europe/Rome': '+0200',
-  'Pacific/Auckland': '+1200',
-  'Pacific/Fiji': '+1200',
-  'Pacific/Guam': '+1000',
-  'Pacific/Honolulu': '-1000',
-  UTC: '+0000'
+export const getTzOffsetMinutes = (zone: string, date = new Date()): number => {
+  const dtf = new Intl.DateTimeFormat('en-US', {
+    timeZone: zone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  });
+  const parts = Object.fromEntries(dtf.formatToParts(date).map(p => [p.type, p.value]));
+  const y = Number(parts.year);
+  const m = Number(parts.month);
+  const d = Number(parts.day);
+  const hh = Number(parts.hour);
+  const mm = Number(parts.minute);
+  const ss = Number(parts.second);
+  // timestamp if the zone's wall time were UTC
+  const asUTC = Date.UTC(y, m - 1, d, hh, mm, ss);
+  // difference to the real instant gives the zone's UTC offset
+  return Math.round((asUTC - date.getTime()) / 60000); // e.g. 120 for UTC+02:00
+};
+
+/**
+ * Offset expressed as a string such as "+0200" for the given zone at the given instant (default: now).
+ */
+export const getTzOffsetMinutesString = (zone: string, date = new Date()): string => {
+  const minutes = getTzOffsetMinutes(zone, date);
+  const sign = minutes >= 0 ? '+' : '-';
+  const abs = Math.abs(minutes);
+  const h = String(Math.trunc(abs / 60)).padStart(2, '0');
+  const m = String(abs % 60).padStart(2, '0');
+  return `${sign}${h}${m}`;
 };
