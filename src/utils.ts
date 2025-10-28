@@ -33,9 +33,11 @@ export const nowISOString = (): ISOString => toISOString(new Date());
  */
 export const toISODateString = (input: Date | number | ISOString | ISODateString): ISODateString | null => {
   if (!input) return null;
-  // it forces the internal time to 12.00 (UTC) to make the date timezone-resistant
+  // convert an ISODateString in an ISOstring
+  if (typeof input === 'string' && input.match(/^\d{4}-\d{2}-\d{2}$/)) input += 'T12:00:00.000Z';
+  // it forces the internal time to 12.00 to make the date timezone-resistant
   const dateResistantToTimeZones = new Date(input);
-  dateResistantToTimeZones.setUTCHours(12, 0, 0, 0);
+  dateResistantToTimeZones.setHours(12, 0, 0, 0);
   return dateResistantToTimeZones.toISOString().slice(0, 10);
 };
 /**
