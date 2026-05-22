@@ -3,6 +3,7 @@ import isMobilePhone from 'validator/lib/isMobilePhone';
 import isURL from 'validator/lib/isURL';
 import isFQDN from 'validator/lib/isFQDN';
 import isDate from 'validator/lib/isDate';
+import isISO8601 from 'validator/lib/isISO8601';
 import { marked } from 'marked';
 
 import { markdown } from './markdown';
@@ -91,6 +92,22 @@ export const joinArraysOnKeys = (
 /**
  * Check if a field (/variable) is empty or invalid, based on its type.
  * If the type isn't passed as a parameter, it will be auto-detected.
+ *
+ * A field is "empty" when it carries no usable value; the check is intentionally
+ * fail-closed: when in doubt (wrong runtime type, unexpected exception) it returns `true`.
+ * The supported `fieldType` values:
+ *  - `string`: not a string, or only whitespace.
+ *  - `number`: not a finite number (`NaN`/`±Infinity`/non-numbers included), or `0`.
+ *  - `positiveNumber`: not a finite number, or `<= 0`.
+ *  - `integer`: not an integer, or `0`.
+ *  - `positiveInteger`: not an integer, or `<= 0`.
+ *  - `boolean`: not a boolean — both `true` and `false` are valid, non-empty values.
+ *  - `object`: an empty array/Set/plain object, or an invalid `Date`.
+ *  - `date`: not a strict, calendar-valid `YYYY-MM-DD` string (see `ISODateString`).
+ *  - `datetime`: not a complete ISO 8601 date-time string (see `ISOString`); a date-only
+ *     string such as `2026-05-22` is considered empty here — use `date` for that.
+ *  - `email` / `phone` / `url` / `domain`: not a string, or not valid for the format.
+ *
  * @param field the field to check
  * @param fieldType set to force a type check
  * @returns return if the field is empty/invalid or not
@@ -102,28 +119,36 @@ export const isEmpty = (field: any, fieldType?: isEmptyFieldTypes): boolean => {
   try {
     switch (type) {
       case 'string':
-        return !field.trim().length;
+        return typeof field !== 'string' || !field.trim().length;
       case 'number':
-        return field === 0;
+        return !Number.isFinite(field) || field === 0;
       case 'positiveNumber':
-        return field <= 0;
+        return !Number.isFinite(field) || field <= 0;
+      case 'integer':
+        return !Number.isInteger(field) || field === 0;
+      case 'positiveInteger':
+        return !Number.isInteger(field) || field <= 0;
       case 'boolean':
-        return !field;
+        return typeof field !== 'boolean';
       case 'object':
-        if (field instanceof Array) return field.filter(i => i).length <= 0;
+        if (field instanceof Array) return field.length <= 0;
         else if (field instanceof Set) return field.size <= 0;
-        else if (field instanceof Date) return !isDate(field.toISOString().slice(0, 10));
+        else if (field instanceof Date) return Number.isNaN(field.getTime());
         else return Object.keys(field).length <= 0;
       case 'date':
-        return !isDate(new Date(field).toISOString().slice(0, 10));
+        return (
+          typeof field !== 'string' || !isDate(field, { format: 'YYYY-MM-DD', strictMode: true, delimiters: ['-'] })
+        );
+      case 'datetime':
+        return typeof field !== 'string' || !field.includes('T') || !isISO8601(field, { strict: true });
       case 'email':
-        return !isEmail(field);
+        return typeof field !== 'string' || !isEmail(field);
       case 'phone':
-        return !isMobilePhone(field, 'any');
+        return typeof field !== 'string' || !isMobilePhone(field, 'any');
       case 'url':
-        return !isURL(field);
+        return typeof field !== 'string' || !isURL(field);
       case 'domain':
-        return !isFQDN(field, { require_tld: false });
+        return typeof field !== 'string' || !isFQDN(field, { require_tld: false });
       default:
         return true;
     }
@@ -135,9 +160,12 @@ export type isEmptyFieldTypes =
   | 'string'
   | 'number'
   | 'positiveNumber'
+  | 'integer'
+  | 'positiveInteger'
   | 'boolean'
   | 'object'
   | 'date'
+  | 'datetime'
   | 'email'
   | 'phone'
   | 'url'

@@ -9,6 +9,7 @@
     "lint": "eslint '**/*.{ts,tsx}'",
     "compile": "tsc --build",
     "docs": "typedoc index.ts --customCss ./docs.style.css",
+    "test": "npm run compile && node --test",
     "build": "./build.sh",
     "publishPackage": "./build.sh && npm publish"
   },

@@ -4,6 +4,7 @@
 docs/
 node_modules/
 /src/
+/test/
 .gitignore
 .prettierrc
 HOW-TO-RELEASE.md
