@@ -1,6 +1,9 @@
 {
   "name": "idea-toolbox",
   "version": "7.2.0",
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "description": "IDEA's utility functions",
   "license": "MPL-2.0",
   "main": "dist/index.js",
@@ -33,13 +36,13 @@
     "validator": "^13.15.15"
   },
   "devDependencies": {
-    "@tsconfig/node22": "^22.0.2",
-    "@types/node": "^22.16.5",
+    "@tsconfig/node24": "^24.0.4",
+    "@types/node": "^24.13.2",
     "@types/validator": "^13.15.2",
-    "@typescript-eslint/eslint-plugin": "^8.38.0",
-    "@typescript-eslint/parser": "^8.38.0",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
     "eslint": "^9.32.0",
-    "typedoc": "^0.28.8",
-    "typescript": "^5.8.3"
+    "typedoc": "^0.28.19",
+    "typescript": "^5.9.3"
   }
 }
