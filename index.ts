@@ -39,6 +39,7 @@ export * from './src/markdown';
 export * from './src/membership.model';
 export * from './src/notification.model';
 export * from './src/pdfTemplate.model';
+export * from './src/pickOption.model';
 export * from './src/projectPlan.model';
 export * from './src/projectSubscription.model';
 export * from './src/pushNotificationsDevice.model';
