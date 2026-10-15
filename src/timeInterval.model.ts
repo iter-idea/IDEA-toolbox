@@ -25,7 +25,7 @@ export class TimeInterval extends Resource {
   validate(): string[] {
     const e = super.validate();
     // the starting time can't be lower than 0
-    if (this.from < 0) e.push('from');
+    if (this.iE(this.from, 'nonNegativeNumber')) e.push('from');
     // the ending time can't be lower than the start and can't be higher than 24 hours
     const aDayInMs = 86400000;
     if (this.iE(this.to) || this.to > aDayInMs || this.from > this.to) e.push('to');
