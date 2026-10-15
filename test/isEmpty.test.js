@@ -92,6 +92,7 @@ matrix('positiveInteger', [
 // --- nonNegativeInteger: an integer >= 0 (0 is a valid value) ----------------
 matrix('nonNegativeInteger', [
   [0, false],
+  [-0, false, '-0'],
   [3, false],
   [-2, true],
   [3.5, true],
