@@ -99,8 +99,10 @@ export const joinArraysOnKeys = (
  *  - `string`: not a string, or only whitespace.
  *  - `number`: not a finite number (`NaN`/`±Infinity`/non-numbers included), or `0`.
  *  - `positiveNumber`: not a finite number, or `<= 0`.
+ *  - `nonNegativeNumber`: not a finite number, or `< 0` — `0` is a valid, non-empty value.
  *  - `integer`: not an integer, or `0`.
  *  - `positiveInteger`: not an integer, or `<= 0`.
+ *  - `nonNegativeInteger`: not an integer, or `< 0` — `0` is a valid, non-empty value.
  *  - `boolean`: not a boolean — both `true` and `false` are valid, non-empty values.
  *  - `object`: an empty array/Set/plain object, or an invalid `Date`.
  *  - `date`: not a strict, calendar-valid `YYYY-MM-DD` string (see `ISODateString`).
@@ -124,10 +126,14 @@ export const isEmpty = (field: any, fieldType?: isEmptyFieldTypes): boolean => {
         return !Number.isFinite(field) || field === 0;
       case 'positiveNumber':
         return !Number.isFinite(field) || field <= 0;
+      case 'nonNegativeNumber':
+        return !Number.isFinite(field) || field < 0;
       case 'integer':
         return !Number.isInteger(field) || field === 0;
       case 'positiveInteger':
         return !Number.isInteger(field) || field <= 0;
+      case 'nonNegativeInteger':
+        return !Number.isInteger(field) || field < 0;
       case 'boolean':
         return typeof field !== 'boolean';
       case 'object':
@@ -160,8 +166,10 @@ export type isEmptyFieldTypes =
   | 'string'
   | 'number'
   | 'positiveNumber'
+  | 'nonNegativeNumber'
   | 'integer'
   | 'positiveInteger'
+  | 'nonNegativeInteger'
   | 'boolean'
   | 'object'
   | 'date'

@@ -53,6 +53,21 @@ matrix('positiveNumber', [
   ['5', true, "'5' (string)"]
 ]);
 
+// --- nonNegativeNumber: finite and >= 0 (0 is a valid value) -----------------
+matrix('nonNegativeNumber', [
+  [0, false],
+  [-0, false, '-0'],
+  [2, false],
+  [0.5, false],
+  [-1, true],
+  [-0.5, true],
+  [NaN, true, 'NaN'],
+  [Infinity, true, 'Infinity'],
+  ['5', true, "'5' (string)"],
+  [null, true],
+  [undefined, true]
+]);
+
 // --- integer: an integer (any sign) other than 0 -----------------------------
 matrix('integer', [
   [3, false],
@@ -71,6 +86,17 @@ matrix('positiveInteger', [
   [-2, true],
   [3.5, true],
   [NaN, true, 'NaN'],
+  ['3', true, "'3' (string)"]
+]);
+
+// --- nonNegativeInteger: an integer >= 0 (0 is a valid value) ----------------
+matrix('nonNegativeInteger', [
+  [0, false],
+  [3, false],
+  [-2, true],
+  [3.5, true],
+  [NaN, true, 'NaN'],
+  [Infinity, true, 'Infinity'],
   ['3', true, "'3' (string)"]
 ]);
 
