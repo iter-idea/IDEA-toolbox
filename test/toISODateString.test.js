@@ -1,8 +1,7 @@
 'use strict';
 
 // Test suite for `toISODateString` and `nowISODateString` — see src/utils.ts.
-// Each case runs in several timezones, switching the process' `TZ` at runtime (Node applies it immediately):
-// from +12h onwards (and at −12h) version 7.4.0 used to shift the day (#32).
+// Each case runs in several timezones, switching the process' `TZ` at runtime (Node applies it immediately).
 // Plain CommonJS so it is neither linted (eslint targets *.ts) nor compiled by tsc.
 // Run with: npm test  (compiles to dist/ first, then `node --test`).
 
@@ -55,7 +54,7 @@ const todayIn = timezone => {
   return `${part('year')}-${part('month')}-${part('day')}`;
 };
 
-// --- the day doesn't depend on the timezone ----------------------------------
+// --- the right day in every timezone -----------------------------------------
 for (const [timezone, dayOfInstant] of TIMEZONES)
   test(`toISODateString — ${timezone}`, () =>
     inTimezone(timezone, () => {
@@ -81,15 +80,15 @@ for (const [timezone, dayOfInstant] of TIMEZONES)
       assert.ok([before, todayIn(timezone)].includes(today), `nowISODateString() → ${today}, expected ${before}`);
     }));
 
-// --- behaviors kept from version 7.4.0 ---------------------------------------
-test('toISODateString — empty and invalid inputs, as before', () => {
+// --- empty and invalid inputs ------------------------------------------------
+test('toISODateString — empty and invalid inputs', () => {
   for (const [timezone] of TIMEZONES)
     inTimezone(timezone, () => {
       for (const empty of [null, undefined, '', 0, NaN]) assert.equal(toISODateString(empty), null);
       // like `Date.toISOString`, an invalid date throws
-      for (const invalid of ['abc', '2026-13-01', '2026-01-32', new Date('x'), Infinity])
+      for (const invalid of ['abc', '2026-13-01', '2026-01-32', '0012-25-12', '0001-01-00', new Date('x'), Infinity])
         assert.throws(() => toISODateString(invalid), RangeError);
-      // like `Date`, an overflowing day moves to the next month
+      // in V8, an overflowing day moves to the next month (JavaScriptCore throws instead)
       assert.equal(toISODateString('2026-02-30'), '2026-03-02');
       // the year is always on 4 digits
       const date = new Date(2026, 6, 15);

@@ -35,10 +35,11 @@ export const nowISOString = (): ISOString => toISOString(new Date());
  */
 export const toISODateString = (input: Date | number | ISOString | ISODateString): ISODateString | null => {
   if (!input) return null;
-  // a day `YYYY-MM-DD` is parsed in UTC, so it keeps its date in any timezone (parsing still validates it)
-  if (typeof input === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(input)) return new Date(input).toISOString().slice(0, 10);
-  // otherwise, it's the day in the local timezone (forcing 12.00 and reading it in UTC fails from ±12h offsets);
-  // it's copied to UTC to be formatted: unlike `Date.UTC`, `setUTCFullYear` doesn't remap the years < 100
+  // a day `YYYY-MM-DD` is read at UTC midnight, so it keeps its date in any timezone; with the explicit time,
+  // an invalid day throws instead of falling back to V8's legacy parser ('0012-25-12' would become 2012-12-25)
+  if (typeof input === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(input))
+    return new Date(`${input}T00:00:00.000Z`).toISOString().slice(0, 10);
+  // the local day goes through UTC only to be formatted: unlike `Date.UTC`, `setUTCFullYear` keeps the years 0-99
   const date = new Date(input);
   const localDay = new Date(0);
   localDay.setUTCFullYear(date.getFullYear(), date.getMonth(), date.getDate());
