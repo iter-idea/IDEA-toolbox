@@ -30,24 +30,26 @@ export const nowISOString = (): ISOString => toISOString(new Date());
 
 /**
  * Get the ISO string version of a date in the format `YYYY-MM-DD`.
- * It doesn't say anything about the timezone.
+ * It doesn't say anything about the timezone: a date already in this format keeps its day,
+ * while a `Date`, an epoch or an ISO date-time string gives its day in the local timezone.
  */
 export const toISODateString = (input: Date | number | ISOString | ISODateString): ISODateString | null => {
   if (!input) return null;
-  // convert an ISODateString in an ISOstring
-  if (typeof input === 'string' && input.match(/^\d{4}-\d{2}-\d{2}$/)) input += 'T12:00:00.000Z';
-  // it forces the internal time to 12.00 to make the date timezone-resistant
-  const dateResistantToTimeZones = new Date(input);
-  dateResistantToTimeZones.setHours(12, 0, 0, 0);
-  return dateResistantToTimeZones.toISOString().slice(0, 10);
+  // a day `YYYY-MM-DD` is parsed in UTC, so it keeps its date in any timezone (parsing still validates it)
+  if (typeof input === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(input)) return new Date(input).toISOString().slice(0, 10);
+  // otherwise, it's the day in the local timezone (forcing 12.00 and reading it in UTC fails from ±12h offsets);
+  // it's copied to UTC to be formatted: unlike `Date.UTC`, `setUTCFullYear` doesn't remap the years < 100
+  const date = new Date(input);
+  const localDay = new Date(0);
+  localDay.setUTCFullYear(date.getFullYear(), date.getMonth(), date.getDate());
+  return localDay.toISOString().slice(0, 10);
 };
 /**
  * @deprecated use toISODateString instead
  */
 export const toISODate = toISODateString;
 /**
- * Get the current date in the format `YYYY-MM-DD`.
- * It doesn't say anything about the timezone.
+ * Get the current date in the format `YYYY-MM-DD`, i.e. today in the local timezone.
  */
 export const nowISODateString = (): ISODateString => toISODateString(new Date());
 
